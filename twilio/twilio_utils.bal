@@ -23,3 +23,21 @@ import ballerina/util;
 public function <TwilioConnector twilioConnector> constructAuthenticationHeaders (http:Request request) {
     request.addHeader("Authorization", "Basic " + util:base64Encode(twilioConnector.accountSid + ":" + twilioConnector.authToken));
 }
+
+@Description {value:"Parse http response object into json."}
+@Param {value:"response: http response or http connector error with network related errors."}
+@Return {value:"Json payload."}
+@Return {value:"Error occured."}
+public function parseResponseToJson (http:Response|http:HttpConnectorError response) returns (json|error) {
+    json result = {};
+    match response {
+        http:Response httpResponse => {
+            var jsonPayload = httpResponse.getJsonPayload();
+            match jsonPayload {
+                json payload => return payload;
+                http:PayloadError payloadError => return payloadError;
+            }
+        }
+        http:HttpConnectorError httpError => return httpError;
+    }
+}

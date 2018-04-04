@@ -36,3 +36,13 @@ public struct TwilioConnector {
     string authToken;
     http:ClientEndpoint clientEndpoint;
 }
+
+@Description {value:"Struct to get the details of a project."}
+public struct Account {
+    string sid;
+    string name;
+    string status;
+    string ^"type";
+    string createdDate;
+    string updatedDate;
+}

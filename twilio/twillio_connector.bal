@@ -16,23 +16,29 @@
 
 package twilio;
 
-import ballerina/net.http;
+import ballerina/http;
 
 @Description {value:"Get account details of the given account-sid."}
-@Return {value:"json of account details."}
-@Return {value:"err: returns error if an exception raised in getting account details."}
-public function <TwilioConnector twilioConnector> getAccountDetails () returns (json|error) {
+@Return {value:"Account struct with basic details."}
+@Return {value:"Error occured when getting account details by http call or parsing the response into json."}
+public function <TwilioConnector twilioConnector> getAccountDetails () returns (Account|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = {};
     twilioConnector.constructAuthenticationHeaders(request);
-    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + SYMBOL_FORWARD_SLASH + RESPONSE_TYPE_JSON;
+    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + FORWARD_SLASH + RESPONSE_TYPE_JSON;
     var response = clientEndpoint -> get(requestPath, request);
-    match response {
-        http:Response httpResponse => {
-            return httpResponse.getJsonPayload();
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => {
+            Account account = {};
+            account.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
+            account.name = jsonPayload.friendly_name != null ? jsonPayload.friendly_name.toString() : EMPTY_STRING;
+            account.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
+            account.^"type" = jsonPayload.^"type" != null ? jsonPayload.^"type".toString() : EMPTY_STRING;
+            account.createdDate = jsonPayload.date_created != null ? jsonPayload.date_created.toString() : EMPTY_STRING;
+            account.updatedDate = jsonPayload.date_updated != null ? jsonPayload.date_updated.toString() : EMPTY_STRING;
+            return account;
         }
-        error err => {
-            return err;
-        }
+        error err => return err;
     }
 }

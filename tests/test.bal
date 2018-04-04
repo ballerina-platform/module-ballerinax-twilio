@@ -34,8 +34,9 @@ function testAccountDetails () {
     log:printInfo("twilioEndpoint -> getAccountDetails()");
     var details = twilioEP -> getAccountDetails();
     match details {
-        json accountDetails => {
-            io:println(details);
+        twilio:Account account => {
+            io:println(account);
+            test:assertTrue(account.sid != twilio:EMPTY_STRING);
         }
         error err => test:assertFail(msg = err.message);
     }

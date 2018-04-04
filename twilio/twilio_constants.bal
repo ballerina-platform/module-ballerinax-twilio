@@ -20,4 +20,5 @@ public const string ACCOUNTS_API = "/Accounts/";
 
 public const string RESPONSE_TYPE_JSON = ".json";
 
-public const string SYMBOL_FORWARD_SLASH = "/";
+public const string FORWARD_SLASH = "/";
+public const string EMPTY_STRING = "";
