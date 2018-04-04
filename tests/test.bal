@@ -17,18 +17,21 @@
 package tests;
 
 import ballerina/io;
+import ballerina/log;
 import ballerina/test;
 import twilio;
 
-function main (string[] args) {
+endpoint twilio:TwilioEndpoint twilioEP {
+    accountSid:ACCOUNT_SID,
+    authToken:AUTH_TOKEN,
+    uri:BASE_URL
+};
 
-    endpoint twilio:TwilioEndpoint twilioEP {
-        accountSid:ACCOUNT_SID,
-        authToken:AUTH_TOKEN,
-        uri:BASE_URL,
-        clientConfig:{}
-    };
-
+@test:Config {
+    groups:["network-calls"]
+}
+function testAccountDetails () {
+    log:printInfo("twilioEndpoint -> getAccountDetails()");
     var details = twilioEP -> getAccountDetails();
     match details {
         json accountDetails => {
