@@ -53,12 +53,12 @@ public function parseResponseToJson (http:Response|http:HttpConnectorError respo
 @Param {value:"key: Key of the form value parameter."}
 @Param {value:"value: Value of the form value parameter."}
 @Return {value:"Created request body with encoded string."}
-function createUrlEncodedRequestBody (string requestBody, string key, string value) returns string {
+function createUrlEncodedRequestBody (string requestBody, string key, string value) returns (string|error) {
     var encodedVar = uri:encode(value, CHARSET_UTF8);
     string encodedString;
     match encodedVar {
         string encoded => encodedString = encoded;
-        error err => throw err;
+        error err => return err;
     }
     if (requestBody != EMPTY_STRING) {
         requestBody = requestBody + AMPERSAND_SYMBOL;

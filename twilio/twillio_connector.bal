@@ -55,9 +55,9 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
     twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody = EMPTY_STRING;
-    requestBody = createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-    requestBody = createUrlEncodedRequestBody(requestBody, TO, toNo);
-    requestBody = createUrlEncodedRequestBody(requestBody, BODY, message);
+    requestBody =? createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody =? createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody =? createUrlEncodedRequestBody(requestBody, BODY, message);
     request.setStringPayload(requestBody);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + SMS_API + RESPONSE_TYPE_JSON;
@@ -87,9 +87,9 @@ public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, 
     twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody = EMPTY_STRING;
-    requestBody = createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-    requestBody = createUrlEncodedRequestBody(requestBody, TO, toNo);
-    requestBody = createUrlEncodedRequestBody(requestBody, URL, twiml);
+    requestBody =? createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody =? createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody =? createUrlEncodedRequestBody(requestBody, URL, twiml);
     request.setStringPayload(requestBody);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
