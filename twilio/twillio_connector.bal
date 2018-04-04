@@ -24,8 +24,9 @@ import ballerina/http;
 public function <TwilioConnector twilioConnector> getAccountDetails () returns (Account|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = {};
-    twilioConnector.constructAuthenticationHeaders(request);
-    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + FORWARD_SLASH + RESPONSE_TYPE_JSON;
+    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + RESPONSE_TYPE_JSON;
     var response = clientEndpoint -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -38,6 +39,38 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
             account.createdDate = jsonPayload.date_created != null ? jsonPayload.date_created.toString() : EMPTY_STRING;
             account.updatedDate = jsonPayload.date_updated != null ? jsonPayload.date_updated.toString() : EMPTY_STRING;
             return account;
+        }
+        error err => return err;
+    }
+}
+
+@Description {value:"Send sms from the given account-sid."}
+@Return {value:"Sms response struct with basic details."}
+@Return {value:"Error occured when sending sms by http call or parsing the response into json."}
+public function <TwilioConnector twilioConnector> sendSms (string fromNo, string toNo, string message) returns (SmsResponse|error) {
+    endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
+    http:Request request = {};
+    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+
+    string requestBody = EMPTY_STRING;
+    requestBody = createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody = createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody = createUrlEncodedRequestBody(requestBody, BODY, message);
+    request.setStringPayload(requestBody);
+
+    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + SMS_API + RESPONSE_TYPE_JSON;
+    var response = clientEndpoint -> post(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => {
+            SmsResponse smsResponse = {};
+            smsResponse.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
+            smsResponse.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
+            smsResponse.price = jsonPayload.price != null ? jsonPayload.price.toString() : EMPTY_STRING;
+            smsResponse.priceUnit = jsonPayload.price_unit != null ? jsonPayload.price_unit.toString() : EMPTY_STRING;
+            return smsResponse;
         }
         error err => return err;
     }

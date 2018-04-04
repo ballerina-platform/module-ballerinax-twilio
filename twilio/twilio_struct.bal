@@ -46,3 +46,11 @@ public struct Account {
     string createdDate;
     string updatedDate;
 }
+
+@Description {value:"Struct to get the details of a sms sending."}
+public struct SmsResponse {
+    string sid;
+    string status;
+    string price;
+    string priceUnit;
+}

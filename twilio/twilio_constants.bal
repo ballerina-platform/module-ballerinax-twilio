@@ -16,9 +16,28 @@
 
 package twilio;
 
+// Twilio api urls
 public const string ACCOUNTS_API = "/Accounts/";
+public const string SMS_API = "/SMS/Messages/";
 
+// Response types
 public const string RESPONSE_TYPE_JSON = ".json";
 
-public const string FORWARD_SLASH = "/";
+// Symbols
 public const string EMPTY_STRING = "";
+public const string WHITE_SPACE = " ";
+public const string AMPERSAND_SYMBOL = "&";
+public const string EQUAL_SYMBOL = "=";
+public const string COLON_SYMBOL = ":";
+
+// Pre defined strings
+public const string CHARSET_UTF8 = "utf-8";
+public const string AUTHORIZATION = "Authorization";
+public const string BASIC = "Basic";
+public const string CONTENT_TYPE = "Content-Type";
+public const string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
+
+// API related parameters
+public const string TO = "To";
+public const string FROM = "From";
+public const string BODY = "Body";

@@ -19,3 +19,6 @@ package tests;
 public const string BASE_URL = "https://api.twilio.com/2010-04-01";
 public const string ACCOUNT_SID = "";
 public const string AUTH_TOKEN = "";
+public const string FROM_MOBILE = "";
+public const string TO_MOBILE = "";
+public const string MESSAGE = "This is a sample SMS from Ballerina Twilio Connector";

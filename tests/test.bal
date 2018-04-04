@@ -41,3 +41,18 @@ function testAccountDetails () {
         error err => test:assertFail(msg = err.message);
     }
 }
+
+@test:Config {
+    groups:["network-calls"]
+}
+function testSendSms () {
+    log:printInfo("twilioEndpoint -> sendSms()");
+    var details = twilioEP -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
+    match details {
+        twilio:SmsResponse smsResponse => {
+            io:println(smsResponse);
+            test:assertTrue(smsResponse.sid != twilio:EMPTY_STRING);
+        }
+        error err => test:assertFail(msg = err.message);
+    }
+}

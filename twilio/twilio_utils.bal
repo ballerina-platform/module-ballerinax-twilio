@@ -16,16 +16,22 @@
 
 package twilio;
 
+import ballerina/net.uri;
 import ballerina/util;
 
-@Description {value:"Add authentication headers as basic authentication to the HTTP request."}
-@Param {value:"request: http OutRequest."}
-public function <TwilioConnector twilioConnector> constructAuthenticationHeaders (http:Request request) {
-    request.addHeader("Authorization", "Basic " + util:base64Encode(twilioConnector.accountSid + ":" + twilioConnector.authToken));
+@Description {value:"Create basic authorization header value with encoded account sid and auth token."}
+@Return {value:"Encoded header value."}
+public function <TwilioConnector twilioConnector> getAuthorizationHeaderValue () returns string {
+    return BASIC + WHITE_SPACE + util:base64Encode(twilioConnector.accountSid + COLON_SYMBOL + twilioConnector.authToken);
+}
+
+@Description {value:"Add headers to the HTTP request."}
+public function <TwilioConnector twilioConnector> constructRequestHeaders (http:Request request, string key, string value) {
+    request.addHeader(key, value);
 }
 
 @Description {value:"Parse http response object into json."}
-@Param {value:"response: http response or http connector error with network related errors."}
+@Param {value:"response: Http response or http connector error with network related errors."}
 @Return {value:"Json payload."}
 @Return {value:"Error occured."}
 public function parseResponseToJson (http:Response|http:HttpConnectorError response) returns (json|error) {
@@ -40,4 +46,22 @@ public function parseResponseToJson (http:Response|http:HttpConnectorError respo
         }
         http:HttpConnectorError httpError => return httpError;
     }
+}
+
+@Description {value:"Create url encoded request body with given key and value."}
+@Param {value:"requestBody: Request body to be appended values."}
+@Param {value:"key: Key of the form value parameter."}
+@Param {value:"value: Value of the form value parameter."}
+@Return {value:"Created request body with encoded string."}
+function createUrlEncodedRequestBody (string requestBody, string key, string value) returns string {
+    var encodedVar = uri:encode(value, CHARSET_UTF8);
+    string encodedString;
+    match encodedVar {
+        string encoded => encodedString = encoded;
+        error err => throw err;
+    }
+    if (requestBody != EMPTY_STRING) {
+        requestBody = requestBody + AMPERSAND_SYMBOL;
+    }
+    return requestBody + key + EQUAL_SYMBOL + encodedString;
 }
