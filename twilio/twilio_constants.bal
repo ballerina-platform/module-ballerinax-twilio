@@ -19,6 +19,7 @@ package twilio;
 // Twilio api urls
 public const string ACCOUNTS_API = "/Accounts/";
 public const string SMS_API = "/SMS/Messages/";
+public const string VOICE_API = "/Calls/";
 
 // Response types
 public const string RESPONSE_TYPE_JSON = ".json";
@@ -41,3 +42,4 @@ public const string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlen
 public const string TO = "To";
 public const string FROM = "From";
 public const string BODY = "Body";
+public const string URL = "Url";

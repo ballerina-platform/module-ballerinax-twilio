@@ -54,3 +54,11 @@ public struct SmsResponse {
     string price;
     string priceUnit;
 }
+
+@Description {value:"Struct to get the details of a making voice call."}
+public struct VoiceCallResponse {
+    string sid;
+    string status;
+    string price;
+    string priceUnit;
+}

@@ -56,3 +56,18 @@ function testSendSms () {
         error err => test:assertFail(msg = err.message);
     }
 }
+
+@test:Config {
+    groups:["network-calls"]
+}
+function testMakeVoiceCall () {
+    log:printInfo("twilioEndpoint -> makeVoiceCall()");
+    var details = twilioEP -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
+    match details {
+        twilio:VoiceCallResponse voiceCallResponse => {
+            io:println(voiceCallResponse);
+            test:assertTrue(voiceCallResponse.sid != twilio:EMPTY_STRING);
+        }
+        error err => test:assertFail(msg = err.message);
+    }
+}

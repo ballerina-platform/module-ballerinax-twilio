@@ -75,3 +75,35 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
         error err => return err;
     }
 }
+
+@Description {value:"Make a voice call from the given account-sid."}
+@Return {value:"Voice call response struct with basic details."}
+@Return {value:"Error occured when making voice call by http call or parsing the response into json."}
+public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
+    endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
+    http:Request request = {};
+    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+
+    string requestBody = EMPTY_STRING;
+    requestBody = createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody = createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody = createUrlEncodedRequestBody(requestBody, URL, twiml);
+    request.setStringPayload(requestBody);
+
+    string requestPath = ACCOUNTS_API + twilioConnector.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
+    var response = clientEndpoint -> post(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => {
+            VoiceCallResponse voiceCallResponse = {};
+            voiceCallResponse.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
+            voiceCallResponse.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
+            voiceCallResponse.price = jsonPayload.price != null ? jsonPayload.price.toString() : EMPTY_STRING;
+            voiceCallResponse.priceUnit = jsonPayload.price_unit != null ? jsonPayload.price_unit.toString() : EMPTY_STRING;
+            return voiceCallResponse;
+        }
+        error err => return err;
+    }
+}
