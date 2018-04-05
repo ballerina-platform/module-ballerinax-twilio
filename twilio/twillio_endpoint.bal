@@ -29,3 +29,13 @@ public function <TwilioEndpoint twilioEndpoint> init (TwilioConfiguration twilio
 public function <TwilioEndpoint twilioEndpoint> getClient () returns TwilioConnector {
     return twilioEndpoint.twilioConnector;
 }
+
+@Description {value:"Start Twilio connector endpoint."}
+public function <TwilioEndpoint ep> start () {}
+
+@Description {value:"Stop Twilio connector endpoint."}
+public function <TwilioEndpoint ep> stop () {}
+
+@Description {value:"Register Twilio connector endpoint."}
+@Param {value:"typedesc: Accepts types of data (int, float, string, boolean, etc)"}
+public function <TwilioEndpoint ep> register (typedesc serviceType) {}
