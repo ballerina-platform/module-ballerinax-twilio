@@ -19,9 +19,8 @@ package tests;
 import ballerina/io;
 import ballerina/log;
 import ballerina/test;
-import twilio;
 
-endpoint twilio:TwilioEndpoint twilioEP {
+endpoint TwilioEndpoint twilioEP {
     accountSid:ACCOUNT_SID,
     authToken:AUTH_TOKEN,
     uri:BASE_URL
@@ -34,9 +33,9 @@ function testAccountDetails () {
     log:printInfo("twilioEndpoint -> getAccountDetails()");
     var details = twilioEP -> getAccountDetails();
     match details {
-        twilio:Account account => {
+        Account account => {
             io:println(account);
-            test:assertTrue(account.sid != twilio:EMPTY_STRING);
+            test:assertTrue(account.sid != EMPTY_STRING);
         }
         error err => test:assertFail(msg = err.message);
     }
@@ -49,9 +48,9 @@ function testSendSms () {
     log:printInfo("twilioEndpoint -> sendSms()");
     var details = twilioEP -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
     match details {
-        twilio:SmsResponse smsResponse => {
+        SmsResponse smsResponse => {
             io:println(smsResponse);
-            test:assertTrue(smsResponse.sid != twilio:EMPTY_STRING);
+            test:assertTrue(smsResponse.sid != EMPTY_STRING);
         }
         error err => test:assertFail(msg = err.message);
     }
@@ -64,9 +63,9 @@ function testMakeVoiceCall () {
     log:printInfo("twilioEndpoint -> makeVoiceCall()");
     var details = twilioEP -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
     match details {
-        twilio:VoiceCallResponse voiceCallResponse => {
+        VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
-            test:assertTrue(voiceCallResponse.sid != twilio:EMPTY_STRING);
+            test:assertTrue(voiceCallResponse.sid != EMPTY_STRING);
         }
         error err => test:assertFail(msg = err.message);
     }

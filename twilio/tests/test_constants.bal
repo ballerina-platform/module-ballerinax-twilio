@@ -22,4 +22,4 @@ public const string AUTH_TOKEN = "";
 public const string FROM_MOBILE = "";
 public const string TO_MOBILE = "";
 public const string MESSAGE = "This is a sample SMS from Ballerina Twilio Connector";
-public const string TWIML_URL = "";
+public const string TWIML_URL = "http://demo.twilio.com/docs/voice.xml";
