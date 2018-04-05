@@ -13,7 +13,7 @@ actions like sending a simple text message, making a voice call etc.
 All the tests inside this package will make HTTP calls to the Twilio REST API.
 
 In order to run the tests, the user will need to have a Twilio account and configure the constants with the obtained 
-tokens with `test/test_constants.bal` file.
+tokens with `twilio/tests/test_constants.bal` file.
 
 ###### test_constants.bal
 ```test_constants.bal
@@ -38,5 +38,6 @@ public const string TWIML_URL = "";
 
 Run tests :
 ```
-ballerina test tests/
+ballerina init
+ballerina test twilio
 ```

@@ -24,3 +24,6 @@ hs_err_pid*
 # IDE file
 .idea
 *.iml
+
+# Ballerina package files
+*.toml
