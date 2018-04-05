@@ -26,6 +26,7 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
     http:Request request = {};
     string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
     twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + RESPONSE_TYPE_JSON;
     var response = clientEndpoint -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
