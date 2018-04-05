@@ -11,7 +11,7 @@ actions like sending a simple text message, making a voice call etc.
 ## Compatibility
 | Language Version                           | Connector Version   | Twilio API Version |
 | ------------------------------------------ | ------------------- | ------------------ |
-| ballerina-tools-0.970.0-alpha1-SNAPSHOT    | 0.1                 | 2010-04-01         |
+| ballerina-tools-0.970.0-alpha1-SNAPSHOT    | 0.4                 | 2010-04-01         |
 
 ### Getting started
 
