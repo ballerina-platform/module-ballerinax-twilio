@@ -19,9 +19,13 @@ import ballerina/http;
 
 @Description {value:"Create basic authorization header value with encoded account sid and auth token."}
 @Return {value:"Encoded header value."}
-function TwilioConnector:: getAuthorizationHeaderValue() returns string {
-    var encodedString = util:base64EncodeString(accountSid + COLON_SYMBOL + authToken);
-    string token = check <string>encodedString;
+function getAuthorizationHeaderValue(string username, string password) returns string {
+    var encodedString = util:base64EncodeString(username + COLON_SYMBOL + password);
+    string token;
+    match encodedString {
+        string s => token = s;
+        util:Base64EncodeError err => token = "";
+    }
     return BASIC + WHITE_SPACE + token;
 }
 

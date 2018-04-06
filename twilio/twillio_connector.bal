@@ -22,7 +22,7 @@ import ballerina/http;
 public function <TwilioConnector twilioConnector> getAccountDetails () returns (Account|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
     constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + RESPONSE_TYPE_JSON;
@@ -49,7 +49,7 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
 public function <TwilioConnector twilioConnector> sendSms (string fromNo, string toNo, string message) returns (SmsResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
     constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
@@ -81,7 +81,7 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
 public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
+    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
     constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 

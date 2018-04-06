@@ -48,7 +48,6 @@ type TwilioConnector object {
         http:ClientEndpoint clientEndpoint;
     }
 
-    function getAuthorizationHeaderValue() returns string;
 };
 
 @Description {value:"Record to get the details of a project."}
