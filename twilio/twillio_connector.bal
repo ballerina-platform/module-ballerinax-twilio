@@ -19,11 +19,16 @@ import ballerina/http;
 @Description {value:"Get account details of the given account-sid."}
 @Return {value:"Account object with basic details."}
 @Return {value:"Error occured when getting account details by http call or parsing the response into json."}
-public function <TwilioConnector twilioConnector> getAccountDetails () returns (Account|error) {
+public function<TwilioConnector twilioConnector> getAccountDetails() returns (Account|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
-    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    var authHeaderVar = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
+    string authHeader;
+    match authHeaderVar {
+        string header => authHeader = header;
+        error err => return err;
+    }
+    constructRequestHeaders(request, AUTHORIZATION, authHeader);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + RESPONSE_TYPE_JSON;
     var response = clientEndpoint -> get(requestPath, request);
@@ -46,11 +51,16 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
 @Description {value:"Send sms from the given account-sid."}
 @Return {value:"Sms response object with basic details."}
 @Return {value:"Error occured when sending sms by http call or parsing the response into json."}
-public function <TwilioConnector twilioConnector> sendSms (string fromNo, string toNo, string message) returns (SmsResponse|error) {
+public function<TwilioConnector twilioConnector> sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
-    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    var authHeaderVar = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
+    string authHeader;
+    match authHeaderVar {
+        string header => authHeader = header;
+        error err => return err;
+    }
+    constructRequestHeaders(request, AUTHORIZATION, authHeader);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody;
@@ -78,11 +88,16 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
 @Description {value:"Make a voice call from the given account-sid."}
 @Return {value:"Voice call response object with basic details."}
 @Return {value:"Error occured when making voice call by http call or parsing the response into json."}
-public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
+public function<TwilioConnector twilioConnector> makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
     http:Request request = new ();
-    string authHeaderValue = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
-    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    var authHeaderVar = getAuthorizationHeaderValue(twilioConnector.accountSid, twilioConnector.authToken);
+    string authHeader;
+    match authHeaderVar {
+        string header => authHeader = header;
+        error err => return err;
+    }
+    constructRequestHeaders(request, AUTHORIZATION, authHeader);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody;
