@@ -19,14 +19,15 @@ import ballerina/http;
 
 @Description {value:"Create basic authorization header value with encoded account sid and auth token."}
 @Return {value:"Encoded header value."}
+@Return {value:"Error occured."}
 function getAuthorizationHeaderValue(string username, string password) returns (string|error) {
-    var encodedString = util:base64EncodeString(username + COLON_SYMBOL + password);
-    string token;
-    match encodedString {
-        string s => token = s;
+    var encodedStringVar = util:base64EncodeString(username + COLON_SYMBOL + password);
+    string encodedString;
+    match encodedStringVar {
+        string token => encodedString = token;
         util:Base64EncodeError err => return err;
     }
-    return BASIC + WHITE_SPACE + token;
+    return BASIC + WHITE_SPACE + encodedString;
 }
 
 @Description {value:"Add headers to the HTTP request."}
