@@ -48,6 +48,10 @@ type TwilioConnector object {
         http:ClientEndpoint clientEndpoint;
     }
 
+    public function getAccountDetails() returns (Account|error);
+    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
+    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
+
 };
 
 @Description {value:"Record to get the details of a project."}
