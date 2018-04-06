@@ -56,26 +56,26 @@ type TwilioConnector object {
 
 @Description {value:"Record to get the details of a project."}
 type Account {
-    string?sid;
-    string?name;
-    string?status;
-    string?^"type";
-    string?createdDate;
-    string?updatedDate;
+    string sid;
+    string name;
+    string status;
+    string ^"type";
+    string createdDate;
+    string updatedDate;
 };
 
 @Description {value:"Record to get the details of a sms sending."}
 type SmsResponse {
-    string?sid;
-    string?status;
-    string?price;
-    string?priceUnit;
+    string sid;
+    string status;
+    string price;
+    string priceUnit;
 };
 
 @Description {value:"Record to get the details of a making voice call."}
 type VoiceCallResponse {
-    string?sid;
-    string?status;
-    string?price;
-    string?priceUnit;
+    string sid;
+    string status;
+    string price;
+    string priceUnit;
 };

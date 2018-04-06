@@ -38,12 +38,12 @@ public function TwilioConnector:: getAccountDetails() returns (Account|error) {
     match jsonResponse {
         json jsonPayload => {
             Account account = {};
-            account.sid = jsonPayload.sid.toString();
-            account.name = jsonPayload.friendly_name.toString();
-            account.status = jsonPayload.status.toString();
-            account.^"type" = jsonPayload.^"type".toString();
-            account.createdDate = jsonPayload.date_created.toString();
-            account.updatedDate = jsonPayload.date_updated.toString();
+            account.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
+            account.name = jsonPayload.friendly_name.toString() but { () => EMPTY_STRING };
+            account.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
+            account.^"type" = jsonPayload.^"type".toString() but { () => EMPTY_STRING };
+            account.createdDate = jsonPayload.date_created.toString() but { () => EMPTY_STRING };
+            account.updatedDate = jsonPayload.date_updated.toString() but { () => EMPTY_STRING };
             return account;
         }
         error err => return err;
@@ -79,10 +79,10 @@ public function TwilioConnector:: sendSms(string fromNo, string toNo, string mes
     match jsonResponse {
         json jsonPayload => {
             SmsResponse smsResponse = {};
-            smsResponse.sid = jsonPayload.sid.toString();
-            smsResponse.status = jsonPayload.status.toString();
-            smsResponse.price = jsonPayload.price.toString();
-            smsResponse.priceUnit = jsonPayload.price_unit.toString();
+            smsResponse.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
+            smsResponse.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
+            smsResponse.price = jsonPayload.price.toString() but { () => EMPTY_STRING };
+            smsResponse.priceUnit = jsonPayload.price_unit.toString() but { () => EMPTY_STRING };
             return smsResponse;
         }
         error err => return err;
@@ -118,10 +118,10 @@ public function TwilioConnector:: makeVoiceCall(string fromNo, string toNo, stri
     match jsonResponse {
         json jsonPayload => {
             VoiceCallResponse voiceCallResponse = {};
-            voiceCallResponse.sid = jsonPayload.sid.toString();
-            voiceCallResponse.status = jsonPayload.status.toString();
-            voiceCallResponse.price = jsonPayload.price.toString();
-            voiceCallResponse.priceUnit = jsonPayload.price_unit.toString();
+            voiceCallResponse.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
+            voiceCallResponse.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
+            voiceCallResponse.price = jsonPayload.price.toString() but { () => EMPTY_STRING };
+            voiceCallResponse.priceUnit = jsonPayload.price_unit.toString() but { () => EMPTY_STRING };
             return voiceCallResponse;
         }
         error err => return err;
