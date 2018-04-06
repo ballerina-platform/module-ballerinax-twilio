@@ -21,12 +21,12 @@ import ballerina/util;
 
 @Description {value:"Create basic authorization header value with encoded account sid and auth token."}
 @Return {value:"Encoded header value."}
-public function <TwilioConnector twilioConnector> getAuthorizationHeaderValue () returns string {
+function<TwilioConnector twilioConnector> getAuthorizationHeaderValue() returns string {
     return BASIC + WHITE_SPACE + util:base64Encode(twilioConnector.accountSid + COLON_SYMBOL + twilioConnector.authToken);
 }
 
 @Description {value:"Add headers to the HTTP request."}
-public function <TwilioConnector twilioConnector> constructRequestHeaders (http:Request request, string key, string value) {
+function<TwilioConnector twilioConnector> constructRequestHeaders(http:Request request, string key, string value) {
     request.addHeader(key, value);
 }
 
@@ -34,7 +34,7 @@ public function <TwilioConnector twilioConnector> constructRequestHeaders (http:
 @Param {value:"response: Http response or http connector error with network related errors."}
 @Return {value:"Json payload."}
 @Return {value:"Error occured."}
-public function parseResponseToJson (http:Response|http:HttpConnectorError response) returns (json|error) {
+function parseResponseToJson(http:Response|http:HttpConnectorError response) returns (json|error) {
     json result = {};
     match response {
         http:Response httpResponse => {
