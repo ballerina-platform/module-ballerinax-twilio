@@ -27,13 +27,13 @@ endpoint TwilioClient twilioClient {
 @test:Config {
     groups:["network-calls"]
 }
-function testAccountDetails () {
+function testAccountDetails() {
     log:printInfo("twilioClient -> getAccountDetails()");
     var details = twilioClient -> getAccountDetails();
     match details {
         Account account => {
             io:println(account);
-            test:assertTrue(account.sid != EMPTY_STRING);
+            test:assertNotEquals(account.sid, EMPTY_STRING, msg = "Failed to get account details");
         }
         error err => test:assertFail(msg = err.message);
     }
@@ -42,13 +42,13 @@ function testAccountDetails () {
 @test:Config {
     groups:["network-calls"]
 }
-function testSendSms () {
+function testSendSms() {
     log:printInfo("twilioClient -> sendSms()");
     var details = twilioClient -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
-            test:assertTrue(smsResponse.sid != EMPTY_STRING);
+            test:assertNotEquals(smsResponse.sid, EMPTY_STRING, msg = "Failed to get account details");
         }
         error err => test:assertFail(msg = err.message);
     }
@@ -57,13 +57,13 @@ function testSendSms () {
 @test:Config {
     groups:["network-calls"]
 }
-function testMakeVoiceCall () {
+function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
     var details = twilioClient -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
-            test:assertTrue(voiceCallResponse.sid != EMPTY_STRING);
+            test:assertNotEquals(voiceCallResponse.sid, EMPTY_STRING, msg = "Failed to get account details");
         }
         error err => test:assertFail(msg = err.message);
     }
