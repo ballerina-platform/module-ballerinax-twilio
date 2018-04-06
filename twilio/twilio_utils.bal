@@ -14,8 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.package twilio;
 
-package twilio;
-
 import ballerina/util;
 import ballerina/http;
 

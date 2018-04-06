@@ -14,8 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.package twilio;
 
-package twilio;
-
 // Twilio api urls
 @final string ACCOUNTS_API = "/Accounts/";
 @final string SMS_API = "/SMS/Messages/";
