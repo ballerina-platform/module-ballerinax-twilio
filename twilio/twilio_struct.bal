@@ -16,49 +16,65 @@
 
 package twilio;
 
-@Description {value:"Struct to set the Twilio cnfiguration."}
-public struct TwilioConfiguration {
+import ballerina/http;
+
+@Description {value:"Record to set the Twilio cnfiguration."}
+type TwilioConfiguration {
     string accountSid;
     string authToken;
     string uri;
     http:ClientEndpointConfiguration clientConfig;
-}
+};
 
-@Description {value:"Struct for Twilio endpoint."}
-public struct TwilioEndpoint {
-    TwilioConfiguration twilioConfig;
-    TwilioConnector twilioConnector;
-}
+@Description {value:"Object for Twilio endpoint."}
+type TwilioClient object {
 
-@Description {value:"Struct to initialize the connection with Twilio."}
-public struct TwilioConnector {
-    string accountSid;
-    string authToken;
-    http:ClientEndpoint clientEndpoint;
-}
+    public {
+        TwilioConfiguration twilioConfig = {};
+        TwilioConnector twilioConnector = new ();
+    }
 
-@Description {value:"Struct to get the details of a project."}
-public struct Account {
-    string sid;
-    string name;
-    string status;
-    string ^"type";
-    string createdDate;
-    string updatedDate;
-}
+    public function init (TwilioConfiguration twilioConfig);
+    public function register (typedesc serviceType);
+    public function start ();
+    public function getClient () returns TwilioConnector;
+    public function stop ();
+};
 
-@Description {value:"Struct to get the details of a sms sending."}
-public struct SmsResponse {
-    string sid;
-    string status;
-    string price;
-    string priceUnit;
-}
+@Description {value:"Object to initialize the connection with Twilio."}
+type TwilioConnector object {
 
-@Description {value:"Struct to get the details of a making voice call."}
-public struct VoiceCallResponse {
-    string sid;
-    string status;
-    string price;
-    string priceUnit;
-}
+    public {
+        string accountSid;
+        string authToken;
+        http:ClientEndpoint clientEndpoint;
+    }
+
+    function getAuthorizationHeaderValue() returns string;
+};
+
+@Description {value:"Record to get the details of a project."}
+type Account {
+    string?sid;
+    string?name;
+    string?status;
+    string?^"type";
+    string?createdDate;
+    string?updatedDate;
+};
+
+@Description {value:"Record to get the details of a sms sending."}
+type SmsResponse {
+    string?sid;
+    string?status;
+    string?price;
+    string?priceUnit;
+};
+
+@Description {value:"Record to get the details of a making voice call."}
+type VoiceCallResponse {
+    string?sid;
+    string?status;
+    string?price;
+    string?priceUnit;
+};

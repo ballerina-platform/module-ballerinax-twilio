@@ -16,26 +16,29 @@
 
 package twilio;
 
+import ballerina/http;
+
 @Description {value:"Initialize Twilio endpoint."}
 @Param {value:"twilioConfig:Configuration from Twilio."}
-public function <TwilioEndpoint twilioEndpoint> init (TwilioConfiguration twilioConfig) {
+public function TwilioClient:: init(TwilioConfiguration twilioConfig) {
     http:HttpClient httpClient = http:createHttpClient(twilioConfig.uri, twilioConfig.clientConfig);
-    twilioEndpoint.twilioConnector = {accountSid:twilioConfig.accountSid, authToken:twilioConfig.authToken};
-    twilioEndpoint.twilioConnector.clientEndpoint.httpClient = httpClient;
+    twilioConnector.accountSid = twilioConfig.accountSid;
+    twilioConnector.authToken = twilioConfig.authToken;
+    twilioConnector.clientEndpoint.httpClient = httpClient;
 }
 
 @Description {value:"Returns the connector that client code uses."}
 @Return {value:"The connector that client code uses."}
-public function <TwilioEndpoint twilioEndpoint> getClient () returns TwilioConnector {
-    return twilioEndpoint.twilioConnector;
+public function TwilioClient:: getClient() returns TwilioConnector {
+    return twilioConnector;
 }
 
 @Description {value:"Start Twilio connector endpoint."}
-public function <TwilioEndpoint ep> start () {}
+public function TwilioClient:: start() {}
 
 @Description {value:"Stop Twilio connector endpoint."}
-public function <TwilioEndpoint ep> stop () {}
+public function TwilioClient:: stop() {}
 
 @Description {value:"Register Twilio connector endpoint."}
 @Param {value:"typedesc: Accepts types of data (int, float, string, boolean, etc)"}
-public function <TwilioEndpoint ep> register (typedesc serviceType) {}
+public function TwilioClient:: register(typedesc serviceType) {}

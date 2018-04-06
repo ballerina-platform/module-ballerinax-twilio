@@ -16,17 +16,19 @@
 
 package twilio;
 
-import ballerina/net.uri;
 import ballerina/util;
+import ballerina/http;
 
 @Description {value:"Create basic authorization header value with encoded account sid and auth token."}
 @Return {value:"Encoded header value."}
-function<TwilioConnector twilioConnector> getAuthorizationHeaderValue() returns string {
-    return BASIC + WHITE_SPACE + util:base64Encode(twilioConnector.accountSid + COLON_SYMBOL + twilioConnector.authToken);
+function TwilioConnector:: getAuthorizationHeaderValue() returns string {
+    var encodedString = util:base64EncodeString(accountSid + COLON_SYMBOL + authToken);
+    string token = check <string>encodedString;
+    return BASIC + WHITE_SPACE + token;
 }
 
 @Description {value:"Add headers to the HTTP request."}
-function<TwilioConnector twilioConnector> constructRequestHeaders(http:Request request, string key, string value) {
+function constructRequestHeaders(http:Request request, string key, string value) {
     request.addHeader(key, value);
 }
 
@@ -53,15 +55,15 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
 @Param {value:"key: Key of the form value parameter."}
 @Param {value:"value: Value of the form value parameter."}
 @Return {value:"Created request body with encoded string."}
-function createUrlEncodedRequestBody (string requestBody, string key, string value) returns (string|error) {
-    var encodedVar = uri:encode(value, CHARSET_UTF8);
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|error) {
+    var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString;
     match encodedVar {
         string encoded => encodedString = encoded;
         error err => return err;
     }
     if (requestBody != EMPTY_STRING) {
-        requestBody = requestBody + AMPERSAND_SYMBOL;
+        requestBody += AMPERSAND_SYMBOL;
     }
     return requestBody + key + EQUAL_SYMBOL + encodedString;
 }

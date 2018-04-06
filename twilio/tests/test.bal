@@ -14,13 +14,11 @@
 // specific language governing permissions and limitations
 // under the License.package tests;
 
-package tests;
-
 import ballerina/io;
 import ballerina/log;
 import ballerina/test;
 
-endpoint TwilioEndpoint twilioEP {
+endpoint TwilioClient twilioClient {
     accountSid:ACCOUNT_SID,
     authToken:AUTH_TOKEN,
     uri:BASE_URL
@@ -30,8 +28,8 @@ endpoint TwilioEndpoint twilioEP {
     groups:["network-calls"]
 }
 function testAccountDetails () {
-    log:printInfo("twilioEndpoint -> getAccountDetails()");
-    var details = twilioEP -> getAccountDetails();
+    log:printInfo("twilioClient -> getAccountDetails()");
+    var details = twilioClient -> getAccountDetails();
     match details {
         Account account => {
             io:println(account);
@@ -45,8 +43,8 @@ function testAccountDetails () {
     groups:["network-calls"]
 }
 function testSendSms () {
-    log:printInfo("twilioEndpoint -> sendSms()");
-    var details = twilioEP -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
+    log:printInfo("twilioClient -> sendSms()");
+    var details = twilioClient -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
@@ -60,8 +58,8 @@ function testSendSms () {
     groups:["network-calls"]
 }
 function testMakeVoiceCall () {
-    log:printInfo("twilioEndpoint -> makeVoiceCall()");
-    var details = twilioEP -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
+    log:printInfo("twilioClient -> makeVoiceCall()");
+    var details = twilioClient -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);

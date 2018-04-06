@@ -19,13 +19,13 @@ package twilio;
 import ballerina/http;
 
 @Description {value:"Get account details of the given account-sid."}
-@Return {value:"Account struct with basic details."}
+@Return {value:"Account object with basic details."}
 @Return {value:"Error occured when getting account details by http call or parsing the response into json."}
 public function <TwilioConnector twilioConnector> getAccountDetails () returns (Account|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
-    http:Request request = {};
+    http:Request request = new ();
     string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
-    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + RESPONSE_TYPE_JSON;
     var response = clientEndpoint -> get(requestPath, request);
@@ -33,12 +33,12 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
     match jsonResponse {
         json jsonPayload => {
             Account account = {};
-            account.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
-            account.name = jsonPayload.friendly_name != null ? jsonPayload.friendly_name.toString() : EMPTY_STRING;
-            account.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
-            account.^"type" = jsonPayload.^"type" != null ? jsonPayload.^"type".toString() : EMPTY_STRING;
-            account.createdDate = jsonPayload.date_created != null ? jsonPayload.date_created.toString() : EMPTY_STRING;
-            account.updatedDate = jsonPayload.date_updated != null ? jsonPayload.date_updated.toString() : EMPTY_STRING;
+            account.sid = jsonPayload.sid.toString();
+            account.name = jsonPayload.friendly_name.toString();
+            account.status = jsonPayload.status.toString();
+            account.^"type" = jsonPayload.^"type".toString();
+            account.createdDate = jsonPayload.date_created.toString();
+            account.updatedDate = jsonPayload.date_updated.toString();
             return account;
         }
         error err => return err;
@@ -46,19 +46,19 @@ public function <TwilioConnector twilioConnector> getAccountDetails () returns (
 }
 
 @Description {value:"Send sms from the given account-sid."}
-@Return {value:"Sms response struct with basic details."}
+@Return {value:"Sms response object with basic details."}
 @Return {value:"Error occured when sending sms by http call or parsing the response into json."}
 public function <TwilioConnector twilioConnector> sendSms (string fromNo, string toNo, string message) returns (SmsResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
-    http:Request request = {};
+    http:Request request = new ();
     string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
-    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
-    twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
-    string requestBody = EMPTY_STRING;
-    requestBody =? createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-    requestBody =? createUrlEncodedRequestBody(requestBody, TO, toNo);
-    requestBody =? createUrlEncodedRequestBody(requestBody, BODY, message);
+    string requestBody;
+    requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
     request.setStringPayload(requestBody);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + SMS_API + RESPONSE_TYPE_JSON;
@@ -67,10 +67,10 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
     match jsonResponse {
         json jsonPayload => {
             SmsResponse smsResponse = {};
-            smsResponse.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
-            smsResponse.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
-            smsResponse.price = jsonPayload.price != null ? jsonPayload.price.toString() : EMPTY_STRING;
-            smsResponse.priceUnit = jsonPayload.price_unit != null ? jsonPayload.price_unit.toString() : EMPTY_STRING;
+            smsResponse.sid = jsonPayload.sid.toString();
+            smsResponse.status = jsonPayload.status.toString();
+            smsResponse.price = jsonPayload.price.toString();
+            smsResponse.priceUnit = jsonPayload.price_unit.toString();
             return smsResponse;
         }
         error err => return err;
@@ -78,19 +78,19 @@ public function <TwilioConnector twilioConnector> sendSms (string fromNo, string
 }
 
 @Description {value:"Make a voice call from the given account-sid."}
-@Return {value:"Voice call response struct with basic details."}
+@Return {value:"Voice call response object with basic details."}
 @Return {value:"Error occured when making voice call by http call or parsing the response into json."}
 public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
     endpoint http:ClientEndpoint clientEndpoint = twilioConnector.clientEndpoint;
-    http:Request request = {};
+    http:Request request = new ();
     string authHeaderValue = twilioConnector.getAuthorizationHeaderValue();
-    twilioConnector.constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
-    twilioConnector.constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+    constructRequestHeaders(request, AUTHORIZATION, authHeaderValue);
+    constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
-    string requestBody = EMPTY_STRING;
-    requestBody =? createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-    requestBody =? createUrlEncodedRequestBody(requestBody, TO, toNo);
-    requestBody =? createUrlEncodedRequestBody(requestBody, URL, twiml);
+    string requestBody;
+    requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+    requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
+    requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
     request.setStringPayload(requestBody);
 
     string requestPath = ACCOUNTS_API + twilioConnector.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
@@ -99,10 +99,10 @@ public function <TwilioConnector twilioConnector> makeVoiceCall (string fromNo, 
     match jsonResponse {
         json jsonPayload => {
             VoiceCallResponse voiceCallResponse = {};
-            voiceCallResponse.sid = jsonPayload.sid != null ? jsonPayload.sid.toString() : EMPTY_STRING;
-            voiceCallResponse.status = jsonPayload.status != null ? jsonPayload.status.toString() : EMPTY_STRING;
-            voiceCallResponse.price = jsonPayload.price != null ? jsonPayload.price.toString() : EMPTY_STRING;
-            voiceCallResponse.priceUnit = jsonPayload.price_unit != null ? jsonPayload.price_unit.toString() : EMPTY_STRING;
+            voiceCallResponse.sid = jsonPayload.sid.toString();
+            voiceCallResponse.status = jsonPayload.status.toString();
+            voiceCallResponse.price = jsonPayload.price.toString();
+            voiceCallResponse.priceUnit = jsonPayload.price_unit.toString();
             return voiceCallResponse;
         }
         error err => return err;
