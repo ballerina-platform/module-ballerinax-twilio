@@ -17,29 +17,29 @@
 package twilio;
 
 // Twilio api urls
-public const string ACCOUNTS_API = "/Accounts/";
-public const string SMS_API = "/SMS/Messages/";
-public const string VOICE_API = "/Calls/";
+@final string ACCOUNTS_API = "/Accounts/";
+@final string SMS_API = "/SMS/Messages/";
+@final string VOICE_API = "/Calls/";
 
 // Response types
-public const string RESPONSE_TYPE_JSON = ".json";
+@final string RESPONSE_TYPE_JSON = ".json";
 
 // Symbols
-public const string EMPTY_STRING = "";
-public const string WHITE_SPACE = " ";
-public const string AMPERSAND_SYMBOL = "&";
-public const string EQUAL_SYMBOL = "=";
-public const string COLON_SYMBOL = ":";
+@final string EMPTY_STRING = "";
+@final string WHITE_SPACE = " ";
+@final string AMPERSAND_SYMBOL = "&";
+@final string EQUAL_SYMBOL = "=";
+@final string COLON_SYMBOL = ":";
 
 // Pre defined strings
-public const string CHARSET_UTF8 = "utf-8";
-public const string AUTHORIZATION = "Authorization";
-public const string BASIC = "Basic";
-public const string CONTENT_TYPE = "Content-Type";
-public const string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
+@final string CHARSET_UTF8 = "utf-8";
+@final string AUTHORIZATION = "Authorization";
+@final string BASIC = "Basic";
+@final string CONTENT_TYPE = "Content-Type";
+@final string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
 
 // API related parameters
-public const string TO = "To";
-public const string FROM = "From";
-public const string BODY = "Body";
-public const string URL = "Url";
+@final string TO = "To";
+@final string FROM = "From";
+@final string BODY = "Body";
+@final string URL = "Url";

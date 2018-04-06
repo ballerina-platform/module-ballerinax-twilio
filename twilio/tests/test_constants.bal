@@ -14,12 +14,12 @@
 // specific language governing permissions and limitations
 // under the License.package tests;
 
-package tests;
+package twilio;
 
-public const string BASE_URL = "https://api.twilio.com/2010-04-01";
-public const string ACCOUNT_SID = "";
-public const string AUTH_TOKEN = "";
-public const string FROM_MOBILE = "";
-public const string TO_MOBILE = "";
-public const string MESSAGE = "This is a sample SMS from Ballerina Twilio Connector";
-public const string TWIML_URL = "http://demo.twilio.com/docs/voice.xml";
+@final string BASE_URL = "https://api.twilio.com/2010-04-01";
+@final string ACCOUNT_SID = "";
+@final string AUTH_TOKEN = "";
+@final string FROM_MOBILE = "";
+@final string TO_MOBILE = "";
+@final string MESSAGE = "This is a sample SMS from Ballerina Twilio Connector";
+@final string TWIML_URL = "http://demo.twilio.com/docs/voice.xml";
