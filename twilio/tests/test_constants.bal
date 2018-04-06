@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.package tests;
 
-@final string BASE_URL = "https://api.twilio.com/2010-04-01";
 @final string ACCOUNT_SID = "";
 @final string AUTH_TOKEN = "";
 @final string FROM_MOBILE = "";

@@ -15,6 +15,7 @@
 // under the License.package twilio;
 
 // Twilio api urls
+@final string BASE_URL = "https://api.twilio.com/2010-04-01";
 @final string ACCOUNTS_API = "/Accounts/";
 @final string SMS_API = "/SMS/Messages/";
 @final string VOICE_API = "/Calls/";

@@ -19,10 +19,12 @@ import ballerina/http;
 @Description {value:"Initialize Twilio endpoint."}
 @Param {value:"twilioConfig:Configuration from Twilio."}
 public function TwilioClient:: init(TwilioConfiguration twilioConfig) {
-    http:HttpClient httpClient = http:createHttpClient(twilioConfig.uri, twilioConfig.clientConfig);
     twilioConnector.accountSid = twilioConfig.accountSid;
     twilioConnector.authToken = twilioConfig.authToken;
-    twilioConnector.clientEndpoint.httpClient = httpClient;
+
+    twilioConfig.clientConfig.targets = [];
+    twilioConfig.clientConfig.targets = [{url:BASE_URL}];
+    twilioConnector.clientEndpoint.init(twilioConfig.clientConfig);
 }
 
 @Description {value:"Returns the connector that client code uses."}

@@ -21,7 +21,7 @@ import ballerina/test;
 endpoint TwilioClient twilioClient {
     accountSid:ACCOUNT_SID,
     authToken:AUTH_TOKEN,
-    uri:BASE_URL
+    clientConfig:{}
 };
 
 @test:Config {
