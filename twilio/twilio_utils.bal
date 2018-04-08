@@ -16,6 +16,7 @@
 
 import ballerina/util;
 import ballerina/http;
+import ballerina/config;
 
 @Description {value:"Create basic authorization header value with encoded account sid and auth token."}
 @Return {value:"Encoded header value."}
@@ -69,4 +70,11 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
         requestBody += AMPERSAND_SYMBOL;
     }
     return requestBody + key + EQUAL_SYMBOL + encodedString;
+}
+
+@Description {value:"Get the conf parameter value of the given key, from the ballerina.conf file."}
+@Param {value:"varName: Conf parameter key."}
+@Return {value:"The value of conf parameter."}
+function getConfVar(string varName) returns string {
+    return config:getAsString(varName) but { () => EMPTY_STRING };
 }
