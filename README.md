@@ -9,9 +9,9 @@ Ballerina Twilio connector allows you to access the [Twilio REST API](https://ww
 actions like sending a simple text message, making a voice call etc.
 
 ## Compatibility
-| Language Version                           | Connector Version   | Twilio API Version |
-| ------------------------------------------ | ------------------- | ------------------ |
-| ballerina-tools-0.970.0-alpha1-SNAPSHOT    | 0.4                 | 2010-04-01         |
+| Language Version           | Connector Version   | Twilio API Version |
+| -------------------------- | ------------------- | ------------------ |
+| 0.970.0-alpha1-SNAPSHOT    | 0.4                 | 2010-04-01         |
 
 ### Getting started
 
