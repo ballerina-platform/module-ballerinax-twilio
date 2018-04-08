@@ -19,10 +19,10 @@ import ballerina/http;
 @Description {value:"Get account details of the given account-sid."}
 @Return {value:"Account object with basic details."}
 @Return {value:"Error occured when getting account details by http call or parsing the response into json."}
-public function TwilioConnector:: getAccountDetails() returns (Account|error) {
+public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
     endpoint http:ClientEndpoint httpEndpoint = clientEndpoint;
-    http:Request request = new ();
+    http:Request request = new();
 
     var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
     string authHeader;
@@ -53,10 +53,10 @@ public function TwilioConnector:: getAccountDetails() returns (Account|error) {
 @Description {value:"Send sms from the given account-sid."}
 @Return {value:"Sms response object with basic details."}
 @Return {value:"Error occured when sending sms by http call or parsing the response into json."}
-public function TwilioConnector:: sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
+public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
 
     endpoint http:ClientEndpoint httpEndpoint = clientEndpoint;
-    http:Request request = new ();
+    http:Request request = new();
 
     var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
     string authHeader;
@@ -92,10 +92,10 @@ public function TwilioConnector:: sendSms(string fromNo, string toNo, string mes
 @Description {value:"Make a voice call from the given account-sid."}
 @Return {value:"Voice call response object with basic details."}
 @Return {value:"Error occured when making voice call by http call or parsing the response into json."}
-public function TwilioConnector:: makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
+public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
 
     endpoint http:ClientEndpoint httpEndpoint = clientEndpoint;
-    http:Request request = new ();
+    http:Request request = new();
 
     var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
     string authHeader;

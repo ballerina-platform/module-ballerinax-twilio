@@ -28,7 +28,7 @@ type TwilioClient object {
 
     public {
         TwilioConfiguration twilioConfig = {};
-        TwilioConnector twilioConnector = new ();
+        TwilioConnector twilioConnector = new();
     }
 
     public function init (TwilioConfiguration twilioConfig);
