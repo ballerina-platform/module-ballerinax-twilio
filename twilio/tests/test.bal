@@ -18,7 +18,7 @@ import ballerina/io;
 import ballerina/log;
 import ballerina/test;
 
-endpoint TwilioClient twilioClient {
+endpoint Client twilioClient {
     accountSid:getConfVar(ACCOUNT_SID),
     authToken:getConfVar(AUTH_TOKEN),
     clientConfig:{}

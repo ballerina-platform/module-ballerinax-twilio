@@ -24,7 +24,7 @@ type TwilioConfiguration {
 };
 
 @Description {value:"Object for Twilio endpoint."}
-type TwilioClient object {
+type Client object {
 
     public {
         TwilioConfiguration twilioConfig = {};
