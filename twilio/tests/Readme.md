@@ -15,7 +15,7 @@ All the tests inside this package will make HTTP calls to the Twilio REST API.
 In order to run the tests, the user will need to have a Twilio account and configure the `ballerina.conf` configuration 
 file with the obtained tokens.
 
-###### test_constants.bal
+###### ballerina.conf
 ```ballerina.conf
 ACCOUNT_SID="your_account_sid"
 AUTH_TOKEN="your_auth_token"
@@ -27,7 +27,6 @@ TWIML_URL="http://demo.twilio.com/docs/voice.xml"
 
 | Parameter   | Description                                                                                  |
 | ----------- | -------------------------------------------------------------------------------------------- |
-| BASE_URL    | The base url of the REST API                                                                 |
 | ACCOUNT_SID | Account SID of your own twilio account                                                       |
 | AUTH_TOKEN  | Auth token of your own twilio account                                                        |
 | FROM_MOBILE | The mobile number which the sms or voice call should be initiated                            |
