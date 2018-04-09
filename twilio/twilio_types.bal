@@ -24,11 +24,11 @@ type TwilioConfiguration {
 };
 
 @Description {value:"Object for Twilio endpoint."}
-type TwilioClient object {
+type Client object {
 
     public {
         TwilioConfiguration twilioConfig = {};
-        TwilioConnector twilioConnector = new ();
+        TwilioConnector twilioConnector = new();
     }
 
     public function init (TwilioConfiguration twilioConfig);

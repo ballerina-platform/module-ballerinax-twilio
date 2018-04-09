@@ -18,9 +18,9 @@ import ballerina/io;
 import ballerina/log;
 import ballerina/test;
 
-endpoint TwilioClient twilioClient {
-    accountSid:ACCOUNT_SID,
-    authToken:AUTH_TOKEN,
+endpoint Client twilioClient {
+    accountSid:getConfVar(ACCOUNT_SID),
+    authToken:getConfVar(AUTH_TOKEN),
     clientConfig:{}
 };
 
@@ -44,7 +44,7 @@ function testAccountDetails() {
 }
 function testSendSms() {
     log:printInfo("twilioClient -> sendSms()");
-    var details = twilioClient -> sendSms(FROM_MOBILE, TO_MOBILE, MESSAGE);
+    var details = twilioClient -> sendSms(getConfVar(FROM_MOBILE), getConfVar(TO_MOBILE), getConfVar(MESSAGE));
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
@@ -59,7 +59,7 @@ function testSendSms() {
 }
 function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
-    var details = twilioClient -> makeVoiceCall(FROM_MOBILE, TO_MOBILE, TWIML_URL);
+    var details = twilioClient -> makeVoiceCall(getConfVar(FROM_MOBILE), getConfVar(TO_MOBILE), getConfVar(TWIML_URL));
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
