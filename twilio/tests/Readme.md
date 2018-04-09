@@ -4,6 +4,7 @@ Ballerina Twilio connector allows you to access the [Twilio REST API](https://ww
 actions like sending a simple text message, making a voice call etc.
 
 ## Compatibility
+
 | Language Version           | Connector Version   | Twilio API Version |
 | -------------------------- | ------------------- | ------------------ |
 | 0.970.0-alpha1-SNAPSHOT    | 0.4                 | 2010-04-01         |
@@ -16,6 +17,7 @@ In order to run the tests, the user will need to have a Twilio account and confi
 file with the obtained tokens.
 
 ###### ballerina.conf
+
 ```ballerina.conf
 ACCOUNT_SID="your_account_sid"
 AUTH_TOKEN="your_auth_token"
