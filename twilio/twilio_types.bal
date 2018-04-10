@@ -44,7 +44,7 @@ type TwilioConnector object {
     public {
         string accountSid;
         string authToken;
-        http:ClientEndpoint clientEndpoint;
+        http:Client client;
     }
 
     public function getAccountDetails() returns (Account|error);
