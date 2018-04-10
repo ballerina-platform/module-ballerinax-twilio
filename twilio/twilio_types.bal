@@ -24,7 +24,7 @@ type TwilioConfiguration {
 };
 
 @Description {value:"Object for Twilio endpoint."}
-type Client object {
+public type Client object {
 
     public {
         TwilioConfiguration twilioConfig = {};
@@ -39,12 +39,12 @@ type Client object {
 };
 
 @Description {value:"Object to initialize the connection with Twilio."}
-type TwilioConnector object {
+public type TwilioConnector object {
 
     public {
         string accountSid;
         string authToken;
-        http:ClientEndpoint clientEndpoint;
+        http:Client client;
     }
 
     public function getAccountDetails() returns (Account|error);
@@ -54,7 +54,7 @@ type TwilioConnector object {
 };
 
 @Description {value:"Record to get the details of a project."}
-type Account {
+public type Account {
     string sid;
     string name;
     string status;
@@ -64,7 +64,7 @@ type Account {
 };
 
 @Description {value:"Record to get the details of a sms sending."}
-type SmsResponse {
+public type SmsResponse {
     string sid;
     string status;
     string price;
@@ -72,7 +72,7 @@ type SmsResponse {
 };
 
 @Description {value:"Record to get the details of a making voice call."}
-type VoiceCallResponse {
+public type VoiceCallResponse {
     string sid;
     string status;
     string price;
