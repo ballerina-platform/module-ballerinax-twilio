@@ -48,7 +48,7 @@ function testSendSms() {
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
-            test:assertNotEquals(smsResponse.sid, EMPTY_STRING, msg = "Failed to get account details");
+            test:assertNotEquals(smsResponse.sid, EMPTY_STRING, msg = "Failed to get sms response details");
         }
         error err => test:assertFail(msg = err.message);
     }
@@ -63,7 +63,7 @@ function testMakeVoiceCall() {
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
-            test:assertNotEquals(voiceCallResponse.sid, EMPTY_STRING, msg = "Failed to get account details");
+            test:assertNotEquals(voiceCallResponse.sid, EMPTY_STRING, msg = "Failed to get voice call response details");
         }
         error err => test:assertFail(msg = err.message);
     }
