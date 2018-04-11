@@ -21,10 +21,10 @@ import ballerina/http;
 @Return {value:"Error occured when getting account details by http call or parsing the response into json."}
 public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
-    endpoint http:Client httpClient = client;
+    endpoint http:Client httpClient = self.client;
     http:Request request = new();
 
-    var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
+    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
     string authHeader;
     match authHeaderVar {
         string header => authHeader = header;
@@ -32,7 +32,7 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
     }
     constructRequestHeaders(request, AUTHORIZATION, authHeader);
 
-    string requestPath = ACCOUNTS_API + accountSid + RESPONSE_TYPE_JSON;
+    string requestPath = ACCOUNTS_API + self.accountSid + RESPONSE_TYPE_JSON;
     var response = httpClient -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -55,10 +55,10 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
 @Return {value:"Error occured when sending sms by http call or parsing the response into json."}
 public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
 
-    endpoint http:Client httpClient = client;
+    endpoint http:Client httpClient = self.client;
     http:Request request = new();
 
-    var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
+    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
     string authHeader;
     match authHeaderVar {
         string header => authHeader = header;
@@ -73,7 +73,7 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + accountSid + SMS_API + RESPONSE_TYPE_JSON;
+    string requestPath = ACCOUNTS_API + self.accountSid + SMS_API + RESPONSE_TYPE_JSON;
     var response = httpClient -> post(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -94,10 +94,10 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
 @Return {value:"Error occured when making voice call by http call or parsing the response into json."}
 public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
 
-    endpoint http:Client httpClient = client;
+    endpoint http:Client httpClient = self.client;
     http:Request request = new();
 
-    var authHeaderVar = getAuthorizationHeaderValue(accountSid, authToken);
+    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
     string authHeader;
     match authHeaderVar {
         string header => authHeader = header;
@@ -112,7 +112,7 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + accountSid + VOICE_API + RESPONSE_TYPE_JSON;
+    string requestPath = ACCOUNTS_API + self.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
     var response = httpClient -> post(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
