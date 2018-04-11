@@ -20,7 +20,7 @@ import ballerina/http;
 type TwilioConfiguration {
     string accountSid;
     string authToken;
-    http:ClientEndpointConfiguration clientConfig;
+    http:ClientEndpointConfig clientConfig;
 };
 
 @Description {value:"Object for Twilio endpoint."}
