@@ -23,29 +23,29 @@ documentation {Object for Twilio endpoint.
 public type Client object {
 
     public {
-    http:ClientEndpointConfig clientConfig;
+        http:ClientEndpointConfig clientConfig;
         TwilioConnector twilioConnector = new();
     }
 
-documentation { Initialize Twilio endpoint
+    documentation { Initialize Twilio endpoint
         P{{clientConfig}} HTTP configuration for Twilio
     }
-public function init (http:ClientEndpointConfig clientConfig);
+    public function init (http:ClientEndpointConfig clientConfig);
 
-documentation { Register Twilio connector endpoint
+    documentation { Register Twilio connector endpoint
         P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
     }
     public function register (typedesc serviceType);
 
-documentation { Start Twilio connector endpoint }
+    documentation { Start Twilio connector endpoint }
     public function start ();
 
-documentation { Initialize Twilio endpoint
+    documentation { Initialize Twilio endpoint
         R{{}} The Twilio connector object
     }
     public function getClient () returns TwilioConnector;
 
-documentation { Start Twilio connector endpoint }
+    documentation { Start Twilio connector endpoint }
     public function stop ();
 };
 
@@ -60,29 +60,29 @@ public type TwilioConnector object {
         http:Client client;
     }
 
-documentation { Return account details of the given account-sid.
+    documentation { Return account details of the given account-sid.
         R{{account}} Account object with basic details
         R{{err}} Error occured when getting account details by http call or parsing the response into json
     }
-public function getAccountDetails() returns (Account|error);
+    public function getAccountDetails() returns (Account|error);
 
-documentation { Send sms from the given account-sid
+    documentation { Send sms from the given account-sid
         P{{fromNo}} Mobile number which the SMS should be send from
         P{{toNo}} Mobile number which the SMS should be received to
         P{{message}} Message body of the SMS
         R{{smsResponse}} Sms response object with basic details
         R{{err}} Error occured when sending sms by http call or parsing the response into json
     }
-public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
+    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
 
-documentation { Make a voice call from the given account-sid
+    documentation { Make a voice call from the given account-sid
         P{{fromNo}} Mobile number which the voice call should be send from
         P{{toNo}} Mobile number which the voice call should be received to
         P{{twiml}} TwiML URL which the response of the voice call is stated
         R{{voiceCallResponse}} Voice call response object with basic details
         R{{err}} Error occured when making voice call by http call or parsing the response into json
     }
-public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
+    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
 
 };
 
