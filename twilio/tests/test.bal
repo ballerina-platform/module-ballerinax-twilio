@@ -20,8 +20,13 @@ import ballerina/test;
 
 endpoint Client twilioClient {
     accountSid:getConfVar(ACCOUNT_SID),
-    authToken:getConfVar(AUTH_TOKEN),
-    clientConfig:{}
+    clientConfig:{
+        auth:{
+            scheme:"basic",
+            username:getConfVar(ACCOUNT_SID),
+            password:getConfVar(AUTH_TOKEN)
+        }
+    }
 };
 
 @test:Config {

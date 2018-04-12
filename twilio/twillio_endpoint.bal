@@ -20,9 +20,6 @@ import ballerina/http;
 @Param {value:"twilioConfig:Configuration from Twilio."}
 public function Client::init(TwilioConfiguration twilioConfig) {
     self.twilioConnector.accountSid = twilioConfig.accountSid;
-    self.twilioConnector.authToken = twilioConfig.authToken;
-
-    twilioConfig.clientConfig.targets = [];
     twilioConfig.clientConfig.targets = [{url:BASE_URL}];
     self.twilioConnector.client.init(twilioConfig.clientConfig);
 }
