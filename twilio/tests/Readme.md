@@ -7,14 +7,15 @@ actions like sending a simple text message, making a voice call etc.
 
 | Language Version           | Connector Version   | Twilio API Version |
 | -------------------------- | ------------------- | ------------------ |
-| 0.970.0-alpha4             | 0.5.5               | 2010-04-01         |
+| 0.970.0-alpha5-SNAPSHOT    | 0.5.6               | 2010-04-01         |
 
 ## Running tests
 
 All the tests inside this package will make HTTP calls to the Twilio REST API.
 
-In order to run the tests, the user will need to have a Twilio account and configure the `ballerina.conf` configuration 
-file with the obtained tokens.
+In order to run the tests, the user will need to have a Twilio account and obtain the tokens from the app.
+Then user will need to create a `ballerina.conf` file at package root and do the following configurations with the 
+obtained tokens.
 
 ###### ballerina.conf
 
@@ -23,8 +24,8 @@ ACCOUNT_SID="your_account_sid"
 AUTH_TOKEN="your_auth_token"
 FROM_MOBILE="your_from_mobile_number"
 TO_MOBILE="your_to_mobile_number"
-MESSAGE="This is a sample SMS from Ballerina Twilio Connector"
-TWIML_URL="http://demo.twilio.com/docs/voice.xml"
+MESSAGE="your_sms_message"
+TWIML_URL="your_twiml_url"
 ```
 
 | Parameter   | Description                                                                                  |

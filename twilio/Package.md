@@ -12,7 +12,7 @@ actions like sending a simple text message, making a voice call etc.
 
 | Language Version           | Connector Version   | Twilio API Version |
 | -------------------------- | ------------------- | ------------------ |
-| 0.970.0-alpha4             | 0.5.5               | 2010-04-01         |
+| 0.970.0-alpha5-SNAPSHOT    | 0.5.6               | 2010-04-01         |
 
 ### Getting started
 
