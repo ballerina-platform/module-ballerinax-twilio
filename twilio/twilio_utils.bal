@@ -16,7 +16,6 @@
 
 import ballerina/util;
 import ballerina/http;
-import ballerina/config;
 
 @Description {value:"Add headers to the HTTP request."}
 function constructRequestHeaders(http:Request request, string key, string value) {
@@ -57,11 +56,4 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
         requestBody += AMPERSAND_SYMBOL;
     }
     return requestBody + key + EQUAL_SYMBOL + encodedString;
-}
-
-@Description {value:"Get the conf parameter value of the given key, from the ballerina.conf file."}
-@Param {value:"varName: Conf parameter key."}
-@Return {value:"The value of conf parameter."}
-function getConfVar(string varName) returns string {
-    return config:getAsString(varName, default = EMPTY_STRING);
 }

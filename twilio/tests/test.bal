@@ -17,21 +17,20 @@
 import ballerina/io;
 import ballerina/log;
 import ballerina/test;
+import ballerina/config;
 
 endpoint Client twilioClient {
-    accountSid:getConfVar(ACCOUNT_SID),
+    accountSid:config:getAsString(ACCOUNT_SID, default = EMPTY_STRING),
     clientConfig:{
         auth:{
             scheme:"basic",
-            username:getConfVar(ACCOUNT_SID),
-            password:getConfVar(AUTH_TOKEN)
+            username:config:getAsString(ACCOUNT_SID, default = EMPTY_STRING),
+            password:config:getAsString(AUTH_TOKEN, default = EMPTY_STRING)
         }
     }
 };
 
-@test:Config {
-    groups:["network-calls"]
-}
+@test:Config
 function testAccountDetails() {
     log:printInfo("twilioClient -> getAccountDetails()");
     var details = twilioClient -> getAccountDetails();
@@ -44,12 +43,13 @@ function testAccountDetails() {
     }
 }
 
-@test:Config {
-    groups:["network-calls"]
-}
+@test:Config
 function testSendSms() {
     log:printInfo("twilioClient -> sendSms()");
-    var details = twilioClient -> sendSms(getConfVar(FROM_MOBILE), getConfVar(TO_MOBILE), getConfVar(MESSAGE));
+    string fromMobile = config:getAsString(FROM_MOBILE, default = EMPTY_STRING);
+    string toMobile = config:getAsString(TO_MOBILE, default = EMPTY_STRING);
+    string message = config:getAsString(MESSAGE, default = EMPTY_STRING);
+    var details = twilioClient -> sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
@@ -59,12 +59,13 @@ function testSendSms() {
     }
 }
 
-@test:Config {
-    groups:["network-calls"]
-}
+@test:Config
 function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
-    var details = twilioClient -> makeVoiceCall(getConfVar(FROM_MOBILE), getConfVar(TO_MOBILE), getConfVar(TWIML_URL));
+    string fromMobile = config:getAsString(FROM_MOBILE, default = EMPTY_STRING);
+    string toMobile = config:getAsString(TO_MOBILE, default = EMPTY_STRING);
+    string twimlUrl = config:getAsString(TWIML_URL, default = EMPTY_STRING);
+    var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
