@@ -19,7 +19,6 @@ import ballerina/http;
 @Description {value:"Record to set the Twilio cnfiguration."}
 type TwilioConfiguration {
     string accountSid;
-    string authToken;
     http:ClientEndpointConfig clientConfig;
 };
 
@@ -43,7 +42,6 @@ public type TwilioConnector object {
 
     public {
         string accountSid;
-        string authToken;
         http:Client client;
     }
 

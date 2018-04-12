@@ -24,14 +24,6 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
     endpoint http:Client httpClient = self.client;
     http:Request request = new();
 
-    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
-    string authHeader;
-    match authHeaderVar {
-        string header => authHeader = header;
-        error err => return err;
-    }
-    constructRequestHeaders(request, AUTHORIZATION, authHeader);
-
     string requestPath = ACCOUNTS_API + self.accountSid + RESPONSE_TYPE_JSON;
     var response = httpClient -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
@@ -57,14 +49,6 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
 
     endpoint http:Client httpClient = self.client;
     http:Request request = new();
-
-    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
-    string authHeader;
-    match authHeaderVar {
-        string header => authHeader = header;
-        error err => return err;
-    }
-    constructRequestHeaders(request, AUTHORIZATION, authHeader);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody;
@@ -96,14 +80,6 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
 
     endpoint http:Client httpClient = self.client;
     http:Request request = new();
-
-    var authHeaderVar = getAuthorizationHeaderValue(self.accountSid, self.authToken);
-    string authHeader;
-    match authHeaderVar {
-        string header => authHeader = header;
-        error err => return err;
-    }
-    constructRequestHeaders(request, AUTHORIZATION, authHeader);
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
     string requestBody;

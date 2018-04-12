@@ -16,20 +16,6 @@
 
 import ballerina/util;
 import ballerina/http;
-import ballerina/config;
-
-@Description {value:"Create basic authorization header value with encoded account sid and auth token."}
-@Return {value:"Encoded header value."}
-@Return {value:"Error occured."}
-function getAuthorizationHeaderValue(string username, string password) returns (string|error) {
-    var encodedStringVar = util:base64EncodeString(username + COLON_SYMBOL + password);
-    string encodedString;
-    match encodedStringVar {
-        string token => encodedString = token;
-        util:Base64EncodeError err => return err;
-    }
-    return BASIC + WHITE_SPACE + encodedString;
-}
 
 @Description {value:"Add headers to the HTTP request."}
 function constructRequestHeaders(http:Request request, string key, string value) {
@@ -70,11 +56,4 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
         requestBody += AMPERSAND_SYMBOL;
     }
     return requestBody + key + EQUAL_SYMBOL + encodedString;
-}
-
-@Description {value:"Get the conf parameter value of the given key, from the ballerina.conf file."}
-@Param {value:"varName: Conf parameter key."}
-@Return {value:"The value of conf parameter."}
-function getConfVar(string varName) returns string {
-    return config:getAsString(varName) but { () => EMPTY_STRING };
 }
