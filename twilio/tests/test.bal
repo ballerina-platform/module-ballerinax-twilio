@@ -20,13 +20,10 @@ import ballerina/test;
 import ballerina/config;
 
 endpoint Client twilioClient {
-    accountSid:config:getAsString(ACCOUNT_SID, default = EMPTY_STRING),
-    clientConfig:{
-        auth:{
-            scheme:"basic",
-            username:config:getAsString(ACCOUNT_SID, default = EMPTY_STRING),
-            password:config:getAsString(AUTH_TOKEN, default = EMPTY_STRING)
-        }
+    auth:{
+        scheme:"basic",
+        username:config:getAsString(ACCOUNT_SID),
+        password:config:getAsString(AUTH_TOKEN)
     }
 };
 
@@ -46,9 +43,9 @@ function testAccountDetails() {
 @test:Config
 function testSendSms() {
     log:printInfo("twilioClient -> sendSms()");
-    string fromMobile = config:getAsString(FROM_MOBILE, default = EMPTY_STRING);
-    string toMobile = config:getAsString(TO_MOBILE, default = EMPTY_STRING);
-    string message = config:getAsString(MESSAGE, default = EMPTY_STRING);
+    string fromMobile = config:getAsString(FROM_MOBILE);
+    string toMobile = config:getAsString(TO_MOBILE);
+    string message = config:getAsString(MESSAGE);
     var details = twilioClient -> sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => {
@@ -62,9 +59,9 @@ function testSendSms() {
 @test:Config
 function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
-    string fromMobile = config:getAsString(FROM_MOBILE, default = EMPTY_STRING);
-    string toMobile = config:getAsString(TO_MOBILE, default = EMPTY_STRING);
-    string twimlUrl = config:getAsString(TWIML_URL, default = EMPTY_STRING);
+    string fromMobile = config:getAsString(FROM_MOBILE);
+    string toMobile = config:getAsString(TO_MOBILE);
+    string twimlUrl = config:getAsString(TWIML_URL);
     var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => {

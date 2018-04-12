@@ -16,30 +16,21 @@
 
 import ballerina/http;
 
-documentation {
-    F{{accountSid}} Unique identifier of the account
-    F{{clientConfig}} Http client endpoint configuration
-}
-type TwilioConfiguration {
-    string accountSid;
-    http:ClientEndpointConfig clientConfig;
-};
-
 documentation {Object for Twilio endpoint.
-    F{{twilioConfig}} Reference to TwilioConfiguration type
+    F{{clientConfig}} Reference to http:ClientEndpointConfig type
     F{{twilioConnector}} Reference to TwilioConnector type
 }
 public type Client object {
 
     public {
-        TwilioConfiguration twilioConfig = {};
+    http:ClientEndpointConfig clientConfig;
         TwilioConnector twilioConnector = new();
     }
 
 documentation { Initialize Twilio endpoint
-        P{{twilioConfig}} Configuration for Twilio
+        P{{clientConfig}} HTTP configuration for Twilio
     }
-    public function init (TwilioConfiguration twilioConfig);
+public function init (http:ClientEndpointConfig clientConfig);
 
 documentation { Register Twilio connector endpoint
         P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)

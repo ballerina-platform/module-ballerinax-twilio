@@ -16,10 +16,13 @@
 
 import ballerina/http;
 
-public function Client::init(TwilioConfiguration twilioConfig) {
-    self.twilioConnector.accountSid = twilioConfig.accountSid;
-    twilioConfig.clientConfig.targets = [{url:BASE_URL}];
-    self.twilioConnector.client.init(twilioConfig.clientConfig);
+public function Client::init(http:ClientEndpointConfig clientConfig) {
+    match clientConfig.auth {
+        () => {}
+        http:AuthConfig authConfig => self.twilioConnector.accountSid = authConfig.username;
+    }
+    clientConfig.targets = [{url:BASE_URL}];
+    self.twilioConnector.client.init(clientConfig);
 }
 
 public function Client::getClient() returns TwilioConnector {
