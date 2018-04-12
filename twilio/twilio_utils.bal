@@ -76,5 +76,5 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
 @Param {value:"varName: Conf parameter key."}
 @Return {value:"The value of conf parameter."}
 function getConfVar(string varName) returns string {
-    return config:getAsString(varName) but { () => EMPTY_STRING };
+    return config:getAsString(varName, default = EMPTY_STRING);
 }
