@@ -16,9 +16,6 @@
 
 import ballerina/http;
 
-@Description {value:"Get account details of the given account-sid."}
-@Return {value:"Account object with basic details."}
-@Return {value:"Error occured when getting account details by http call or parsing the response into json."}
 public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
     endpoint http:Client httpClient = self.client;
@@ -42,9 +39,6 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
     }
 }
 
-@Description {value:"Send sms from the given account-sid."}
-@Return {value:"Sms response object with basic details."}
-@Return {value:"Error occured when sending sms by http call or parsing the response into json."}
 public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
 
     endpoint http:Client httpClient = self.client;
@@ -73,9 +67,6 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     }
 }
 
-@Description {value:"Make a voice call from the given account-sid."}
-@Return {value:"Voice call response object with basic details."}
-@Return {value:"Error occured when making voice call by http call or parsing the response into json."}
 public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
 
     endpoint http:Client httpClient = self.client;

@@ -16,28 +16,43 @@
 
 import ballerina/http;
 
-@Description {value:"Record to set the Twilio cnfiguration."}
-type TwilioConfiguration {
-    string accountSid;
-    http:ClientEndpointConfig clientConfig;
-};
-
-@Description {value:"Object for Twilio endpoint."}
+documentation {Object for Twilio endpoint.
+    F{{clientConfig}} Reference to http:ClientEndpointConfig type
+    F{{twilioConnector}} Reference to TwilioConnector type
+}
 public type Client object {
 
     public {
-        TwilioConfiguration twilioConfig = {};
+        http:ClientEndpointConfig clientConfig;
         TwilioConnector twilioConnector = new();
     }
 
-    public function init (TwilioConfiguration twilioConfig);
+    documentation { Initialize Twilio endpoint
+        P{{clientConfig}} HTTP configuration for Twilio
+    }
+    public function init (http:ClientEndpointConfig clientConfig);
+
+    documentation { Register Twilio connector endpoint
+        P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
+    }
     public function register (typedesc serviceType);
+
+    documentation { Start Twilio connector endpoint }
     public function start ();
+
+    documentation { Initialize Twilio endpoint
+        R{{}} The Twilio connector object
+    }
     public function getClient () returns TwilioConnector;
+
+    documentation { Start Twilio connector endpoint }
     public function stop ();
 };
 
-@Description {value:"Object to initialize the connection with Twilio."}
+documentation {Object to initialize the connection with Twilio.
+    F{{accountSid}} Unique identifier of the account
+    F{{client}} Http client endpoint
+}
 public type TwilioConnector object {
 
     public {
@@ -45,13 +60,40 @@ public type TwilioConnector object {
         http:Client client;
     }
 
+    documentation { Return account details of the given account-sid.
+        R{{account}} Account object with basic details
+        R{{err}} Error occured when getting account details by http call or parsing the response into json
+    }
     public function getAccountDetails() returns (Account|error);
+
+    documentation { Send sms from the given account-sid
+        P{{fromNo}} Mobile number which the SMS should be send from
+        P{{toNo}} Mobile number which the SMS should be received to
+        P{{message}} Message body of the SMS
+        R{{smsResponse}} Sms response object with basic details
+        R{{err}} Error occured when sending sms by http call or parsing the response into json
+    }
     public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
+
+    documentation { Make a voice call from the given account-sid
+        P{{fromNo}} Mobile number which the voice call should be send from
+        P{{toNo}} Mobile number which the voice call should be received to
+        P{{twiml}} TwiML URL which the response of the voice call is stated
+        R{{voiceCallResponse}} Voice call response object with basic details
+        R{{err}} Error occured when making voice call by http call or parsing the response into json
+    }
     public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
 
 };
 
-@Description {value:"Record to get the details of a project."}
+documentation {
+    F{{sid}} Unique identifier of the account
+    F{{name}} The name of the account
+    F{{status}} The status of the account (active, suspended, closed)
+    F{{^"type"}} The type of this account (Trial, Full)
+    F{{createdDate}} The date that this account was created
+    F{{updatedDate}} The date that this account was last updated
+}
 public type Account {
     string sid;
     string name;
@@ -61,7 +103,12 @@ public type Account {
     string updatedDate;
 };
 
-@Description {value:"Record to get the details of a sms sending."}
+documentation {
+    F{{sid}} Unique identifier of the account
+    F{{status}} Status of the voice call (queued, failed, sent, delivered, undelivered)
+    F{{price}} The price amount of the sms
+    F{{priceUnit}} The price currency
+}
 public type SmsResponse {
     string sid;
     string status;
@@ -69,7 +116,12 @@ public type SmsResponse {
     string priceUnit;
 };
 
-@Description {value:"Record to get the details of a making voice call."}
+documentation {
+    F{{sid}} Unique identifier of the account
+    F{{status}} Status of the voice call (queued, initiated, ringing, answered, completed)
+    F{{price}} The price amount of the call
+    F{{priceUnit}} The price currency
+}
 public type VoiceCallResponse {
     string sid;
     string status;
