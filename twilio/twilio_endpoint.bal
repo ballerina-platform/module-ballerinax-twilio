@@ -30,13 +30,7 @@ public type Client object {
     documentation { Initialize Twilio endpoint
         P{{twilioConfig}} Twilio configuraion
     }
-    public function init (TwilioConfiguration twilioConfig) {
-        self.twilioConnector.accountSid = twilioConfig.accountSid;
-        twilioConfig.basicClientConfig.targets = [{url:BASE_URL}];
-        http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
-        twilioConfig.basicClientConfig.auth = authConfig;
-        self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
-    }
+    public function init (TwilioConfiguration twilioConfig);
 
     documentation { Register Twilio connector endpoint
         P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
@@ -49,9 +43,7 @@ public type Client object {
     documentation { Initialize Twilio endpoint
         R{{}} The Twilio connector object
     }
-    public function getClient () returns TwilioConnector {
-        return self.twilioConnector;
-    }
+    public function getClient () returns TwilioConnector;
 
     documentation { Start Twilio connector endpoint }
     public function stop ();
@@ -62,3 +54,21 @@ public type TwilioConfiguration {
     string authToken;
     http:ClientEndpointConfig basicClientConfig;
 };
+
+public function Client::init (TwilioConfiguration twilioConfig) {
+    self.twilioConnector.accountSid = twilioConfig.accountSid;
+    twilioConfig.basicClientConfig.targets = [{url:BASE_URL}];
+    http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
+    twilioConfig.basicClientConfig.auth = authConfig;
+    self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
+}
+
+public function Client::register (typedesc serviceType) {}
+
+public function Client::start () {}
+
+public function Client::getClient () returns TwilioConnector {
+    return self.twilioConnector;
+}
+
+public function Client::stop () {}
