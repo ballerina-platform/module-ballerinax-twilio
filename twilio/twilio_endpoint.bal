@@ -16,6 +16,39 @@
 
 import ballerina/http;
 
+documentation {Object for Twilio endpoint.
+    F{{clientConfig}} Reference to http:ClientEndpointConfig type
+    F{{twilioConnector}} Reference to TwilioConnector type
+}
+public type Client object {
+
+    public {
+        http:ClientEndpointConfig clientConfig;
+        TwilioConnector twilioConnector = new();
+    }
+
+    documentation { Initialize Twilio endpoint
+        P{{clientConfig}} HTTP configuration for Twilio
+    }
+    public function init (http:ClientEndpointConfig clientConfig);
+
+    documentation { Register Twilio connector endpoint
+        P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
+    }
+    public function register (typedesc serviceType);
+
+    documentation { Start Twilio connector endpoint }
+    public function start ();
+
+    documentation { Initialize Twilio endpoint
+        R{{}} The Twilio connector object
+    }
+    public function getClient () returns TwilioConnector;
+
+    documentation { Start Twilio connector endpoint }
+    public function stop ();
+};
+
 public function Client::init(http:ClientEndpointConfig clientConfig) {
     match clientConfig.auth {
         () => {}
