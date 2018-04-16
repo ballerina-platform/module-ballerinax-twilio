@@ -19,18 +19,21 @@ import ballerina/log;
 import ballerina/test;
 import ballerina/config;
 
-endpoint Client twilioClient {
-    auth:{
-        scheme:"basic",
-        username:config:getAsString(ACCOUNT_SID),
-        password:config:getAsString(AUTH_TOKEN)
+endpoint BasicClient twilioBasicClient {
+    accountSid:config:getAsString(ACCOUNT_SID),
+    basicClientConfig:{
+        auth:{
+            scheme:"basic",
+            username:config:getAsString(ACCOUNT_SID),
+            password:config:getAsString(AUTH_TOKEN)
+        }
     }
 };
 
 @test:Config
 function testAccountDetails() {
-    log:printInfo("twilioClient -> getAccountDetails()");
-    var details = twilioClient -> getAccountDetails();
+    log:printInfo("twilioBasicClient -> getAccountDetails()");
+    var details = twilioBasicClient -> getAccountDetails();
     match details {
         Account account => {
             io:println(account);
@@ -42,11 +45,11 @@ function testAccountDetails() {
 
 @test:Config
 function testSendSms() {
-    log:printInfo("twilioClient -> sendSms()");
+    log:printInfo("twilioBasicClient -> sendSms()");
     string fromMobile = config:getAsString(FROM_MOBILE);
     string toMobile = config:getAsString(TO_MOBILE);
     string message = config:getAsString(MESSAGE);
-    var details = twilioClient -> sendSms(fromMobile, toMobile, message);
+    var details = twilioBasicClient -> sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
@@ -58,11 +61,11 @@ function testSendSms() {
 
 @test:Config
 function testMakeVoiceCall() {
-    log:printInfo("twilioClient -> makeVoiceCall()");
+    log:printInfo("twilioBasicClient -> makeVoiceCall()");
     string fromMobile = config:getAsString(FROM_MOBILE);
     string toMobile = config:getAsString(TO_MOBILE);
     string twimlUrl = config:getAsString(TWIML_URL);
-    var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
+    var details = twilioBasicClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
