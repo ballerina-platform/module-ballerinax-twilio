@@ -18,13 +18,13 @@ import ballerina/http;
 
 documentation {Object to initialize the connection with Twilio.
     F{{accountSid}} Unique identifier of the account
-    F{{client}} Http client endpoint
+    F{{basicClient}} Http client endpoint
 }
 public type TwilioConnector object {
 
     public {
         string accountSid;
-        http:Client client;
+        http:Client basicClient;
     }
 
     documentation { Return account details of the given account-sid.
@@ -55,7 +55,7 @@ public type TwilioConnector object {
 
 public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
-    endpoint http:Client httpClient = self.client;
+    endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
 
     string requestPath = ACCOUNTS_API + self.accountSid + RESPONSE_TYPE_JSON;
@@ -78,7 +78,7 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
 public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
 
-    endpoint http:Client httpClient = self.client;
+    endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 
@@ -106,7 +106,7 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
 
 public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
 
-    endpoint http:Client httpClient = self.client;
+    endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
     constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
 

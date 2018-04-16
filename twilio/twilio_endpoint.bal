@@ -17,23 +17,25 @@
 import ballerina/http;
 
 documentation {Object for Twilio endpoint.
-    F{{twilioBasicConfig}} Reference to TwilioBasicConfiguration type
+    F{{twilioConfig}} Reference to TwilioBasicConfiguration type
     F{{twilioConnector}} Reference to TwilioConnector type
 }
-public type BasicClient object {
+public type Client object {
 
     public {
-        TwilioBasicConfiguration twilioBasicConfig;
+        TwilioConfiguration twilioConfig;
         TwilioConnector twilioConnector = new();
     }
 
     documentation { Initialize Twilio endpoint
-        P{{twilioBasicConfig}} Twilio basic configuraion
+        P{{twilioConfig}} Twilio configuraion
     }
-    public function init (TwilioBasicConfiguration twilioBasicConfig) {
-        self.twilioConnector.accountSid = twilioBasicConfig.accountSid;
-        twilioBasicConfig.basicClientConfig.targets = [{url:BASE_URL}];
-        self.twilioConnector.client.init(twilioBasicConfig.basicClientConfig);
+    public function init (TwilioConfiguration twilioConfig) {
+        self.twilioConnector.accountSid = twilioConfig.accountSid;
+        twilioConfig.basicClientConfig.targets = [{url:BASE_URL}];
+        http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
+        twilioConfig.basicClientConfig.auth = authConfig;
+        self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
     }
 
     documentation { Register Twilio connector endpoint
@@ -55,7 +57,8 @@ public type BasicClient object {
     public function stop ();
 };
 
-public type TwilioBasicConfiguration {
+public type TwilioConfiguration {
     string accountSid;
+    string authToken;
     http:ClientEndpointConfig basicClientConfig;
 };

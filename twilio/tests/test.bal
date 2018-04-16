@@ -19,21 +19,15 @@ import ballerina/log;
 import ballerina/test;
 import ballerina/config;
 
-endpoint BasicClient twilioBasicClient {
+endpoint Client twilioClient {
     accountSid:config:getAsString(ACCOUNT_SID),
-    basicClientConfig:{
-        auth:{
-            scheme:"basic",
-            username:config:getAsString(ACCOUNT_SID),
-            password:config:getAsString(AUTH_TOKEN)
-        }
-    }
+    authToken:config:getAsString(AUTH_TOKEN)
 };
 
 @test:Config
 function testAccountDetails() {
-    log:printInfo("twilioBasicClient -> getAccountDetails()");
-    var details = twilioBasicClient -> getAccountDetails();
+    log:printInfo("twilioClient -> getAccountDetails()");
+    var details = twilioClient -> getAccountDetails();
     match details {
         Account account => {
             io:println(account);
@@ -45,11 +39,11 @@ function testAccountDetails() {
 
 @test:Config
 function testSendSms() {
-    log:printInfo("twilioBasicClient -> sendSms()");
+    log:printInfo("twilioClient -> sendSms()");
     string fromMobile = config:getAsString(FROM_MOBILE);
     string toMobile = config:getAsString(TO_MOBILE);
     string message = config:getAsString(MESSAGE);
-    var details = twilioBasicClient -> sendSms(fromMobile, toMobile, message);
+    var details = twilioClient -> sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => {
             io:println(smsResponse);
@@ -61,11 +55,11 @@ function testSendSms() {
 
 @test:Config
 function testMakeVoiceCall() {
-    log:printInfo("twilioBasicClient -> makeVoiceCall()");
+    log:printInfo("twilioClient -> makeVoiceCall()");
     string fromMobile = config:getAsString(FROM_MOBILE);
     string toMobile = config:getAsString(TO_MOBILE);
     string twimlUrl = config:getAsString(TWIML_URL);
-    var details = twilioBasicClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
+    var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
