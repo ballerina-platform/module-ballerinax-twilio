@@ -31,6 +31,7 @@ endpoint Client twilioClient {
 function testAccountDetails() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
+
     var details = twilioClient -> getAccountDetails();
     match details {
         Account account => {
@@ -47,9 +48,11 @@ function testAccountDetails() {
 function testSendSms() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> sendSms()");
-    string fromMobile = config:getAsString(FROM_MOBILE);
-    string toMobile = config:getAsString(TO_MOBILE);
-    string message = config:getAsString(MESSAGE);
+
+    string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
+    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
+    string message = config:getAsString("SAMPLE_MESSAGE");
+
     var details = twilioClient -> sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => {
@@ -66,9 +69,11 @@ function testSendSms() {
 function testMakeVoiceCall() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> makeVoiceCall()");
-    string fromMobile = config:getAsString(FROM_MOBILE);
-    string toMobile = config:getAsString(TO_MOBILE);
-    string twimlUrl = config:getAsString(TWIML_URL);
+
+    string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
+    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
+    string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
+
     var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => {
@@ -85,6 +90,7 @@ function testMakeVoiceCall() {
 function testAuthyAppDetails() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyAppDetails()");
+
     var details = twilioClient -> getAuthyAppDetails();
     match details {
         AuthyApp authyApp => {
@@ -101,9 +107,11 @@ function testAuthyAppDetails() {
 function testAuthyUserAdd() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> addAuthyUser()");
-    string email = "user@wso2.com";
-    string phone = "77123456";
-    string countryCode = "+94";
+
+    string email = config:getAsString("SAMPLE_USER_EMAIL");
+    string phone = config:getAsString("SAMPLE_USER_PHONE");
+    string countryCode = config:getAsString("SAMPLE_USER_COUNTRY_CODE");
+
     var details = twilioClient -> addAuthyUser(email, phone, countryCode);
     match details {
         AuthyNewUser authyNewUser => {
@@ -121,7 +129,9 @@ function testAuthyUserAdd() {
 function testAuthyUserStatus() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserStatus()");
-    string userId = "79918644";
+
+    string userId = config:getAsString("SAMPLE_USER_ID");
+
     var details = twilioClient -> getAuthyUserStatus(userId);
     match details {
         AuthyUser authyUser => {
@@ -139,7 +149,9 @@ function testAuthyUserStatus() {
 function testAuthyUserDelete() {
     log:printInfo("---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> deleteAuthyUser()");
+
     string userId = "79918644";
+
     var details = twilioClient -> deleteAuthyUser(userId);
     match details {
         AuthyResponse authyResponse => {

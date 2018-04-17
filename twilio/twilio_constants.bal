@@ -55,8 +55,4 @@
 // Conf parameter keys
 @final string ACCOUNT_SID = "ACCOUNT_SID";
 @final string AUTH_TOKEN = "AUTH_TOKEN";
-@final string FROM_MOBILE = "FROM_MOBILE";
-@final string TO_MOBILE = "TO_MOBILE";
-@final string MESSAGE = "MESSAGE";
-@final string TWIML_URL = "TWIML_URL";
 @final string AUTHY_API_KEY = "AUTHY_API_KEY";
