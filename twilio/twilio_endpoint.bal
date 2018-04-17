@@ -16,21 +16,59 @@
 
 import ballerina/http;
 
-public function Client::init(http:ClientEndpointConfig clientConfig) {
-    match clientConfig.auth {
-        () => {}
-        http:AuthConfig authConfig => self.twilioConnector.accountSid = authConfig.username;
+documentation {Object for Twilio endpoint.
+    F{{twilioConfig}} Reference to TwilioBasicConfiguration type
+    F{{twilioConnector}} Reference to TwilioConnector type
+}
+public type Client object {
+
+    public {
+        TwilioConfiguration twilioConfig;
+        TwilioConnector twilioConnector = new();
     }
-    clientConfig.targets = [{url:BASE_URL}];
-    self.twilioConnector.client.init(clientConfig);
+
+    documentation { Initialize Twilio endpoint
+        P{{twilioConfig}} Twilio configuraion
+    }
+    public function init (TwilioConfiguration twilioConfig);
+
+    documentation { Register Twilio connector endpoint
+        P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
+    }
+    public function register (typedesc serviceType);
+
+    documentation { Start Twilio connector endpoint }
+    public function start ();
+
+    documentation { Initialize Twilio endpoint
+        R{{}} The Twilio connector object
+    }
+    public function getClient () returns TwilioConnector;
+
+    documentation { Start Twilio connector endpoint }
+    public function stop ();
+};
+
+public type TwilioConfiguration {
+    string accountSid;
+    string authToken;
+    http:ClientEndpointConfig basicClientConfig;
+};
+
+public function Client::init (TwilioConfiguration twilioConfig) {
+    self.twilioConnector.accountSid = twilioConfig.accountSid;
+    twilioConfig.basicClientConfig.targets = [{url:BASE_URL}];
+    http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
+    twilioConfig.basicClientConfig.auth = authConfig;
+    self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
 }
 
-public function Client::getClient() returns TwilioConnector {
+public function Client::register (typedesc serviceType) {}
+
+public function Client::start () {}
+
+public function Client::getClient () returns TwilioConnector {
     return self.twilioConnector;
 }
 
-public function Client::start() {}
-
-public function Client::stop() {}
-
-public function Client::register(typedesc serviceType) {}
+public function Client::stop () {}
