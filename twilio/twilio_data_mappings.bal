@@ -71,7 +71,6 @@ function mapJsonToAuthyUser(json jsonPayload) returns AuthyUser {
     authyUser.isRegistered = jsonPayload.status.registered but { () => false };
     authyUser.countryCode = jsonPayload.status.country_code.toString() but { () => EMPTY_STRING };
     authyUser.phoneNumber = jsonPayload.status.phone_number.toString() but { () => EMPTY_STRING };
-    authyUser.hasHardToken = jsonPayload.status.has_hard_token but { () => false };
     authyUser.isAccountDisabled = jsonPayload.status.account_disabled but { () => false };
     authyUser.authyResponse.message = jsonPayload.message but { () => EMPTY_STRING };
     authyUser.authyResponse.isSuccess = jsonPayload.success but { () => false };

@@ -60,10 +60,27 @@ public type TwilioConnector object {
     }
     public function getAuthyAppDetails() returns (AuthyApp|error);
 
+    documentation { Add an user for Authy app
+        P{{email}} Email of the new user
+        P{{phone}} Phone number of the new user
+        P{{countryCode}} Country code of the new user
+        R{{AuthyNewUser}} Authy new user object with basic response
+        R{{err}} Error occured when making voice call by http call or parsing the response into json
+    }
     public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyNewUser|error);
 
+    documentation { Get the user details of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{AuthyUser}} Authy user object with basic details
+        R{{err}} Error occured when making voice call by http call or parsing the response into json
+    }
     public function getAuthyUserStatus(string userId) returns (AuthyUser|error);
 
+    documentation { Delete the user of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{AuthyResponse}} Authy response object
+        R{{err}} Error occured when making voice call by http call or parsing the response into json
+    }
     public function deleteAuthyUser(string userId) returns (AuthyResponse|error);
 };
 

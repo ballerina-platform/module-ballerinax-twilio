@@ -87,17 +87,29 @@ public type AuthyNewUser {
     AuthyResponse authyResponse;
 };
 
+documentation {
+    F{{userId}} Unique identifier of the user
+    F{{isConfirmed}} Is user confirmed or not
+    F{{isRegistered}} Is user registerd or not
+    F{{countryCode}} Country code of user
+    F{{phoneNumber}} Phone number of user
+    F{{isAccountDisabled}} Is account disabled or not
+    F{{authyResponse}} Authy response object
+}
 public type AuthyUser {
     string userId;
     boolean isConfirmed;
     boolean isRegistered;
     string countryCode;
     string phoneNumber;
-    boolean hasHardToken;
     boolean isAccountDisabled;
     AuthyResponse authyResponse;
 };
 
+documentation {
+    F{{message}} A messaging indicating the result of the operation
+    F{{isSuccess}} Is the request was success or not
+}
 public type AuthyResponse {
     string message;
     boolean isSuccess;

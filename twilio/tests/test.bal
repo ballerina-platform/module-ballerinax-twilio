@@ -115,7 +115,8 @@ function testAuthyUserAdd() {
 }
 
 @test:Config {
-    groups:["authy"]
+    groups:["authy"],
+    dependsOn:["testAuthyUserAdd"]
 }
 function testAuthyUserStatus() {
     log:printInfo("---------------------------------------------------------------------------");
@@ -132,7 +133,8 @@ function testAuthyUserStatus() {
 }
 
 @test:Config {
-    groups:["authy"]
+    groups:["authy"],
+    dependsOn:["testAuthyUserStatus"]
 }
 function testAuthyUserDelete() {
     log:printInfo("---------------------------------------------------------------------------");
