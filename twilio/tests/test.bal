@@ -41,7 +41,7 @@ function testAccountDetails() {
             io:println(account);
             test:assertNotEquals(account.sid, EMPTY_STRING, msg = "Failed to get account details");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -62,7 +62,7 @@ function testSendSms() {
             io:println(smsResponse);
             test:assertNotEquals(smsResponse.sid, EMPTY_STRING, msg = "Failed to get sms response details");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -83,7 +83,7 @@ function testMakeVoiceCall() {
             io:println(voiceCallResponse);
             test:assertNotEquals(voiceCallResponse.sid, EMPTY_STRING, msg = "Failed to get voice call response details");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -100,7 +100,7 @@ function testAuthyAppDetails() {
             io:println(authyApp);
             test:assertTrue(authyApp.authyResponse.isSuccess, msg = "Failed to get authy app details");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -122,7 +122,7 @@ function testAuthyUserAdd() {
             test:assertTrue(authyNewUser.authyResponse.isSuccess, msg = "Failed to get authy user details");
             userId = authyNewUser.userId;
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -142,7 +142,7 @@ function testAuthyUserStatus() {
             io:println(authyUser);
             test:assertTrue(authyUser.authyResponse.isSuccess, msg = "Failed to get authy user details");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -160,6 +160,6 @@ function testAuthyUserDelete() {
             io:println(authyResponse);
             test:assertTrue(authyResponse.isSuccess, msg = "Failed to delete authy user");
         }
-        error err => test:assertFail(msg = err.message);
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
