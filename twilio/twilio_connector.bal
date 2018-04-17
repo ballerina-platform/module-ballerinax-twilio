@@ -140,7 +140,7 @@ public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsRe
     string requestPath = AUTHY_APP_API;
     var response = httpClient -> get(requestPath, request);
     json jsonResponse = check parseResponseToJson(response);
-    return mapJsonToAuthyApp(jsonResponse);
+    return mapJsonToAuthyAppDetailsResponse(jsonResponse);
 }
 
 public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError) {
@@ -159,7 +159,7 @@ public function TwilioConnector::addAuthyUser(string email, string phone, string
     string requestPath = AUTHY_USER_API + USER_ADD;
     var response = httpClient -> post(requestPath, request);
     json jsonResponse = check parseResponseToJson(response);
-    return mapJsonToAuthyNewUser(jsonResponse);
+    return mapJsonToAuthyUserAddRespones(jsonResponse);
 }
 
 public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
@@ -171,7 +171,7 @@ public function TwilioConnector::getAuthyUserStatus(string userId) returns (Auth
     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
     var response = httpClient -> get(requestPath, request);
     json jsonResponse = check parseResponseToJson(response);
-    return mapJsonToAuthyUser(jsonResponse);
+    return mapJsonToAuthyUserStatusResponse(jsonResponse);
 }
 
 public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
@@ -183,5 +183,5 @@ public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUs
     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
     var response = httpClient -> post(requestPath, request);
     json jsonResponse = check parseResponseToJson(response);
-    return mapJsonToAuthyResponse(jsonResponse);
+    return mapJsonToAuthyUserDeleteResponse(jsonResponse);
 }

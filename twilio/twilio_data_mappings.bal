@@ -43,7 +43,7 @@ function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse 
     return voiceCallResponse;
 }
 
-function mapJsonToAuthyApp(json jsonPayload) returns AuthyAppDetailsResponse {
+function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
     AuthyAppDetailsResponse authyAppDetailsResponse = {};
     authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString() but { () => EMPTY_STRING };
     authyAppDetailsResponse.name = jsonPayload.app.name.toString() but { () => EMPTY_STRING };
@@ -56,7 +56,7 @@ function mapJsonToAuthyApp(json jsonPayload) returns AuthyAppDetailsResponse {
     return authyAppDetailsResponse;
 }
 
-function mapJsonToAuthyNewUser(json jsonPayload) returns AuthyUserAddResponse {
+function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
     AuthyUserAddResponse authyUserAddResponse = {};
     authyUserAddResponse.userId = jsonPayload.user.id.toString() but { () => EMPTY_STRING };
     authyUserAddResponse.message = jsonPayload.message but { () => EMPTY_STRING };
@@ -64,7 +64,7 @@ function mapJsonToAuthyNewUser(json jsonPayload) returns AuthyUserAddResponse {
     return authyUserAddResponse;
 }
 
-function mapJsonToAuthyUser(json jsonPayload) returns AuthyUserStatusResponse {
+function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
     AuthyUserStatusResponse authyUserStatusResponse = {};
     authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString() but { () => EMPTY_STRING };
     authyUserStatusResponse.isConfirmed = jsonPayload.status.confirmed but { () => false };
@@ -77,7 +77,7 @@ function mapJsonToAuthyUser(json jsonPayload) returns AuthyUserStatusResponse {
     return authyUserStatusResponse;
 }
 
-function mapJsonToAuthyResponse(json jsonPayload) returns AuthyUserDeleteResponse {
+function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
     AuthyUserDeleteResponse authyUserDeleteResponse = {};
     authyUserDeleteResponse.message = jsonPayload.message but { () => EMPTY_STRING };
     authyUserDeleteResponse.isSuccess = jsonPayload.success but { () => false };
