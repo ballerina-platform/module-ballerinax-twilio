@@ -15,15 +15,20 @@
 // under the License.package twilio;
 
 // Twilio api urls
-@final string BASIC_API_BASE_URL = "https://api.twilio.com/2010-04-01";
+@final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
 @final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";
-@final string ACCOUNTS_API = "/Accounts/";
-@final string SMS_API = "/SMS/Messages/";
-@final string VOICE_API = "/Calls/";
-@final string AUTHY_APP_DETAILS = "/json/app/details";
 
-// Response types
-@final string RESPONSE_TYPE_JSON = ".json";
+@final string TWILIO_ACCOUNTS_API = "/Accounts";
+@final string AUTHY_APP_API = "/json/app/details";
+@final string AUTHY_USER_API = "/json/users";
+
+@final string SMS_SEND = "/SMS/Messages.json";
+@final string VOICE_CALL = "/Calls.json";
+@final string ACCOUNT_DETAILS = ".json";
+
+@final string USER_ADD = "/new";
+@final string USER_STATUS = "/status";
+@final string USER_REMOVE = "/remove";
 
 // Symbols
 @final string EMPTY_STRING = "";
@@ -31,6 +36,7 @@
 @final string AMPERSAND_SYMBOL = "&";
 @final string EQUAL_SYMBOL = "=";
 @final string COLON_SYMBOL = ":";
+@final string FORWARD_SLASH = "/";
 
 // Pre defined strings
 @final string CHARSET_UTF8 = "utf-8";

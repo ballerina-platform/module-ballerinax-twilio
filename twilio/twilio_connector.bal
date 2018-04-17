@@ -60,6 +60,11 @@ public type TwilioConnector object {
     }
     public function getAuthyAppDetails() returns (AuthyApp|error);
 
+    public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyNewUser|error);
+
+    public function getAuthyUserStatus(string userId) returns (AuthyUser|error);
+
+    public function deleteAuthyUser(string userId) returns (AuthyResponse|error);
 };
 
 public function TwilioConnector::getAccountDetails() returns (Account|error) {
@@ -67,7 +72,7 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
     endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
 
-    string requestPath = ACCOUNTS_API + self.accountSid + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + ACCOUNT_DETAILS;
     var response = httpClient -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -88,7 +93,7 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + self.accountSid + SMS_API + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + SMS_SEND;
     var response = httpClient -> post(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -109,7 +114,7 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + self.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + VOICE_CALL;
     var response = httpClient -> post(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
@@ -124,11 +129,60 @@ public function TwilioConnector::getAuthyAppDetails() returns (AuthyApp|error) {
     http:Request request = new();
     constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
 
-    string requestPath = AUTHY_APP_DETAILS;
+    string requestPath = AUTHY_APP_API;
     var response = httpClient -> get(requestPath, request);
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
         json jsonPayload => { return mapJsonToAuthyApp(jsonPayload); }
+        error err => return err;
+    }
+}
+
+public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode) returns (AuthyNewUser|error) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+    // TODO: Pass the following parameters properly. The CURL request works fine.
+    constructRequestHeaders(request, "user[email]", email);
+    constructRequestHeaders(request, "user[cellphone]", phone);
+    constructRequestHeaders(request, "user[country_code]", countryCode);
+
+    string requestPath = AUTHY_USER_API + USER_ADD;
+    var response = httpClient -> post(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => { return mapJsonToAuthyNewUser(jsonPayload); }
+        error err => return err;
+    }
+}
+
+public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUser|error) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
+    var response = httpClient -> get(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => { return mapJsonToAuthyUser(jsonPayload); }
+        error err => return err;
+    }
+}
+
+public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyResponse|error) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
+    var response = httpClient -> post(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => { return mapJsonToAuthyResponse(jsonPayload); }
         error err => return err;
     }
 }

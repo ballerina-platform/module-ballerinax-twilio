@@ -66,6 +66,7 @@ documentation {
     F{{isSmsEnabled}} Status of whether sms is enabled
     F{{isPhoneCallsEnabled}} Status of whether phone call is enabled
     F{{isOnetouchEnabled}} Status of whether one touch is enabled
+    F{{authyResponse}} Authy response object
 }
 public type AuthyApp {
     string appId;
@@ -74,4 +75,30 @@ public type AuthyApp {
     boolean isSmsEnabled;
     boolean isPhoneCallsEnabled;
     boolean isOnetouchEnabled;
+    AuthyResponse authyResponse;
+};
+
+documentation {
+    F{{userId}} Unique identifier of the user
+    F{{authyResponse}} Authy response object
+}
+public type AuthyNewUser {
+    string userId;
+    AuthyResponse authyResponse;
+};
+
+public type AuthyUser {
+    string userId;
+    boolean isConfirmed;
+    boolean isRegistered;
+    string countryCode;
+    string phoneNumber;
+    boolean hasHardToken;
+    boolean isAccountDisabled;
+    AuthyResponse authyResponse;
+};
+
+public type AuthyResponse {
+    string message;
+    boolean isSuccess;
 };

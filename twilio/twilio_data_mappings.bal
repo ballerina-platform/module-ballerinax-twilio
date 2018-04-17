@@ -51,5 +51,36 @@ function mapJsonToAuthyApp(json jsonPayload) returns AuthyApp {
     authyApp.isSmsEnabled = jsonPayload.app.sms_enabled but { () => false };
     authyApp.isPhoneCallsEnabled = jsonPayload.app.phone_calls_enabled but { () => false };
     authyApp.isOnetouchEnabled = jsonPayload.app.onetouch_enabled but { () => false };
+    authyApp.authyResponse.message = jsonPayload.message but { () => EMPTY_STRING };
+    authyApp.authyResponse.isSuccess = jsonPayload.success but { () => false };
     return authyApp;
+}
+
+function mapJsonToAuthyNewUser(json jsonPayload) returns AuthyNewUser {
+    AuthyNewUser authyNewUser = {};
+    authyNewUser.userId = jsonPayload.user.id.toString() but { () => EMPTY_STRING };
+    authyNewUser.authyResponse.message = jsonPayload.message but { () => EMPTY_STRING };
+    authyNewUser.authyResponse.isSuccess = jsonPayload.success but { () => false };
+    return authyNewUser;
+}
+
+function mapJsonToAuthyUser(json jsonPayload) returns AuthyUser {
+    AuthyUser authyUser = {};
+    authyUser.userId = jsonPayload.status.authy_id.toString() but { () => EMPTY_STRING };
+    authyUser.isConfirmed = jsonPayload.status.confirmed but { () => false };
+    authyUser.isRegistered = jsonPayload.status.registered but { () => false };
+    authyUser.countryCode = jsonPayload.status.country_code.toString() but { () => EMPTY_STRING };
+    authyUser.phoneNumber = jsonPayload.status.phone_number.toString() but { () => EMPTY_STRING };
+    authyUser.hasHardToken = jsonPayload.status.has_hard_token but { () => false };
+    authyUser.isAccountDisabled = jsonPayload.status.account_disabled but { () => false };
+    authyUser.authyResponse.message = jsonPayload.message but { () => EMPTY_STRING };
+    authyUser.authyResponse.isSuccess = jsonPayload.success but { () => false };
+    return authyUser;
+}
+
+function mapJsonToAuthyResponse(json jsonPayload) returns AuthyResponse {
+    AuthyResponse authyResponse = {};
+    authyResponse.message = jsonPayload.message but { () => EMPTY_STRING };
+    authyResponse.isSuccess = jsonPayload.success but { () => false };
+    return authyResponse;
 }
