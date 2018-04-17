@@ -18,13 +18,16 @@ import ballerina/http;
 
 documentation {Object to initialize the connection with Twilio.
     F{{accountSid}} Unique identifier of the account
+    F{{xAuthyKey}} Unique identifier for Authy api account
     F{{basicClient}} Http client endpoint
 }
 public type TwilioConnector object {
 
     public {
         string accountSid;
+        string xAuthyKey;
         http:Client basicClient;
+        http:Client authyClient;
     }
 
     documentation { Return account details of the given account-sid.
@@ -50,6 +53,12 @@ public type TwilioConnector object {
         R{{err}} Error occured when making voice call by http call or parsing the response into json
     }
     public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
+
+    documentation { Get the Authy app details
+        R{{AuthyApp}} Authy app object with basic details
+        R{{err}} Error occured when making voice call by http call or parsing the response into json
+    }
+    public function getAuthyAppDetails() returns (AuthyApp|error);
 
 };
 
@@ -105,6 +114,21 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     var jsonResponse = parseResponseToJson(response);
     match jsonResponse {
         json jsonPayload => { return mapJsonToVoiceCallResponse(jsonPayload); }
+        error err => return err;
+    }
+}
+
+public function TwilioConnector::getAuthyAppDetails() returns (AuthyApp|error) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_APP_DETAILS;
+    var response = httpClient -> get(requestPath, request);
+    var jsonResponse = parseResponseToJson(response);
+    match jsonResponse {
+        json jsonPayload => { return mapJsonToAuthyApp(jsonPayload); }
         error err => return err;
     }
 }

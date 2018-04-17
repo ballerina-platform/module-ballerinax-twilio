@@ -52,15 +52,22 @@ public type Client object {
 public type TwilioConfiguration {
     string accountSid;
     string authToken;
+    string xAuthyKey;
     http:ClientEndpointConfig basicClientConfig;
+    http:ClientEndpointConfig authyClientConfig;
 };
 
 public function Client::init (TwilioConfiguration twilioConfig) {
     self.twilioConnector.accountSid = twilioConfig.accountSid;
-    twilioConfig.basicClientConfig.targets = [{url:BASE_URL}];
+    self.twilioConnector.xAuthyKey = twilioConfig.xAuthyKey;
+
+    twilioConfig.basicClientConfig.targets = [{url:BASIC_API_BASE_URL}];
     http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
     twilioConfig.basicClientConfig.auth = authConfig;
     self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
+
+    twilioConfig.authyClientConfig.targets = [{url:AUTHY_API_BASE_URL}];
+    self.twilioConnector.authyClient.init(twilioConfig.authyClientConfig);
 }
 
 public function Client::register (typedesc serviceType) {}

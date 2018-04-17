@@ -58,3 +58,20 @@ public type VoiceCallResponse {
     string price;
     string priceUnit;
 };
+
+documentation {
+    F{{appId}} Unique identifier of the Authy app
+    F{{name}} Name of the Authy app
+    F{{plan}} The subscribed plan
+    F{{isSmsEnabled}} Status of whether sms is enabled
+    F{{isPhoneCallsEnabled}} Status of whether phone call is enabled
+    F{{isOnetouchEnabled}} Status of whether one touch is enabled
+}
+public type AuthyApp {
+    string appId;
+    string name;
+    string plan;
+    boolean isSmsEnabled;
+    boolean isPhoneCallsEnabled;
+    boolean isOnetouchEnabled;
+};

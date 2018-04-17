@@ -21,10 +21,13 @@ import ballerina/config;
 
 endpoint Client twilioClient {
     accountSid:config:getAsString(ACCOUNT_SID),
-    authToken:config:getAsString(AUTH_TOKEN)
+    authToken:config:getAsString(AUTH_TOKEN),
+    xAuthyKey:config:getAsString(AUTHY_API_KEY)
 };
 
-@test:Config
+@test:Config {
+    groups:["basic"]
+}
 function testAccountDetails() {
     log:printInfo("twilioClient -> getAccountDetails()");
     var details = twilioClient -> getAccountDetails();
@@ -37,7 +40,9 @@ function testAccountDetails() {
     }
 }
 
-@test:Config
+@test:Config {
+    groups:["basic"]
+}
 function testSendSms() {
     log:printInfo("twilioClient -> sendSms()");
     string fromMobile = config:getAsString(FROM_MOBILE);
@@ -53,7 +58,9 @@ function testSendSms() {
     }
 }
 
-@test:Config
+@test:Config {
+    groups:["basic"]
+}
 function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
     string fromMobile = config:getAsString(FROM_MOBILE);
@@ -64,6 +71,21 @@ function testMakeVoiceCall() {
         VoiceCallResponse voiceCallResponse => {
             io:println(voiceCallResponse);
             test:assertNotEquals(voiceCallResponse.sid, EMPTY_STRING, msg = "Failed to get voice call response details");
+        }
+        error err => test:assertFail(msg = err.message);
+    }
+}
+
+@test:Config {
+    groups:["authy"]
+}
+function testAuthyAppDetails() {
+    log:printInfo("twilioClient -> getAuthyAppDetails()");
+    var details = twilioClient -> getAuthyAppDetails();
+    match details {
+        AuthyApp authyApp => {
+            io:println(authyApp);
+            test:assertNotEquals(authyApp.appId, EMPTY_STRING, msg = "Failed to get authy app details");
         }
         error err => test:assertFail(msg = err.message);
     }

@@ -42,3 +42,14 @@ function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse 
     voiceCallResponse.priceUnit = jsonPayload.price_unit.toString() but { () => EMPTY_STRING };
     return voiceCallResponse;
 }
+
+function mapJsonToAuthyApp(json jsonPayload) returns AuthyApp {
+    AuthyApp authyApp = {};
+    authyApp.appId = jsonPayload.app.app_id.toString() but { () => EMPTY_STRING };
+    authyApp.name = jsonPayload.app.name.toString() but { () => EMPTY_STRING };
+    authyApp.plan = jsonPayload.app.plan.toString() but { () => EMPTY_STRING };
+    authyApp.isSmsEnabled = jsonPayload.app.sms_enabled but { () => false };
+    authyApp.isPhoneCallsEnabled = jsonPayload.app.phone_calls_enabled but { () => false };
+    authyApp.isOnetouchEnabled = jsonPayload.app.onetouch_enabled but { () => false };
+    return authyApp;
+}

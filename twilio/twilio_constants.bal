@@ -15,10 +15,12 @@
 // under the License.package twilio;
 
 // Twilio api urls
-@final string BASE_URL = "https://api.twilio.com/2010-04-01";
+@final string BASIC_API_BASE_URL = "https://api.twilio.com/2010-04-01";
+@final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";
 @final string ACCOUNTS_API = "/Accounts/";
 @final string SMS_API = "/SMS/Messages/";
 @final string VOICE_API = "/Calls/";
+@final string AUTHY_APP_DETAILS = "/json/app/details";
 
 // Response types
 @final string RESPONSE_TYPE_JSON = ".json";
@@ -36,6 +38,7 @@
 @final string BASIC = "Basic";
 @final string CONTENT_TYPE = "Content-Type";
 @final string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
+@final string X_AUTHY_API_KEY = "X-Authy-API-Key";
 
 // API related parameters
 @final string TO = "To";
@@ -50,3 +53,4 @@
 @final string TO_MOBILE = "TO_MOBILE";
 @final string MESSAGE = "MESSAGE";
 @final string TWIML_URL = "TWIML_URL";
+@final string AUTHY_API_KEY = "AUTHY_API_KEY";
