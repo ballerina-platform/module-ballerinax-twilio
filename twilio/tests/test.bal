@@ -96,9 +96,9 @@ function testAuthyAppDetails() {
 
     var details = twilioClient -> getAuthyAppDetails();
     match details {
-        AuthyApp authyApp => {
-            io:println(authyApp);
-            test:assertTrue(authyApp.authyResponse.isSuccess, msg = "Failed to get authy app details");
+        AuthyAppDetailsResponse authyAppDetailsResponse => {
+            io:println(authyAppDetailsResponse);
+            test:assertTrue(authyAppDetailsResponse.isSuccess, msg = "Failed to get authy app details");
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
@@ -117,10 +117,10 @@ function testAuthyUserAdd() {
 
     var details = twilioClient -> addAuthyUser(email, phone, countryCode);
     match details {
-        AuthyNewUser authyNewUser => {
-            io:println(authyNewUser);
-            test:assertTrue(authyNewUser.authyResponse.isSuccess, msg = "Failed to get authy user details");
-            userId = authyNewUser.userId;
+        AuthyUserAddResponse authyUserAddResponse => {
+            io:println(authyUserAddResponse);
+            test:assertTrue(authyUserAddResponse.isSuccess, msg = "Failed to get authy user details");
+            userId = authyUserAddResponse.userId;
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
@@ -134,13 +134,11 @@ function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserStatus()");
 
-    string userId = config:getAsString("SAMPLE_USER_ID");
-
     var details = twilioClient -> getAuthyUserStatus(userId);
     match details {
-        AuthyUser authyUser => {
-            io:println(authyUser);
-            test:assertTrue(authyUser.authyResponse.isSuccess, msg = "Failed to get authy user details");
+        AuthyUserStatusResponse authyUserStatusResponse => {
+            io:println(authyUserStatusResponse);
+            test:assertTrue(authyUserStatusResponse.isSuccess, msg = "Failed to get authy user details");
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
@@ -156,9 +154,9 @@ function testAuthyUserDelete() {
 
     var details = twilioClient -> deleteAuthyUser(userId);
     match details {
-        AuthyResponse authyResponse => {
-            io:println(authyResponse);
-            test:assertTrue(authyResponse.isSuccess, msg = "Failed to delete authy user");
+        AuthyUserDeleteResponse authyUserDeleteResponse => {
+            io:println(authyUserDeleteResponse);
+            test:assertTrue(authyUserDeleteResponse.isSuccess, msg = "Failed to delete authy user");
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }

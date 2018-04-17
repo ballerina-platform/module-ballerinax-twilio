@@ -66,25 +66,29 @@ documentation {
     F{{isSmsEnabled}} Status of whether sms is enabled
     F{{isPhoneCallsEnabled}} Status of whether phone call is enabled
     F{{isOnetouchEnabled}} Status of whether one touch is enabled
-    F{{authyResponse}} Authy response object
+    F{{message}} A messaging indicating the result of the operation
+    F{{isSuccess}} Is the request was success or not
 }
-public type AuthyApp {
+public type AuthyAppDetailsResponse {
     string appId;
     string name;
     string plan;
     boolean isSmsEnabled;
     boolean isPhoneCallsEnabled;
     boolean isOnetouchEnabled;
-    AuthyResponse authyResponse;
+    string message;
+    boolean isSuccess;
 };
 
 documentation {
     F{{userId}} Unique identifier of the user
-    F{{authyResponse}} Authy response object
+    F{{message}} A messaging indicating the result of the operation
+    F{{isSuccess}} Is the request was success or not
 }
-public type AuthyNewUser {
+public type AuthyUserAddResponse {
     string userId;
-    AuthyResponse authyResponse;
+    string message;
+    boolean isSuccess;
 };
 
 documentation {
@@ -94,23 +98,25 @@ documentation {
     F{{countryCode}} Country code of user
     F{{phoneNumber}} Phone number of user
     F{{isAccountDisabled}} Is account disabled or not
-    F{{authyResponse}} Authy response object
+    F{{message}} A messaging indicating the result of the operation
+    F{{isSuccess}} Is the request was success or not
 }
-public type AuthyUser {
+public type AuthyUserStatusResponse {
     string userId;
     boolean isConfirmed;
     boolean isRegistered;
     string countryCode;
     string phoneNumber;
     boolean isAccountDisabled;
-    AuthyResponse authyResponse;
+    string message;
+    boolean isSuccess;
 };
 
 documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyResponse {
+public type AuthyUserDeleteResponse {
     string message;
     boolean isSuccess;
 };

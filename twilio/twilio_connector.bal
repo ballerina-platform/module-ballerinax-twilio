@@ -58,7 +58,7 @@ public type TwilioConnector object {
         R{{authyApp}} Authy app object with basic details
         R{{err}} Error occured when getting authy app details
     }
-    public function getAuthyAppDetails() returns (AuthyApp|TwilioError);
+    public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError);
 
     documentation { Add an user for Authy app
         P{{email}} Email of the new user
@@ -67,21 +67,21 @@ public type TwilioConnector object {
         R{{authyNewUser}} Authy new user object with basic response
         R{{err}} Error occured when adding authy user
     }
-    public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyNewUser|TwilioError);
+    public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError);
 
     documentation { Get the user details of Authy for the given user-id
         P{{userId}} Unique identifier of the user
         R{{authyUser}} Authy user object with basic details
         R{{err}} Error occured when getting authy user status
     }
-    public function getAuthyUserStatus(string userId) returns (AuthyUser|TwilioError);
+    public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError);
 
     documentation { Delete the user of Authy for the given user-id
         P{{userId}} Unique identifier of the user
         R{{authyResponse}} Authy response object
         R{{err}} Error occured when deleting authy user
     }
-    public function deleteAuthyUser(string userId) returns (AuthyResponse|TwilioError);
+    public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
 };
 
 public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
@@ -131,7 +131,7 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     return mapJsonToVoiceCallResponse(jsonResponse);
 }
 
-public function TwilioConnector::getAuthyAppDetails() returns (AuthyApp|TwilioError) {
+public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request request = new();
@@ -143,7 +143,7 @@ public function TwilioConnector::getAuthyAppDetails() returns (AuthyApp|TwilioEr
     return mapJsonToAuthyApp(jsonResponse);
 }
 
-public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode) returns (AuthyNewUser|TwilioError) {
+public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request request = new();
@@ -162,7 +162,7 @@ public function TwilioConnector::addAuthyUser(string email, string phone, string
     return mapJsonToAuthyNewUser(jsonResponse);
 }
 
-public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUser|TwilioError) {
+public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request request = new();
@@ -174,7 +174,7 @@ public function TwilioConnector::getAuthyUserStatus(string userId) returns (Auth
     return mapJsonToAuthyUser(jsonResponse);
 }
 
-public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyResponse|TwilioError) {
+public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request request = new();
