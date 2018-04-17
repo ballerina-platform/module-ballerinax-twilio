@@ -114,3 +114,12 @@ public type AuthyResponse {
     string message;
     boolean isSuccess;
 };
+
+documentation {
+    F{{message}} A custom message about the error
+    F{{cause}} Error object reffered to the occurred error
+}
+public type TwilioError {
+    string message;
+    error? cause;
+};
