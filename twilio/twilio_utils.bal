@@ -45,6 +45,7 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
 @Param {value:"key: Key of the form value parameter."}
 @Param {value:"value: Value of the form value parameter."}
 @Return {value:"Created request body with encoded string."}
+@Return {value:"Error occured when encoding value."}
 function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|error) {
     var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString;

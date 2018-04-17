@@ -160,10 +160,13 @@ public function TwilioConnector::addAuthyUser(string email, string phone, string
     endpoint http:Client httpClient = self.authyClient;
     http:Request request = new();
     constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
-    // TODO: Pass the following parameters properly. The CURL request works fine.
-    constructRequestHeaders(request, "user[email]", email);
-    constructRequestHeaders(request, "user[cellphone]", phone);
-    constructRequestHeaders(request, "user[country_code]", countryCode);
+    constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+
+    string requestBody;
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[country_code]", countryCode);
+    request.setStringPayload(requestBody);
 
     string requestPath = AUTHY_USER_API + USER_ADD;
     var response = httpClient -> post(requestPath, request);
