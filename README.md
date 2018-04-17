@@ -10,9 +10,9 @@ actions like sending a simple text message, making a voice call etc.
 
 ## Compatibility
 
-| Language Version           | Connector Version   | Twilio API Version |
-| -------------------------- | ------------------- | ------------------ |
-| 0.970.0-alpha5-SNAPSHOT    | 0.5.6               | 2010-04-01         |
+| Language Version           | Connector Version   | Twilio Basic API Version | Twilio Authy API Version |
+| -------------------------- | ------------------- | ------------------------ | ------------------------ |
+| 0.970.0-beta1-SNAPSHOT     | 0.5.8               | 2010-04-01               | v1                       |
 
 ### Getting started
 
