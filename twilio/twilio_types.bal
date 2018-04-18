@@ -36,7 +36,7 @@ public type Account {
 documentation {
     F{{sid}} Unique identifier of the account
     F{{status}} Status of the voice call (queued, failed, sent, delivered, undelivered)
-    F{{price}} The price amount of the sms
+    F{{price}} The price amount of the SMS
     F{{priceUnit}} The price currency
 }
 public type SmsResponse {
@@ -63,7 +63,7 @@ documentation {
     F{{appId}} Unique identifier of the Authy app
     F{{name}} Name of the Authy app
     F{{plan}} The subscribed plan
-    F{{isSmsEnabled}} Status of whether sms is enabled
+    F{{isSmsEnabled}} Status of whether SMS is enabled
     F{{isPhoneCallsEnabled}} Status of whether phone call is enabled
     F{{isOnetouchEnabled}} Status of whether one touch is enabled
     F{{message}} A messaging indicating the result of the operation
@@ -122,7 +122,7 @@ public type AuthyUserDeleteResponse {
 };
 
 documentation {
-    F{{issuer}} Name of the authy name
+    F{{issuer}} Name of the Authy name
     F{{label}} A custom label given by the user. If not, the name of the authy app
     F{{qrCodeUrl}} Url for the generated qr code
     F{{isSuccess}} Is the request was success or not
@@ -152,7 +152,7 @@ public type AuthyOtpResponse {
 documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{token}} Either "is valid" or "is invalid"
-    F{{isSuccess}} Is the otp was valid or not
+    F{{isSuccess}} Is the OTP was valid or not
 }
 public type AuthyOtpVerifyResponse {
     string message;

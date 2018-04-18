@@ -18,7 +18,7 @@ import ballerina/http;
 
 documentation {Object to initialize the connection with Twilio.
     F{{accountSid}} Unique identifier of the account
-    F{{xAuthyKey}} Unique identifier for Authy api account
+    F{{xAuthyKey}} Unique identifier of Authy API account
     F{{basicClient}} Http client endpoint
 }
 public type TwilioConnector object {
@@ -32,16 +32,16 @@ public type TwilioConnector object {
 
     documentation { Return account details of the given account-sid
         R{{account}} Account object with basic details
-        R{{err}} Error occured when getting account details
+        R{{}} Error occured when getting account details
     }
     public function getAccountDetails() returns (Account|TwilioError);
 
-    documentation { Send sms from the given account-sid
+    documentation { Send SMS from the given account-sid
         P{{fromNo}} Mobile number which the SMS should be send from
         P{{toNo}} Mobile number which the SMS should be received to
         P{{message}} Message body of the SMS
-        R{{smsResponse}} Sms response object with basic details
-        R{{err}} Error occured when sending sms
+        R{{}} SMS response object with basic details
+        R{{}} Error occured when sending SMS
     }
     public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError);
 
@@ -49,14 +49,14 @@ public type TwilioConnector object {
         P{{fromNo}} Mobile number which the voice call should be send from
         P{{toNo}} Mobile number which the voice call should be received to
         P{{twiml}} TwiML URL which the response of the voice call is stated
-        R{{voiceCallResponse}} Voice call response object with basic details
-        R{{err}} Error occured when making voice call
+        R{{}} Voice call response object with basic details
+        R{{}} Error occured when making voice call
     }
     public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|TwilioError);
 
     documentation { Get the Authy app details
-        R{{authyApp}} Authy app object with basic details
-        R{{err}} Error occured when getting authy app details
+        R{{}} Authy app response object with basic details
+        R{{}} Error occured when getting authy app details
     }
     public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError);
 
@@ -64,53 +64,52 @@ public type TwilioConnector object {
         P{{email}} Email of the new user
         P{{phone}} Phone number of the new user
         P{{countryCode}} Country code of the new user
-        R{{authyNewUser}} Authy new user object with basic response
-        R{{err}} Error occured when adding authy user
+        R{{}} Authy user add response object with basic details
+        R{{}} Error occured when adding authy user
     }
     public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError);
 
     documentation { Get the user details of Authy for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyUser}} Authy user object with basic details
-        R{{err}} Error occured when getting authy user status
+        R{{}} Authy user status object with basic details
+        R{{}} Error occured when getting authy user status
     }
     public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError);
 
     documentation { Delete the user of Authy for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyResponse}} Authy response object
-        R{{err}} Error occured when deleting authy user
+        R{{}} Authy user delete object with basic details
+        R{{}} Error occured when deleting authy user
     }
     public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
 
     documentation { Get the user secret of Authy user for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyResponse}} Authy response object
-        R{{err}} Error occured when getting the secret of authy user
+        R{{}} Authy user secret object with basic details
+        R{{}} Error occured when getting secret of authy user
     }
     public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError);
 
-    documentation { Request otp for the user of Authy via sms for the given user-id
+    documentation { Request OTP for the user of Authy via SMS for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyResponse}} Authy response object
-        R{{err}} Error occured when requesting otp via sms for authy user
+        R{{}} Authy OTP response object with basic details
+        R{{}} Error occured when requesting OTP via SMS
     }
     public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError);
 
     documentation { Request OTP for the user of Authy via call for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyResponse}} Authy response object
-        R{{err}} Error occured when requesting otp via call for authy user
+        R{{}} Authy OTP response object with basic details
+        R{{}} Error occured when requesting OTP via call
     }
     public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError);
 
-    documentation { Verify otp for the user of Authy for the given user-id
+    documentation { Verify OTP for the user of Authy for the given user-id
         P{{userId}} Unique identifier of the user
-        R{{authyResponse}} Authy response object
-        R{{err}} Error occured when verifying otp for authy user
+        R{{}} Authy OTP verify response object with basic details
+        R{{}} Error occured when verifying OTP
     }
     public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
-
 };
 
 public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
