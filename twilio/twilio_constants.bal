@@ -41,6 +41,8 @@
 @final string EQUAL_SYMBOL = "=";
 @final string COLON_SYMBOL = ":";
 @final string FORWARD_SLASH = "/";
+@final string DASH_WITH_WHITE_SPACES_SYMBOL = " - ";
+@final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
 
 // Pre defined strings
 @final string CHARSET_UTF8 = "utf-8";

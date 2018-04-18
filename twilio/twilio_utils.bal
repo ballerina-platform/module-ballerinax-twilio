@@ -22,8 +22,8 @@ function constructRequestHeaders(http:Request request, string key, string value)
     request.addHeader(key, value);
 }
 
-@Description {value:"Parse http response object into json."}
-@Param {value:"response: Http response or http connector error with network related errors."}
+@Description {value:"Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise."}
+@Param {value:"response: Http response or HTTP connector error with network related errors."}
 @Return {value:"Json payload."}
 @Return {value:"Twilio error occured."}
 function parseResponseToJson(http:Response|http:HttpConnectorError response) returns (json|TwilioError) {
@@ -32,7 +32,18 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
         http:Response httpResponse => {
             var jsonPayload = httpResponse.getJsonPayload();
             match jsonPayload {
-                json payload => return payload;
+                json payload => {
+                    if (httpResponse.statusCode != http:OK_200 && httpResponse.statusCode != http:CREATED_201) {
+                        string errMsg = payload.message.toString() but { () => EMPTY_STRING };
+                        string errCode = payload.error_code.toString() but { () => EMPTY_STRING };
+                        TwilioError twilioError = {message: httpResponse.statusCode + WHITE_SPACE
+                            + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
+                            + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg};
+                        io:println(twilioError.message);
+                        return twilioError;
+                    }
+                    return payload;
+                }
                 http:PayloadError payloadError => {
                     TwilioError twilioError = {message:"Error occurred when parsing response to json."};
                     twilioError.cause = payloadError.cause;
