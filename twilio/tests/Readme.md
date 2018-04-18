@@ -7,7 +7,7 @@ actions like sending a simple text message, making a voice call etc.
 
 | Language Version           | Endpoint Version    | Twilio Basic API Version | Twilio Authy API Version |
 | -------------------------- | ------------------- | ------------------------ | ------------------------ |
-| 0.970.0-beta1-SNAPSHOT     | 0.5.8               | 2010-04-01               | v1                       |
+| 0.970.0-beta1-SNAPSHOT     | 0.5.9               | 2010-04-01               | v1                       |
 
 ## Running tests
 
@@ -31,9 +31,9 @@ AUTHY_API_KEY="your_authy_app_production_key"
 | --------------- | -------------------------------------------------------------------------------------------- |
 | ACCOUNT_SID     | Account SID of your own twilio account                                                       |
 | AUTH_TOKEN      | Auth token of your own twilio account                                                        |
-| X_AUTHY_API_KEY | Production API key of the Authy app of your own twilio account                               |
+| AUTHY_API_KEY   | Production API key of the Authy app of your own twilio account                               |
 
-Run tests :
+#### Run all the test cases
 ```
 ballerina init
 ballerina test twilio
