@@ -32,21 +32,11 @@ public type Client object {
     }
     public function init (TwilioConfiguration twilioConfig);
 
-    documentation { Register Twilio connector endpoint
-        P{{serviceType}} Accepts types of data (int, float, string, boolean, etc)
-    }
-    public function register (typedesc serviceType);
-
-    documentation { Start Twilio connector endpoint }
-    public function start ();
-
     documentation { Initialize Twilio endpoint
         R{{}} The Twilio connector object
     }
     public function getClient () returns TwilioConnector;
 
-    documentation { Start Twilio connector endpoint }
-    public function stop ();
 };
 
 public type TwilioConfiguration {
@@ -70,12 +60,6 @@ public function Client::init (TwilioConfiguration twilioConfig) {
     self.twilioConnector.authyClient.init(twilioConfig.authyClientConfig);
 }
 
-public function Client::register (typedesc serviceType) {}
-
-public function Client::start () {}
-
 public function Client::getClient () returns TwilioConnector {
     return self.twilioConnector;
 }
-
-public function Client::stop () {}
