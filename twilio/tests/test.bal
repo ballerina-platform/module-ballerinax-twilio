@@ -144,10 +144,7 @@ function testAuthyUserStatus() {
     }
 }
 
-@test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserStatus"]
-}
+@test:AfterSuite
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> deleteAuthyUser()");
@@ -157,6 +154,80 @@ function testAuthyUserDelete() {
         AuthyUserDeleteResponse authyUserDeleteResponse => {
             io:println(authyUserDeleteResponse);
             test:assertTrue(authyUserDeleteResponse.isSuccess, msg = "Failed to delete authy user");
+        }
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+    }
+}
+
+@test:Config {
+    groups:["authy"],
+    dependsOn:["testAuthyUserAdd"]
+}
+function testAuthyUserSecret() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> getAuthyUserSecret()");
+
+    var details = twilioClient -> getAuthyUserSecret(userId);
+    match details {
+        AuthyUserSecretResponse authyUserSecretResponse => {
+            io:println(authyUserSecretResponse);
+            test:assertTrue(authyUserSecretResponse.isSuccess, msg = "Failed to get authy user secret");
+        }
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+    }
+}
+
+@test:Config {
+    groups:["authy"],
+    dependsOn:["testAuthyUserAdd"]
+}
+function testAuthyOtpViaSms() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> requestOtpViaSms()");
+
+    var details = twilioClient -> requestOtpViaSms(userId);
+    match details {
+        AuthyOtpResponse authyOtpResponse => {
+            io:println(authyOtpResponse);
+            test:assertTrue(authyOtpResponse.isSuccess, msg = "Failed to request authy otp via sms");
+        }
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+    }
+}
+
+@test:Config {
+    groups:["authy"],
+    dependsOn:["testAuthyUserAdd"]
+}
+function testAuthyOtpViaCall() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> requestOtpViaCall()");
+
+    var details = twilioClient -> requestOtpViaCall(userId);
+    match details {
+        AuthyOtpResponse authyOtpResponse => {
+            io:println(authyOtpResponse);
+            test:assertTrue(authyOtpResponse.isSuccess, msg = "Failed to request authy otp via call");
+        }
+        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+    }
+}
+
+@test:Config {
+    groups:["authy"],
+    dependsOn:["testAuthyUserAdd"]
+}
+function testAuthyOtpVerify() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> verifyOtp()");
+
+    string token = "8875458";
+
+    var details = twilioClient -> verifyOtp(userId, token);
+    match details {
+        AuthyOtpVerifyResponse authyOtpVerifyResponse => {
+            io:println(authyOtpVerifyResponse);
+            test:assertTrue(authyOtpVerifyResponse.isSuccess, msg = "Failed to verify authy otp");
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }

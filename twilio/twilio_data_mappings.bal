@@ -83,3 +83,31 @@ function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDel
     authyUserDeleteResponse.isSuccess = jsonPayload.success but { () => false };
     return authyUserDeleteResponse;
 }
+
+function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
+    AuthyUserSecretResponse authyUserSecretResponse = {};
+    authyUserSecretResponse.issuer = jsonPayload.issuer.toString() but { () => EMPTY_STRING };
+    authyUserSecretResponse.label = jsonPayload.label.toString() but { () => EMPTY_STRING };
+    authyUserSecretResponse.qrCodeUrl = jsonPayload.qr_code.toString() but { () => EMPTY_STRING };
+    authyUserSecretResponse.isSuccess = jsonPayload.success but { () => false };
+    return authyUserSecretResponse;
+}
+
+function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
+    AuthyOtpResponse authyOtpResponse = {};
+    authyOtpResponse.message = jsonPayload.message.toString() but { () => EMPTY_STRING };
+    authyOtpResponse.cellphone = jsonPayload.cellphone.toString() but { () => EMPTY_STRING };
+    authyOtpResponse.device = jsonPayload.device.toString() but { () => EMPTY_STRING };
+    authyOtpResponse.isIgnored = jsonPayload.ignored but { () => false };
+    authyOtpResponse.isSuccess = jsonPayload.success but { () => false };
+    return authyOtpResponse;
+}
+
+function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
+    AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
+    authyOtpVerifyResponse.message = jsonPayload.message.toString() but { () => EMPTY_STRING };
+    authyOtpVerifyResponse.token = jsonPayload.token.toString() but { () => EMPTY_STRING };
+    string isSuccess = jsonPayload.success.toString() but { () => "false" };
+    authyOtpVerifyResponse.isSuccess = <boolean>isSuccess;
+    return authyOtpVerifyResponse;
+}

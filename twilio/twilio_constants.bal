@@ -21,6 +21,9 @@
 @final string TWILIO_ACCOUNTS_API = "/Accounts";
 @final string AUTHY_APP_API = "/json/app/details";
 @final string AUTHY_USER_API = "/json/users";
+@final string AUTHY_OTP_SMS_API = "/json/sms";
+@final string AUTHY_OTP_CALL_API = "/json/call";
+@final string AUTHY_OTP_VERIFY_API = "/json/verify";
 
 @final string SMS_SEND = "/SMS/Messages.json";
 @final string VOICE_CALL = "/Calls.json";
@@ -29,6 +32,7 @@
 @final string USER_ADD = "/new";
 @final string USER_STATUS = "/status";
 @final string USER_REMOVE = "/remove";
+@final string USER_SECRET = "/secret";
 
 // Symbols
 @final string EMPTY_STRING = "";

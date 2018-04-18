@@ -82,6 +82,35 @@ public type TwilioConnector object {
         R{{err}} Error occured when deleting authy user
     }
     public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
+
+    documentation { Get the user secret of Authy user for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{authyResponse}} Authy response object
+        R{{err}} Error occured when getting the secret of authy user
+    }
+    public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError);
+
+    documentation { Request otp for the user of Authy via sms for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{authyResponse}} Authy response object
+        R{{err}} Error occured when requesting otp via sms for authy user
+    }
+    public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError);
+
+    documentation { Request OTP for the user of Authy via call for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{authyResponse}} Authy response object
+        R{{err}} Error occured when requesting otp via call for authy user
+    }
+    public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError);
+
+    documentation { Verify otp for the user of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{authyResponse}} Authy response object
+        R{{err}} Error occured when verifying otp for authy user
+    }
+    public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
+
 };
 
 public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
@@ -184,4 +213,52 @@ public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUs
     var response = httpClient -> post(requestPath, request);
     json jsonResponse = check parseResponseToJson(response);
     return mapJsonToAuthyUserDeleteResponse(jsonResponse);
+}
+
+public function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
+    var response = httpClient -> post(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyUserSecretResponse(jsonResponse);
+}
+
+public function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpResponse(jsonResponse);
+}
+
+public function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpResponse(jsonResponse);
+}
+
+public function TwilioConnector::verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpVerifyResponse(jsonResponse);
 }

@@ -122,6 +122,45 @@ public type AuthyUserDeleteResponse {
 };
 
 documentation {
+    F{{issuer}} Name of the authy name
+    F{{label}} A custom label given by the user. If not, the name of the authy app
+    F{{qrCodeUrl}} Url for the generated qr code
+    F{{isSuccess}} Is the request was success or not
+}
+public type AuthyUserSecretResponse {
+    string issuer;
+    string label;
+    string qrCodeUrl;
+    boolean isSuccess;
+};
+
+documentation {
+    F{{message}} A messaging indicating the result of the operation
+    F{{cellphone}} Phone number used to send the message or call
+    F{{device}} The type of the last device used by the user
+    F{{isIgnored}} True if we detected an Authy or SDK enabled app installed.
+    F{{isSuccess}} Is the request was success or not
+}
+public type AuthyOtpResponse {
+    string message;
+    string cellphone;
+    string device;
+    boolean isIgnored;
+    boolean isSuccess;
+};
+
+documentation {
+    F{{message}} A messaging indicating the result of the operation
+    F{{token}} Either "is valid" or "is invalid"
+    F{{isSuccess}} Is the otp was valid or not
+}
+public type AuthyOtpVerifyResponse {
+    string message;
+    string token;
+    boolean isSuccess;
+};
+
+documentation {
     F{{message}} A custom message about the error
     F{{cause}} Error object reffered to the occurred error
 }
