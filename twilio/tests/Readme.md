@@ -7,7 +7,7 @@ actions like sending a simple text message, making a voice call etc.
 
 | Language Version           | Endpoint Version    | Twilio Basic API Version | Twilio Authy API Version |
 | -------------------------- | ------------------- | ------------------------ | ------------------------ |
-| 0.970.0-beta1-SNAPSHOT     | 0.5.9               | 2010-04-01               | v1                       |
+| 0.970.0-beta1-SNAPSHOT     | 0.5.10              | 2010-04-01               | v1                       |
 
 ## Running tests
 
@@ -19,6 +19,9 @@ obtained tokens.
 
 In order to run the **authy group** tests, the user will need to create a Authy application under Twilio account and 
 obtain the _PRODUCTION API KEY_. Then user has to update the `ballerina.conf` file with the obtained token.
+
+Please note that all the settings under Authy App configuration should be enabled.
+
 ###### ballerina.conf
 
 ```ballerina.conf
