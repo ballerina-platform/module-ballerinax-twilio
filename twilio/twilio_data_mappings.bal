@@ -16,98 +16,97 @@
 
 function mapJsonToAccount(json jsonPayload) returns Account {
     Account account = {};
-    account.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
-    account.name = jsonPayload.friendly_name.toString() but { () => EMPTY_STRING };
-    account.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
-    account.^"type" = jsonPayload.^"type".toString() but { () => EMPTY_STRING };
-    account.createdDate = jsonPayload.date_created.toString() but { () => EMPTY_STRING };
-    account.updatedDate = jsonPayload.date_updated.toString() but { () => EMPTY_STRING };
+    account.sid = jsonPayload.sid.toString();
+    account.name = jsonPayload.friendly_name.toString();
+    account.status = jsonPayload.status.toString();
+    account.^"type" = jsonPayload.^"type".toString();
+    account.createdDate = jsonPayload.date_created.toString();
+    account.updatedDate = jsonPayload.date_updated.toString();
     return account;
 }
 
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     SmsResponse smsResponse = {};
-    smsResponse.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
-    smsResponse.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
-    smsResponse.price = jsonPayload.price.toString() but { () => EMPTY_STRING };
-    smsResponse.priceUnit = jsonPayload.price_unit.toString() but { () => EMPTY_STRING };
+    smsResponse.sid = jsonPayload.sid.toString();
+    smsResponse.status = jsonPayload.status.toString();
+    smsResponse.price = jsonPayload.price.toString();
+    smsResponse.priceUnit = jsonPayload.price_unit.toString();
     return smsResponse;
 }
 
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
     VoiceCallResponse voiceCallResponse = {};
-    voiceCallResponse.sid = jsonPayload.sid.toString() but { () => EMPTY_STRING };
-    voiceCallResponse.status = jsonPayload.status.toString() but { () => EMPTY_STRING };
-    voiceCallResponse.price = jsonPayload.price.toString() but { () => EMPTY_STRING };
-    voiceCallResponse.priceUnit = jsonPayload.price_unit.toString() but { () => EMPTY_STRING };
+    voiceCallResponse.sid = jsonPayload.sid.toString();
+    voiceCallResponse.status = jsonPayload.status.toString();
+    voiceCallResponse.price = jsonPayload.price.toString();
+    voiceCallResponse.priceUnit = jsonPayload.price_unit.toString();
     return voiceCallResponse;
 }
 
 function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
     AuthyAppDetailsResponse authyAppDetailsResponse = {};
-    authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString() but { () => EMPTY_STRING };
-    authyAppDetailsResponse.name = jsonPayload.app.name.toString() but { () => EMPTY_STRING };
-    authyAppDetailsResponse.plan = jsonPayload.app.plan.toString() but { () => EMPTY_STRING };
-    authyAppDetailsResponse.isSmsEnabled = jsonPayload.app.sms_enabled but { () => false };
-    authyAppDetailsResponse.isPhoneCallsEnabled = jsonPayload.app.phone_calls_enabled but { () => false };
-    authyAppDetailsResponse.isOnetouchEnabled = jsonPayload.app.onetouch_enabled but { () => false };
-    authyAppDetailsResponse.message = jsonPayload.message but { () => EMPTY_STRING };
-    authyAppDetailsResponse.isSuccess = jsonPayload.success but { () => false };
+    authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString();
+    authyAppDetailsResponse.name = jsonPayload.app.name.toString();
+    authyAppDetailsResponse.plan = jsonPayload.app.plan.toString();
+    authyAppDetailsResponse.isSmsEnabled = <boolean>jsonPayload.app.sms_enabled.toString();
+    authyAppDetailsResponse.isPhoneCallsEnabled = <boolean>jsonPayload.app.phone_calls_enabled.toString();
+    authyAppDetailsResponse.isOnetouchEnabled = <boolean>jsonPayload.app.onetouch_enabled.toString();
+    authyAppDetailsResponse.message = jsonPayload.message.toString();
+    authyAppDetailsResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyAppDetailsResponse;
 }
 
 function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
     AuthyUserAddResponse authyUserAddResponse = {};
-    authyUserAddResponse.userId = jsonPayload.user.id.toString() but { () => EMPTY_STRING };
-    authyUserAddResponse.message = jsonPayload.message but { () => EMPTY_STRING };
-    authyUserAddResponse.isSuccess = jsonPayload.success but { () => false };
+    authyUserAddResponse.userId = jsonPayload.user.id.toString();
+    authyUserAddResponse.message = jsonPayload.message.toString();
+    authyUserAddResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyUserAddResponse;
 }
 
 function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
     AuthyUserStatusResponse authyUserStatusResponse = {};
-    authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString() but { () => EMPTY_STRING };
-    authyUserStatusResponse.isConfirmed = jsonPayload.status.confirmed but { () => false };
-    authyUserStatusResponse.isRegistered = jsonPayload.status.registered but { () => false };
-    authyUserStatusResponse.countryCode = jsonPayload.status.country_code.toString() but { () => EMPTY_STRING };
-    authyUserStatusResponse.phoneNumber = jsonPayload.status.phone_number.toString() but { () => EMPTY_STRING };
-    authyUserStatusResponse.isAccountDisabled = jsonPayload.status.account_disabled but { () => false };
-    authyUserStatusResponse.message = jsonPayload.message but { () => EMPTY_STRING };
-    authyUserStatusResponse.isSuccess = jsonPayload.success but { () => false };
+    authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString();
+    authyUserStatusResponse.isConfirmed = <boolean>jsonPayload.status.confirmed.toString();
+    authyUserStatusResponse.isRegistered = <boolean>jsonPayload.status.registered.toString();
+    authyUserStatusResponse.countryCode = jsonPayload.status.country_code.toString();
+    authyUserStatusResponse.phoneNumber = jsonPayload.status.phone_number.toString();
+    authyUserStatusResponse.isAccountDisabled = <boolean>jsonPayload.status.account_disabled.toString();
+    authyUserStatusResponse.message = jsonPayload.message.toString();
+    authyUserStatusResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyUserStatusResponse;
 }
 
 function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
     AuthyUserDeleteResponse authyUserDeleteResponse = {};
-    authyUserDeleteResponse.message = jsonPayload.message but { () => EMPTY_STRING };
-    authyUserDeleteResponse.isSuccess = jsonPayload.success but { () => false };
+    authyUserDeleteResponse.message = jsonPayload.message.toString();
+    authyUserDeleteResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyUserDeleteResponse;
 }
 
 function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
     AuthyUserSecretResponse authyUserSecretResponse = {};
-    authyUserSecretResponse.issuer = jsonPayload.issuer.toString() but { () => EMPTY_STRING };
-    authyUserSecretResponse.label = jsonPayload.label.toString() but { () => EMPTY_STRING };
-    authyUserSecretResponse.qrCodeUrl = jsonPayload.qr_code.toString() but { () => EMPTY_STRING };
-    authyUserSecretResponse.isSuccess = jsonPayload.success but { () => false };
+    authyUserSecretResponse.issuer = jsonPayload.issuer.toString();
+    authyUserSecretResponse.label = jsonPayload.label.toString();
+    authyUserSecretResponse.qrCodeUrl = jsonPayload.qr_code.toString();
+    authyUserSecretResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyUserSecretResponse;
 }
 
 function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
     AuthyOtpResponse authyOtpResponse = {};
-    authyOtpResponse.message = jsonPayload.message.toString() but { () => EMPTY_STRING };
-    authyOtpResponse.cellphone = jsonPayload.cellphone.toString() but { () => EMPTY_STRING };
-    authyOtpResponse.device = jsonPayload.device.toString() but { () => EMPTY_STRING };
-    authyOtpResponse.isIgnored = jsonPayload.ignored but { () => false };
-    authyOtpResponse.isSuccess = jsonPayload.success but { () => false };
+    authyOtpResponse.message = jsonPayload.message.toString();
+    authyOtpResponse.cellphone = jsonPayload.cellphone.toString();
+    authyOtpResponse.device = jsonPayload.device.toString();
+    authyOtpResponse.isIgnored = <boolean>jsonPayload.ignored.toString();
+    authyOtpResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyOtpResponse;
 }
 
 function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
     AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
-    authyOtpVerifyResponse.message = jsonPayload.message.toString() but { () => EMPTY_STRING };
-    authyOtpVerifyResponse.token = jsonPayload.token.toString() but { () => EMPTY_STRING };
-    string isSuccess = jsonPayload.success.toString() but { () => "false" };
-    authyOtpVerifyResponse.isSuccess = <boolean>isSuccess;
+    authyOtpVerifyResponse.message = jsonPayload.message.toString();
+    authyOtpVerifyResponse.token = jsonPayload.token.toString();
+    authyOtpVerifyResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyOtpVerifyResponse;
 }
