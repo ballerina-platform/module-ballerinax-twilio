@@ -1,3 +1,7 @@
 [project]
 org-name = "wso2"
-version = "0.5.10"
+version = "0.8.0"
+authors = ["chanakal@wso2.com"]
+documentation = "https://ballerinalang.org/docs/api/0.95.5/"
+repository = "https://github.com/wso2-ballerina/package-twilio"
+keywords = ["ballerina", "twilio", "sms", "call", "otp"]

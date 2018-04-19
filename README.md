@@ -12,7 +12,7 @@ actions like sending a simple text message, making a voice call etc.
 
 | Language Version           | Endpoint Version    | Twilio Basic API Version | Twilio Authy API Version |
 | -------------------------- | ------------------- | ------------------------ | ------------------------ |
-| 0.970.0-beta1-SNAPSHOT     | 0.5.10              | 2010-04-01               | v1                       |
+| 0.970.0-beta1-SNAPSHOT     | 0.8.0               | 2010-04-01               | v1                       |
 
 ##### Prerequisites
 
