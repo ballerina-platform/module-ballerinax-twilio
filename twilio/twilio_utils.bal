@@ -22,21 +22,40 @@ function constructRequestHeaders(http:Request request, string key, string value)
     request.addHeader(key, value);
 }
 
-@Description {value:"Parse http response object into json."}
-@Param {value:"response: Http response or http connector error with network related errors."}
+@Description {value:"Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise."}
+@Param {value:"response: Http response or HTTP connector error with network related errors."}
 @Return {value:"Json payload."}
-@Return {value:"Error occured."}
-function parseResponseToJson(http:Response|http:HttpConnectorError response) returns (json|error) {
+@Return {value:"Twilio error occured."}
+function parseResponseToJson(http:Response|http:HttpConnectorError response) returns (json|TwilioError) {
     json result = {};
     match response {
         http:Response httpResponse => {
             var jsonPayload = httpResponse.getJsonPayload();
             match jsonPayload {
-                json payload => return payload;
-                http:PayloadError payloadError => return payloadError;
+                json payload => {
+                    if (httpResponse.statusCode != http:OK_200 && httpResponse.statusCode != http:CREATED_201) {
+                        string errMsg = payload.message.toString();
+                        string errCode = payload.error_code.toString();
+                        TwilioError twilioError = {message: httpResponse.statusCode + WHITE_SPACE
+                            + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
+                            + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg};
+                        io:println(twilioError.message);
+                        return twilioError;
+                    }
+                    return payload;
+                }
+                http:PayloadError payloadError => {
+                    TwilioError twilioError = {message:"Error occurred when parsing response to json."};
+                    twilioError.cause = payloadError.cause;
+                    return twilioError;
+                }
             }
         }
-        http:HttpConnectorError httpError => return httpError;
+        http:HttpConnectorError httpError => {
+            TwilioError twilioError = {message:"Error occurred when HTTP client invocation."};
+            twilioError.cause = httpError.cause;
+            return twilioError;
+        }
     }
 }
 
@@ -45,12 +64,17 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
 @Param {value:"key: Key of the form value parameter."}
 @Param {value:"value: Value of the form value parameter."}
 @Return {value:"Created request body with encoded string."}
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|error) {
+@Return {value:"Twilio error occured."}
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|TwilioError) {
     var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString;
     match encodedVar {
         string encoded => encodedString = encoded;
-        error err => return err;
+        error err => {
+            TwilioError twilioError = {message:"Error occurred when encoding the value "  + value + " with charset " + CHARSET_UTF8};
+            twilioError.cause = err.cause;
+            return twilioError;
+        }
     }
     if (requestBody != EMPTY_STRING) {
         requestBody += AMPERSAND_SYMBOL;

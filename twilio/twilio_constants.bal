@@ -14,14 +14,25 @@
 // specific language governing permissions and limitations
 // under the License.package twilio;
 
-// Twilio api urls
-@final string BASE_URL = "https://api.twilio.com/2010-04-01";
-@final string ACCOUNTS_API = "/Accounts/";
-@final string SMS_API = "/SMS/Messages/";
-@final string VOICE_API = "/Calls/";
+// Twilio API urls
+@final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
+@final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";
 
-// Response types
-@final string RESPONSE_TYPE_JSON = ".json";
+@final string TWILIO_ACCOUNTS_API = "/Accounts";
+@final string AUTHY_APP_API = "/json/app/details";
+@final string AUTHY_USER_API = "/json/users";
+@final string AUTHY_OTP_SMS_API = "/json/sms";
+@final string AUTHY_OTP_CALL_API = "/json/call";
+@final string AUTHY_OTP_VERIFY_API = "/json/verify";
+
+@final string SMS_SEND = "/SMS/Messages.json";
+@final string VOICE_CALL = "/Calls.json";
+@final string ACCOUNT_DETAILS = ".json";
+
+@final string USER_ADD = "/new";
+@final string USER_STATUS = "/status";
+@final string USER_REMOVE = "/remove";
+@final string USER_SECRET = "/secret";
 
 // Symbols
 @final string EMPTY_STRING = "";
@@ -29,6 +40,9 @@
 @final string AMPERSAND_SYMBOL = "&";
 @final string EQUAL_SYMBOL = "=";
 @final string COLON_SYMBOL = ":";
+@final string FORWARD_SLASH = "/";
+@final string DASH_WITH_WHITE_SPACES_SYMBOL = " - ";
+@final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
 
 // Pre defined strings
 @final string CHARSET_UTF8 = "utf-8";
@@ -36,6 +50,7 @@
 @final string BASIC = "Basic";
 @final string CONTENT_TYPE = "Content-Type";
 @final string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
+@final string X_AUTHY_API_KEY = "X-Authy-API-Key";
 
 // API related parameters
 @final string TO = "To";
@@ -46,7 +61,4 @@
 // Conf parameter keys
 @final string ACCOUNT_SID = "ACCOUNT_SID";
 @final string AUTH_TOKEN = "AUTH_TOKEN";
-@final string FROM_MOBILE = "FROM_MOBILE";
-@final string TO_MOBILE = "TO_MOBILE";
-@final string MESSAGE = "MESSAGE";
-@final string TWIML_URL = "TWIML_URL";
+@final string AUTHY_API_KEY = "AUTHY_API_KEY";

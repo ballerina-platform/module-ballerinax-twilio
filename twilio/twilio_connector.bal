@@ -18,56 +18,112 @@ import ballerina/http;
 
 documentation {Object to initialize the connection with Twilio.
     F{{accountSid}} Unique identifier of the account
+    F{{xAuthyKey}} Unique identifier of Authy API account
     F{{basicClient}} Http client endpoint
 }
 public type TwilioConnector object {
 
     public {
         string accountSid;
+        string xAuthyKey;
         http:Client basicClient;
+        http:Client authyClient;
     }
 
-    documentation { Return account details of the given account-sid.
+    documentation { Return account details of the given account-sid
         R{{account}} Account object with basic details
-        R{{err}} Error occured when getting account details by http call or parsing the response into json
+        R{{}} Error occured when getting account details
     }
-    public function getAccountDetails() returns (Account|error);
+    public function getAccountDetails() returns (Account|TwilioError);
 
-    documentation { Send sms from the given account-sid
+    documentation { Send SMS from the given account-sid
         P{{fromNo}} Mobile number which the SMS should be send from
         P{{toNo}} Mobile number which the SMS should be received to
         P{{message}} Message body of the SMS
-        R{{smsResponse}} Sms response object with basic details
-        R{{err}} Error occured when sending sms by http call or parsing the response into json
+        R{{}} SMS response object with basic details
+        R{{}} Error occured when sending SMS
     }
-    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
+    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError);
 
     documentation { Make a voice call from the given account-sid
         P{{fromNo}} Mobile number which the voice call should be send from
         P{{toNo}} Mobile number which the voice call should be received to
         P{{twiml}} TwiML URL which the response of the voice call is stated
-        R{{voiceCallResponse}} Voice call response object with basic details
-        R{{err}} Error occured when making voice call by http call or parsing the response into json
+        R{{}} Voice call response object with basic details
+        R{{}} Error occured when making voice call
     }
-    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
+    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|TwilioError);
 
+    documentation { Get the Authy app details
+        R{{}} Authy app response object with basic details
+        R{{}} Error occured when getting authy app details
+    }
+    public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError);
+
+    documentation { Add an user for Authy app
+        P{{email}} Email of the new user
+        P{{phone}} Phone number of the new user
+        P{{countryCode}} Country code of the new user
+        R{{}} Authy user add response object with basic details
+        R{{}} Error occured when adding authy user
+    }
+    public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError);
+
+    documentation { Get the user details of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy user status object with basic details
+        R{{}} Error occured when getting authy user status
+    }
+    public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError);
+
+    documentation { Delete the user of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy user delete object with basic details
+        R{{}} Error occured when deleting authy user
+    }
+    public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
+
+    documentation { Get the user secret of Authy user for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy user secret object with basic details
+        R{{}} Error occured when getting secret of authy user
+    }
+    public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError);
+
+    documentation { Request OTP for the user of Authy via SMS for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy OTP response object with basic details
+        R{{}} Error occured when requesting OTP via SMS
+    }
+    public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError);
+
+    documentation { Request OTP for the user of Authy via call for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy OTP response object with basic details
+        R{{}} Error occured when requesting OTP via call
+    }
+    public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError);
+
+    documentation { Verify OTP for the user of Authy for the given user-id
+        P{{userId}} Unique identifier of the user
+        R{{}} Authy OTP verify response object with basic details
+        R{{}} Error occured when verifying OTP
+    }
+    public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
 };
 
-public function TwilioConnector::getAccountDetails() returns (Account|error) {
+public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
 
     endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
 
-    string requestPath = ACCOUNTS_API + self.accountSid + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + ACCOUNT_DETAILS;
     var response = httpClient -> get(requestPath, request);
-    var jsonResponse = parseResponseToJson(response);
-    match jsonResponse {
-        json jsonPayload => { return mapJsonToAccount(jsonPayload); }
-        error err => return err;
-    }
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAccount(jsonResponse);
 }
 
-public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error) {
+public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
@@ -79,16 +135,13 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + self.accountSid + SMS_API + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + SMS_SEND;
     var response = httpClient -> post(requestPath, request);
-    var jsonResponse = parseResponseToJson(response);
-    match jsonResponse {
-        json jsonPayload => { return mapJsonToSmsResponse(jsonPayload); }
-        error err => return err;
-    }
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToSmsResponse(jsonResponse);
 }
 
-public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error) {
+public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.basicClient;
     http:Request request = new();
@@ -100,11 +153,111 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
     request.setStringPayload(requestBody);
 
-    string requestPath = ACCOUNTS_API + self.accountSid + VOICE_API + RESPONSE_TYPE_JSON;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + VOICE_CALL;
     var response = httpClient -> post(requestPath, request);
-    var jsonResponse = parseResponseToJson(response);
-    match jsonResponse {
-        json jsonPayload => { return mapJsonToVoiceCallResponse(jsonPayload); }
-        error err => return err;
-    }
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToVoiceCallResponse(jsonResponse);
+}
+
+public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_APP_API;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyAppDetailsResponse(jsonResponse);
+}
+
+public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+    constructRequestHeaders(request, CONTENT_TYPE, APPLICATION_URL_FROM_ENCODED);
+
+    string requestBody;
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
+    requestBody = check createUrlEncodedRequestBody(requestBody, "user[country_code]", countryCode);
+    request.setStringPayload(requestBody);
+
+    string requestPath = AUTHY_USER_API + USER_ADD;
+    var response = httpClient -> post(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyUserAddRespones(jsonResponse);
+}
+
+public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyUserStatusResponse(jsonResponse);
+}
+
+public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
+    var response = httpClient -> post(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyUserDeleteResponse(jsonResponse);
+}
+
+public function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
+    var response = httpClient -> post(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyUserSecretResponse(jsonResponse);
+}
+
+public function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpResponse(jsonResponse);
+}
+
+public function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpResponse(jsonResponse);
+}
+
+public function TwilioConnector::verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError) {
+
+    endpoint http:Client httpClient = self.authyClient;
+    http:Request request = new();
+    constructRequestHeaders(request, X_AUTHY_API_KEY, self.xAuthyKey);
+
+    string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
+    var response = httpClient -> get(requestPath, request);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAuthyOtpVerifyResponse(jsonResponse);
 }
