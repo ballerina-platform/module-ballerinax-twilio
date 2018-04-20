@@ -10,7 +10,8 @@ Twilio connector provides a Ballerina API to access the [Twilio REST API](https:
 
 ## Getting started
 
-1.  Refer https://ballerina.io/learn/getting-started/ to download and install Ballerina.
+1.  Refer the [Getting Started](https://ballerina.io/learn/getting-started/) guide to download and install Ballerina.
+
 2.  To use Twilio endpoint, you need to provide the following:
 
        - Account SId
@@ -19,11 +20,11 @@ Twilio connector provides a Ballerina API to access the [Twilio REST API](https:
 
        *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
 
-4. Create a new Ballerina project by executing the following command.
+3. Create a new Ballerina project by executing the following command.
 
       ``<PROJECT_ROOT_DIRECTORY>$ ballerina init``
 
-5. Import the Twilio package to your Ballerina program as follows.
+4. Import the Twilio package to your Ballerina program as follows.
 
 ```ballerina
     import wso2/twilio;

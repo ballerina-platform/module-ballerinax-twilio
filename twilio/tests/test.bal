@@ -22,6 +22,7 @@ import ballerina/config;
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
 string userId;
 
+// ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 endpoint Client twilioClient {
     accountSid:config:getAsString(ACCOUNT_SID),
     authToken:config:getAsString(AUTH_TOKEN),
