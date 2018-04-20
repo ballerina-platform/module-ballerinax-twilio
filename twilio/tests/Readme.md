@@ -5,9 +5,9 @@ actions like sending a simple text message, making a voice call etc.
 
 ## Compatibility
 
-| Language Version           | Endpoint Version    | Twilio Basic API Version | Twilio Authy API Version |
-| -------------------------- | ------------------- | ------------------------ | ------------------------ |
-| 0.970.0-beta1-SNAPSHOT     | 0.8.0               | 2010-04-01               | v1                       |
+| Ballerina Language Version  | Twilio API Version | Twilio Basic API Version | Twilio Authy API Version |
+| :--------------------------:|:------------------:|:------------------------:|:------------------------:|
+| 0.970.0-beta2               | 0.8.0              | 2010-04-01               | v1                       |
 
 ## Running tests
 
@@ -39,5 +39,5 @@ AUTHY_API_KEY="your_authy_app_production_key"
 #### Run all the test cases
 ```
 ballerina init
-ballerina test twilio
+ballerina test twilio -c /path/to/.ballerina.conf/file
 ```

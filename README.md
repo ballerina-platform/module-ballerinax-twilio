@@ -1,84 +1,44 @@
-# Ballerina Twilio Endpoint
+# Twilio Connector
 
-[Twilio](https://www.twilio.com/) is a cloud communications platform for building SMS, Voice & Messaging applications on 
-an API built for global scale.
-
-### Why would you use a Ballerina endpoint for Twilio
-
-Ballerina Twilio endpoint allows you to access the [Twilio REST API](https://www.twilio.com/docs/api) and perform 
-actions like sending a simple text message, making a voice call etc.
+Twilio connector provides a Ballerina API to access the [Twilio REST API](https://www.twilio.com/docs/api).
 
 ## Compatibility
 
-| Language Version           | Endpoint Version    | Twilio Basic API Version | Twilio Authy API Version |
-| -------------------------- | ------------------- | ------------------------ | ------------------------ |
-| 0.970.0-beta1-SNAPSHOT     | 0.8.0               | 2010-04-01               | v1                       |
+| Ballerina Language Version  | Twilio API Version | Twilio Basic API Version | Twilio Authy API Version |
+| :--------------------------:|:------------------:|:------------------------:|:------------------------:|
+| 0.970.0-beta2               | 0.8.0              | 2010-04-01               | v1                       |
 
-##### Prerequisites
+## Getting started
 
-1. Download the ballerina [distribution](https://ballerinalang.org/downloads/).
+1.  Refer https://ballerina.io/learn/getting-started/ to download and install Ballerina.
+2.  To use Twilio endpoint, you need to provide the following:
 
-2. Create a Twilio account (https://www.twilio.com/) and obtain the following parameters:
-* ACCOUNT SID
-* AUTH TOKEN
+       - Account SId
+       - Auth Token
+       - Authy API Key
 
-3. Create a Twilio Authy app withing Twilio account (https://www.twilio.com/console/authy/applications) and obtain the
-following parameters:
-* PRODUCTION API KEY
+       *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
 
-IMPORTANT: These tokens can be used to make API requests on your own account's behalf. Do not share these credentials.
+4. Create a new Ballerina project by executing the following command.
 
-### Getting started
+      ``<PROJECT_ROOT_DIRECTORY>$ ballerina init``
 
-* Import the package to your ballerina project.
-```
-import wso2/twilio;
-```
-This will download the twilio artifacts from the central repository to your local repository.
+5. Import the Twilio package to your Ballerina program as follows.
 
-### Working with Twilio Endpoint Actions
-
-All the actions return `twilio:<Custom_Object>` or `twilio:TwilioError`. If the action was a success, then the 
-requested object will be returned while the `twilio:TwilioError` will be **empty** and vice-versa.
-
-##### Example
-* Request 
-```
+```ballerina
     import wso2/twilio;
 
-    public function main (string[] args) {
+    function main (string... args) {
         endpoint twilio:Client twilioClient {
              accountSid:config:getAsString(ACCOUNT_SID),
              authToken:config:getAsString(AUTH_TOKEN),
              xAuthyKey:config:getAsString(AUTHY_API_KEY)
         };
-    
+
         var details = twilioClient -> getAccountDetails();
         match details {
-            Account account => {
-                io:println(account);
-                test:assertNotEquals(account.sid, EMPTY_STRING, msg = "Failed to get account details");
-            }
+            Account account => io:println(account);
             TwilioError twilioError => test:assertFail(msg = twilioError.message);
         }
     }
-    
 ```
-
-* Account object
-```
-public type Account {
-    string sid;
-    string name;
-    string status;
-    string ^"type";
-    string createdDate;
-    string updatedDate;
-};
-```
-
-### References
-
-> Visit the [package-twilio](https://github.com/wso2-ballerina/package-twilio) repository for the source code.
-> Visit the [test.bal](https://github.com/wso2-ballerina/package-twilio/blob/master/twilio/tests/test.bal) file
-for the sample test cases.
