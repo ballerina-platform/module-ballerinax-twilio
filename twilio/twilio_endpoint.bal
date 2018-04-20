@@ -35,7 +35,7 @@ public type Client object {
     documentation { Initialize Twilio endpoint
         R{{}} The Twilio connector object
     }
-    public function getClient () returns TwilioConnector;
+    public function getCallerActions () returns TwilioConnector;
 
 };
 
@@ -51,15 +51,15 @@ public function Client::init (TwilioConfiguration twilioConfig) {
     self.twilioConnector.accountSid = twilioConfig.accountSid;
     self.twilioConnector.xAuthyKey = twilioConfig.xAuthyKey;
 
-    twilioConfig.basicClientConfig.targets = [{url:TWILIO_API_BASE_URL}];
+    twilioConfig.basicClientConfig.url = TWILIO_API_BASE_URL;
     http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
     twilioConfig.basicClientConfig.auth = authConfig;
     self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
 
-    twilioConfig.authyClientConfig.targets = [{url:AUTHY_API_BASE_URL}];
+    twilioConfig.authyClientConfig.url = AUTHY_API_BASE_URL;
     self.twilioConnector.authyClient.init(twilioConfig.authyClientConfig);
 }
 
-public function Client::getClient () returns TwilioConnector {
+public function Client::getCallerActions () returns TwilioConnector {
     return self.twilioConnector;
 }

@@ -35,11 +35,15 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
                 json payload => {
                     if (httpResponse.statusCode != http:OK_200 && httpResponse.statusCode != http:CREATED_201) {
                         string errMsg = payload.message.toString();
-                        string errCode = payload.error_code.toString();
+                        string errCode;
+                        if (payload.error_code != ()) {
+                            errCode = payload.error_code.toString();
+                        } else if (payload.error != ()) {
+                            errCode = payload.error.toString();
+                        }
                         TwilioError twilioError = {message: httpResponse.statusCode + WHITE_SPACE
                             + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
                             + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg};
-                        io:println(twilioError.message);
                         return twilioError;
                     }
                     return payload;

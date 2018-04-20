@@ -22,6 +22,7 @@ import ballerina/config;
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
 string userId;
 
+// ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 endpoint Client twilioClient {
     accountSid:config:getAsString(ACCOUNT_SID),
     authToken:config:getAsString(AUTH_TOKEN),
@@ -37,9 +38,7 @@ function testAccountDetails() {
 
     var details = twilioClient -> getAccountDetails();
     match details {
-        Account account => {
-            io:println(account);
-        }
+        Account account => io:println(account);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -57,9 +56,7 @@ function testSendSms() {
 
     var details = twilioClient -> sendSms(fromMobile, toMobile, message);
     match details {
-        SmsResponse smsResponse => {
-            io:println(smsResponse);
-        }
+        SmsResponse smsResponse => io:println(smsResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -77,9 +74,7 @@ function testMakeVoiceCall() {
 
     var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
-        VoiceCallResponse voiceCallResponse => {
-            io:println(voiceCallResponse);
-        }
+        VoiceCallResponse voiceCallResponse => io:println(voiceCallResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -93,10 +88,7 @@ function testAuthyAppDetails() {
 
     var details = twilioClient -> getAuthyAppDetails();
     match details {
-        AuthyAppDetailsResponse authyAppDetailsResponse => {
-            io:println(authyAppDetailsResponse);
-            test:assertTrue(authyAppDetailsResponse.isSuccess, msg = "Failed to get Authy app details");
-        }
+        AuthyAppDetailsResponse authyAppDetailsResponse => io:println(authyAppDetailsResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -132,9 +124,7 @@ function testAuthyUserStatus() {
 
     var details = twilioClient -> getAuthyUserStatus(userId);
     match details {
-        AuthyUserStatusResponse authyUserStatusResponse => {
-            io:println(authyUserStatusResponse);
-        }
+        AuthyUserStatusResponse authyUserStatusResponse => io:println(authyUserStatusResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -149,9 +139,7 @@ function testAuthyUserDelete() {
 
     var details = twilioClient -> deleteAuthyUser(userId);
     match details {
-        AuthyUserDeleteResponse authyUserDeleteResponse => {
-            io:println(authyUserDeleteResponse);
-        }
+        AuthyUserDeleteResponse authyUserDeleteResponse => io:println(authyUserDeleteResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -166,9 +154,7 @@ function testAuthyUserSecret() {
 
     var details = twilioClient -> getAuthyUserSecret(userId);
     match details {
-        AuthyUserSecretResponse authyUserSecretResponse => {
-            io:println(authyUserSecretResponse);
-        }
+        AuthyUserSecretResponse authyUserSecretResponse => io:println(authyUserSecretResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -183,9 +169,7 @@ function testAuthyOtpViaSms() {
 
     var details = twilioClient -> requestOtpViaSms(userId);
     match details {
-        AuthyOtpResponse authyOtpResponse => {
-            io:println(authyOtpResponse);
-        }
+        AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -200,9 +184,7 @@ function testAuthyOtpViaCall() {
 
     var details = twilioClient -> requestOtpViaCall(userId);
     match details {
-        AuthyOtpResponse authyOtpResponse => {
-            io:println(authyOtpResponse);
-        }
+        AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
@@ -219,9 +201,7 @@ function testAuthyOtpVerify() {
 
     var details = twilioClient -> verifyOtp(userId, token);
     match details {
-        AuthyOtpVerifyResponse authyOtpVerifyResponse => {
-            io:println(authyOtpVerifyResponse);
-        }
+        AuthyOtpVerifyResponse authyOtpVerifyResponse => io:println(authyOtpVerifyResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
