@@ -6,7 +6,7 @@ Twilio connector provides a Ballerina API to access the [Twilio REST API](https:
 
 | Ballerina Language Version  | Twilio API Version |
 | :--------------------------:|:------------------:|
-| 0.970.0-beta4               | 0.8.1              |
+| 0.970.0-beta10              | 0.8.2              |
 
 ## Getting started
 
