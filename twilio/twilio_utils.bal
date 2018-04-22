@@ -17,11 +17,6 @@
 import ballerina/util;
 import ballerina/http;
 
-@Description {value:"Add headers to the HTTP request."}
-function constructRequestHeaders(http:Request request, string key, string value) {
-    request.addHeader(key, value);
-}
-
 @Description {value:"Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise."}
 @Param {value:"response: Http response or HTTP connector error with network related errors."}
 @Return {value:"Json payload."}

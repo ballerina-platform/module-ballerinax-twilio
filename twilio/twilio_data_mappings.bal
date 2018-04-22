@@ -15,7 +15,7 @@
 // under the License.package twilio;
 
 function mapJsonToAccount(json jsonPayload) returns Account {
-    Account account = {};
+    Account account;
     account.sid = jsonPayload.sid.toString();
     account.name = jsonPayload.friendly_name.toString();
     account.status = jsonPayload.status.toString();
@@ -26,7 +26,7 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 }
 
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
-    SmsResponse smsResponse = {};
+    SmsResponse smsResponse;
     smsResponse.sid = jsonPayload.sid.toString();
     smsResponse.status = jsonPayload.status.toString();
     smsResponse.price = jsonPayload.price.toString();
@@ -35,7 +35,7 @@ function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
 }
 
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
-    VoiceCallResponse voiceCallResponse = {};
+    VoiceCallResponse voiceCallResponse;
     voiceCallResponse.sid = jsonPayload.sid.toString();
     voiceCallResponse.status = jsonPayload.status.toString();
     voiceCallResponse.price = jsonPayload.price.toString();
@@ -44,7 +44,7 @@ function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse 
 }
 
 function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
-    AuthyAppDetailsResponse authyAppDetailsResponse = {};
+    AuthyAppDetailsResponse authyAppDetailsResponse;
     authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString();
     authyAppDetailsResponse.name = jsonPayload.app.name.toString();
     authyAppDetailsResponse.plan = jsonPayload.app.plan.toString();
@@ -57,7 +57,7 @@ function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDeta
 }
 
 function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
-    AuthyUserAddResponse authyUserAddResponse = {};
+    AuthyUserAddResponse authyUserAddResponse;
     authyUserAddResponse.userId = jsonPayload.user.id.toString();
     authyUserAddResponse.message = jsonPayload.message.toString();
     authyUserAddResponse.isSuccess = <boolean>jsonPayload.success.toString();
@@ -65,7 +65,7 @@ function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddRes
 }
 
 function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
-    AuthyUserStatusResponse authyUserStatusResponse = {};
+    AuthyUserStatusResponse authyUserStatusResponse;
     authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString();
     authyUserStatusResponse.isConfirmed = <boolean>jsonPayload.status.confirmed.toString();
     authyUserStatusResponse.isRegistered = <boolean>jsonPayload.status.registered.toString();
@@ -78,14 +78,14 @@ function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserSta
 }
 
 function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
-    AuthyUserDeleteResponse authyUserDeleteResponse = {};
+    AuthyUserDeleteResponse authyUserDeleteResponse;
     authyUserDeleteResponse.message = jsonPayload.message.toString();
     authyUserDeleteResponse.isSuccess = <boolean>jsonPayload.success.toString();
     return authyUserDeleteResponse;
 }
 
 function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
-    AuthyUserSecretResponse authyUserSecretResponse = {};
+    AuthyUserSecretResponse authyUserSecretResponse;
     authyUserSecretResponse.issuer = jsonPayload.issuer.toString();
     authyUserSecretResponse.label = jsonPayload.label.toString();
     authyUserSecretResponse.qrCodeUrl = jsonPayload.qr_code.toString();
@@ -94,7 +94,7 @@ function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSec
 }
 
 function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
-    AuthyOtpResponse authyOtpResponse = {};
+    AuthyOtpResponse authyOtpResponse;
     authyOtpResponse.message = jsonPayload.message.toString();
     authyOtpResponse.cellphone = jsonPayload.cellphone.toString();
     authyOtpResponse.device = jsonPayload.device.toString();
@@ -104,7 +104,7 @@ function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
 }
 
 function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
-    AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
+    AuthyOtpVerifyResponse authyOtpVerifyResponse;
     authyOtpVerifyResponse.message = jsonPayload.message.toString();
     authyOtpVerifyResponse.token = jsonPayload.token.toString();
     authyOtpVerifyResponse.isSuccess = <boolean>jsonPayload.success.toString();
