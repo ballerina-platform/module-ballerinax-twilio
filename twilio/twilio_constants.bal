@@ -49,7 +49,6 @@
 @final string AUTHORIZATION = "Authorization";
 @final string BASIC = "Basic";
 @final string CONTENT_TYPE = "Content-Type";
-@final string APPLICATION_URL_FROM_ENCODED = "application/x-www-form-urlencoded";
 @final string X_AUTHY_API_KEY = "X-Authy-API-Key";
 
 // API related parameters

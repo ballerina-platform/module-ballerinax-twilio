@@ -24,7 +24,7 @@ public type Client object {
 
     public {
         TwilioConfiguration twilioConfig;
-        TwilioConnector twilioConnector = new();
+        TwilioConnector twilioConnector = new;
     }
 
     documentation { Initialize Twilio endpoint
