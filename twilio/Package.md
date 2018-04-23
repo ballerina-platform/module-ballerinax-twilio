@@ -5,7 +5,7 @@ Allows connecting Twilio REST API.
 
 Twilio connector provides a Ballerina API to access the Twilio REST API. This connector provides facility to send SMS, 
 make voice calls, send OTP via SMS and voice call, verify OTP, send user secret QR codes etc. The following section 
-provide you the details on how to use Ballerina Twilio connector.
+provides you the details on how to use Ballerina Twilio connector.
 
 ## Compatibility
 
