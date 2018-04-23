@@ -9,9 +9,9 @@ provides you the details on how to use Ballerina Twilio connector.
 
 ## Compatibility
 
-| Ballerina Language Version  | Twilio API Version |
-| :--------------------------:|:------------------:|
-| 0.970.0-beta10              | 0.8.8              |
+| Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
+|:---------------------------:|:------------------------:|:------------------------:|
+| 0.970.0-beta10              | 2010-04-01               | v1                       |
 
 ## Getting started
 
