@@ -20,7 +20,8 @@ import ballerina/mime;
 documentation {Object to initialize the connection with Twilio.
     F{{accountSid}} Unique identifier of the account
     F{{xAuthyKey}} Unique identifier of Authy API account
-    F{{basicClient}} Http client endpoint
+    F{{basicClient}} Http client endpoint for basic api
+    F{{authyClient}} Http client endpoint for authy api
 }
 public type TwilioConnector object {
 
@@ -32,7 +33,7 @@ public type TwilioConnector object {
     }
 
     documentation { Return account details of the given account-sid
-        R{{account}} Account object with basic details
+        R{{}} Account object with basic details
         R{{}} Error occured when getting account details
     }
     public function getAccountDetails() returns (Account|TwilioError);
@@ -107,6 +108,7 @@ public type TwilioConnector object {
 
     documentation { Verify OTP for the user of Authy for the given user-id
         P{{userId}} Unique identifier of the user
+        P{{token}} The OTP token to be verified
         R{{}} Authy OTP verify response object with basic details
         R{{}} Error occured when verifying OTP
     }
