@@ -1,12 +1,17 @@
 # Twilio Connector
 
-Twilio connector provides a Ballerina API to access the [Twilio REST API](https://www.twilio.com/docs/api).
+Allows connecting Twilio REST API.
+
+
+Twilio connector provides a Ballerina API to access the Twilio REST API. This connector provides facility to send SMS, 
+make voice calls, send OTP via SMS and voice call, verify OTP, send user secret QR codes etc. The following section 
+provides you the details on how to use Ballerina Twilio connector.
 
 ## Compatibility
 
 | Ballerina Language Version  | Twilio API Version |
 | :--------------------------:|:------------------:|
-| 0.970.0-beta10              | 0.8.2              |
+| 0.970.0-beta10              | 0.8.8              |
 
 ## Getting started
 
@@ -22,24 +27,26 @@ Twilio connector provides a Ballerina API to access the [Twilio REST API](https:
 
 3. Create a new Ballerina project by executing the following command.
 
-      ``<PROJECT_ROOT_DIRECTORY>$ ballerina init``
+	```shell
+	   <PROJECT_ROOT_DIRECTORY>$ ballerina init
+	```
 
 4. Import the Twilio package to your Ballerina program as follows.
 
-```ballerina
-    import wso2/twilio;
+	```ballerina
+	   import wso2/twilio;
 
-    function main (string... args) {
-        endpoint twilio:Client twilioClient {
-             accountSid:config:getAsString(ACCOUNT_SID),
-             authToken:config:getAsString(AUTH_TOKEN),
-             xAuthyKey:config:getAsString(AUTHY_API_KEY)
-        };
+	   function main (string... args) {
+		endpoint twilio:Client twilioClient {
+		     accountSid:config:getAsString(ACCOUNT_SID),
+		     authToken:config:getAsString(AUTH_TOKEN),
+		     xAuthyKey:config:getAsString(AUTHY_API_KEY)
+		};
 
-        var details = twilioClient -> getAccountDetails();
-        match details {
-            Account account => io:println(account);
-            TwilioError twilioError => test:assertFail(msg = twilioError.message);
-        }
-    }
-```
+		var details = twilioClient -> getAccountDetails();
+		match details {
+		    Account account => io:println(account);
+		    TwilioError twilioError => test:assertFail(msg = twilioError.message);
+		}
+	   }
+	```

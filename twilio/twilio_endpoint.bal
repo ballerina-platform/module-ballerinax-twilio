@@ -39,6 +39,13 @@ public type Client object {
 
 };
 
+documentation {
+    F{{accountSid}} Unique identifier of the account
+    F{{authToken}} The authentication token of the account
+    F{{xAuthyKey}} The authentication token for the Authy API
+    F{{basicClientConfig}} The http client endpoint for basic configuration
+    F{{authyClientConfig}} The http client endpoint for Authy configuration
+}
 public type TwilioConfiguration {
     string accountSid;
     string authToken;

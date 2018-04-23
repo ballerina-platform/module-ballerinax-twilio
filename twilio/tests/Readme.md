@@ -7,7 +7,7 @@ actions like sending a simple text message, making a voice call etc.
 
 | Ballerina Language Version  | Twilio API Version | Twilio Basic API Version | Twilio Authy API Version |
 | :--------------------------:|:------------------:|:------------------------:|:------------------------:|
-| 0.970.0-beta10              | 0.8.2              | 2010-04-01               | v1                       |
+| 0.970.0-beta10              | 0.8.8              | 2010-04-01               | v1                       |
 
 ## Running tests
 
