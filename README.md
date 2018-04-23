@@ -1,16 +1,19 @@
 # Twilio Connector
 
-Twilio connector provides a Ballerina API to access the [Twilio REST API](https://www.twilio.com/docs/api).
+Twilio connector provides a Ballerina API to access the Twilio REST API. This connector provides facility to send SMS, 
+make voice calls, send OTP via SMS and voice call, verify OTP, send user secret QR codes etc. The following section 
+provide you the details on how to use Ballerina Twilio connector.
 
 ## Compatibility
 
-| Ballerina Language Version  | Twilio API Version | Twilio Basic API Version | Twilio Authy API Version |
-| :--------------------------:|:------------------:|:------------------------:|:------------------------:|
-| 0.970.0-beta10              | 0.8.2              | 2010-04-01               | v1                       |
+| Ballerina Language Version  | Twilio API Version |
+| :--------------------------:|:------------------:|
+| 0.970.0-beta10              | 0.8.8              |
 
 ## Getting started
 
-1.  Refer https://ballerina.io/learn/getting-started/ to download and install Ballerina.
+1.  Refer the [Getting Started](https://ballerina.io/learn/getting-started/) guide to download and install Ballerina.
+
 2.  To use Twilio endpoint, you need to provide the following:
 
        - Account SId
@@ -19,26 +22,28 @@ Twilio connector provides a Ballerina API to access the [Twilio REST API](https:
 
        *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
 
-4. Create a new Ballerina project by executing the following command.
+3. Create a new Ballerina project by executing the following command.
 
-      ``<PROJECT_ROOT_DIRECTORY>$ ballerina init``
+	```shell
+	   <PROJECT_ROOT_DIRECTORY>$ ballerina init
+	```
 
-5. Import the Twilio package to your Ballerina program as follows.
+4. Import the Twilio package to your Ballerina program as follows.
 
-```ballerina
-    import wso2/twilio;
+	```ballerina
+	   import wso2/twilio;
 
-    function main (string... args) {
-        endpoint twilio:Client twilioClient {
-             accountSid:config:getAsString(ACCOUNT_SID),
-             authToken:config:getAsString(AUTH_TOKEN),
-             xAuthyKey:config:getAsString(AUTHY_API_KEY)
-        };
+	   function main (string... args) {
+		endpoint twilio:Client twilioClient {
+		     accountSid:config:getAsString(ACCOUNT_SID),
+		     authToken:config:getAsString(AUTH_TOKEN),
+		     xAuthyKey:config:getAsString(AUTHY_API_KEY)
+		};
 
-        var details = twilioClient -> getAccountDetails();
-        match details {
-            Account account => io:println(account);
-            TwilioError twilioError => test:assertFail(msg = twilioError.message);
-        }
-    }
-```
+		var details = twilioClient -> getAccountDetails();
+		match details {
+		    Account account => io:println(account);
+		    TwilioError twilioError => test:assertFail(msg = twilioError.message);
+		}
+	   }
+	```
