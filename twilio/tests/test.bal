@@ -36,7 +36,7 @@ function testAccountDetails() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
 
-    var details = twilioClient -> getAccountDetails();
+    var details = twilioClient->getAccountDetails();
     match details {
         Account account => io:println(account);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -55,7 +55,7 @@ function testSendSms() {
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
     string message = config:getAsString("SAMPLE_MESSAGE");
 
-    var details = twilioClient -> sendSms(fromMobile, toMobile, message);
+    var details = twilioClient->sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => io:println(smsResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -74,7 +74,7 @@ function testMakeVoiceCall() {
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
     string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
 
-    var details = twilioClient -> makeVoiceCall(fromMobile, toMobile, twimlUrl);
+    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => io:println(voiceCallResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -88,7 +88,7 @@ function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyAppDetails()");
 
-    var details = twilioClient -> getAuthyAppDetails();
+    var details = twilioClient->getAuthyAppDetails();
     match details {
         AuthyAppDetailsResponse authyAppDetailsResponse => io:println(authyAppDetailsResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -107,7 +107,7 @@ function testAuthyUserAdd() {
     string phone = config:getAsString("SAMPLE_USER_PHONE");
     string countryCode = config:getAsString("SAMPLE_USER_COUNTRY_CODE");
 
-    var details = twilioClient -> addAuthyUser(email, phone, countryCode);
+    var details = twilioClient->addAuthyUser(email, phone, countryCode);
     match details {
         AuthyUserAddResponse authyUserAddResponse => {
             io:println(authyUserAddResponse);
@@ -125,7 +125,7 @@ function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserStatus()");
 
-    var details = twilioClient -> getAuthyUserStatus(userId);
+    var details = twilioClient->getAuthyUserStatus(userId);
     match details {
         AuthyUserStatusResponse authyUserStatusResponse => io:println(authyUserStatusResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -134,13 +134,14 @@ function testAuthyUserStatus() {
 
 @test:Config {
     groups:["authy"],
-    dependsOn:["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", "testAuthyOtpViaCall", "testAuthyOtpVerify"]
+    dependsOn:["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
+    "testAuthyOtpViaCall", "testAuthyOtpVerify"]
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> deleteAuthyUser()");
 
-    var details = twilioClient -> deleteAuthyUser(userId);
+    var details = twilioClient->deleteAuthyUser(userId);
     match details {
         AuthyUserDeleteResponse authyUserDeleteResponse => io:println(authyUserDeleteResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -155,7 +156,7 @@ function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserSecret()");
 
-    var details = twilioClient -> getAuthyUserSecret(userId);
+    var details = twilioClient->getAuthyUserSecret(userId);
     match details {
         AuthyUserSecretResponse authyUserSecretResponse => io:println(authyUserSecretResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -170,7 +171,7 @@ function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> requestOtpViaSms()");
 
-    var details = twilioClient -> requestOtpViaSms(userId);
+    var details = twilioClient->requestOtpViaSms(userId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -185,7 +186,7 @@ function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> requestOtpViaCall()");
 
-    var details = twilioClient -> requestOtpViaCall(userId);
+    var details = twilioClient->requestOtpViaCall(userId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -202,7 +203,7 @@ function testAuthyOtpVerify() {
 
     string token = "8875458";
 
-    var details = twilioClient -> verifyOtp(userId, token);
+    var details = twilioClient->verifyOtp(userId, token);
     match details {
         AuthyOtpVerifyResponse authyOtpVerifyResponse => io:println(authyOtpVerifyResponse);
         // This always returns a TwilioError since the token should be what the user get.

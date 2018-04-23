@@ -36,7 +36,7 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
                         } else if (payload.error != ()) {
                             errCode = payload.error.toString();
                         }
-                        TwilioError twilioError = {message: httpResponse.statusCode + WHITE_SPACE
+                        TwilioError twilioError = {message:httpResponse.statusCode + WHITE_SPACE
                             + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
                             + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg};
                         return twilioError;
@@ -71,7 +71,8 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     match encodedVar {
         string encoded => encodedString = encoded;
         error err => {
-            TwilioError twilioError = {message:"Error occurred when encoding the value "  + value + " with charset " + CHARSET_UTF8};
+            TwilioError twilioError = {message:"Error occurred when encoding the value " + value + " with charset " +
+                CHARSET_UTF8};
             twilioError.cause = err.cause;
             return twilioError;
         }
