@@ -1,6 +1,6 @@
 # Twilio Connector
 
-Allows you to access the Twilio REST API
+Allows connecting the Twilio REST API.
 
 
 Twilio connector provides a Ballerina API to access the Twilio REST API. This connector provides facility to send SMS, 
