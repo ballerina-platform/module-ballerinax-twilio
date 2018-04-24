@@ -35,7 +35,7 @@ provide you the details on how to use Ballerina Twilio connector.
 
 	   function main (string... args) {
 		endpoint twilio:Client twilioClient {
-		     accountSid:config:getAsString(ACCOUNT_SID),
+		     accountSId:config:getAsString(ACCOUNT_SID),
 		     authToken:config:getAsString(AUTH_TOKEN),
 		     xAuthyKey:config:getAsString(AUTHY_API_KEY)
 		};
