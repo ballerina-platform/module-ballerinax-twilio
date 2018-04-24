@@ -18,7 +18,7 @@ import ballerina/http;
 import ballerina/mime;
 
 documentation {Object to initialize the connection with Twilio.
-    F{{accountSid}} Unique identifier of the account
+    F{{accountSId}} Unique identifier of the account
     F{{xAuthyKey}} Unique identifier of Authy API account
     F{{basicClient}} Http client endpoint for basic api
     F{{authyClient}} Http client endpoint for authy api
@@ -26,7 +26,7 @@ documentation {Object to initialize the connection with Twilio.
 public type TwilioConnector object {
 
     public {
-        string accountSid;
+        string accountSId;
         string xAuthyKey;
         http:Client basicClient;
         http:Client authyClient;
@@ -107,7 +107,7 @@ public type TwilioConnector object {
 
 public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
     endpoint http:Client httpClient = self.basicClient;
-    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + ACCOUNT_DETAILS;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
     var response = httpClient->get(requestPath);
     json jsonResponse = check parseResponseToJson(response);
     return mapJsonToAccount(jsonResponse);
@@ -121,9 +121,9 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
     requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
     requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
-    req.setStringPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+    req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + SMS_SEND;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
     var response = httpClient->post(requestPath, request = req);
     json jsonResponse = check parseResponseToJson(response);
     return mapJsonToSmsResponse(jsonResponse);
@@ -139,9 +139,9 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
     requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
     requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
-    req.setStringPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+    req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSid + VOICE_CALL;
+    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + VOICE_CALL;
     var response = httpClient->post(requestPath, request = req);
     json jsonResponse = check parseResponseToJson(response);
     return mapJsonToVoiceCallResponse(jsonResponse);
@@ -170,7 +170,7 @@ public function TwilioConnector::addAuthyUser(string email, string phone, string
     requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
     requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
     requestBody = check createUrlEncodedRequestBody(requestBody, "user[country_code]", countryCode);
-    req.setStringPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+    req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
     string requestPath = AUTHY_USER_API + USER_ADD;
     var response = httpClient->post(requestPath, request = req);

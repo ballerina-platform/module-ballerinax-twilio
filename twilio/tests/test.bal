@@ -24,7 +24,7 @@ string userId;
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 endpoint Client twilioClient {
-    accountSid:config:getAsString(ACCOUNT_SID),
+    accountSId:config:getAsString(ACCOUNT_SID),
     authToken:config:getAsString(AUTH_TOKEN),
     xAuthyKey:config:getAsString(AUTHY_API_KEY)
 };

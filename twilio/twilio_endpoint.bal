@@ -40,14 +40,14 @@ public type Client object {
 };
 
 documentation {
-    F{{accountSid}} Unique identifier of the account
+    F{{accountSId}} Unique identifier of the account
     F{{authToken}} The authentication token of the account
     F{{xAuthyKey}} The authentication token for the Authy API
     F{{basicClientConfig}} The http client endpoint for basic configuration
     F{{authyClientConfig}} The http client endpoint for Authy configuration
 }
 public type TwilioConfiguration {
-    string accountSid;
+    string accountSId;
     string authToken;
     string xAuthyKey;
     http:ClientEndpointConfig basicClientConfig;
@@ -55,11 +55,11 @@ public type TwilioConfiguration {
 };
 
 public function Client::init(TwilioConfiguration twilioConfig) {
-    self.twilioConnector.accountSid = twilioConfig.accountSid;
+    self.twilioConnector.accountSId = twilioConfig.accountSId;
     self.twilioConnector.xAuthyKey = twilioConfig.xAuthyKey;
 
     twilioConfig.basicClientConfig.url = TWILIO_API_BASE_URL;
-    http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSid, password:twilioConfig.authToken};
+    http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSId, password:twilioConfig.authToken};
     twilioConfig.basicClientConfig.auth = authConfig;
     self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
 
