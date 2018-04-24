@@ -43,9 +43,9 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
                     }
                     return payload;
                 }
-                http:PayloadError payloadError => {
+                http:error err => {
                     TwilioError twilioError = {message:"Error occurred when parsing response to json."};
-                    twilioError.cause = payloadError.cause;
+                    twilioError.cause = err.cause;
                     return twilioError;
                 }
             }
