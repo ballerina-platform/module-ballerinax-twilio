@@ -15,10 +15,11 @@ The `wso2/twilio` package contains operations to get Authy app details, add a us
 user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
-|                    |    Version     |  
-| :-----------------:|:--------------:| 
-| Ballerina Language | 0.970.0-beta15 |
-| Twilio Basic API  |    v1         |  
+|                         |    Version     |  
+| :----------------------:|:--------------:| 
+| Ballerina Language      | 0.970.0-beta15 |
+| Twilio Basic API        |    2010-04-01  |  
+|Twilio Authy API Version |      v1        |
 
 ## Sample
 The Twilio connector can be used to send SMS, add a user for Authy, and request OTP via SMS. First, import the 
