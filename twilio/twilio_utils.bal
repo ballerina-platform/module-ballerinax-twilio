@@ -21,7 +21,7 @@ documentation { Check for HTTP response and if response is success parse HTTP re
     R{{payload}} Json payload
     R{{twilioError}} TwilioError if anything wrong happen when HTTP client invocation or parsing response to json
 }
-function parseResponseToJson(http:Response|http:HttpConnectorError response) returns (json|TwilioError) {
+function parseResponseToJson(http:Response|error response) returns (json|TwilioError) {
     json result = {};
     match response {
         http:Response httpResponse => {
@@ -43,16 +43,16 @@ function parseResponseToJson(http:Response|http:HttpConnectorError response) ret
                     }
                     return payload;
                 }
-                http:error err => {
+                error err => {
                     TwilioError twilioError = {message:"Error occurred when parsing response to json."};
                     twilioError.cause = err.cause;
                     return twilioError;
                 }
             }
         }
-        http:HttpConnectorError httpError => {
+        error err => {
             TwilioError twilioError = {message:"Error occurred when HTTP client invocation."};
-            twilioError.cause = httpError.cause;
+            twilioError.cause = err.cause;
             return twilioError;
         }
     }
