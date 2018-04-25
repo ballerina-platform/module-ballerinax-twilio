@@ -22,15 +22,10 @@ user secret, request OTP via SMS, request OTP via call, and verify OTP.
 |Twilio Authy API Version |      v1        |
 
 ## Sample
-The Twilio connector can be used to send SMS, add a user for Authy, and request OTP via SMS. First, import the 
-`wso2/twilio` package into the Ballerina project.
+First, import the `wso2/twilio` package into the Ballerina project.
 ```ballerina
 import wso2/twilio;
 ```
-Instantiate the connector by giving authentication details in the HTTP client config, which has built-in support for 
-BasicAuth and OAuth 2.0. Gmail uses OAuth 2.0 to authenticate and authorize requests. The Gmail connector can be 
-minimally instantiated in the HTTP client config using the access token or using the client ID, client secret, 
-and refresh token.
 
 **Obtaining Tokens to Run the Sample**
 
