@@ -1,51 +1,73 @@
-# Twilio Connector
+Connects to Twilio from Ballerina. 
 
-Allows connecting Twilio REST API.
+# Package Overview
 
-Twilio connector provides a Ballerina API to access the Twilio REST API. This connector provides facility to send SMS, 
-make voice calls, send OTP via SMS and voice call, verify OTP, send user secret QR codes etc. The following section 
-provides you the details on how to use Ballerina Twilio connector.
+This package provides a Ballerina API for the Twilio REST API. It provides the ability to send SMS, make voice calls, 
+send OTP via SMS or call, verify OTP, etc.
+
+**Basic Operations**
+
+The `wso2/twilio` package contains operations to get the Twilio account details, send SMS, and make voice calls.
+
+**Authy Operations**
+
+The `wso2/twilio` package contains operations to get Authy app details, add a user, delete a user, get user status, get 
+user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
+|                    |    Version     |  
+| :-----------------:|:--------------:| 
+| Ballerina Language | 0.970.0-beta15 |
+| Twilio Basic API  |    v1         |  
 
-| Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
-|:---------------------------:|:------------------------:|:------------------------:|
-| 0.970.0-beta12              | 2010-04-01               | v1                       |
+## Sample
+The Twilio connector can be used to send SMS, add a user for Authy, and request OTP via SMS. First, import the 
+`wso2/twilio` package into the Ballerina project.
+```ballerina
+import wso2/twilio;
+```
+Instantiate the connector by giving authentication details in the HTTP client config, which has built-in support for 
+BasicAuth and OAuth 2.0. Gmail uses OAuth 2.0 to authenticate and authorize requests. The Gmail connector can be 
+minimally instantiated in the HTTP client config using the access token or using the client ID, client secret, 
+and refresh token.
 
-## Getting started
+**Obtaining Tokens to Run the Sample**
 
-1.  Refer the [Getting Started](https://ballerina.io/learn/getting-started/) guide to download and install Ballerina.
+1. Visit [Twilio](https://www.twilio.com/) and create a Twilio Account.
+2. Obtain the following credentials from the Twilio dashboard:
+    * Account SId
+    * Auth Token
+    * X Authy API Secret
 
-2.  To use Twilio endpoint, you need to provide the following:
-
-       - Account SId
-       - Auth Token
-       - Authy API Key
-
-       *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
-
-3. Create a new Ballerina project by executing the following command.
-
-	```shell
-	   <PROJECT_ROOT_DIRECTORY>$ ballerina init
-	```
-
-4. Import the Twilio package to your Ballerina program as follows.
-
-	```ballerina
-	   import wso2/twilio;
-
-	   function main (string... args) {
-		endpoint twilio:Client twilioClient {
-		     accountSid:config:getAsString(ACCOUNT_SID),
-		     authToken:config:getAsString(AUTH_TOKEN),
-		     xAuthyKey:config:getAsString(AUTHY_API_KEY)
-		};
-
-		var details = twilioClient -> getAccountDetails();
-		match details {
-		    Account account => io:println(account);
-		    TwilioError twilioError => test:assertFail(msg = twilioError.message);
-		}
-	   }
-	```
+You can now enter the credentials in the Twilio endpoint configuration.
+```ballerina
+endpoint twilio:Client twilioEP {
+    accountSId:accountSId,
+    authToken:authToken,
+    xAuthyKey:xAuthyKey
+};
+```
+The `sendSMS` function sends an SMS to a given mobile number from another given mobile number using the specified message.
+```ballerina
+var details = twilioClient->sendSms(fromMobile, toMobile, message);
+match details {
+    SmsResponse smsResponse => io:println(smsResponse);
+    TwilioError twilioError => io:println(twilioError);
+}
+```
+The `addAuthyUser` function adds an Authy user with the given email address, phone number, and country code.
+```ballerina
+var details = twilioClient->addAuthyUser(email, phone, countryCode);
+match details {
+    AuthyUserAddResponse authyUserAddResponse => io:println(authyUserAddResponse);
+    TwilioError twilioError => io:println(twilioError);
+}
+```
+The `requestOtpViaSms` function sends an OTP SMS to the mobile number of the given user ID.
+```ballerina
+var details = twilioClient->requestOtpViaSms(userId);
+match details {
+    AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
+    TwilioError twilioError => io:println(twilioError);
+}
+```
