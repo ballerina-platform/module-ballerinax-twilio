@@ -2,8 +2,9 @@ Connects to Twilio from Ballerina.
 
 # Package Overview
 
-This package provides a Ballerina API for the Twilio REST API. It provides the ability to send SMS, make voice calls, 
-send OTP via SMS or call, verify OTP, etc.
+The Twilio connector allows you to send SMS, send voice message and send OTP messages through the Twilio REST API.
+It handles basic authentication. You can also send user secrets via SMS or voice message, verify OTP, add user,
+delete user using the connector.
 
 **Basic Operations**
 
@@ -15,11 +16,11 @@ The `wso2/twilio` package contains operations to get Authy app details, add a us
 user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
-|                         |    Version     |  
-| :----------------------:|:--------------:| 
-| Ballerina Language      | 0.970.0-beta15 |
-| Twilio Basic API        |    2010-04-01  |  
-|Twilio Authy API Version |      v1        |
+|                          |    Version     |
+| :-----------------------:|:--------------:|
+| Ballerina Language       | 0.970.0-rc1    |
+| Twilio Basic API         | 2010-04-01     |
+| Twilio Authy API Version | v1             |
 
 ## Sample
 First, import the `wso2/twilio` package into the Ballerina project.
