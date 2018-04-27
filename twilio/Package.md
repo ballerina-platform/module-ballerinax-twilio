@@ -2,9 +2,8 @@ Connects to Twilio from Ballerina.
 
 # Package Overview
 
-The Twilio connector allows you to send SMS, voice and OTP messages through the Twilio REST API. It handles basic
-authentication. You can also send user secrets via SMS or voice message, verify OTP, add and delete user using the
-connector.
+The Twilio connector allows you to send SMS, voice, and OTP messages through the Twilio REST API. You can also send
+user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
 
 **Basic Operations**
 
@@ -17,8 +16,8 @@ user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
 |                          |    Version     |
-| :-----------------------:|:--------------:|
-| Ballerina Language       | 0.970.0-rc1    |
+|:------------------------:|:--------------:|
+| Ballerina Language       | 0.970.0        |
 | Twilio Basic API         | 2010-04-01     |
 | Twilio Authy API Version | v1             |
 
