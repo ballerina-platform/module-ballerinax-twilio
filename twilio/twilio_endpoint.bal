@@ -28,9 +28,9 @@ public type Client object {
     }
 
     documentation { Initialize Twilio endpoint
-        P{{twilioConfig}} Twilio configuraion
+        P{{config}} Twilio configuraion
     }
-    public function init(TwilioConfiguration twilioConfig);
+    public function init(TwilioConfiguration config);
 
     documentation { Initialize Twilio endpoint
         R{{}} The Twilio connector object
@@ -54,17 +54,17 @@ public type TwilioConfiguration {
     http:ClientEndpointConfig authyClientConfig;
 };
 
-public function Client::init(TwilioConfiguration twilioConfig) {
-    self.twilioConnector.accountSId = twilioConfig.accountSId;
-    self.twilioConnector.xAuthyKey = twilioConfig.xAuthyKey;
+public function Client::init(TwilioConfiguration config) {
+    self.twilioConnector.accountSId = config.accountSId;
+    self.twilioConnector.xAuthyKey = config.xAuthyKey;
 
-    twilioConfig.basicClientConfig.url = TWILIO_API_BASE_URL;
-    http:AuthConfig authConfig = {scheme:"basic", username:twilioConfig.accountSId, password:twilioConfig.authToken};
-    twilioConfig.basicClientConfig.auth = authConfig;
-    self.twilioConnector.basicClient.init(twilioConfig.basicClientConfig);
+    config.basicClientConfig.url = TWILIO_API_BASE_URL;
+    http:AuthConfig authConfig = {scheme:http:BASIC_AUTH, username:config.accountSId, password:config.authToken};
+    config.basicClientConfig.auth = authConfig;
+    self.twilioConnector.basicClient.init(config.basicClientConfig);
 
-    twilioConfig.authyClientConfig.url = AUTHY_API_BASE_URL;
-    self.twilioConnector.authyClient.init(twilioConfig.authyClientConfig);
+    config.authyClientConfig.url = AUTHY_API_BASE_URL;
+    self.twilioConnector.authyClient.init(config.authyClientConfig);
 }
 
 public function Client::getCallerActions() returns TwilioConnector {
