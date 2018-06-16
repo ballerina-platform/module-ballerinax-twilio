@@ -24,13 +24,13 @@ string testUserId;
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 endpoint Client twilioClient {
-    accountSId:config:getAsString(ACCOUNT_SID),
-    authToken:config:getAsString(AUTH_TOKEN),
-    xAuthyKey:config:getAsString(AUTHY_API_KEY)
+    accountSId: config:getAsString(ACCOUNT_SID),
+    authToken: config:getAsString(AUTH_TOKEN),
+    xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
 
 @test:Config {
-    groups:["basic", "root"]
+    groups: ["basic", "root"]
 }
 function testAccountDetails() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -44,8 +44,8 @@ function testAccountDetails() {
 }
 
 @test:Config {
-    groups:["basic"],
-    dependsOn:["testAccountDetails"]
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
 }
 function testSendSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -63,8 +63,8 @@ function testSendSms() {
 }
 
 @test:Config {
-    groups:["basic"],
-    dependsOn:["testAccountDetails"]
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
 }
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -82,7 +82,7 @@ function testMakeVoiceCall() {
 }
 
 @test:Config {
-    groups:["authy", "root"]
+    groups: ["authy", "root"]
 }
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -96,8 +96,8 @@ function testAuthyAppDetails() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyAppDetails"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyAppDetails"]
 }
 function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -118,8 +118,8 @@ function testAuthyUserAdd() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -133,8 +133,8 @@ function testAuthyUserStatus() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
     "testAuthyOtpViaCall", "testAuthyOtpVerify"]
 }
 function testAuthyUserDelete() {
@@ -149,8 +149,8 @@ function testAuthyUserDelete() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -164,8 +164,8 @@ function testAuthyUserSecret() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -179,8 +179,8 @@ function testAuthyOtpViaSms() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -194,8 +194,8 @@ function testAuthyOtpViaCall() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpVerify() {
     io:println("\n ---------------------------------------------------------------------------");

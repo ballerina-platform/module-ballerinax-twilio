@@ -65,7 +65,7 @@ public type TwilioConnector object {
         R{{}} If success, returns Authy user add response object with basic details, else returns TwilioError object
     }
     public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|
-            TwilioError);
+                TwilioError);
 
     documentation { Get the user details of Authy for the given user-id
         P{{userId}} Unique identifier of the user
@@ -130,7 +130,7 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
 }
 
 public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml)
-    returns (VoiceCallResponse|TwilioError) {
+                                     returns (VoiceCallResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.basicClient;
     http:Request req = new;
@@ -160,7 +160,7 @@ public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsRe
 }
 
 public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode)
-    returns (AuthyUserAddResponse|TwilioError) {
+                                     returns (AuthyUserAddResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;

@@ -59,7 +59,7 @@ public function Client::init(TwilioConfiguration config) {
     self.twilioConnector.xAuthyKey = config.xAuthyKey;
 
     config.basicClientConfig.url = TWILIO_API_BASE_URL;
-    http:AuthConfig authConfig = {scheme:http:BASIC_AUTH, username:config.accountSId, password:config.authToken};
+    http:AuthConfig authConfig = { scheme: http:BASIC_AUTH, username: config.accountSId, password: config.authToken };
     config.basicClientConfig.auth = authConfig;
     self.twilioConnector.basicClient.init(config.basicClientConfig);
 
