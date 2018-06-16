@@ -20,17 +20,17 @@ import ballerina/test;
 import ballerina/config;
 
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
-string userId;
+string testUserId;
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 endpoint Client twilioClient {
-    accountSId:config:getAsString(ACCOUNT_SID),
-    authToken:config:getAsString(AUTH_TOKEN),
-    xAuthyKey:config:getAsString(AUTHY_API_KEY)
+    accountSId: config:getAsString(ACCOUNT_SID),
+    authToken: config:getAsString(AUTH_TOKEN),
+    xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
 
 @test:Config {
-    groups:["basic", "root"]
+    groups: ["basic", "root"]
 }
 function testAccountDetails() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -44,8 +44,8 @@ function testAccountDetails() {
 }
 
 @test:Config {
-    groups:["basic"],
-    dependsOn:["testAccountDetails"]
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
 }
 function testSendSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -63,8 +63,8 @@ function testSendSms() {
 }
 
 @test:Config {
-    groups:["basic"],
-    dependsOn:["testAccountDetails"]
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
 }
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -82,7 +82,7 @@ function testMakeVoiceCall() {
 }
 
 @test:Config {
-    groups:["authy", "root"]
+    groups: ["authy", "root"]
 }
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -96,8 +96,8 @@ function testAuthyAppDetails() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyAppDetails"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyAppDetails"]
 }
 function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -111,21 +111,21 @@ function testAuthyUserAdd() {
     match details {
         AuthyUserAddResponse authyUserAddResponse => {
             io:println(authyUserAddResponse);
-            userId = authyUserAddResponse.userId;
+            testUserId = authyUserAddResponse.userId;
         }
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserStatus()");
 
-    var details = twilioClient->getAuthyUserStatus(userId);
+    var details = twilioClient->getAuthyUserStatus(testUserId);
     match details {
         AuthyUserStatusResponse authyUserStatusResponse => io:println(authyUserStatusResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -133,15 +133,15 @@ function testAuthyUserStatus() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
     "testAuthyOtpViaCall", "testAuthyOtpVerify"]
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> deleteAuthyUser()");
 
-    var details = twilioClient->deleteAuthyUser(userId);
+    var details = twilioClient->deleteAuthyUser(testUserId);
     match details {
         AuthyUserDeleteResponse authyUserDeleteResponse => io:println(authyUserDeleteResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -149,14 +149,14 @@ function testAuthyUserDelete() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAuthyUserSecret()");
 
-    var details = twilioClient->getAuthyUserSecret(userId);
+    var details = twilioClient->getAuthyUserSecret(testUserId);
     match details {
         AuthyUserSecretResponse authyUserSecretResponse => io:println(authyUserSecretResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -164,14 +164,14 @@ function testAuthyUserSecret() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> requestOtpViaSms()");
 
-    var details = twilioClient->requestOtpViaSms(userId);
+    var details = twilioClient->requestOtpViaSms(testUserId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -179,14 +179,14 @@ function testAuthyOtpViaSms() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> requestOtpViaCall()");
 
-    var details = twilioClient->requestOtpViaCall(userId);
+    var details = twilioClient->requestOtpViaCall(testUserId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
         TwilioError twilioError => test:assertFail(msg = twilioError.message);
@@ -194,8 +194,8 @@ function testAuthyOtpViaCall() {
 }
 
 @test:Config {
-    groups:["authy"],
-    dependsOn:["testAuthyUserAdd"]
+    groups: ["authy"],
+    dependsOn: ["testAuthyUserAdd"]
 }
 function testAuthyOtpVerify() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -203,7 +203,7 @@ function testAuthyOtpVerify() {
 
     string token = "8875458";
 
-    var details = twilioClient->verifyOtp(userId, token);
+    var details = twilioClient->verifyOtp(testUserId, token);
     match details {
         AuthyOtpVerifyResponse authyOtpVerifyResponse => io:println(authyOtpVerifyResponse);
         // This always returns a TwilioError since the token should be what the user get.

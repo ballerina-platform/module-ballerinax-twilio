@@ -7,7 +7,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 0.970.0                     | 2010-04-01               | v1                       |
+| 0.975.0                     | 2010-04-01               | v1                       |
 
 ## Getting started
 
@@ -30,14 +30,14 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 4. Import the Twilio package to your Ballerina program as follows.
 
 	```ballerina
-	   import wso2/twilio;
+	    import wso2/twilio;
 
-	   function main (string... args) {
-		endpoint twilio:Client twilioClient {
-		     accountSId:config:getAsString(ACCOUNT_SID),
-		     authToken:config:getAsString(AUTH_TOKEN),
-		     xAuthyKey:config:getAsString(AUTHY_API_KEY)
-		};
+	    function main (string... args) {
+            endpoint twilio:Client twilioClient {
+                 accountSId:config:getAsString(ACCOUNT_SID),
+                 authToken:config:getAsString(AUTH_TOKEN),
+                 xAuthyKey:config:getAsString(AUTHY_API_KEY)
+            };
 
 		var details = twilioClient -> getAccountDetails();
 		match details {

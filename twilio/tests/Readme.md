@@ -7,7 +7,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 0.970.0                     | 2010-04-01               | v1                       |
+| 0.975.0                     | 2010-04-01               | v1                       |
 
 ## Running tests
 
