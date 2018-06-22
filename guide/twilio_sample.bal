@@ -25,7 +25,7 @@ documentation {Object for Twilio endpoint.
     F{{twilioConfig}} Reference to TwilioBasicConfiguration type
     F{{twilioConnector}} Reference to TwilioConnector type
 }
-public type Client object {
+public type TwilioClient object {
 
     public {
         TwilioConfiguration twilioConfig;
@@ -44,6 +44,14 @@ public type Client object {
 
 };
 
+// Configuration
+documentation {
+    F{{clientConfig}} The http client endpoint for basic configuration
+}
+public type TwilioConfiguration {
+    http:ClientEndpointConfig clientConfig;
+};
+
 // Connector
 documentation {Object to initialize the connection with Twilio.
     F{{accountSId}} Unique identifier of the account
@@ -60,14 +68,6 @@ public type TwilioConnector object {
         R{{}} If success, returns account object with basic details, else returns TwilioError object
     }
     public function getAccountDetails() returns (Account|error);
-};
-
-// Configuration
-documentation {
-    F{{clientConfig}} The http client endpoint for basic configuration
-}
-public type TwilioConfiguration {
-    http:ClientEndpointConfig clientConfig;
 };
 
 //Record to represent type
@@ -95,7 +95,9 @@ public type Account {
 @final string EMPTY_STRING = "";
 
 // =========== Implementation of the Endpoint
-public function Client::init(TwilioConfiguration config) {
+public function TwilioClient::init(TwilioConfiguration config) {
+
+    config.clientConfig.url = BASE_URL;
     string username;
     string password;
 
@@ -119,14 +121,11 @@ public function Client::init(TwilioConfiguration config) {
         }
     }
 
-    config.clientConfig.url = BASE_URL;
     self.twilioConnector.accountSId = username;
-    http:AuthConfig authConfig = { scheme: http:BASIC_AUTH, username: username, password: password };
-    config.clientConfig.auth = authConfig;
     self.twilioConnector.client.init(config.clientConfig);
 }
 
-public function Client::getCallerActions() returns TwilioConnector {
+public function TwilioClient::getCallerActions() returns TwilioConnector {
     return self.twilioConnector;
 }
 // =========== End of implementation of the Endpoint
@@ -143,17 +142,24 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
 // =========== End of implementation for Connector
 
 
+// =========== Implementation of Util methods
 function parseResponseToJson(http:Response|error response) returns (json|error) {
     json result = {};
     match response {
         http:Response httpResponse => {
             var jsonPayload = httpResponse.getJsonPayload();
             match jsonPayload {
-                json payload => { return payload; }
-                error err => { return err; }
+                json payload => {
+                    return payload;
+                }
+                error err => {
+                    return err;
+                }
             }
         }
-        error err => { return err; }
+        error err => {
+            return err;
+        }
     }
 }
 
@@ -167,13 +173,14 @@ function mapJsonToAccount(json jsonPayload) returns Account {
     account.updatedDate = jsonPayload.date_updated.toString();
     return account;
 }
+// =========== End of implementation of Util methods
+
 
 function main(string... args) {
-
-    endpoint Client twilioClient {
-        clientConfig:{
-            auth:{
-                scheme:http:BASIC_AUTH,
+    endpoint TwilioClient twilioClient {
+        clientConfig: {
+            auth: {
+                scheme: http:BASIC_AUTH,
                 username: "",
                 password: ""
             }
