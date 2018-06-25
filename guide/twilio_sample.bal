@@ -67,7 +67,7 @@ public type TwilioConnector object {
     documentation { Return account details of the given account-sid
         R{{}} If success, returns account object with basic details, else returns TwilioError object
     }
-    public function getAccountDetails() returns (Account|error);
+    public function getAccountDetails() returns Account|error;
 };
 
 //Record to represent type
@@ -105,8 +105,7 @@ public function TwilioClient::init(TwilioConfiguration config) {
     match usernameOrEmpty {
         string usernameString => username = usernameString;
         () => {
-            error err;
-            err.message = "Username cannot be empty";
+            error err = { message: "Username cannot be empty" };
             throw err;
         }
     }
@@ -115,8 +114,7 @@ public function TwilioClient::init(TwilioConfiguration config) {
     match passwordOrEmpty {
         string passwordString => password = passwordString;
         () => {
-            error err;
-            err.message = "Password cannot be empty";
+            error err = { message: "Password cannot be empty" };
             throw err;
         }
     }
@@ -132,7 +130,7 @@ public function TwilioClient::getCallerActions() returns TwilioConnector {
 
 
 // =========== Implementation for Connector
-public function TwilioConnector::getAccountDetails() returns (Account|error) {
+public function TwilioConnector::getAccountDetails() returns Account|error {
     endpoint http:Client httpClient = self.client;
     string requestPath = ACCOUNTS_API + self.accountSId + RESPONSE_TYPE_JSON;
     var response = httpClient->get(requestPath);
@@ -143,7 +141,7 @@ public function TwilioConnector::getAccountDetails() returns (Account|error) {
 
 
 // =========== Implementation of Util methods
-function parseResponseToJson(http:Response|error response) returns (json|error) {
+function parseResponseToJson(http:Response|error response) returns json|error {
     json result = {};
     match response {
         http:Response httpResponse => {
