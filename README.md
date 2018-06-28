@@ -24,25 +24,27 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 3. Create a new Ballerina project by executing the following command.
 
 	```shell
-	   <PROJECT_ROOT_DIRECTORY>$ ballerina init
+	<PROJECT_ROOT_DIRECTORY>$ ballerina init
 	```
 
 4. Import the Twilio package to your Ballerina program as follows.
 
 	```ballerina
-	    import wso2/twilio;
+	import ballerina/config;
+	import ballerina/io;
+    import wso2/twilio;
 
-	    function main (string... args) {
-            endpoint twilio:Client twilioClient {
-                 accountSId:config:getAsString(ACCOUNT_SID),
-                 authToken:config:getAsString(AUTH_TOKEN),
-                 xAuthyKey:config:getAsString(AUTHY_API_KEY)
-            };
+    function main (string... args) {
+        endpoint twilio:Client twilioClient {
+             accountSId:config:getAsString("ACCOUNT_SID"),
+             authToken:config:getAsString("AUTH_TOKEN"),
+             xAuthyKey:config:getAsString("AUTHY_API_KEY")
+        };
 
-		var details = twilioClient -> getAccountDetails();
-		match details {
-		    Account account => io:println(account);
-		    TwilioError twilioError => test:assertFail(msg = twilioError.message);
-		}
-	   }
+        var details = twilioClient->getAccountDetails();
+        match details {
+            twilio:Account account => io:println(account);
+            twilio:TwilioError twilioError => io:println(twilioError);
+        }
+    }
 	```
