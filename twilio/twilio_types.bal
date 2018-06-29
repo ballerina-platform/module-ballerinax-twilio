@@ -17,6 +17,8 @@
 import ballerina/http;
 
 documentation {
+    Represents Twilio account.
+
     F{{sid}} Unique identifier of the account
     F{{name}} The name of the account
     F{{status}} The status of the account (active, suspended, closed)
@@ -34,6 +36,8 @@ public type Account {
 };
 
 documentation {
+    Represents Twilio SMS response.
+
     F{{sid}} Unique identifier of the account
     F{{status}} Status of the voice call (queued, failed, sent, delivered, undelivered)
     F{{price}} The price amount of the SMS
@@ -47,6 +51,8 @@ public type SmsResponse {
 };
 
 documentation {
+    Represents Twilio voice call response.
+
     F{{sid}} Unique identifier of the account
     F{{status}} Status of the voice call (queued, initiated, ringing, answered, completed)
     F{{price}} The price amount of the call
@@ -60,6 +66,8 @@ public type VoiceCallResponse {
 };
 
 documentation {
+    Represents Authy app details response.
+
     F{{appId}} Unique identifier of the Authy app
     F{{name}} Name of the Authy app
     F{{plan}} The subscribed plan
@@ -81,6 +89,8 @@ public type AuthyAppDetailsResponse {
 };
 
 documentation {
+    Represents Authy user adding response.
+
     F{{userId}} Unique identifier of the user
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
@@ -92,6 +102,8 @@ public type AuthyUserAddResponse {
 };
 
 documentation {
+    Represents Authy user status response.
+
     F{{userId}} Unique identifier of the user
     F{{isConfirmed}} Is user confirmed or not
     F{{isRegistered}} Is user registerd or not
@@ -113,6 +125,8 @@ public type AuthyUserStatusResponse {
 };
 
 documentation {
+    Represents Authy user delete response.
+
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
@@ -122,6 +136,8 @@ public type AuthyUserDeleteResponse {
 };
 
 documentation {
+    Represents Authy user secret response.
+
     F{{issuer}} Name of the Authy name
     F{{label}} A custom label given by the user. If not, the name of the authy app
     F{{qrCodeUrl}} Url for the generated qr code
@@ -135,6 +151,8 @@ public type AuthyUserSecretResponse {
 };
 
 documentation {
+    Represents Authy OTP response.
+
     F{{message}} A messaging indicating the result of the operation
     F{{cellphone}} Phone number used to send the message or call
     F{{device}} The type of the last device used by the user
@@ -150,6 +168,8 @@ public type AuthyOtpResponse {
 };
 
 documentation {
+    Represents Authy OTP verify response.
+
     F{{message}} A messaging indicating the result of the operation
     F{{token}} Either "is valid" or "is invalid"
     F{{isSuccess}} Is the OTP was valid or not
@@ -161,6 +181,8 @@ public type AuthyOtpVerifyResponse {
 };
 
 documentation {
+    Represents Twilio cusotm error.
+
     F{{message}} A custom message about the error
     F{{cause}} Error object reffered to the occurred error
 }
