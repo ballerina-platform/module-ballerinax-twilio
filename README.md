@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wso2-ballerina/package-twilio.svg?branch=master)](https://travis-ci.org/wso2-ballerina/package-twilio)
+
 # Twilio Connector
 
 The Twilio connector allows you to send SMS, voice, and OTP messages through the Twilio REST API. You can also send
