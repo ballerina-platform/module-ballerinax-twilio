@@ -46,7 +46,7 @@ documentation {
     F{{basicClientConfig}} The http client endpoint for basic configuration
     F{{authyClientConfig}} The http client endpoint for Authy configuration
 }
-public type TwilioConfiguration {
+public type TwilioConfiguration record {
     string accountSId;
     string authToken;
     string xAuthyKey;
