@@ -25,12 +25,10 @@ documentation {Object to initialize the connection with Twilio.
 }
 public type TwilioConnector object {
 
-    public {
-        string accountSId;
-        string xAuthyKey;
-        http:Client basicClient;
-        http:Client authyClient;
-    }
+    public string accountSId;
+    public string xAuthyKey;
+    public http:Client basicClient;
+    public http:Client authyClient;
 
     documentation { Return account details of the given account-sid
         R{{}} If success, returns account object with basic details, else returns TwilioError object
@@ -105,7 +103,7 @@ public type TwilioConnector object {
     public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
 };
 
-public function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
+function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
     endpoint http:Client httpClient = self.basicClient;
     string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
     var response = httpClient->get(requestPath);
@@ -113,7 +111,7 @@ public function TwilioConnector::getAccountDetails() returns (Account|TwilioErro
     return mapJsonToAccount(jsonResponse);
 }
 
-public function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError) {
+function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError) {
     endpoint http:Client httpClient = self.basicClient;
     http:Request req = new;
 
@@ -129,7 +127,7 @@ public function TwilioConnector::sendSms(string fromNo, string toNo, string mess
     return mapJsonToSmsResponse(jsonResponse);
 }
 
-public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml)
+function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml)
                                      returns (VoiceCallResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.basicClient;
@@ -147,7 +145,7 @@ public function TwilioConnector::makeVoiceCall(string fromNo, string toNo, strin
     return mapJsonToVoiceCallResponse(jsonResponse);
 }
 
-public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError) {
+function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
@@ -159,7 +157,7 @@ public function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsRe
     return mapJsonToAuthyAppDetailsResponse(jsonResponse);
 }
 
-public function TwilioConnector::addAuthyUser(string email, string phone, string countryCode)
+function TwilioConnector::addAuthyUser(string email, string phone, string countryCode)
                                      returns (AuthyUserAddResponse|TwilioError) {
 
     endpoint http:Client httpClient = self.authyClient;
@@ -178,7 +176,7 @@ public function TwilioConnector::addAuthyUser(string email, string phone, string
     return mapJsonToAuthyUserAddRespones(jsonResponse);
 }
 
-public function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
+function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -188,7 +186,7 @@ public function TwilioConnector::getAuthyUserStatus(string userId) returns (Auth
     return mapJsonToAuthyUserStatusResponse(jsonResponse);
 }
 
-public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
+function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -198,7 +196,7 @@ public function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUs
     return mapJsonToAuthyUserDeleteResponse(jsonResponse);
 }
 
-public function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError) {
+function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -208,7 +206,7 @@ public function TwilioConnector::getAuthyUserSecret(string userId) returns (Auth
     return mapJsonToAuthyUserSecretResponse(jsonResponse);
 }
 
-public function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError) {
+function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -218,7 +216,7 @@ public function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyO
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-public function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError) {
+function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -228,7 +226,7 @@ public function TwilioConnector::requestOtpViaCall(string userId) returns (Authy
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-public function TwilioConnector::verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError) {
+function TwilioConnector::verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError) {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
