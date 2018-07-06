@@ -27,10 +27,8 @@ documentation {Object for Twilio endpoint.
 }
 public type TwilioClient object {
 
-    public {
-        TwilioConfiguration twilioConfig;
-        TwilioConnector twilioConnector = new;
-    }
+    public TwilioConfiguration twilioConfig;
+    public TwilioConnector twilioConnector = new;
 
     documentation { Initialize Twilio endpoint
         P{{config}} Twilio configuraion
@@ -48,7 +46,7 @@ public type TwilioClient object {
 documentation {
     F{{clientConfig}} The http client endpoint for basic configuration
 }
-public type TwilioConfiguration {
+public type TwilioConfiguration record {
     http:ClientEndpointConfig clientConfig;
 };
 
@@ -59,10 +57,8 @@ documentation {Object to initialize the connection with Twilio.
 }
 public type TwilioConnector object {
 
-    public {
-        string accountSId;
-        http:Client client;
-    }
+    public string accountSId;
+    public http:Client client;
 
     documentation { Return account details of the given account-sid
         R{{}} If success, returns account object with basic details, else returns TwilioError object
@@ -79,7 +75,7 @@ documentation {
     F{{createdDate}} The date that this account was created
     F{{updatedDate}} The date that this account was last updated
 }
-public type Account {
+public type Account record {
     string sid;
     string name;
     string status;
@@ -95,7 +91,7 @@ public type Account {
 @final string EMPTY_STRING = "";
 
 // =========== Implementation of the Endpoint
-public function TwilioClient::init(TwilioConfiguration config) {
+function TwilioClient::init(TwilioConfiguration config) {
 
     config.clientConfig.url = BASE_URL;
     string username;
@@ -123,14 +119,14 @@ public function TwilioClient::init(TwilioConfiguration config) {
     self.twilioConnector.client.init(config.clientConfig);
 }
 
-public function TwilioClient::getCallerActions() returns TwilioConnector {
+function TwilioClient::getCallerActions() returns TwilioConnector {
     return self.twilioConnector;
 }
 // =========== End of implementation of the Endpoint
 
 
 // =========== Implementation for Connector
-public function TwilioConnector::getAccountDetails() returns Account|error {
+function TwilioConnector::getAccountDetails() returns Account|error {
     endpoint http:Client httpClient = self.client;
     string requestPath = ACCOUNTS_API + self.accountSId + RESPONSE_TYPE_JSON;
     var response = httpClient->get(requestPath);
