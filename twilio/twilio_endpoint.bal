@@ -22,10 +22,8 @@ documentation {Object for Twilio endpoint.
 }
 public type Client object {
 
-    public {
-        TwilioConfiguration twilioConfig;
-        TwilioConnector twilioConnector = new;
-    }
+    public TwilioConfiguration twilioConfig;
+    public TwilioConnector twilioConnector = new;
 
     documentation { Initialize Twilio endpoint
         P{{config}} Twilio configuraion
@@ -46,7 +44,7 @@ documentation {
     F{{basicClientConfig}} The http client endpoint for basic configuration
     F{{authyClientConfig}} The http client endpoint for Authy configuration
 }
-public type TwilioConfiguration {
+public type TwilioConfiguration record {
     string accountSId;
     string authToken;
     string xAuthyKey;
@@ -54,7 +52,7 @@ public type TwilioConfiguration {
     http:ClientEndpointConfig authyClientConfig;
 };
 
-public function Client::init(TwilioConfiguration config) {
+function Client::init(TwilioConfiguration config) {
     self.twilioConnector.accountSId = config.accountSId;
     self.twilioConnector.xAuthyKey = config.xAuthyKey;
 
@@ -67,6 +65,6 @@ public function Client::init(TwilioConfiguration config) {
     self.twilioConnector.authyClient.init(config.authyClientConfig);
 }
 
-public function Client::getCallerActions() returns TwilioConnector {
+function Client::getCallerActions() returns TwilioConnector {
     return self.twilioConnector;
 }

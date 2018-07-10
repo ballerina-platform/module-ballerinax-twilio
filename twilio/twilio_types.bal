@@ -26,7 +26,7 @@ documentation {
     F{{createdDate}} The date that this account was created
     F{{updatedDate}} The date that this account was last updated
 }
-public type Account {
+public type Account record {
     string sid;
     string name;
     string status;
@@ -43,7 +43,7 @@ documentation {
     F{{price}} The price amount of the SMS
     F{{priceUnit}} The price currency
 }
-public type SmsResponse {
+public type SmsResponse record {
     string sid;
     string status;
     string price;
@@ -58,7 +58,7 @@ documentation {
     F{{price}} The price amount of the call
     F{{priceUnit}} The price currency
 }
-public type VoiceCallResponse {
+public type VoiceCallResponse record {
     string sid;
     string status;
     string price;
@@ -77,7 +77,7 @@ documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyAppDetailsResponse {
+public type AuthyAppDetailsResponse record {
     string appId;
     string name;
     string plan;
@@ -95,7 +95,7 @@ documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyUserAddResponse {
+public type AuthyUserAddResponse record {
     string userId;
     string message;
     boolean isSuccess;
@@ -113,7 +113,7 @@ documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyUserStatusResponse {
+public type AuthyUserStatusResponse record {
     string userId;
     boolean isConfirmed;
     boolean isRegistered;
@@ -130,7 +130,7 @@ documentation {
     F{{message}} A messaging indicating the result of the operation
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyUserDeleteResponse {
+public type AuthyUserDeleteResponse record {
     string message;
     boolean isSuccess;
 };
@@ -143,7 +143,7 @@ documentation {
     F{{qrCodeUrl}} Url for the generated qr code
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyUserSecretResponse {
+public type AuthyUserSecretResponse record {
     string issuer;
     string label;
     string qrCodeUrl;
@@ -159,7 +159,7 @@ documentation {
     F{{isIgnored}} True if we detected an Authy or SDK enabled app installed.
     F{{isSuccess}} Is the request was success or not
 }
-public type AuthyOtpResponse {
+public type AuthyOtpResponse record {
     string message;
     string cellphone;
     string device;
@@ -174,7 +174,7 @@ documentation {
     F{{token}} Either "is valid" or "is invalid"
     F{{isSuccess}} Is the OTP was valid or not
 }
-public type AuthyOtpVerifyResponse {
+public type AuthyOtpVerifyResponse record {
     string message;
     string token;
     boolean isSuccess;
@@ -186,7 +186,7 @@ documentation {
     F{{message}} A custom message about the error
     F{{cause}} Error object reffered to the occurred error
 }
-public type TwilioError {
+public type TwilioError record {
     string message;
     error? cause;
 };
