@@ -20,7 +20,7 @@ import ballerina/http;
 # + sid - Unique identifier of the account
 # + name - The name of the account
 # + status - The status of the account (active, suspended, closed)
-# + type - The type of this account (Trial, Full)
+# + type - The type of this account (`Trial`, `Full`)
 # + createdDate - The date that this account was created
 # + updatedDate - The date that this account was last updated
 public type Account record {
@@ -117,7 +117,7 @@ public type AuthyUserDeleteResponse record {
 # Represents Authy user secret response.
 # + issuer - Name of the Authy name
 # + label - A custom label given by the user. If not, the name of the authy app
-# + qrCodeUrl - Url for the generated qr code
+# + qrCodeUrl - URL for the generated qr code
 # + isSuccess - Is the request was success or not
 public type AuthyUserSecretResponse record {
     string issuer;

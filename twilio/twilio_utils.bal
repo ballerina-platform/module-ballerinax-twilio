@@ -16,9 +16,9 @@
 
 import ballerina/http;
 
-# Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise
-# + response - Http response or HTTP connector error with network related errors
-# + return - Json payload or `TwilioError` if anything wrong happen when HTTP client invocation or parsing response to json
+# Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
+# + response - HTTP response or HTTP Connector error with network related errors
+# + return - `json` payload or `TwilioError` if anything wrong happen when HTTP client invocation or parsing response to `json`
 function parseResponseToJson(http:Response|error response) returns (json|TwilioError) {
     json result = {};
     match response {
@@ -56,7 +56,7 @@ function parseResponseToJson(http:Response|error response) returns (json|TwilioE
     }
 }
 
-# Create url encoded request body with given key and value
+# Create URL encoded request body with given key and value.
 # + requestBody - Request body to be appended values
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
@@ -77,5 +77,5 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     if (requestBody != EMPTY_STRING) {
         body = requestBody + AMPERSAND_SYMBOL;
     }
-    return requestBody + key + EQUAL_SYMBOL + encodedString;
+    return body + key + EQUAL_SYMBOL + encodedString;
 }

@@ -16,7 +16,7 @@
 
 import ballerina/http;
 
-#Object for Twilio endpoint.
+# Object for Twilio endpoint.
 # + twilioConfig - Reference to TwilioBasicConfiguration type
 # + twilioConnector - Reference to TwilioConnector type
 public type Client object {
@@ -24,22 +24,22 @@ public type Client object {
     public TwilioConfiguration twilioConfig;
     public TwilioConnector twilioConnector = new;
 
-    # Initialize Twilio endpoint
+    # Initialize Twilio endpoint.
     # + config - Twilio configuraion
     public function init(TwilioConfiguration config);
 
-    # Initialize Twilio endpoint
-    # + return - The Twilio connector object
+    # Initialize Twilio endpoint.
+    # + return - The Twilio Connector object
     public function getCallerActions() returns TwilioConnector;
 
 };
 
-# Twilio Configuration
+# Twilio Configuration.
 # + accountSId - Unique identifier of the account
 # + authToken - The authentication token of the account
 # + xAuthyKey - The authentication token for the Authy API
-# + basicClientConfig - The http client endpoint for basic configuration
-# + authyClientConfig - The http client endpoint for Authy configuration
+# + basicClientConfig - The HTTP client endpoint for basic configuration
+# + authyClientConfig - The HTTP client endpoint for Authy configuration
 public type TwilioConfiguration record {
     string accountSId;
     string authToken;
