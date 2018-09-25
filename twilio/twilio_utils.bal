@@ -16,10 +16,9 @@
 
 import ballerina/http;
 
-documentation { Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise
-    P{{response}} Http response or HTTP connector error with network related errors
-    R{{}} Json payload or `TwilioError` if anything wrong happen when HTTP client invocation or parsing response to json
-}
+# Check for HTTP response and if response is success parse HTTP response object into json and parse error otherwise
+# + response - Http response or HTTP connector error with network related errors
+# + return - Json payload or `TwilioError` if anything wrong happen when HTTP client invocation or parsing response to json
 function parseResponseToJson(http:Response|error response) returns (json|TwilioError) {
     json result = {};
     match response {
@@ -57,15 +56,15 @@ function parseResponseToJson(http:Response|error response) returns (json|TwilioE
     }
 }
 
-documentation { Create url encoded request body with given key and value
-    P{{requestBody}} Request body to be appended values
-    P{{key}} Key of the form value parameter
-    P{{value}} Value of the form value parameter
-    R{{}} Created request body with encoded string or `TwilioError` if anything wrong happen when encoding the value
-}
+# Create url encoded request body with given key and value
+# + requestBody - Request body to be appended values
+# + key - Key of the form value parameter
+# + value - Value of the form value parameter
+# + return - Created request body with encoded string or `TwilioError` if anything wrong happen when encoding the value
 function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|TwilioError) {
     var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString;
+    string body;
     match encodedVar {
         string encoded => encodedString = encoded;
         error err => {
@@ -76,7 +75,7 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
         }
     }
     if (requestBody != EMPTY_STRING) {
-        requestBody += AMPERSAND_SYMBOL;
+        body = requestBody + AMPERSAND_SYMBOL;
     }
     return requestBody + key + EQUAL_SYMBOL + encodedString;
 }
