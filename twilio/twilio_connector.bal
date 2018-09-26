@@ -17,12 +17,11 @@
 import ballerina/http;
 import ballerina/mime;
 
-documentation {Object to initialize the connection with Twilio.
-    F{{accountSId}} Unique identifier of the account
-    F{{xAuthyKey}} Unique identifier of Authy API account
-    F{{basicClient}} Http client endpoint for basic api
-    F{{authyClient}} Http client endpoint for authy api
-}
+# Object to initialize the connection with Twilio.
+# + accountSId - Unique identifier of the account
+# + xAuthyKey - Unique identifier of Authy API account
+# + basicClient - HTTP client endpoint for basic api
+# + authyClient - HTTP client endpoint for authy api
 public type TwilioConnector object {
 
     public string accountSId;
@@ -30,76 +29,65 @@ public type TwilioConnector object {
     public http:Client basicClient;
     public http:Client authyClient;
 
-    documentation { Return account details of the given account-sid
-        R{{}} If success, returns account object with basic details, else returns TwilioError object
-    }
+    # Return account details of the given account-sid.
+    # + return - If success, returns account object with basic details, else returns TwilioError object
     public function getAccountDetails() returns (Account|TwilioError);
 
-    documentation { Send SMS from the given account-sid
-        P{{fromNo}} Mobile number which the SMS should be send from
-        P{{toNo}} Mobile number which the SMS should be received to
-        P{{message}} Message body of the SMS
-        R{{}} If success, returns SMS response object with basic details, else returns TwilioError object
-    }
+    # Send SMS from the given account-sid.
+    # + fromNo - Mobile number which the SMS should be send from
+    # + toNo - Mobile number which the SMS should be received to
+    # + message - Message body of the SMS
+    # + return - If success, returns SMS response object with basic details, else returns TwilioError object
     public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError);
 
-    documentation { Make a voice call from the given account-sid
-        P{{fromNo}} Mobile number which the voice call should be send from
-        P{{toNo}} Mobile number which the voice call should be received to
-        P{{twiml}} TwiML URL which the response of the voice call is stated
-        R{{}} If success, returns voice call response object with basic details, else returns TwilioError object
-    }
+    # Make a voice call from the given account-sid.
+    # + fromNo - Mobile number which the voice call should be send from
+    # + toNo - Mobile number which the voice call should be received to
+    # + twiml - TwiML URL which the response of the voice call is stated
+    # + return - If success, returns voice call response object with basic details, else returns TwilioError object
     public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|TwilioError);
 
-    documentation { Get the Authy app details
-        R{{}} If success, returns Authy app response object with basic details, else returns TwilioError object
-    }
+    # Get the Authy app details.
+    # + return - If success, returns Authy app response object with basic details, else returns TwilioError object
     public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError);
 
-    documentation { Add an user for Authy app
-        P{{email}} Email of the new user
-        P{{phone}} Phone number of the new user
-        P{{countryCode}} Country code of the new user
-        R{{}} If success, returns Authy user add response object with basic details, else returns TwilioError object
-    }
+    # Add an user for Authy app.
+    # + email - Email of the new user
+    # + phone - Phone number of the new user
+    # + countryCode - Country code of the new user
+    # + return - If success, returns Authy user add response object with basic details, else returns TwilioError object
     public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|
                 TwilioError);
 
-    documentation { Get the user details of Authy for the given user-id
-        P{{userId}} Unique identifier of the user
-        R{{}} If success, returns Authy user status response object with basic details, else returns TwilioError object
-    }
+    # Get the user details of Authy for the given user-id.
+    # + userId - Unique identifier of the user
+    # + return - If success, returns Authy user status response object with basic details, else returns TwilioError object
     public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError);
 
-    documentation { Delete the user of Authy for the given user-id
-        P{{userId}} Unique identifier of the user
-        R{{}} If success, returns Authy user delete response object with basic details, else returns TwilioError object
-    }
+    # Delete the user of Authy for the given user-id.
+    # + userId - Unique identifier of the user
+    # + return - If success, returns Authy user delete response object with basic details, else returns TwilioError object
     public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
 
-    documentation { Get the user secret of Authy user for the given user-id
-        P{{userId}} Unique identifier of the user
-        R{{}} If success, returns Authy user secret response object with basic details, else returns TwilioError object
-    }
+    # Get the user secret of Authy user for the given user-id.
+    # + userId - Unique identifier of the user
+    # + return - If success, returns Authy user secret response object with basic details, else returns TwilioError object
     public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError);
 
-    documentation { Request OTP for the user of Authy via SMS for the given user-id
-        P{{userId}} Unique identifier of the user
-        R{{}} If success, returns Authy OTP response object with basic details, else returns TwilioError object
-    }
+    # Request OTP for the user of Authy via SMS for the given user-id.
+    # + userId - Unique identifier of the user
+    # + return - If success, returns Authy OTP response object with basic details, else returns TwilioError object
     public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError);
 
-    documentation { Request OTP for the user of Authy via call for the given user-id
-        P{{userId}} Unique identifier of the user
-        R{{}} If success, returns Authy OTP response object with basic details, else returns TwilioError object
-    }
+    # Request OTP for the user of Authy via call for the given user-id.
+    # + userId - Unique identifier of the user
+    # + return - If success, returns Authy OTP response object with basic details, else returns TwilioError object
     public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError);
 
-    documentation { Verify OTP for the user of Authy for the given user-id
-        P{{userId}} Unique identifier of the user
-        P{{token}} The OTP token to be verified
-        R{{}} If success, returns Authy OTP verify response object with basic details, else returns TwilioError object
-    }
+    # Verify OTP for the user of Authy for the given user-id.
+    # + userId - Unique identifier of the user
+    # + token - The OTP token to be verified
+    # + return - If success, returns Authy OTP verify response object with basic details, else returns TwilioError object
     public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
 };
 

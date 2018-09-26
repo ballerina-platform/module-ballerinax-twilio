@@ -16,16 +16,13 @@
 
 import ballerina/http;
 
-documentation {
-    Represents Twilio account.
-
-    F{{sid}} Unique identifier of the account
-    F{{name}} The name of the account
-    F{{status}} The status of the account (active, suspended, closed)
-    F{{^"type"}} The type of this account (Trial, Full)
-    F{{createdDate}} The date that this account was created
-    F{{updatedDate}} The date that this account was last updated
-}
+# Represents Twilio account.
+# + sid - Unique identifier of the account
+# + name - The name of the account
+# + status - The status of the account (active, suspended, closed)
+# + type - The type of this account (`Trial`, `Full`)
+# + createdDate - The date that this account was created
+# + updatedDate - The date that this account was last updated
 public type Account record {
     string sid;
     string name;
@@ -35,14 +32,11 @@ public type Account record {
     string updatedDate;
 };
 
-documentation {
-    Represents Twilio SMS response.
-
-    F{{sid}} Unique identifier of the account
-    F{{status}} Status of the voice call (queued, failed, sent, delivered, undelivered)
-    F{{price}} The price amount of the SMS
-    F{{priceUnit}} The price currency
-}
+# Represents Twilio SMS response.
+# + sid - Unique identifier of the account
+# + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
+# + price - The price amount of the SMS
+# + priceUnit - The price currency
 public type SmsResponse record {
     string sid;
     string status;
@@ -50,14 +44,11 @@ public type SmsResponse record {
     string priceUnit;
 };
 
-documentation {
-    Represents Twilio voice call response.
-
-    F{{sid}} Unique identifier of the account
-    F{{status}} Status of the voice call (queued, initiated, ringing, answered, completed)
-    F{{price}} The price amount of the call
-    F{{priceUnit}} The price currency
-}
+# Represents Twilio voice call response.
+# + sid - Unique identifier of the account
+# + status - Status of the voice call (queued, initiated, ringing, answered, completed)
+# + price - The price amount of the call
+# + priceUnit - The price currency
 public type VoiceCallResponse record {
     string sid;
     string status;
@@ -65,18 +56,15 @@ public type VoiceCallResponse record {
     string priceUnit;
 };
 
-documentation {
-    Represents Authy app details response.
-
-    F{{appId}} Unique identifier of the Authy app
-    F{{name}} Name of the Authy app
-    F{{plan}} The subscribed plan
-    F{{isSmsEnabled}} Status of whether SMS is enabled
-    F{{isPhoneCallsEnabled}} Status of whether phone call is enabled
-    F{{isOnetouchEnabled}} Status of whether one touch is enabled
-    F{{message}} A messaging indicating the result of the operation
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy app details response.
+# + appId - Unique identifier of the Authy app
+# + name - Name of the Authy app
+# + plan - The subscribed plan
+# + isSmsEnabled - Status of whether SMS is enabled
+# + isPhoneCallsEnabled - Status of whether phone call is enabled
+# + isOnetouchEnabled - Status of whether one touch is enabled
+# + message - A messaging indicating the result of the operation
+# + isSuccess - Is the request was success or not
 public type AuthyAppDetailsResponse record {
     string appId;
     string name;
@@ -88,31 +76,25 @@ public type AuthyAppDetailsResponse record {
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy user adding response.
-
-    F{{userId}} Unique identifier of the user
-    F{{message}} A messaging indicating the result of the operation
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy user adding response.
+# + userId - Unique identifier of the user
+# + message - A messaging indicating the result of the operation
+# + isSuccess - Is the request was success or not
 public type AuthyUserAddResponse record {
     string userId;
     string message;
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy user status response.
-
-    F{{userId}} Unique identifier of the user
-    F{{isConfirmed}} Is user confirmed or not
-    F{{isRegistered}} Is user registerd or not
-    F{{countryCode}} Country code of user
-    F{{phoneNumber}} Phone number of user
-    F{{isAccountDisabled}} Is account disabled or not
-    F{{message}} A messaging indicating the result of the operation
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy user status response.
+# + userId - Unique identifier of the user
+# + isConfirmed - Is user confirmed or not
+# + isRegistered - Is user registerd or not
+# + countryCode - Country code of user
+# + phoneNumber - Phone number of user
+# + isAccountDisabled - Is account disabled or not
+# + message - A messaging indicating the result of the operation
+# + isSuccess - Is the request was success or not
 public type AuthyUserStatusResponse record {
     string userId;
     boolean isConfirmed;
@@ -124,25 +106,19 @@ public type AuthyUserStatusResponse record {
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy user delete response.
-
-    F{{message}} A messaging indicating the result of the operation
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy user delete response.
+# + message - A messaging indicating the result of the operation
+# + isSuccess - Is the request was success or not
 public type AuthyUserDeleteResponse record {
     string message;
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy user secret response.
-
-    F{{issuer}} Name of the Authy name
-    F{{label}} A custom label given by the user. If not, the name of the authy app
-    F{{qrCodeUrl}} Url for the generated qr code
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy user secret response.
+# + issuer - Name of the Authy name
+# + label - A custom label given by the user. If not, the name of the authy app
+# + qrCodeUrl - URL for the generated qr code
+# + isSuccess - Is the request was success or not
 public type AuthyUserSecretResponse record {
     string issuer;
     string label;
@@ -150,15 +126,12 @@ public type AuthyUserSecretResponse record {
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy OTP response.
-
-    F{{message}} A messaging indicating the result of the operation
-    F{{cellphone}} Phone number used to send the message or call
-    F{{device}} The type of the last device used by the user
-    F{{isIgnored}} True if we detected an Authy or SDK enabled app installed.
-    F{{isSuccess}} Is the request was success or not
-}
+# Represents Authy OTP response.
+# + message - A messaging indicating the result of the operation
+# + cellphone - Phone number used to send the message or call
+# + device - The type of the last device used by the user
+# + isIgnored - True if we detected an Authy or SDK enabled app installed.
+# + isSuccess - Is the request was success or not
 public type AuthyOtpResponse record {
     string message;
     string cellphone;
@@ -167,25 +140,19 @@ public type AuthyOtpResponse record {
     boolean isSuccess;
 };
 
-documentation {
-    Represents Authy OTP verify response.
-
-    F{{message}} A messaging indicating the result of the operation
-    F{{token}} Either "is valid" or "is invalid"
-    F{{isSuccess}} Is the OTP was valid or not
-}
+# Represents Authy OTP verify response.
+# + message - A messaging indicating the result of the operation
+# + token - Either "is valid" or "is invalid"
+# + isSuccess - Is the OTP was valid or not
 public type AuthyOtpVerifyResponse record {
     string message;
     string token;
     boolean isSuccess;
 };
 
-documentation {
-    Represents Twilio cusotm error.
-
-    F{{message}} A custom message about the error
-    F{{cause}} Error object reffered to the occurred error
-}
+# Represents Twilio cusotm error.
+# + message - A custom message about the error
+# + cause - Error object reffered to the occurred error
 public type TwilioError record {
     string message;
     error? cause;
