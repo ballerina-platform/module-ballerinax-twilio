@@ -7,14 +7,14 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 0.982.0                     | 2010-04-01               | v1                       |
+| 0.983.0                     | 2010-04-01               | v1                       |
 
 ## Running tests
 
-All the tests inside this package will make HTTP calls to the Twilio REST API.
+All the tests inside this module will make HTTP calls to the Twilio REST API.
 
 In order to run the **basic group** tests, the user will need to have a Twilio account and obtain the tokens from the app.
-Then user will need to create a `ballerina.conf` file at package root and do the following configurations with the 
+Then user will need to create a `ballerina.conf` file at module root and do the following configurations with the 
 obtained tokens.
 
 In order to run the **authy group** tests, the user will need to create a Authy application under Twilio account and 

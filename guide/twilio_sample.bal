@@ -12,7 +12,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
-// under the License.package twilio;
+// under the License.
 
 // This guide is created for the reference of "How to Extend Ballerina" in ballerina.io
 // https://ballerina.io/learn/how-to-extend-ballerina/
