@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wso2-ballerina/package-twilio.svg?branch=master)](https://travis-ci.org/wso2-ballerina/package-twilio)
+[![Build Status](https://travis-ci.org/wso2-ballerina/module-twilio.svg?branch=master)](https://travis-ci.org/wso2-ballerina/module-twilio)
 
 # Twilio Connector
 
@@ -9,7 +9,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 0.982.0                     | 2010-04-01               | v1                       |
+| 0.983.0                     | 2010-04-01               | v1                       |
 
 ## Getting started
 
@@ -29,7 +29,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 	<PROJECT_ROOT_DIRECTORY>$ ballerina init
 	```
 
-4. Import the Twilio package to your Ballerina program as follows.
+4. Import the Twilio module to your Ballerina program as follows.
 
 	```ballerina
 	import ballerina/config;

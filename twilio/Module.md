@@ -1,28 +1,28 @@
 Connects to Twilio from Ballerina. 
 
-# Package Overview
+# Module Overview
 
 The Twilio connector allows you to send SMS, voice, and OTP messages through the Twilio REST API. You can also send
 user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
 
 **Basic Operations**
 
-The `wso2/twilio` package contains operations to get the Twilio account details, send SMS, and make voice calls.
+The `wso2/twilio` module contains operations to get the Twilio account details, send SMS, and make voice calls.
 
 **Authy Operations**
 
-The `wso2/twilio` package contains operations to get Authy app details, add a user, delete a user, get user status, get 
+The `wso2/twilio` module contains operations to get Authy app details, add a user, delete a user, get user status, get 
 user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
 |                          |    Version     |
 |:------------------------:|:--------------:|
-| Ballerina Language       | 0.982.0        |
+| Ballerina Language       | 0.983.0        |
 | Twilio Basic API         | 2010-04-01     |
 | Twilio Authy API Version | v1             |
 
 ## Sample
-First, import the `wso2/twilio` package into the Ballerina project.
+First, import the `wso2/twilio` module into the Ballerina project.
 ```ballerina
 import wso2/twilio;
 ```
