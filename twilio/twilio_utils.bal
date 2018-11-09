@@ -18,8 +18,8 @@ import ballerina/http;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + response - HTTP response or HTTP Connector error with network related errors
-# + return - `json` payload or `TwilioError` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response|error response) returns (json|TwilioError) {
+# + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
+function parseResponseToJson(http:Response|error response) returns json|error {
     json result = {};
     match response {
         http:Response httpResponse => {
@@ -34,7 +34,7 @@ function parseResponseToJson(http:Response|error response) returns (json|TwilioE
                         } else if (payload.error != ()) {
                             errCode = payload.error.toString();
                         }
-                        TwilioError twilioError = { message: httpResponse.statusCode + WHITE_SPACE
+                        error twilioError = { message: httpResponse.statusCode + WHITE_SPACE
                             + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
                             + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg };
                         return twilioError;
@@ -42,16 +42,12 @@ function parseResponseToJson(http:Response|error response) returns (json|TwilioE
                     return payload;
                 }
                 error err => {
-                    TwilioError twilioError = { message: "Error occurred when parsing response to json." };
-                    twilioError.cause = err.cause;
-                    return twilioError;
+                    return err;
                 }
             }
         }
         error err => {
-            TwilioError twilioError = { message: "Error occurred when HTTP client invocation." };
-            twilioError.cause = err.cause;
-            return twilioError;
+            return err;
         }
     }
 }
@@ -60,18 +56,15 @@ function parseResponseToJson(http:Response|error response) returns (json|TwilioE
 # + requestBody - Request body to be appended values
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
-# + return - Created request body with encoded string or `TwilioError` if anything wrong happen when encoding the value
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns (string|TwilioError) {
+# + return - Created request body with encoded string or `error` if anything wrong happen when encoding the value
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|error {
     var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString;
     string body;
     match encodedVar {
         string encoded => encodedString = encoded;
         error err => {
-            TwilioError twilioError = { message: "Error occurred when encoding the value " + value + " with charset " +
-                CHARSET_UTF8 };
-            twilioError.cause = err.cause;
-            return twilioError;
+            return err;
         }
     }
     if (requestBody != EMPTY_STRING) {

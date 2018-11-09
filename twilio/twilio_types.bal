@@ -150,10 +150,3 @@ public type AuthyOtpVerifyResponse record {
     boolean isSuccess;
 };
 
-# Represents Twilio cusotm error.
-# + message - A custom message about the error
-# + cause - Error object reffered to the occurred error
-public type TwilioError record {
-    string message;
-    error? cause;
-};

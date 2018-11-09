@@ -39,7 +39,7 @@ function testAccountDetails() {
     var details = twilioClient->getAccountDetails();
     match details {
         Account account => io:println(account);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -58,7 +58,7 @@ function testSendSms() {
     var details = twilioClient->sendSms(fromMobile, toMobile, message);
     match details {
         SmsResponse smsResponse => io:println(smsResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -77,7 +77,7 @@ function testMakeVoiceCall() {
     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl);
     match details {
         VoiceCallResponse voiceCallResponse => io:println(voiceCallResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -91,7 +91,7 @@ function testAuthyAppDetails() {
     var details = twilioClient->getAuthyAppDetails();
     match details {
         AuthyAppDetailsResponse authyAppDetailsResponse => io:println(authyAppDetailsResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -113,7 +113,7 @@ function testAuthyUserAdd() {
             io:println(authyUserAddResponse);
             testUserId = authyUserAddResponse.userId;
         }
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -128,7 +128,7 @@ function testAuthyUserStatus() {
     var details = twilioClient->getAuthyUserStatus(testUserId);
     match details {
         AuthyUserStatusResponse authyUserStatusResponse => io:println(authyUserStatusResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -144,7 +144,7 @@ function testAuthyUserDelete() {
     var details = twilioClient->deleteAuthyUser(testUserId);
     match details {
         AuthyUserDeleteResponse authyUserDeleteResponse => io:println(authyUserDeleteResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -159,7 +159,7 @@ function testAuthyUserSecret() {
     var details = twilioClient->getAuthyUserSecret(testUserId);
     match details {
         AuthyUserSecretResponse authyUserSecretResponse => io:println(authyUserSecretResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -174,7 +174,7 @@ function testAuthyOtpViaSms() {
     var details = twilioClient->requestOtpViaSms(testUserId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -189,7 +189,7 @@ function testAuthyOtpViaCall() {
     var details = twilioClient->requestOtpViaCall(testUserId);
     match details {
         AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
-        TwilioError twilioError => test:assertFail(msg = twilioError.message);
+        error twilioError => test:assertFail(msg = twilioError.message);
     }
 }
 
@@ -206,7 +206,7 @@ function testAuthyOtpVerify() {
     var details = twilioClient->verifyOtp(testUserId, token);
     match details {
         AuthyOtpVerifyResponse authyOtpVerifyResponse => io:println(authyOtpVerifyResponse);
-        // This always returns a TwilioError since the token should be what the user get.
-        TwilioError twilioError => io:println(twilioError.message);
+        // This always returns a error since the token should be what the user get.
+        error twilioError => io:println(twilioError.message);
     }
 }

@@ -30,68 +30,68 @@ public type TwilioConnector object {
     public http:Client authyClient;
 
     # Return account details of the given account-sid.
-    # + return - If success, returns account object with basic details, else returns TwilioError object
-    public function getAccountDetails() returns (Account|TwilioError);
+    # + return - If success, returns account object with basic details, else returns error object
+    public function getAccountDetails() returns (Account|error);
 
     # Send SMS from the given account-sid.
     # + fromNo - Mobile number which the SMS should be send from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
-    # + return - If success, returns SMS response object with basic details, else returns TwilioError object
-    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError);
+    # + return - If success, returns SMS response object with basic details, else returns error object
+    public function sendSms(string fromNo, string toNo, string message) returns (SmsResponse|error);
 
     # Make a voice call from the given account-sid.
     # + fromNo - Mobile number which the voice call should be send from
     # + toNo - Mobile number which the voice call should be received to
     # + twiml - TwiML URL which the response of the voice call is stated
-    # + return - If success, returns voice call response object with basic details, else returns TwilioError object
-    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|TwilioError);
+    # + return - If success, returns voice call response object with basic details, else returns error object
+    public function makeVoiceCall(string fromNo, string toNo, string twiml) returns (VoiceCallResponse|error);
 
     # Get the Authy app details.
-    # + return - If success, returns Authy app response object with basic details, else returns TwilioError object
-    public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError);
+    # + return - If success, returns Authy app response object with basic details, else returns error object
+    public function getAuthyAppDetails() returns (AuthyAppDetailsResponse|error);
 
     # Add an user for Authy app.
     # + email - Email of the new user
     # + phone - Phone number of the new user
     # + countryCode - Country code of the new user
-    # + return - If success, returns Authy user add response object with basic details, else returns TwilioError object
+    # + return - If success, returns Authy user add response object with basic details, else returns error object
     public function addAuthyUser(string email, string phone, string countryCode) returns (AuthyUserAddResponse|
-                TwilioError);
+                error);
 
     # Get the user details of Authy for the given user-id.
     # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user status response object with basic details, else returns TwilioError object
-    public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError);
+    # + return - If success, returns Authy user status response object with basic details, else returns error object
+    public function getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|error);
 
     # Delete the user of Authy for the given user-id.
     # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user delete response object with basic details, else returns TwilioError object
-    public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError);
+    # + return - If success, returns Authy user delete response object with basic details, else returns error object
+    public function deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|error);
 
     # Get the user secret of Authy user for the given user-id.
     # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user secret response object with basic details, else returns TwilioError object
-    public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError);
+    # + return - If success, returns Authy user secret response object with basic details, else returns error object
+    public function getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|error);
 
     # Request OTP for the user of Authy via SMS for the given user-id.
     # + userId - Unique identifier of the user
-    # + return - If success, returns Authy OTP response object with basic details, else returns TwilioError object
-    public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError);
+    # + return - If success, returns Authy OTP response object with basic details, else returns error object
+    public function requestOtpViaSms(string userId) returns (AuthyOtpResponse|error);
 
     # Request OTP for the user of Authy via call for the given user-id.
     # + userId - Unique identifier of the user
-    # + return - If success, returns Authy OTP response object with basic details, else returns TwilioError object
-    public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError);
+    # + return - If success, returns Authy OTP response object with basic details, else returns error object
+    public function requestOtpViaCall(string userId) returns (AuthyOtpResponse|error);
 
     # Verify OTP for the user of Authy for the given user-id.
     # + userId - Unique identifier of the user
     # + token - The OTP token to be verified
-    # + return - If success, returns Authy OTP verify response object with basic details, else returns TwilioError object
-    public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError);
+    # + return - If success, returns Authy OTP verify response object with basic details, else returns error object
+    public function verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|error);
 };
 
-function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
+function TwilioConnector::getAccountDetails() returns (Account|error) {
     endpoint http:Client httpClient = self.basicClient;
     string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
     var response = httpClient->get(requestPath);
@@ -99,7 +99,7 @@ function TwilioConnector::getAccountDetails() returns (Account|TwilioError) {
     return mapJsonToAccount(jsonResponse);
 }
 
-function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns (SmsResponse|TwilioError) {
+function TwilioConnector::sendSms(string fromNo, string toNo, string message) returns SmsResponse|error {
     endpoint http:Client httpClient = self.basicClient;
     http:Request req = new;
 
@@ -116,7 +116,7 @@ function TwilioConnector::sendSms(string fromNo, string toNo, string message) re
 }
 
 function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml)
-                                     returns (VoiceCallResponse|TwilioError) {
+                                     returns VoiceCallResponse|error {
 
     endpoint http:Client httpClient = self.basicClient;
     http:Request req = new;
@@ -133,7 +133,7 @@ function TwilioConnector::makeVoiceCall(string fromNo, string toNo, string twiml
     return mapJsonToVoiceCallResponse(jsonResponse);
 }
 
-function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|TwilioError) {
+function TwilioConnector::getAuthyAppDetails() returns AuthyAppDetailsResponse|error {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
@@ -146,7 +146,7 @@ function TwilioConnector::getAuthyAppDetails() returns (AuthyAppDetailsResponse|
 }
 
 function TwilioConnector::addAuthyUser(string email, string phone, string countryCode)
-                                     returns (AuthyUserAddResponse|TwilioError) {
+                                     returns AuthyUserAddResponse|error {
 
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
@@ -164,7 +164,7 @@ function TwilioConnector::addAuthyUser(string email, string phone, string countr
     return mapJsonToAuthyUserAddRespones(jsonResponse);
 }
 
-function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserStatusResponse|TwilioError) {
+function TwilioConnector::getAuthyUserStatus(string userId) returns AuthyUserStatusResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -174,7 +174,7 @@ function TwilioConnector::getAuthyUserStatus(string userId) returns (AuthyUserSt
     return mapJsonToAuthyUserStatusResponse(jsonResponse);
 }
 
-function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDeleteResponse|TwilioError) {
+function TwilioConnector::deleteAuthyUser(string userId) returns AuthyUserDeleteResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -184,7 +184,7 @@ function TwilioConnector::deleteAuthyUser(string userId) returns (AuthyUserDelet
     return mapJsonToAuthyUserDeleteResponse(jsonResponse);
 }
 
-function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSecretResponse|TwilioError) {
+function TwilioConnector::getAuthyUserSecret(string userId) returns AuthyUserSecretResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -194,7 +194,7 @@ function TwilioConnector::getAuthyUserSecret(string userId) returns (AuthyUserSe
     return mapJsonToAuthyUserSecretResponse(jsonResponse);
 }
 
-function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpResponse|TwilioError) {
+function TwilioConnector::requestOtpViaSms(string userId) returns AuthyOtpResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -204,7 +204,7 @@ function TwilioConnector::requestOtpViaSms(string userId) returns (AuthyOtpRespo
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResponse|TwilioError) {
+function TwilioConnector::requestOtpViaCall(string userId) returns AuthyOtpResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -214,7 +214,7 @@ function TwilioConnector::requestOtpViaCall(string userId) returns (AuthyOtpResp
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-function TwilioConnector::verifyOtp(string userId, string token) returns (AuthyOtpVerifyResponse|TwilioError) {
+function TwilioConnector::verifyOtp(string userId, string token) returns AuthyOtpVerifyResponse|error {
     endpoint http:Client httpClient = self.authyClient;
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);

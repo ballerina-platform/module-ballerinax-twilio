@@ -48,7 +48,7 @@ The `sendSMS` function sends an SMS to a given mobile number from another given 
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
 match details {
     twilio:SmsResponse smsResponse => io:println(smsResponse);
-    twilio:TwilioError twilioError => io:println(twilioError);
+    twilio:error twilioError => io:println(twilioError);
 }
 ```
 The `addAuthyUser` function adds an Authy user with the given email address, phone number, and country code.
@@ -56,7 +56,7 @@ The `addAuthyUser` function adds an Authy user with the given email address, pho
 var details = twilioClient->addAuthyUser(email, phone, countryCode);
 match details {
     twilio:AuthyUserAddResponse authyUserAddResponse => io:println(authyUserAddResponse);
-    twilio:TwilioError twilioError => io:println(twilioError);
+    twilio:error twilioError => io:println(twilioError);
 }
 ```
 The `requestOtpViaSms` function sends an OTP SMS to the mobile number of the given user ID.
@@ -64,6 +64,6 @@ The `requestOtpViaSms` function sends an OTP SMS to the mobile number of the giv
 var details = twilioClient->requestOtpViaSms(userId);
 match details {
     twilio:AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
-    twilio:TwilioError twilioError => io:println(twilioError);
+    twilio:error twilioError => io:println(twilioError);
 }
 ```
