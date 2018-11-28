@@ -46,7 +46,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
         var details = twilioClient->getAccountDetails();
         match details {
             twilio:Account account => io:println(account);
-            twilio:TwilioError twilioError => io:println(twilioError);
+            error twilioError => io:println(twilioError);
         }
     }
 	```

@@ -61,7 +61,7 @@ public type TwilioConnector object {
     public http:Client client;
 
     documentation { Return account details of the given account-sid
-        R{{}} If success, returns account object with basic details, else returns TwilioError object
+        R{{}} If success, returns account object with basic details, else returns error
     }
     public function getAccountDetails() returns Account|error;
 };
