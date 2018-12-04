@@ -15,49 +15,52 @@
 // under the License.
 
 // Twilio API urls
-@final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
-@final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";
+final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
+final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";
 
-@final string TWILIO_ACCOUNTS_API = "/Accounts";
-@final string AUTHY_APP_API = "/json/app/details";
-@final string AUTHY_USER_API = "/json/users";
-@final string AUTHY_OTP_SMS_API = "/json/sms";
-@final string AUTHY_OTP_CALL_API = "/json/call";
-@final string AUTHY_OTP_VERIFY_API = "/json/verify";
+final string TWILIO_ACCOUNTS_API = "/Accounts";
+final string AUTHY_APP_API = "/json/app/details";
+final string AUTHY_USER_API = "/json/users";
+final string AUTHY_OTP_SMS_API = "/json/sms";
+final string AUTHY_OTP_CALL_API = "/json/call";
+final string AUTHY_OTP_VERIFY_API = "/json/verify";
 
-@final string SMS_SEND = "/SMS/Messages.json";
-@final string VOICE_CALL = "/Calls.json";
-@final string ACCOUNT_DETAILS = ".json";
+final string SMS_SEND = "/SMS/Messages.json";
+final string VOICE_CALL = "/Calls.json";
+final string ACCOUNT_DETAILS = ".json";
 
-@final string USER_ADD = "/new";
-@final string USER_STATUS = "/status";
-@final string USER_REMOVE = "/remove";
-@final string USER_SECRET = "/secret";
+final string USER_ADD = "/new";
+final string USER_STATUS = "/status";
+final string USER_REMOVE = "/remove";
+final string USER_SECRET = "/secret";
 
 // Symbols
-@final string EMPTY_STRING = "";
-@final string WHITE_SPACE = " ";
-@final string AMPERSAND_SYMBOL = "&";
-@final string EQUAL_SYMBOL = "=";
-@final string COLON_SYMBOL = ":";
-@final string FORWARD_SLASH = "/";
-@final string DASH_WITH_WHITE_SPACES_SYMBOL = " - ";
-@final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
+final string EMPTY_STRING = "";
+final string WHITE_SPACE = " ";
+final string AMPERSAND_SYMBOL = "&";
+final string EQUAL_SYMBOL = "=";
+final string COLON_SYMBOL = ":";
+final string FORWARD_SLASH = "/";
+final string DASH_WITH_WHITE_SPACES_SYMBOL = " - ";
+final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
 
 // Pre defined strings
-@final string CHARSET_UTF8 = "utf-8";
-@final string AUTHORIZATION = "Authorization";
-@final string BASIC = "Basic";
-@final string CONTENT_TYPE = "Content-Type";
-@final string X_AUTHY_API_KEY = "X-Authy-API-Key";
+final string CHARSET_UTF8 = "utf-8";
+final string AUTHORIZATION = "Authorization";
+final string BASIC = "Basic";
+final string CONTENT_TYPE = "Content-Type";
+final string X_AUTHY_API_KEY = "X-Authy-API-Key";
 
 // API related parameters
-@final string TO = "To";
-@final string FROM = "From";
-@final string BODY = "Body";
-@final string URL = "Url";
+final string TO = "To";
+final string FROM = "From";
+final string BODY = "Body";
+final string URL = "Url";
 
 // Conf parameter keys
-@final string ACCOUNT_SID = "ACCOUNT_SID";
-@final string AUTH_TOKEN = "AUTH_TOKEN";
-@final string AUTHY_API_KEY = "AUTHY_API_KEY";
+final string ACCOUNT_SID = "ACCOUNT_SID";
+final string AUTH_TOKEN = "AUTH_TOKEN";
+final string AUTHY_API_KEY = "AUTHY_API_KEY";
+
+//Error codes
+final string TWILIO_ERROR_CODE = "(wso2/twilio)TwilioError";

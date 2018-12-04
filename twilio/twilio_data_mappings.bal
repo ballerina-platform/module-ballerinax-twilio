@@ -15,7 +15,7 @@
 // under the License.
 
 function mapJsonToAccount(json jsonPayload) returns Account {
-    Account account;
+    Account account = {};
     account.sid = jsonPayload.sid.toString();
     account.name = jsonPayload.friendly_name.toString();
     account.status = jsonPayload.status.toString();
@@ -26,7 +26,7 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 }
 
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
-    SmsResponse smsResponse;
+    SmsResponse smsResponse = {};
     smsResponse.sid = jsonPayload.sid.toString();
     smsResponse.status = jsonPayload.status.toString();
     smsResponse.price = jsonPayload.price.toString();
@@ -35,7 +35,7 @@ function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
 }
 
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
-    VoiceCallResponse voiceCallResponse;
+    VoiceCallResponse voiceCallResponse = {};
     voiceCallResponse.sid = jsonPayload.sid.toString();
     voiceCallResponse.status = jsonPayload.status.toString();
     voiceCallResponse.price = jsonPayload.price.toString();
@@ -44,69 +44,69 @@ function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse 
 }
 
 function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
-    AuthyAppDetailsResponse authyAppDetailsResponse;
+    AuthyAppDetailsResponse authyAppDetailsResponse = {};
     authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString();
     authyAppDetailsResponse.name = jsonPayload.app.name.toString();
     authyAppDetailsResponse.plan = jsonPayload.app.plan.toString();
-    authyAppDetailsResponse.isSmsEnabled = <boolean>jsonPayload.app.sms_enabled.toString();
-    authyAppDetailsResponse.isPhoneCallsEnabled = <boolean>jsonPayload.app.phone_calls_enabled.toString();
-    authyAppDetailsResponse.isOnetouchEnabled = <boolean>jsonPayload.app.onetouch_enabled.toString();
+    authyAppDetailsResponse.isSmsEnabled = boolean.create(jsonPayload.app.sms_enabled.toString());
+    authyAppDetailsResponse.isPhoneCallsEnabled = boolean.create(jsonPayload.app.phone_calls_enabled.toString());
+    authyAppDetailsResponse.isOnetouchEnabled = boolean.create(jsonPayload.app.onetouch_enabled.toString());
     authyAppDetailsResponse.message = jsonPayload.message.toString();
-    authyAppDetailsResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyAppDetailsResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyAppDetailsResponse;
 }
 
 function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
-    AuthyUserAddResponse authyUserAddResponse;
+    AuthyUserAddResponse authyUserAddResponse = {};
     authyUserAddResponse.userId = jsonPayload.user.id.toString();
     authyUserAddResponse.message = jsonPayload.message.toString();
-    authyUserAddResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyUserAddResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyUserAddResponse;
 }
 
 function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
-    AuthyUserStatusResponse authyUserStatusResponse;
+    AuthyUserStatusResponse authyUserStatusResponse = {};
     authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString();
-    authyUserStatusResponse.isConfirmed = <boolean>jsonPayload.status.confirmed.toString();
-    authyUserStatusResponse.isRegistered = <boolean>jsonPayload.status.registered.toString();
+    authyUserStatusResponse.isConfirmed = boolean.create(jsonPayload.status.confirmed.toString());
+    authyUserStatusResponse.isRegistered = boolean.create(jsonPayload.status.registered.toString());
     authyUserStatusResponse.countryCode = jsonPayload.status.country_code.toString();
     authyUserStatusResponse.phoneNumber = jsonPayload.status.phone_number.toString();
-    authyUserStatusResponse.isAccountDisabled = <boolean>jsonPayload.status.account_disabled.toString();
+    authyUserStatusResponse.isAccountDisabled = boolean.create(jsonPayload.status.account_disabled.toString());
     authyUserStatusResponse.message = jsonPayload.message.toString();
-    authyUserStatusResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyUserStatusResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyUserStatusResponse;
 }
 
 function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
-    AuthyUserDeleteResponse authyUserDeleteResponse;
+    AuthyUserDeleteResponse authyUserDeleteResponse = {};
     authyUserDeleteResponse.message = jsonPayload.message.toString();
-    authyUserDeleteResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyUserDeleteResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyUserDeleteResponse;
 }
 
 function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
-    AuthyUserSecretResponse authyUserSecretResponse;
+    AuthyUserSecretResponse authyUserSecretResponse = {};
     authyUserSecretResponse.issuer = jsonPayload.issuer.toString();
     authyUserSecretResponse.label = jsonPayload.label.toString();
     authyUserSecretResponse.qrCodeUrl = jsonPayload.qr_code.toString();
-    authyUserSecretResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyUserSecretResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyUserSecretResponse;
 }
 
 function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
-    AuthyOtpResponse authyOtpResponse;
+    AuthyOtpResponse authyOtpResponse = {};
     authyOtpResponse.message = jsonPayload.message.toString();
     authyOtpResponse.cellphone = jsonPayload.cellphone.toString();
     authyOtpResponse.device = jsonPayload.device.toString();
-    authyOtpResponse.isIgnored = <boolean>jsonPayload.ignored.toString();
-    authyOtpResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyOtpResponse.isIgnored = boolean.create(jsonPayload.ignored.toString());
+    authyOtpResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyOtpResponse;
 }
 
 function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
-    AuthyOtpVerifyResponse authyOtpVerifyResponse;
+    AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
     authyOtpVerifyResponse.message = jsonPayload.message.toString();
     authyOtpVerifyResponse.token = jsonPayload.token.toString();
-    authyOtpVerifyResponse.isSuccess = <boolean>jsonPayload.success.toString();
+    authyOtpVerifyResponse.isSuccess = boolean.create(jsonPayload.success.toString());
     return authyOtpVerifyResponse;
 }
