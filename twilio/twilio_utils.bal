@@ -58,7 +58,7 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     var encodedVar = http:encode(value, CHARSET_UTF8);
     string encodedString = "";
     string body = "";
-    if(encodedVar is string) {
+    if (encodedVar is string) {
         encodedString = encodedVar;
     } else {
         error err = error(TWILIO_ERROR_CODE, { message: "Error occurred while encoding the string" });

@@ -38,7 +38,7 @@ function testAccountDetails() {
     log:printInfo("twilioClient -> getAccountDetails()");
 
     var details = twilioClient->getAccountDetails();
-    if(details is Account) {
+    if (details is Account) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -58,7 +58,7 @@ function testSendSms() {
     string message = config:getAsString("SAMPLE_MESSAGE");
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message);
-    if(details is SmsResponse) {
+    if (details is SmsResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -78,7 +78,7 @@ function testMakeVoiceCall() {
     string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
 
     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl);
-    if(details is VoiceCallResponse) {
+    if (details is VoiceCallResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -93,7 +93,7 @@ function testAuthyAppDetails() {
     log:printInfo("twilioClient -> getAuthyAppDetails()");
 
     var details = twilioClient->getAuthyAppDetails();
-    if(details is AuthyAppDetailsResponse) {
+    if (details is AuthyAppDetailsResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -113,9 +113,9 @@ function testAuthyUserAdd() {
     string countryCode = config:getAsString("SAMPLE_USER_COUNTRY_CODE");
 
     var details = twilioClient->addAuthyUser(email, phone, countryCode);
-    if(details is AuthyUserAddResponse) {
+    if (details is AuthyUserAddResponse) {
         io:println(details);
-        testUserId = details.userId;
+        testUserId = untaint details.userId;
     } else {
         test:assertFail(msg = <string>details.detail().message);
     }
@@ -130,7 +130,7 @@ function testAuthyUserStatus() {
     log:printInfo("twilioClient -> getAuthyUserStatus()");
 
     var details = twilioClient->getAuthyUserStatus(testUserId);
-    if(details is AuthyUserStatusResponse) {
+    if (details is AuthyUserStatusResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -147,7 +147,7 @@ function testAuthyUserDelete() {
     log:printInfo("twilioClient -> deleteAuthyUser()");
 
     var details = twilioClient->deleteAuthyUser(testUserId);
-    if(details is AuthyUserDeleteResponse) {
+    if (details is AuthyUserDeleteResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -163,7 +163,7 @@ function testAuthyUserSecret() {
     log:printInfo("twilioClient -> getAuthyUserSecret()");
 
     var details = twilioClient->getAuthyUserSecret(testUserId);
-    if(details is AuthyUserSecretResponse) {
+    if (details is AuthyUserSecretResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -179,7 +179,7 @@ function testAuthyOtpViaSms() {
     log:printInfo("twilioClient -> requestOtpViaSms()");
 
     var details = twilioClient->requestOtpViaSms(testUserId);
-    if(details is AuthyOtpResponse) {
+    if (details is AuthyOtpResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -195,7 +195,7 @@ function testAuthyOtpViaCall() {
     log:printInfo("twilioClient -> requestOtpViaCall()");
 
     var details = twilioClient->requestOtpViaCall(testUserId);
-    if(details is AuthyOtpResponse) {
+    if (details is AuthyOtpResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail().message);
@@ -213,7 +213,7 @@ function testAuthyOtpVerify() {
     string token = "8875458";
 
     var details = twilioClient->verifyOtp(testUserId, token);
-    if(details is AuthyOtpVerifyResponse) {
+    if (details is AuthyOtpVerifyResponse) {
         io:println(details);
     } else {
         // This always returns a error since the token should be what the user get.
