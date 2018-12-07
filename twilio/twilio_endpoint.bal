@@ -234,7 +234,7 @@ remote function Client.verifyOtp(string userId, string token) returns AuthyOtpVe
 public type TwilioConfiguration record {
     string accountSId;
     string authToken;
-    string xAuthyKey;
+    string xAuthyKey = "";
     http:ClientEndpointConfig basicClientConfig = {};
     http:ClientEndpointConfig authyClientConfig = {};
 };
