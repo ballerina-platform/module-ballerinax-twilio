@@ -24,12 +24,12 @@ import ballerina/http;
 # + createdDate - The date that this account was created
 # + updatedDate - The date that this account was last updated
 public type Account record {
-    string sid;
-    string name;
-    string status;
-    string ^"type";
-    string createdDate;
-    string updatedDate;
+    string sid = "";
+    string name = "";
+    string status = "";
+    string ^"type" = "";
+    string createdDate = "";
+    string updatedDate = "";
 };
 
 # Represents Twilio SMS response.
@@ -38,10 +38,10 @@ public type Account record {
 # + price - The price amount of the SMS
 # + priceUnit - The price currency
 public type SmsResponse record {
-    string sid;
-    string status;
-    string price;
-    string priceUnit;
+    string sid = "";
+    string status = "";
+    string price = "";
+    string priceUnit = "";
 };
 
 # Represents Twilio voice call response.
@@ -50,10 +50,10 @@ public type SmsResponse record {
 # + price - The price amount of the call
 # + priceUnit - The price currency
 public type VoiceCallResponse record {
-    string sid;
-    string status;
-    string price;
-    string priceUnit;
+    string sid = "";
+    string status = "";
+    string price = "";
+    string priceUnit = "";
 };
 
 # Represents Authy app details response.
@@ -66,14 +66,14 @@ public type VoiceCallResponse record {
 # + message - A messaging indicating the result of the operation
 # + isSuccess - Is the request was success or not
 public type AuthyAppDetailsResponse record {
-    string appId;
-    string name;
-    string plan;
-    boolean isSmsEnabled;
-    boolean isPhoneCallsEnabled;
-    boolean isOnetouchEnabled;
-    string message;
-    boolean isSuccess;
+    string appId = "";
+    string name = "";
+    string plan = "";
+    boolean isSmsEnabled = false;
+    boolean isPhoneCallsEnabled = false;
+    boolean isOnetouchEnabled = false;
+    string message = "";
+    boolean isSuccess = false;
 };
 
 # Represents Authy user adding response.
@@ -81,9 +81,9 @@ public type AuthyAppDetailsResponse record {
 # + message - A messaging indicating the result of the operation
 # + isSuccess - Is the request was success or not
 public type AuthyUserAddResponse record {
-    string userId;
-    string message;
-    boolean isSuccess;
+    string userId = "";
+    string message = "";
+    boolean isSuccess = false;
 };
 
 # Represents Authy user status response.
@@ -96,22 +96,22 @@ public type AuthyUserAddResponse record {
 # + message - A messaging indicating the result of the operation
 # + isSuccess - Is the request was success or not
 public type AuthyUserStatusResponse record {
-    string userId;
-    boolean isConfirmed;
-    boolean isRegistered;
-    string countryCode;
-    string phoneNumber;
-    boolean isAccountDisabled;
-    string message;
-    boolean isSuccess;
+    string userId = "";
+    boolean isConfirmed = false;
+    boolean isRegistered = false;
+    string countryCode = "";
+    string phoneNumber = "";
+    boolean isAccountDisabled = false;
+    string message = "";
+    boolean isSuccess = false;
 };
 
 # Represents Authy user delete response.
 # + message - A messaging indicating the result of the operation
 # + isSuccess - Is the request was success or not
 public type AuthyUserDeleteResponse record {
-    string message;
-    boolean isSuccess;
+    string message = "";
+    boolean isSuccess = false;
 };
 
 # Represents Authy user secret response.
@@ -120,10 +120,10 @@ public type AuthyUserDeleteResponse record {
 # + qrCodeUrl - URL for the generated qr code
 # + isSuccess - Is the request was success or not
 public type AuthyUserSecretResponse record {
-    string issuer;
-    string label;
-    string qrCodeUrl;
-    boolean isSuccess;
+    string issuer = "";
+    string label = "";
+    string qrCodeUrl = "";
+    boolean isSuccess = false;
 };
 
 # Represents Authy OTP response.
@@ -133,11 +133,11 @@ public type AuthyUserSecretResponse record {
 # + isIgnored - True if we detected an Authy or SDK enabled app installed.
 # + isSuccess - Is the request was success or not
 public type AuthyOtpResponse record {
-    string message;
-    string cellphone;
-    string device;
-    boolean isIgnored;
-    boolean isSuccess;
+    string message = "";
+    string cellphone = "";
+    string device = "";
+    boolean isIgnored = false;
+    boolean isSuccess = false;
 };
 
 # Represents Authy OTP verify response.
@@ -145,8 +145,8 @@ public type AuthyOtpResponse record {
 # + token - Either "is valid" or "is invalid"
 # + isSuccess - Is the OTP was valid or not
 public type AuthyOtpVerifyResponse record {
-    string message;
-    string token;
-    boolean isSuccess;
+    string message = "";
+    string token = "";
+    boolean isSuccess = false;
 };
 

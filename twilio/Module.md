@@ -17,7 +17,7 @@ user secret, request OTP via SMS, request OTP via call, and verify OTP.
 ## Compatibility
 |                          |    Version     |
 |:------------------------:|:--------------:|
-| Ballerina Language       | 0.983.0        |
+| Ballerina Language       | 0.990.0        |
 | Twilio Basic API         | 2010-04-01     |
 | Twilio Authy API Version | v1             |
 
@@ -37,33 +37,40 @@ import wso2/twilio;
 
 You can now enter the credentials in the Twilio endpoint configuration.
 ```ballerina
-endpoint twilio:Client twilioEP {
-    accountSId:accountSId,
-    authToken:authToken,
-    xAuthyKey:xAuthyKey
+TwilioConfiguration twilioConfig = {
+    accountSId: config:getAsString(ACCOUNT_SID),
+    authToken: config:getAsString(AUTH_TOKEN),
+    xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
+Client twilioClient = new(twilioConfig);
 ```
 The `sendSMS` function sends an SMS to a given mobile number from another given mobile number using the specified message.
 ```ballerina
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
-match details {
-    twilio:SmsResponse smsResponse => io:println(smsResponse);
-    error twilioError => io:println(twilioError);
+if (details is  twilio:SmsResponse) {
+    io:println(details);
+} else {
+    //error
+    io:println(details);
 }
 ```
 The `addAuthyUser` function adds an Authy user with the given email address, phone number, and country code.
 ```ballerina
 var details = twilioClient->addAuthyUser(email, phone, countryCode);
-match details {
-    twilio:AuthyUserAddResponse authyUserAddResponse => io:println(authyUserAddResponse);
-    error twilioError => io:println(twilioError);
+if (details is  twilio:AuthyUserAddResponse) {
+    io:println(details);
+} else {
+    //error
+    io:println(details);
 }
 ```
 The `requestOtpViaSms` function sends an OTP SMS to the mobile number of the given user ID.
 ```ballerina
 var details = twilioClient->requestOtpViaSms(userId);
-match details {
-    twilio:AuthyOtpResponse authyOtpResponse => io:println(authyOtpResponse);
-    error twilioError => io:println(twilioError);
+if (details is  twilio:AuthyOtpResponse) {
+    io:println(details);
+} else {
+    //error
+    io:println(details);
 }
 ```
