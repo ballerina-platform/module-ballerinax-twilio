@@ -37,15 +37,15 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
     import wso2/twilio;
 
     public function main() {
-        TwilioConfiguration twilioConfig = {
+        twilio:TwilioConfiguration twilioConfig = {
             accountSId: config:getAsString(ACCOUNT_SID),
             authToken: config:getAsString(AUTH_TOKEN),
             xAuthyKey: config:getAsString(AUTHY_API_KEY)
         };
-        Client twilioClient = new(twilioConfig);
+        twilio:Client twilioClient = new(twilioConfig);
 
         var details = twilioClient->getAccountDetails();
-        if (details is  twilio:Account) {
+        if (details is twilio:Account) {
             io:println(details);
         } else {
             //error

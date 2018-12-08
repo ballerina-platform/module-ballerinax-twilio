@@ -37,12 +37,13 @@ import wso2/twilio;
 
 You can now enter the credentials in the Twilio endpoint configuration.
 ```ballerina
-TwilioConfiguration twilioConfig = {
+twilio:TwilioConfiguration twilioConfig = {
     accountSId: config:getAsString(ACCOUNT_SID),
     authToken: config:getAsString(AUTH_TOKEN),
     xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
-Client twilioClient = new(twilioConfig);
+
+twilio:Client twilioClient = new(twilioConfig);
 ```
 The `sendSMS` function sends an SMS to a given mobile number from another given mobile number using the specified message.
 ```ballerina
