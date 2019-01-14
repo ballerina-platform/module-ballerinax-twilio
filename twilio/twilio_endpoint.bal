@@ -30,6 +30,7 @@ public type Client client object {
     public http:Client authyClient;
 
     public function __init(TwilioConfiguration twilioConfig) {
+        self.init(twilioConfig);
         self.basicClient = new(TWILIO_API_BASE_URL, config = twilioConfig.basicClientConfig);
         self.authyClient = new(AUTHY_API_BASE_URL, config = twilioConfig.authyClientConfig);
         self.accountSId = twilioConfig.accountSId;
