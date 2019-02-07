@@ -104,14 +104,14 @@ public type Client client object {
 
 };
 
-remote function Client.getAccountDetails() returns Account|error {
+public remote function Client.getAccountDetails() returns Account|error {
     string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
     var response = self.basicClient->get(requestPath);
     json jsonResponse = check parseResponseToJson(response);
     return mapJsonToAccount(jsonResponse);
 }
 
-remote function Client.sendSms(string fromNo, string toNo, string message) returns SmsResponse|error {
+public remote function Client.sendSms(string fromNo, string toNo, string message) returns SmsResponse|error {
     http:Request req = new;
 
     string requestBody = "";
@@ -126,7 +126,7 @@ remote function Client.sendSms(string fromNo, string toNo, string message) retur
     return mapJsonToSmsResponse(jsonResponse);
 }
 
-remote function Client.makeVoiceCall(string fromNo, string toNo, string twiml)
+public remote function Client.makeVoiceCall(string fromNo, string toNo, string twiml)
                                      returns VoiceCallResponse|error {
 
     http:Request req = new;
@@ -143,7 +143,7 @@ remote function Client.makeVoiceCall(string fromNo, string toNo, string twiml)
     return mapJsonToVoiceCallResponse(jsonResponse);
 }
 
-remote function Client.getAuthyAppDetails() returns AuthyAppDetailsResponse|error {
+public remote function Client.getAuthyAppDetails() returns AuthyAppDetailsResponse|error {
 
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
@@ -154,7 +154,7 @@ remote function Client.getAuthyAppDetails() returns AuthyAppDetailsResponse|erro
     return mapJsonToAuthyAppDetailsResponse(jsonResponse);
 }
 
-remote function Client.addAuthyUser(string email, string phone, string countryCode)
+public remote function Client.addAuthyUser(string email, string phone, string countryCode)
                                      returns AuthyUserAddResponse|error {
 
     http:Request req = new;
@@ -172,7 +172,7 @@ remote function Client.addAuthyUser(string email, string phone, string countryCo
     return mapJsonToAuthyUserAddRespones(jsonResponse);
 }
 
-remote function Client.getAuthyUserStatus(string userId) returns AuthyUserStatusResponse|error {
+public remote function Client.getAuthyUserStatus(string userId) returns AuthyUserStatusResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
@@ -181,7 +181,7 @@ remote function Client.getAuthyUserStatus(string userId) returns AuthyUserStatus
     return mapJsonToAuthyUserStatusResponse(jsonResponse);
 }
 
-remote function Client.deleteAuthyUser(string userId) returns AuthyUserDeleteResponse|error {
+public remote function Client.deleteAuthyUser(string userId) returns AuthyUserDeleteResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
@@ -190,7 +190,7 @@ remote function Client.deleteAuthyUser(string userId) returns AuthyUserDeleteRes
     return mapJsonToAuthyUserDeleteResponse(jsonResponse);
 }
 
-remote function Client.getAuthyUserSecret(string userId) returns AuthyUserSecretResponse|error {
+public remote function Client.getAuthyUserSecret(string userId) returns AuthyUserSecretResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
@@ -199,7 +199,7 @@ remote function Client.getAuthyUserSecret(string userId) returns AuthyUserSecret
     return mapJsonToAuthyUserSecretResponse(jsonResponse);
 }
 
-remote function Client.requestOtpViaSms(string userId) returns AuthyOtpResponse|error {
+public remote function Client.requestOtpViaSms(string userId) returns AuthyOtpResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
@@ -208,7 +208,7 @@ remote function Client.requestOtpViaSms(string userId) returns AuthyOtpResponse|
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-remote function Client.requestOtpViaCall(string userId) returns AuthyOtpResponse|error {
+public remote function Client.requestOtpViaCall(string userId) returns AuthyOtpResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
@@ -217,7 +217,7 @@ remote function Client.requestOtpViaCall(string userId) returns AuthyOtpResponse
     return mapJsonToAuthyOtpResponse(jsonResponse);
 }
 
-remote function Client.verifyOtp(string userId, string token) returns AuthyOtpVerifyResponse|error {
+public remote function Client.verifyOtp(string userId, string token) returns AuthyOtpVerifyResponse|error {
     http:Request req = new;
     req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
     string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
@@ -240,7 +240,7 @@ public type TwilioConfiguration record {
     http:ClientEndpointConfig authyClientConfig = {};
 };
 
-function Client.init(TwilioConfiguration twilioConfig) {
+public function Client.init(TwilioConfiguration twilioConfig) {
     http:AuthConfig authConfig = {
                             scheme: http:BASIC_AUTH,
                             username: twilioConfig.accountSId,
