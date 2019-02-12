@@ -36,20 +36,21 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 	import ballerina/io;
     import wso2/twilio;
 
+    twilio:TwilioConfiguration twilioConfig = {
+        accountSId: config:getAsString(ACCOUNT_SID),
+        authToken: config:getAsString(AUTH_TOKEN),
+        xAuthyKey: config:getAsString(AUTHY_API_KEY)
+    };
+    twilio:Client twilioClient = new(twilioConfig);
+
     public function main() {
-        twilio:TwilioConfiguration twilioConfig = {
-            accountSId: config:getAsString(ACCOUNT_SID),
-            authToken: config:getAsString(AUTH_TOKEN),
-            xAuthyKey: config:getAsString(AUTHY_API_KEY)
-        };
-        twilio:Client twilioClient = new(twilioConfig);
 
         var details = twilioClient->getAccountDetails();
         if (details is twilio:Account) {
-            io:println(details);
+            io:println("Account Details: ", details);
         } else {
-            //error
-            io:println(details);
+            // If unsuccessful, print the error returned.
+            io:println("Error: ", details);
         }
     }
 	```
