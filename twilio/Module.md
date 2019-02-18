@@ -46,7 +46,7 @@ twilio:TwilioConfiguration twilioConfig = {
 twilio:Client twilioClient = new(twilioConfig);
 ```
 
-The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number using the specified message.
+The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number with the specified message.
 ```ballerina
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
 if (details is  twilio:SmsResponse) {
