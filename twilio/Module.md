@@ -45,33 +45,39 @@ twilio:TwilioConfiguration twilioConfig = {
 
 twilio:Client twilioClient = new(twilioConfig);
 ```
-The `sendSMS` function sends an SMS to a given mobile number from another given mobile number using the specified message.
+
+The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number with the specified message.
 ```ballerina
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
 if (details is  twilio:SmsResponse) {
-    io:println(details);
+    // If successful, print SMS Details.
+    io:println("SMS Details: ", details);
 } else {
-    //error
-    io:println(details);
+    // If unsuccessful, print the error returned.
+    io:println("Error: ", details);
 }
 ```
-The `addAuthyUser` function adds an Authy user with the given email address, phone number, and country code.
+
+The `addAuthyUser` remote function adds an Authy user with the given email address, phone number, and country code.
 ```ballerina
 var details = twilioClient->addAuthyUser(email, phone, countryCode);
 if (details is  twilio:AuthyUserAddResponse) {
-    io:println(details);
+    // If successful, print Authy user Details.
+    io:println("Authy user Details: ", details);
 } else {
-    //error
-    io:println(details);
+    // If unsuccessful, print the error returned.
+    io:println("Error: ", details);
 }
 ```
-The `requestOtpViaSms` function sends an OTP SMS to the mobile number of the given user ID.
+
+The `requestOtpViaSms` remote function sends an OTP SMS to the mobile number of the given user ID.
 ```ballerina
 var details = twilioClient->requestOtpViaSms(userId);
 if (details is  twilio:AuthyOtpResponse) {
-    io:println(details);
+    // If successful, print OTP SMS Details.
+    io:println("OTP SMS Details: ", details);
 } else {
-    //error
-    io:println(details);
+    // If unsuccessful, print the error returned.
+    io:println("Error: ", details);
 }
 ```
