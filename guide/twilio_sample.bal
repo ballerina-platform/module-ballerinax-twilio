@@ -34,6 +34,7 @@ final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
 
 
 # Object for Twilio endpoint.
+#
 # + accountSId - Unique identifier of the account
 # + xAuthyKey - Unique identifier of Authy API account
 # + basicClient - HTTP client endpoint for basic api
@@ -54,15 +55,18 @@ public type Client client object {
     }
 
     # Initialize Twilio endpoint.
+    #
     # + twilioConfig - Twilio configuraion
     public function init(TwilioConfiguration twilioConfig);
 
     # Return account details of the given account-sid.
+    #
     # + return - If success, returns account object with basic details, else returns error
     public remote function getAccountDetails() returns Account|error;
 };
 
 # Twilio Configuration.
+#
 # + accountSId - Unique identifier of the account
 # + authToken - The authentication token of the account
 # + xAuthyKey - The authentication token for the Authy API
@@ -78,9 +82,9 @@ public type TwilioConfiguration record {
 
 public function Client.init(TwilioConfiguration twilioConfig) {
     http:AuthConfig authConfig = {
-                            scheme: http:BASIC_AUTH,
-                            username: twilioConfig.accountSId,
-                            password: twilioConfig.authToken
+        scheme: http:BASIC_AUTH,
+        username: twilioConfig.accountSId,
+        password: twilioConfig.authToken
     };
     twilioConfig.basicClientConfig.auth = authConfig;
 }
@@ -93,6 +97,7 @@ public remote function Client.getAccountDetails() returns Account|error {
 }
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
+#
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
 function parseResponseToJson(http:Response|error httpResponse) returns json|error {
@@ -137,6 +142,7 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 }
 
 # Represents Twilio account.
+#
 # + sid - Unique identifier of the account
 # + name - The name of the account
 # + status - The status of the account (active, suspended, closed)
