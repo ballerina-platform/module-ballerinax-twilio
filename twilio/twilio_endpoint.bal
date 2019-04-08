@@ -242,9 +242,11 @@ public type TwilioConfiguration record {
 
 public function Client.init(TwilioConfiguration twilioConfig) {
     http:AuthConfig authConfig = {
-                            scheme: http:BASIC_AUTH,
-                            username: twilioConfig.accountSId,
-                            password: twilioConfig.authToken
+        scheme: http:BASIC_AUTH,
+        config: {
+            username: twilioConfig.accountSId,
+            password: twilioConfig.authToken
+        }
     };
     twilioConfig.basicClientConfig.auth = authConfig;
 }
