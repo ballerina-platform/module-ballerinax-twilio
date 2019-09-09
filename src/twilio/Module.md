@@ -17,7 +17,7 @@ user secret, request OTP via SMS, request OTP via call, and verify OTP.
 ## Compatibility
 |                          |    Version     |
 |:------------------------:|:--------------:|
-| Ballerina Language       | 0.991.0        |
+| Ballerina Language       | 1.0.0          |
 | Twilio Basic API         | 2010-04-01     |
 | Twilio Authy API Version | v1             |
 

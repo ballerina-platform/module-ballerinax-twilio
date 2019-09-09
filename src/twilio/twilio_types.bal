@@ -14,8 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
-
 # Represents Twilio account.
 # + sid - Unique identifier of the account
 # + name - The name of the account
@@ -27,7 +25,7 @@ public type Account record {
     string sid = "";
     string name = "";
     string status = "";
-    string ^"type" = "";
+    string 'type = "";
     string createdDate = "";
     string updatedDate = "";
 };
@@ -149,4 +147,3 @@ public type AuthyOtpVerifyResponse record {
     string token = "";
     boolean isSuccess = false;
 };
-

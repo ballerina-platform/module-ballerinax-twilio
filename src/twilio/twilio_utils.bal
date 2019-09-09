@@ -14,37 +14,39 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import ballerina/encoding;
 import ballerina/http;
+import ballerinax/java;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response|error httpResponse) returns json|error {
+function parseResponseToJson(http:Response | error httpResponse) returns @tainted json | error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
-            if (httpResponse.statusCode != http:OK_200 && httpResponse.statusCode != http:CREATED_201) {
+            if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
                 string errMsg = jsonResponse.message.toString();
                 string errCode = "";
                 if (jsonResponse.error_code != ()) {
                     errCode = jsonResponse.error_code.toString();
-                } else if (jsonResponse["error"] != ()) {
-                    errCode = jsonResponse["error"].toString();
+                } else if (jsonResponse.'error != ()) {
+                    errCode =jsonResponse.'error.toString();
                 }
                 error err = error(TWILIO_ERROR_CODE,
-                { message: httpResponse.statusCode + WHITE_SPACE
-                            + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
-                            + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg });
+                message = httpResponse.statusCode.toString() + WHITE_SPACE
+                + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
+                + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg);
                 return err;
             }
             return jsonResponse;
         } else {
             error err = error(TWILIO_ERROR_CODE,
-            { message: "Error occurred while accessing the JSON payload of the response" });
+            message = "Error occurred while accessing the JSON payload of the response");
             return err;
         }
     } else {
-        error err = error(TWILIO_ERROR_CODE, { message: "Error occurred while invoking the REST API" });
+        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while invoking the REST API");
         return err;
     }
 }
@@ -54,14 +56,14 @@ function parseResponseToJson(http:Response|error httpResponse) returns json|erro
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
 # + return - Created request body with encoded string or `error` if anything wrong happen when encoding the value
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|error {
-    var encodedVar = http:encode(value, CHARSET_UTF8);
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string | error {
+    var encodedVar = encoding:encodeUriComponent(value, CHARSET_UTF8);
     string encodedString = "";
     string body = "";
     if (encodedVar is string) {
         encodedString = encodedVar;
     } else {
-        error err = error(TWILIO_ERROR_CODE, { message: "Error occurred while encoding the string" });
+        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while encoding the string");
         return err;
     }
     if (requestBody != EMPTY_STRING) {
@@ -69,3 +71,12 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     }
     return body + key + EQUAL_SYMBOL + encodedString;
 }
+
+function getBoolean(string value) returns boolean {
+    return getBooleanExternal(java:fromString(value));
+}
+
+function getBooleanExternal(handle value) returns boolean = @java:Method {
+    name: "parseBoolean",
+    class: "java.lang.Boolean"
+} external;
