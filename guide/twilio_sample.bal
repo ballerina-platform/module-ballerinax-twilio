@@ -1,4 +1,4 @@
-// Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+test.bal// Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 //
 // WSO2 Inc. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
@@ -17,9 +17,9 @@
 // This guide is created for the reference of "How to Extend Ballerina" in ballerina.io
 // https://ballerina.io/learn/how-to-extend-ballerina/
 
-
 import ballerina/http;
-import ballerina/mime;
+import ballerina/auth;
+import ballerina/io;
 
 // Twilio API urls
 final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
@@ -31,7 +31,6 @@ final string TWILIO_ERROR_CODE = "(wso2/twilio)TwilioError";
 final string DASH_WITH_WHITE_SPACES_SYMBOL = " - ";
 final string WHITE_SPACE = " ";
 final string COLON_WITH_WHITE_SPACES_SYMBOL = " : ";
-
 
 # Object for Twilio endpoint.
 #
@@ -57,12 +56,28 @@ public type Client client object {
     # Initialize Twilio endpoint.
     #
     # + twilioConfig - Twilio configuraion
-    public function init(TwilioConfiguration twilioConfig);
+    public function init(TwilioConfiguration twilioConfig) {
+        auth:OutboundBasicAuthProvider outboundBasicAuthProvider = new({
+            username: twilioConfig.accountSId,
+            password: twilioConfig.authToken
+        });
+
+        http:BasicAuthHandler outboundBasicAuthHandler = new(outboundBasicAuthProvider);
+
+        twilioConfig.basicClientConfig.auth = {
+            authHandler: outboundBasicAuthHandler
+        };
+    }
 
     # Return account details of the given account-sid.
     #
     # + return - If success, returns account object with basic details, else returns error
-    public remote function getAccountDetails() returns Account|error;
+    public remote function getAccountDetails() returns @tainted Account|error {
+            string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
+    var response = self.basicClient->get(requestPath);
+    json jsonResponse = check parseResponseToJson(response);
+    return mapJsonToAccount(jsonResponse);
+    }
 };
 
 # Twilio Configuration.
@@ -76,56 +91,42 @@ public type TwilioConfiguration record {
     string accountSId;
     string authToken;
     string xAuthyKey = "";
-    http:ClientEndpointConfig basicClientConfig = {};
-    http:ClientEndpointConfig authyClientConfig = {};
+    http:ClientConfiguration basicClientConfig = {};
+    http:ClientConfiguration authyClientConfig = {};
 };
-
-public function Client.init(TwilioConfiguration twilioConfig) {
-    http:AuthConfig authConfig = {
-        scheme: http:BASIC_AUTH,
-        username: twilioConfig.accountSId,
-        password: twilioConfig.authToken
-    };
-    twilioConfig.basicClientConfig.auth = authConfig;
-}
-
-public remote function Client.getAccountDetails() returns Account|error {
-    string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
-    var response = self.basicClient->get(requestPath);
-    json jsonResponse = check parseResponseToJson(response);
-    return mapJsonToAccount(jsonResponse);
-}
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 #
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response|error httpResponse) returns json|error {
+function parseResponseToJson(http:Response|error httpResponse) returns @tainted json|error {
     if (httpResponse is http:Response) {
+                    io:println(httpResponse);
+
         var jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
-            if (httpResponse.statusCode != http:OK_200 && httpResponse.statusCode != http:CREATED_201) {
+            if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
                 string errMsg = jsonResponse.message.toString();
                 string errCode = "";
                 if (jsonResponse.error_code != ()) {
                     errCode = jsonResponse.error_code.toString();
-                } else if (jsonResponse["error"] != ()) {
-                    errCode = jsonResponse["error"].toString();
+                } else if (jsonResponse.'error != ()) {
+                    errCode = jsonResponse.'error.toString();
                 }
                 error err = error(TWILIO_ERROR_CODE,
-                { message: httpResponse.statusCode + WHITE_SPACE
+                 message = httpResponse.statusCode.toString() + WHITE_SPACE
                             + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
-                            + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg });
+                            + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg );
                 return err;
             }
             return jsonResponse;
         } else {
             error err = error(TWILIO_ERROR_CODE,
-            { message: "Error occurred while accessing the JSON payload of the response" });
+             message = "Error occurred while accessing the JSON payload of the response" );
             return err;
         }
     } else {
-        error err = error(TWILIO_ERROR_CODE, { message: "Error occurred while invoking the REST API" });
+        error err = error(TWILIO_ERROR_CODE,  message = "Error occurred while invoking the REST API" );
         return err;
     }
 }
@@ -135,7 +136,7 @@ function mapJsonToAccount(json jsonPayload) returns Account {
     account.sid = jsonPayload.sid.toString();
     account.name = jsonPayload.friendly_name.toString();
     account.status = jsonPayload.status.toString();
-    account.^"type" = jsonPayload.^"type".toString();
+    account.'type = jsonPayload.'type.toString();
     account.createdDate = jsonPayload.date_created.toString();
     account.updatedDate = jsonPayload.date_updated.toString();
     return account;
@@ -153,7 +154,7 @@ public type Account record {
     string sid = "";
     string name = "";
     string status = "";
-    string ^"type" = "";
+    string 'type = "";
     string createdDate = "";
     string updatedDate = "";
 };
