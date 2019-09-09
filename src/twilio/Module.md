@@ -38,9 +38,9 @@ import wso2/twilio;
 You can now enter the credentials in the Twilio endpoint configuration.
 ```ballerina
 twilio:TwilioConfiguration twilioConfig = {
-    accountSId: config:getAsString(ACCOUNT_SID),
-    authToken: config:getAsString(AUTH_TOKEN),
-    xAuthyKey: config:getAsString(AUTHY_API_KEY)
+    accountSId: config:getAsString("ACCOUNT_SID"),
+    authToken: config:getAsString("AUTH_TOKEN"),
+    xAuthyKey: config:getAsString("AUTHY_API_KEY")
 };
 
 twilio:Client twilioClient = new(twilioConfig);
