@@ -26,10 +26,10 @@ import ballerina/mime;
 # + authyClient - HTTP client endpoint for authy api
 public type Client client object {
 
-    public string accountSId;
-    public string xAuthyKey;
-    public http:Client basicClient;
-    public http:Client authyClient;
+    public string accountSId = "";
+    public string xAuthyKey = "";
+    public http:Client basicClient = new (TWILIO_API_BASE_URL);
+    public http:Client authyClient = new (AUTHY_API_BASE_URL);
 
     public function __init(TwilioConfiguration twilioConfig) {
         http:BasicAuthHandler basicAuthHandler = self.createAuthHandler(twilioConfig);
