@@ -28,10 +28,12 @@ public type Client client object {
 
     public string accountSId;
     public string xAuthyKey;
-    public http:Client basicClient;
-    public http:Client authyClient;
+    public http:Client basicClient = new (TWILIO_API_BASE_URL);
+    public http:Client authyClient = new (AUTHY_API_BASE_URL);
 
     public function __init(TwilioConfiguration twilioConfig) {
+        self.accountSId = twilioConfig.accountSId;
+        self.xAuthyKey = twilioConfig.xAuthyKey;
         http:BasicAuthHandler basicAuthHandler = self.createAuthHandler(twilioConfig);
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
@@ -64,8 +66,6 @@ public type Client client object {
                 }
             });
         }
-        self.accountSId = twilioConfig.accountSId;
-        self.xAuthyKey = twilioConfig.xAuthyKey;
     }
 
     # Initialize Twilio endpoint.
