@@ -34,6 +34,15 @@ function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     return smsResponse;
 }
 
+function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
+    WhatsAppResponse whatsAppResponse = {};
+    whatsAppResponse.sid = jsonPayload.sid.toString();
+    whatsAppResponse.status = jsonPayload.status.toString();
+    whatsAppResponse.price = jsonPayload.price.toString();
+    whatsAppResponse.priceUnit = jsonPayload.price_unit.toString();
+    return whatsAppResponse;
+}
+
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
     VoiceCallResponse voiceCallResponse = {};
     voiceCallResponse.sid = jsonPayload.sid.toString();

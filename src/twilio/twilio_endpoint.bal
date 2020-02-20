@@ -113,6 +113,27 @@ public type Client client object {
         return mapJsonToSmsResponse(jsonResponse);
     }
 
+    # Send WhatsApp message from the given account-sid.
+    # + fromNo - Mobile number which the WhatsApp message should be sent from
+    # + toNo - Mobile number which the WhatsApp message should be received to
+    # + message - Message body of the WhatsApp message
+    # + return - If success, returns WhatsApp message response object with basic details, else returns error
+    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse | error {
+        http:Request req = new;
+
+        string requestBody = "";
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
+        req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
+        var response = self.basicClient->post(requestPath, req);
+
+        json jsonResponse = check parseResponseToJson(response);
+        return mapJsonToWhatsAppResponse(jsonResponse);
+    }
+
     # Make a voice call from the given account-sid.
     # + fromNo - Mobile number which the voice call should be send from
     # + toNo - Mobile number which the voice call should be received to

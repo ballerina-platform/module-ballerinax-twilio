@@ -42,6 +42,18 @@ public type SmsResponse record {
     string priceUnit = "";
 };
 
+# Represents Twilio WhatsApp message response.
+# + sid - Unique identifier of the account
+# + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
+# + price - The price amount of the SMS
+# + priceUnit - The price currency
+public type WhatsAppResponse record {
+    string sid = "";
+    string status = "";
+    string price = "";
+    string priceUnit = "";
+};
+
 # Represents Twilio voice call response.
 # + sid - Unique identifier of the account
 # + status - Status of the voice call (queued, initiated, ringing, answered, completed)
