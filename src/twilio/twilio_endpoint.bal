@@ -122,8 +122,8 @@ public type Client client object {
         http:Request req = new;
 
         string requestBody = "";
-        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + COLON_SYMBOL + fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + COLON_SYMBOL + toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 

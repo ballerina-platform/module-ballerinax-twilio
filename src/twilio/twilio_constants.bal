@@ -51,6 +51,7 @@ final string AUTHORIZATION = "Authorization";
 final string BASIC = "Basic";
 final string CONTENT_TYPE = "Content-Type";
 final string X_AUTHY_API_KEY = "X-Authy-API-Key";
+final string WHATSAPP = "whatsapp";
 
 // API related parameters
 final string TO = "To";

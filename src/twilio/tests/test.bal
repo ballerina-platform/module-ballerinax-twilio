@@ -86,7 +86,7 @@ function testSendWhatsAppMessage() {
     string message = config:getAsString("SAMPLE_MESSAGE");
 
 
-    var details = twilioClient->sendWhatsAppMessage("whatsapp:" + fromMobile, "whatsapp:" + toMobile, message);
+    var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
     if (details is ProgrammableSMSResponse) {
         io:println(details);
     } else {
