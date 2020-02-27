@@ -66,7 +66,28 @@ function testSendSms() {
 
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message);
-    if (details is SmsResponse) {
+    if (details is ProgrammableSMSResponse) {
+        io:println(details);
+    } else {
+        test:assertFail(msg = <string>details.detail()["message"]);
+    }
+}
+
+@test:Config {
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
+}
+function testSendWhatsAppMessage() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> sendWhatsAppMessage()");
+
+    string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
+    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
+    string message = config:getAsString("SAMPLE_MESSAGE");
+
+
+    var details = twilioClient->sendWhatsAppMessage("whatsapp:" + fromMobile, "whatsapp:" + toMobile, message);
+    if (details is ProgrammableSMSResponse) {
         io:println(details);
     } else {
         test:assertFail(msg = <string>details.detail()["message"]);

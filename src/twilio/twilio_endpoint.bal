@@ -96,8 +96,8 @@ public type Client client object {
     # + fromNo - Mobile number which the SMS should be send from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
-    # + return - If success, returns SMS response object with basic details, else returns error
-    public remote function sendSms(string fromNo, string toNo, string message) returns @tainted SmsResponse | error {
+    # + return - If success, returns a Programmable SMS response object, else returns error
+    public remote function sendSms(string fromNo, string toNo, string message) returns @tainted ProgrammableSMSResponse | error {
         http:Request req = new;
 
         string requestBody = "";
@@ -110,15 +110,15 @@ public type Client client object {
         var response = self.basicClient->post(requestPath, req);
 
         json jsonResponse = check parseResponseToJson(response);
-        return mapJsonToSmsResponse(jsonResponse);
+        return mapJsonToProgrammableSMSResponse(jsonResponse);
     }
 
     # Send WhatsApp message from the given account-sid.
     # + fromNo - Mobile number which the WhatsApp message should be sent from
     # + toNo - Mobile number which the WhatsApp message should be received to
     # + message - Message body of the WhatsApp message
-    # + return - If success, returns WhatsApp message response object with basic details, else returns error
-    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse | error {
+    # + return - If success, returns a Programmable SMS response object, else returns error
+    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted ProgrammableSMSResponse | error {
         http:Request req = new;
 
         string requestBody = "";
@@ -129,9 +129,9 @@ public type Client client object {
 
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
         var response = self.basicClient->post(requestPath, req);
-
         json jsonResponse = check parseResponseToJson(response);
-        return mapJsonToWhatsAppResponse(jsonResponse);
+
+        return mapJsonToProgrammableSMSResponse(jsonResponse);
     }
 
     # Make a voice call from the given account-sid.

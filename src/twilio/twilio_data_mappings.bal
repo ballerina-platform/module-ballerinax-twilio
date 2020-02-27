@@ -34,13 +34,27 @@ function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     return smsResponse;
 }
 
-function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
-    WhatsAppResponse whatsAppResponse = {};
-    whatsAppResponse.sid = jsonPayload.sid.toString();
-    whatsAppResponse.status = jsonPayload.status.toString();
-    whatsAppResponse.price = jsonPayload.price.toString();
-    whatsAppResponse.priceUnit = jsonPayload.price_unit.toString();
-    return whatsAppResponse;
+function mapJsonToProgrammableSMSResponse(json jsonPayload) returns ProgrammableSMSResponse {
+    ProgrammableSMSResponse programmableSMSResponse = {};
+    programmableSMSResponse.sid = jsonPayload.sid.toString();
+    programmableSMSResponse.dateCreated = jsonPayload.dateCreated.toString();
+    programmableSMSResponse.dateUpdated = jsonPayload.dateUpdated.toString();
+    programmableSMSResponse.dateSent = jsonPayload.dateSent.toString();
+    programmableSMSResponse.accountSid = jsonPayload.accountSid.toString();
+    programmableSMSResponse.toNumber = jsonPayload.toNumber.toString();
+    programmableSMSResponse.fromNumber = jsonPayload.fromNumber.toString();
+    programmableSMSResponse.messageServiceSid = jsonPayload.messageServiceSid.toString();
+    programmableSMSResponse.body = jsonPayload.body.toString();
+    programmableSMSResponse.status = jsonPayload.status.toString();
+    programmableSMSResponse.numSegments = jsonPayload.numSegments.toString();
+    programmableSMSResponse.numMedia = jsonPayload.numMedia.toString();
+    programmableSMSResponse.direction = jsonPayload.direction.toString();
+    programmableSMSResponse.apiVersion = jsonPayload.apiVersion.toString();
+    programmableSMSResponse.price = jsonPayload.price.toString();
+    programmableSMSResponse.priceUnit = jsonPayload.price_unit.toString();
+    programmableSMSResponse.errorCode = jsonPayload.errorCode.toString();
+    programmableSMSResponse.errorMessage = jsonPayload.errorMessage.toString();
+    return programmableSMSResponse;
 }
 
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
