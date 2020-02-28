@@ -32,14 +32,36 @@ public type Account record {
 
 # Represents Twilio SMS response.
 # + sid - Unique identifier of the account
+# + dateCreated - The date and time that this resource was created
+# + dateUpdated - The date and time that this resource was last updated
+# + dateSent - The date and time where the outgoing message was sent
+# + accountSid - The unique identifier of the account which sent the message
+# + toNumber - The phone number to which the message was sent
+# + fromNumber - The phone number from which the message was sent
+# + body - The text of the message we want to send
 # + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
+# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply).
+# + apiVersion - The API version used to process the message.
 # + price - The price amount of the SMS
 # + priceUnit - The price currency
+# + uri - The URI of the resource, relative to https://api.twilio.com
+# + numSegments - The number of segments which make up the complete message.
 public type SmsResponse record {
     string sid = "";
+    string dateCreated = "";
+    string dateUpdated = "";
+    string dateSent = "";
+    string accountSid = "";
+    string toNumber = "";
+    string fromNumber = "";
+    string body = "";
     string status = "";
+    string direction = "";
+    string apiVersion = "";
     string price = "";
     string priceUnit = "";
+    string uri = "";
+    string numSegments = "";
 };
 
 # Represents Twilio WhatsApp message response. More details of the message format is
@@ -64,7 +86,7 @@ public type SmsResponse record {
 # + errorMessage - The description of the error_code if the message status is failed or undelivered.
 # + uri - The URI of the resource, relative to https://api.twilio.com
 # + subresourceUris - A list of related resources identified by their URIs relative to https://api.twilio.com 
-public type ProgrammableSMSResponse record {
+public type WhatsAppResponse record {
     string sid = "";
     string dateCreated = "";
     string dateUpdated = "";
