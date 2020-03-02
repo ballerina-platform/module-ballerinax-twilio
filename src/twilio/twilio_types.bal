@@ -194,13 +194,11 @@ public type AuthyUserSecretResponse record {
 # Represents Authy OTP response.
 # + message - A messaging indicating the result of the operation
 # + cellphone - Phone number used to send the message or call
-# + device - The type of the last device used by the user
 # + isIgnored - True if we detected an Authy or SDK enabled app installed.
 # + isSuccess - Is the request was success or not
 public type AuthyOtpResponse record {
     string message = "";
     string cellphone = "";
-    string device = "";
     boolean isIgnored = false;
     boolean isSuccess = false;
 };

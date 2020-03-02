@@ -28,20 +28,20 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     SmsResponse smsResponse = {};
     smsResponse.sid = jsonPayload.sid.toString();
-    smsResponse.dateCreated = jsonPayload.dateCreated.toString();
-    smsResponse.dateUpdated = jsonPayload.dateUpdated.toString();
-    smsResponse.dateSent = jsonPayload.dateSent.toString();
-    smsResponse.accountSid = jsonPayload.accountSid.toString();
-    smsResponse.toNumber = jsonPayload.toNumber.toString();
-    smsResponse.fromNumber = jsonPayload.fromNumber.toString();
+    smsResponse.dateCreated = jsonPayload.date_created.toString();
+    smsResponse.dateUpdated = jsonPayload.date_updated.toString();
+    smsResponse.dateSent = jsonPayload.date_sent.toString();
+    smsResponse.accountSid = jsonPayload.account_sid.toString();
+    smsResponse.toNumber = jsonPayload.to.toString();
+    smsResponse.fromNumber = jsonPayload.'from.toString();
     smsResponse.body = jsonPayload.body.toString();
     smsResponse.status = jsonPayload.status.toString();
     smsResponse.direction = jsonPayload.direction.toString();
-    smsResponse.apiVersion = jsonPayload.apiVersion.toString();
+    smsResponse.apiVersion = jsonPayload.api_version.toString();
     smsResponse.price = jsonPayload.price.toString();
     smsResponse.priceUnit = jsonPayload.price_unit.toString();
     smsResponse.uri = jsonPayload.uri.toString();
-    smsResponse.numSegments = jsonPayload.numSegments.toString();
+    smsResponse.numSegments = jsonPayload.num_segments.toString();
 
     return smsResponse;
 }
