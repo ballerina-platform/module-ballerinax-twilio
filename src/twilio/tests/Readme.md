@@ -49,6 +49,20 @@ export SAMPLE_USER_COUNTRY_CODE="country_code"
 export SAMPLE_TWIML_URL="twilio_ml_url"
 ```
 
+In order to send WhatsApp messages using Twilio connector you need to either sign up for a Twilio account and aquire
+a dedicated phone number approved by WhatsApp or activate the Twilio Sandbox for WhatsApp. The Twilio Sandbox allows
+ you to prototype with WhatsApp immediately using a shared phone number, without waiting for a dedicated number to be
+  approved by WhatsApp. The following three configurations has to be updated to run WhatsApp specific test cases.
+  SAMPLE_MESSAGE needs to follow a predefined WhatsApp message template.
+
+```ballerina.conf
+export SAMPLE_WHATSAPP_SANDBOX="sender_mobile/sandbox_number"
+export SAMPLE_TO_MOBILE="receiver_mobile"
+export SAMPLE_MESSAGE="sample_message_to_send"
+```
+
+
+
 #### Run all the test cases
 
 ```sh

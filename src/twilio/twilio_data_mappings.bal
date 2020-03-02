@@ -28,9 +28,21 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     SmsResponse smsResponse = {};
     smsResponse.sid = jsonPayload.sid.toString();
+    smsResponse.dateCreated = jsonPayload.dateCreated.toString();
+    smsResponse.dateUpdated = jsonPayload.dateUpdated.toString();
+    smsResponse.dateSent = jsonPayload.dateSent.toString();
+    smsResponse.accountSid = jsonPayload.accountSid.toString();
+    smsResponse.toNumber = jsonPayload.toNumber.toString();
+    smsResponse.fromNumber = jsonPayload.fromNumber.toString();
+    smsResponse.body = jsonPayload.body.toString();
     smsResponse.status = jsonPayload.status.toString();
+    smsResponse.direction = jsonPayload.direction.toString();
+    smsResponse.apiVersion = jsonPayload.apiVersion.toString();
     smsResponse.price = jsonPayload.price.toString();
     smsResponse.priceUnit = jsonPayload.price_unit.toString();
+    smsResponse.uri = jsonPayload.uri.toString();
+    smsResponse.numSegments = jsonPayload.numSegments.toString();
+
     return smsResponse;
 }
 
