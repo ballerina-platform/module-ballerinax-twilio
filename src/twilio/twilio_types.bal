@@ -32,20 +32,20 @@ public type Account record {
 
 # Represents Twilio SMS response.
 # + sid - Unique identifier of the account
-# + dateCreated - The date and time that this resource was created
-# + dateUpdated - The date and time that this resource was last updated
-# + dateSent - The date and time where the outgoing message was sent
-# + accountSid - The unique identifier of the account which sent the message
+# + dateCreated - The date and time at which this resource was created
+# + dateUpdated - The date and time at which this resource was last updated
+# + dateSent - The date and time at which the outgoing message was sent
+# + accountSid - The unique identifier of the account, which sent the message
 # + toNumber - The phone number to which the message was sent
 # + fromNumber - The phone number from which the message was sent
-# + body - The text of the message we want to send
+# + body - The text of the message to be sent
 # + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
 # + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
-# + apiVersion - The API version used to process the message
+# + apiVersion - The API version, which is used to process the message
 # + price - The price amount of the SMS
 # + priceUnit - The price currency
-# + uri - The URI of the resource, relative to https://api.twilio.com
-# + numSegments - The number of segments which make up the complete message
+# + uri - The URI of the resource relative to https://api.twilio.com
+# + numSegments - The number of segments, which make up the complete message
 public type SmsResponse record {
     string sid = "";
     string dateCreated = "";
@@ -64,13 +64,13 @@ public type SmsResponse record {
     string numSegments = "";
 };
 
-# Represents Twilio WhatsApp message response. More details of the message format is
+# Represents the Twilio WhatsApp message response. More details of the message format is
 # accessible from https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource
 # + sid - Unique identifier of the account
-# + dateCreated - The date and time that this resource was created
-# + dateUpdated - The date and time that this resource was last updated
-# + dateSent - The date and time where the outgoing message was sent
-# + accountSid - The unique identifier of the account which sent the message
+# + dateCreated - The date and time at which this resource was created
+# + dateUpdated - The date and time at which this resource was last updated
+# + dateSent - The date and time at which the outgoing message was sent
+# + accountSid - The unique identifier of the account, which sent the message
 # + toNumber - The phone number to which the message was sent
 # + fromNumber - The phone number from which the message was sent
 # + messageServiceSid - The SID of the Messaging Service, which will be associated with the message

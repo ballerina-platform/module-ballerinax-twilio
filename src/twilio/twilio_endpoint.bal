@@ -113,11 +113,11 @@ public type Client client object {
         return mapJsonToSmsResponse(jsonResponse);
     }
 
-    # Send WhatsApp message from the given account-sid.
-    # + fromNo - Mobile number which the WhatsApp message should be sent from
-    # + toNo - Mobile number which the WhatsApp message should be received to
+    # Send WhatsApp message from the given Sender ID of the account.
+    # + fromNo - Mobile number from which the WhatsApp message should be sent
+    # + toNo - Mobile number by which the WhatsApp message should be received
     # + message - Message body of the WhatsApp message
-    # + return - If success, returns a Programmable SMS response object, else returns error
+    # + return - If success, returns a WhatsAppResponse object, else returns an error
     public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|error {
         http:Request req = new;
 
