@@ -81,7 +81,7 @@ public type SmsResponse record {
 # + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
 # + apiVersion - The API version used to process the message
 # + price - The price of the SMS (This is set to null for WhatsApp messages)
-# + priceUnit - The price of the currency (This is set to null for WhatsApp messages)
+# + priceUnit - The currency of the price (This is set to null for WhatsApp messages)
 # + errorCode - The error code returned if the message status is failed or undelivered
 # + errorMessage - The description of the error_code if the message status is failed or undelivered
 # + uri - The URI of the resource relative to https://api.twilio.com
