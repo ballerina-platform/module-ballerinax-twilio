@@ -3,7 +3,7 @@
 The Twilio connector allows you to send SMS, voice, OTP, and WhatsApp messages through the Twilio REST API. You can also send
 user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
 
-WhatsApp messaging requires users to use predefined [message templates](https://www.twilio.com/docs/sms/whatsapp/tutorial/send-whatsapp-notification-messages-templates). Templates are message formats which can be used over and over again to message users. Use of templates enables to maintain high-quality content as well as to avoid spam messages. However, this requires the WhatsApp message templates to be predefined.
+WhatsApp messaging requires users to use predefined [message templates](https://www.twilio.com/docs/sms/whatsapp/tutorial/send-whatsapp-notification-messages-templates). Templates are message formats, which can be used over and over again to message users. Use of templates enables to maintain high-quality content as well as to avoid spam messages. However, this requires the WhatsApp message templates to be predefined.
 
 ## Compatibility
 
@@ -49,10 +49,10 @@ export SAMPLE_USER_COUNTRY_CODE="country_code"
 export SAMPLE_TWIML_URL="twilio_ml_url"
 ```
 
-In order to send WhatsApp messages using Twilio connector you need to either sign up for a Twilio account and aquire
+In order to send WhatsApp messages using the Twilio connector, you need to either sign up for a Twilio account and acquire
 a dedicated phone number approved by WhatsApp or activate the Twilio Sandbox for WhatsApp. The Twilio Sandbox allows
- you to prototype with WhatsApp immediately using a shared phone number, without waiting for a dedicated number to be
-  approved by WhatsApp. The following three configurations has to be updated to run WhatsApp specific test cases.
+ you to prototype with WhatsApp immediately using a shared phone number without waiting for a dedicated number to be
+  approved by WhatsApp. The following three configurations has to be updated to run WhatsApp-specific test cases.
   SAMPLE_MESSAGE needs to follow a predefined WhatsApp message template.
 
 ```ballerina.conf

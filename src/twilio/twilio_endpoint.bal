@@ -96,7 +96,7 @@ public type Client client object {
     # + fromNo - Mobile number which the SMS should be send from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
-    # + return - If success, returns a Programmable SMS response object, else returns error
+    # + return - If success, returns a programmable SMS response object, else returns an error
     public remote function sendSms(string fromNo, string toNo, string message) returns @tainted SmsResponse | error {
         http:Request req = new;
 
@@ -118,7 +118,7 @@ public type Client client object {
     # + toNo - Mobile number which the WhatsApp message should be received to
     # + message - Message body of the WhatsApp message
     # + return - If success, returns a Programmable SMS response object, else returns error
-    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse | error {
+    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|error {
         http:Request req = new;
 
         string requestBody = "";

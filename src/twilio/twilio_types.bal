@@ -40,12 +40,12 @@ public type Account record {
 # + fromNumber - The phone number from which the message was sent
 # + body - The text of the message we want to send
 # + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
-# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply).
-# + apiVersion - The API version used to process the message.
+# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
+# + apiVersion - The API version used to process the message
 # + price - The price amount of the SMS
 # + priceUnit - The price currency
 # + uri - The URI of the resource, relative to https://api.twilio.com
-# + numSegments - The number of segments which make up the complete message.
+# + numSegments - The number of segments which make up the complete message
 public type SmsResponse record {
     string sid = "";
     string dateCreated = "";
@@ -73,18 +73,18 @@ public type SmsResponse record {
 # + accountSid - The unique identifier of the account which sent the message
 # + toNumber - The phone number to which the message was sent
 # + fromNumber - The phone number from which the message was sent
-# + messageServiceSid - The SID of the Messaging Service where we want to associate with the message
-# + body - The text of the message we want to send
+# + messageServiceSid - The SID of the Messaging Service, which will be associated with the message
+# + body - The text of the message to be sent
 # + status - Status of the voice call (queued, failed, sent, delivered, undelivered)
-# + numSegments - The number of segments which make up the complete message.
-# + numMedia - The number of media files associated 
-# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply).
-# + apiVersion - The API version used to process the message.
-# + price - The price amount of the SMS. This is set to null for WhatsApp messages.
-# + priceUnit - The price currency. This is set to null for WhatsApp messages.
-# + errorCode - The error code returned if the message status is failed or undelivered.
-# + errorMessage - The description of the error_code if the message status is failed or undelivered.
-# + uri - The URI of the resource, relative to https://api.twilio.com
+# + numSegments - The number of segments, which make up the complete message
+# + numMedia - The number of associated media files 
+# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
+# + apiVersion - The API version used to process the message
+# + price - The price of the SMS (This is set to null for WhatsApp messages)
+# + priceUnit - The price of the currency (This is set to null for WhatsApp messages)
+# + errorCode - The error code returned if the message status is failed or undelivered
+# + errorMessage - The description of the error_code if the message status is failed or undelivered
+# + uri - The URI of the resource relative to https://api.twilio.com
 # + subresourceUris - A list of related resources identified by their URIs relative to https://api.twilio.com 
 public type WhatsAppResponse record {
     string sid = "";
@@ -194,7 +194,7 @@ public type AuthyUserSecretResponse record {
 # Represents Authy OTP response.
 # + message - A messaging indicating the result of the operation
 # + cellphone - Phone number used to send the message or call
-# + isIgnored - True if we detected an Authy or SDK enabled app installed.
+# + isIgnored - True if we detected an Authy or SDK enabled app installed
 # + isSuccess - Is the request was success or not
 public type AuthyOtpResponse record {
     string message = "";

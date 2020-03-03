@@ -1,9 +1,9 @@
 [project]
 org-name = "wso2"
-version = "0.8.32"
+version = "0.8.33"
 authors = ["WSO2"]
 repository = "https://github.com/wso2-ballerina/module-twilio"
-keywords = ["twilio", "sms", "call", "otp"]
+keywords = ["twilio", "sms", "call", "otp", "whatsapp"]
 license = ["Apache-2.0"]
 
 [dependencies]
