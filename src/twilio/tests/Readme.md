@@ -61,8 +61,6 @@ export SAMPLE_TO_MOBILE="receiver_mobile"
 export SAMPLE_MESSAGE="sample_message_to_send"
 ```
 
-
-
 #### Run all the test cases
 
 ```sh
