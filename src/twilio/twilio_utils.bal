@@ -24,19 +24,22 @@ import ballerinax/java;
 function parseResponseToJson(http:Response | error httpResponse) returns @tainted json | error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
+        
         if (jsonResponse is json) {
             if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
                 string errMsg = jsonResponse.message.toString();
                 string errCode = "";
-                if (jsonResponse.error_code != ()) {
+
+                if (jsonResponse?.error_code != ()) {
                     errCode = jsonResponse.error_code.toString();
-                } else if (jsonResponse.'error != ()) {
+                } else if (jsonResponse?.'error != ()) {
                     errCode =jsonResponse.'error.toString();
                 }
-                error err = error(TWILIO_ERROR_CODE,
-                message = httpResponse.statusCode.toString() + WHITE_SPACE
+                string errorMessage = errCode != "" ? httpResponse.statusCode.toString() + WHITE_SPACE
                 + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
-                + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg);
+                + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg : httpResponse.statusCode.toString() + WHITE_SPACE
+                + httpResponse.reasonPhrase + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg;
+                error err = error(TWILIO_ERROR_CODE, message = errorMessage);
                 return err;
             }
             return jsonResponse;

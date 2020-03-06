@@ -28,10 +28,46 @@ function mapJsonToAccount(json jsonPayload) returns Account {
 function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     SmsResponse smsResponse = {};
     smsResponse.sid = jsonPayload.sid.toString();
+    smsResponse.dateCreated = jsonPayload.date_created.toString();
+    smsResponse.dateUpdated = jsonPayload.date_updated.toString();
+    smsResponse.dateSent = jsonPayload.date_sent.toString();
+    smsResponse.accountSid = jsonPayload.account_sid.toString();
+    smsResponse.toNumber = jsonPayload.to.toString();
+    smsResponse.fromNumber = jsonPayload.'from.toString();
+    smsResponse.body = jsonPayload.body.toString();
     smsResponse.status = jsonPayload.status.toString();
+    smsResponse.direction = jsonPayload.direction.toString();
+    smsResponse.apiVersion = jsonPayload.api_version.toString();
     smsResponse.price = jsonPayload.price.toString();
     smsResponse.priceUnit = jsonPayload.price_unit.toString();
+    smsResponse.uri = jsonPayload.uri.toString();
+    smsResponse.numSegments = jsonPayload.num_segments.toString();
+
     return smsResponse;
+}
+
+function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
+    WhatsAppResponse whatsAppResponse = {};
+    whatsAppResponse.sid = jsonPayload.sid.toString();
+    whatsAppResponse.dateCreated = jsonPayload.date_created.toString();
+    whatsAppResponse.dateUpdated = jsonPayload.date_updated.toString();
+    whatsAppResponse.dateSent = jsonPayload.date_sent.toString();
+    whatsAppResponse.accountSid = jsonPayload.account_sid.toString();
+    whatsAppResponse.toNumber = jsonPayload.to.toString();
+    whatsAppResponse.fromNumber = jsonPayload.'from.toString();
+    whatsAppResponse.messageServiceSid = jsonPayload.messaging_service_sid.toString();
+    whatsAppResponse.body = jsonPayload.body.toString();
+    whatsAppResponse.status = jsonPayload.status.toString();
+    whatsAppResponse.numSegments = jsonPayload.num_segments.toString();
+    whatsAppResponse.numMedia = jsonPayload.num_media.toString();
+    whatsAppResponse.direction = jsonPayload.direction.toString();
+    whatsAppResponse.apiVersion = jsonPayload.api_version.toString();
+    whatsAppResponse.price = jsonPayload.price.toString();
+    whatsAppResponse.priceUnit = jsonPayload.price_unit.toString();
+    whatsAppResponse.errorCode = jsonPayload.error_code.toString();
+    whatsAppResponse.errorMessage = jsonPayload.error_message.toString();
+    whatsAppResponse.subresourceUris = jsonPayload.subresource_uris.toString();
+    return whatsAppResponse;
 }
 
 function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
@@ -97,7 +133,6 @@ function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
     AuthyOtpResponse authyOtpResponse = {};
     authyOtpResponse.message = jsonPayload.message.toString();
     authyOtpResponse.cellphone = jsonPayload.cellphone.toString();
-    authyOtpResponse.device = jsonPayload.device.toString();
     authyOtpResponse.isIgnored = getBoolean(jsonPayload.ignored.toString());
     authyOtpResponse.isSuccess = getBoolean(jsonPayload.success.toString());
     return authyOtpResponse;

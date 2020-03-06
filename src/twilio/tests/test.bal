@@ -77,6 +77,26 @@ function testSendSms() {
     groups: ["basic"],
     dependsOn: ["testAccountDetails"]
 }
+function testSendWhatsAppMessage() {
+    io:println("\n ---------------------------------------------------------------------------");
+    log:printInfo("twilioClient -> sendWhatsAppMessage()");
+
+    string fromMobile = config:getAsString("SAMPLE_WHATSAPP_SANDBOX");
+    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
+    string message = config:getAsString("SAMPLE_MESSAGE");
+
+    var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
+    if (details is WhatsAppResponse) {
+        io:println(details);
+    } else {
+        test:assertFail(msg = <string>details.detail()["message"]);
+    }
+}
+
+@test:Config {
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails"]
+}
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> makeVoiceCall()");

@@ -26,6 +26,7 @@ final string AUTHY_OTP_CALL_API = "/json/call";
 final string AUTHY_OTP_VERIFY_API = "/json/verify";
 
 final string SMS_SEND = "/SMS/Messages.json";
+final string WHATSAPP_SEND = "/Messages.json";
 final string VOICE_CALL = "/Calls.json";
 final string ACCOUNT_DETAILS = ".json";
 
@@ -50,6 +51,7 @@ final string AUTHORIZATION = "Authorization";
 final string BASIC = "Basic";
 final string CONTENT_TYPE = "Content-Type";
 final string X_AUTHY_API_KEY = "X-Authy-API-Key";
+final string WHATSAPP = "whatsapp";
 
 // API related parameters
 final string TO = "To";

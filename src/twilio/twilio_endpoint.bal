@@ -96,7 +96,7 @@ public type Client client object {
     # + fromNo - Mobile number which the SMS should be send from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
-    # + return - If success, returns SMS response object with basic details, else returns error
+    # + return - If success, returns a programmable SMS response object, else returns an error
     public remote function sendSms(string fromNo, string toNo, string message) returns @tainted SmsResponse | error {
         http:Request req = new;
 
@@ -111,6 +111,26 @@ public type Client client object {
 
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToSmsResponse(jsonResponse);
+    }
+
+    # Send WhatsApp message from the given Sender ID of the account.
+    # + fromNo - Mobile number from which the WhatsApp message should be sent
+    # + toNo - Mobile number by which the WhatsApp message should be received
+    # + message - Message body of the WhatsApp message
+    # + return - If success, returns a WhatsAppResponse object, else returns an error
+    public remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|error {
+        http:Request req = new;
+
+        string requestBody = "";
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + COLON_SYMBOL + fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + COLON_SYMBOL + toNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
+        req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
+        var response = self.basicClient->post(requestPath, req);
+        json jsonResponse = check parseResponseToJson(response);
+
+        return mapJsonToWhatsAppResponse(jsonResponse);
     }
 
     # Make a voice call from the given account-sid.
