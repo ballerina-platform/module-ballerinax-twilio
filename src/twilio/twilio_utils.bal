@@ -16,7 +16,6 @@
 
 import ballerina/encoding;
 import ballerina/http;
-import ballerinax/java;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
@@ -74,12 +73,3 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     }
     return body + key + EQUAL_SYMBOL + encodedString;
 }
-
-function getBoolean(string value) returns boolean {
-    return getBooleanExternal(java:fromString(value));
-}
-
-function getBooleanExternal(handle value) returns boolean = @java:Method {
-    name: "parseBoolean",
-    class: "java.lang.Boolean"
-} external;
