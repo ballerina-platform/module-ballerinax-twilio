@@ -2,8 +2,7 @@ Connects to Twilio from Ballerina.
 
 # Module Overview
 
-The Twilio connector allows you to send SMS, voice, OTP, and WhatsApp messages through the Twilio REST API. You can also send
-user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
+The Twilio connector allows you to send SMS, voice, OTP, and WhatsApp messages through the Twilio REST API. You can also send user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
 
 WhatsApp messaging requires users to use predefined [message templates](https://www.twilio.com/docs/sms/whatsapp/tutorial/send-whatsapp-notification-messages-templates). Templates are message formats, which can be used over and over again to message users. Use of templates enables to maintain high-quality content as well as to avoid spam messages. However, this requires the WhatsApp message templates to be predefined.
 
@@ -13,13 +12,12 @@ The `wso2/twilio` module contains operations to get the Twilio account details, 
 
 **Authy Operations**
 
-The `wso2/twilio` module contains operations to get Authy app details, add a user, delete a user, get user status, get 
-user secret, request OTP via SMS, request OTP via call, and verify OTP.
+The `wso2/twilio` module contains operations to get Authy app details, add a user, delete a user, get user status, get user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
 |                          |    Version     |
 |:------------------------:|:--------------:|
-| Ballerina Language       | 1.1.4          |
+| Ballerina Language       | 1.2.0          |
 | Twilio Basic API         | 2010-04-01     |
 | Twilio Authy API Version | v1             |
 

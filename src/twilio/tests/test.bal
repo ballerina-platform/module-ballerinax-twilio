@@ -136,9 +136,9 @@ function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> addAuthyUser()");
 
-    string email = config:getAsString("SAMPLE_USER_EMAIL");
-    string phone = config:getAsString("SAMPLE_USER_PHONE");
-    string countryCode = config:getAsString("SAMPLE_USER_COUNTRY_CODE");
+    string email = config:getAsString("SAMPLE_AUTHY_USER_EMAIL");
+    string phone = config:getAsString("SAMPLE_AUTHY_USER_PHONE");
+    string countryCode = config:getAsString("SAMPLE_AUTHY_USER_COUNTRY_CODE");
 
     var details = twilioClient->addAuthyUser(email, phone, countryCode);
     if (details is AuthyUserAddResponse) {
@@ -168,8 +168,7 @@ function testAuthyUserStatus() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
-    "testAuthyOtpViaCall", "testAuthyOtpVerify"
-    ]
+    "testAuthyOtpViaCall", "testAuthyOtpVerify"]
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");

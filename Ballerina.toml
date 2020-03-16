@@ -1,6 +1,6 @@
 [project]
 org-name = "wso2"
-version = "0.8.33"
+version = "0.8.34"
 authors = ["WSO2"]
 repository = "https://github.com/wso2-ballerina/module-twilio"
 keywords = ["twilio", "sms", "call", "otp", "whatsapp"]

@@ -11,11 +11,11 @@ WhatsApp messaging requires users to use predefined [message templates](https://
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 1.1.4                       | 2010-04-01               | v1                       |
+| 1.2.0                       | 2010-04-01               | v1                       |
 
 ## Getting started
 
-1.  Refer the [Getting Started](https://ballerina.io/learn/getting-started/) guide to download and install Ballerina.
+1.  Refer the [Get Started](https://ballerina.io/v1-1/learn/) section to download and install Ballerina.
 
 2.  To use Twilio endpoint, you need to provide the following:
 
@@ -25,13 +25,7 @@ WhatsApp messaging requires users to use predefined [message templates](https://
 
        *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
 
-3. Create a new Ballerina project by executing the following command.
-
-	```shell
-	<PROJECT_ROOT_DIRECTORY>$ ballerina init
-	```
-
-4. Import the Twilio module to your Ballerina program as follows.
+3. Import the Twilio module to your Ballerina program as follows.
 
 	```ballerina
 	import ballerina/config;
