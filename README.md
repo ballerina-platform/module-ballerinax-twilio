@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wso2-ballerina/module-twilio.svg?branch=master)](https://travis-ci.org/wso2-ballerina/module-twilio)
+[![Build Status](https://travis-ci.org/ballerina-platform/module-twilio.svg?branch=master)](https://travis-ci.org/ballerina-platform/module-twilio)
 
 # Twilio Connector
 
