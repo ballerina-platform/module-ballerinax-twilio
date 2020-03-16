@@ -1,8 +1,7 @@
 [project]
 org-name = "ballerinax"
-version = "0.8.34"
+version = "0.9.0"
 authors = ["WSO2"]
 repository = "https://github.com/ballerina-platform/module-twilio"
 keywords = ["twilio", "sms", "call", "otp", "whatsapp"]
 license = ["Apache-2.0"]
-
