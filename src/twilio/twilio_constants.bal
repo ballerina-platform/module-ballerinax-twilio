@@ -65,4 +65,4 @@ final string AUTH_TOKEN = "AUTH_TOKEN";
 final string AUTHY_API_KEY = "AUTHY_API_KEY";
 
 //Error codes
-final string TWILIO_ERROR_CODE = "(wso2/twilio)TwilioError";
+final string TWILIO_ERROR_CODE = "(ballerinax/twilio)TwilioError";

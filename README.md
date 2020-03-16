@@ -30,7 +30,7 @@ WhatsApp messaging requires users to use predefined [message templates](https://
 	```ballerina
 	import ballerina/config;
 	import ballerina/io;
-    import wso2/twilio;
+    import ballerinax/twilio;
 
     twilio:TwilioConfiguration twilioConfig = {
         accountSId: config:getAsString("ACCOUNT_SID"),
