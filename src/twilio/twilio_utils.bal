@@ -16,6 +16,7 @@
 
 import ballerina/encoding;
 import ballerina/http;
+import ballerina/lang.'boolean;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
@@ -72,4 +73,14 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
         body = requestBody + AMPERSAND_SYMBOL;
     }
     return body + key + EQUAL_SYMBOL + encodedString;
+}
+
+function convertToBoolean(json|error value) returns boolean {
+    if (value is json) {
+        boolean|error result = 'boolean:fromString(value.toString());
+        if (result is boolean) {
+            return result;
+        }
+    }
+    return false;
 }
