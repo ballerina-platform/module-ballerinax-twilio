@@ -16,12 +16,12 @@
 
 import ballerina/encoding;
 import ballerina/http;
-import ballerinax/java;
+import ballerina/lang.'boolean;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response | error httpResponse) returns @tainted json | error {
+function parseResponseToJson(http:Response|error httpResponse) returns @tainted json|error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
         
@@ -59,7 +59,7 @@ function parseResponseToJson(http:Response | error httpResponse) returns @tainte
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
 # + return - Created request body with encoded string or `error` if anything wrong happen when encoding the value
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string | error {
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|error {
     var encodedVar = encoding:encodeUriComponent(value, CHARSET_UTF8);
     string encodedString = "";
     string body = "";
@@ -75,11 +75,12 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     return body + key + EQUAL_SYMBOL + encodedString;
 }
 
-function getBoolean(string value) returns boolean {
-    return getBooleanExternal(java:fromString(value));
+function convertToBoolean(json|error value) returns boolean {
+    if (value is json) {
+        boolean|error result = 'boolean:fromString(value.toString());
+        if (result is boolean) {
+            return result;
+        }
+    }
+    return false;
 }
-
-function getBooleanExternal(handle value) returns boolean = @java:Method {
-    name: "parseBoolean",
-    class: "java.lang.Boolean"
-} external;
