@@ -22,7 +22,7 @@ import ballerina/log;
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response|error httpResponse) returns @tainted json|error {
+function parseResponseToJson(http:Response|http:ClientError httpResponse) returns @tainted json|Error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
         
@@ -57,7 +57,7 @@ function parseResponseToJson(http:Response|error httpResponse) returns @tainted 
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
 # + return - Created request body with encoded string or `error` if anything wrong happen when encoding the value
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|error {
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|Error {
     var encodedVar = encoding:encodeUriComponent(value, CHARSET_UTF8);
     string encodedString = "";
     string body = "";
