@@ -79,7 +79,7 @@ public type Client client object {
     #
     # + return - If success, returns account object with basic details, else returns error
     public remote function getAccountDetails() returns @tainted Account|error {
-        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + ACCOUNT_DETAILS;
+        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + ACCOUNT_DETAILS;
         var response = self.basicClient->get(requestPath);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAccount(jsonResponse);
@@ -100,7 +100,7 @@ public type Client client object {
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
+        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + SMS_SEND;
         var response = self.basicClient->post(requestPath, req);
 
         json jsonResponse = check parseResponseToJson(response);
@@ -117,11 +117,11 @@ public type Client client object {
         http:Request req = new;
 
         string requestBody = "";
-        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + COLON_SYMBOL + fromNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + COLON_SYMBOL + toNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + ":" + fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + ":" + toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
-        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
+        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + WHATSAPP_SEND;
         var response = self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
 
@@ -143,7 +143,7 @@ public type Client client object {
         requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + VOICE_CALL;
+        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + VOICE_CALL;
         var response = self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToVoiceCallResponse(jsonResponse);
@@ -192,7 +192,7 @@ public type Client client object {
     public remote function getAuthyUserStatus(string userId) returns @tainted AuthyUserStatusResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
+        string requestPath = AUTHY_USER_API + "/" + userId + USER_STATUS;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyUserStatusResponse(jsonResponse);
@@ -205,7 +205,7 @@ public type Client client object {
     public remote function deleteAuthyUser(string userId) returns @tainted AuthyUserDeleteResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
+        string requestPath = AUTHY_USER_API + "/" + userId + USER_REMOVE;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyUserDeleteResponse(jsonResponse);
@@ -218,7 +218,7 @@ public type Client client object {
     public remote function getAuthyUserSecret(string userId) returns @tainted AuthyUserSecretResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
+        string requestPath = AUTHY_USER_API + "/" + userId + USER_SECRET;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyUserSecretResponse(jsonResponse);
@@ -231,7 +231,7 @@ public type Client client object {
     public remote function requestOtpViaSms(string userId) returns @tainted AuthyOtpResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
+        string requestPath = AUTHY_OTP_SMS_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
@@ -244,7 +244,7 @@ public type Client client object {
     public remote function requestOtpViaCall(string userId) returns @tainted AuthyOtpResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
+        string requestPath = AUTHY_OTP_CALL_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
@@ -258,7 +258,7 @@ public type Client client object {
     public remote function verifyOtp(string userId, string token) returns @tainted AuthyOtpVerifyResponse|error {
         http:Request req = new;
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-        string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
+        string requestPath = AUTHY_OTP_VERIFY_API + "/" + token + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyOtpVerifyResponse(jsonResponse);

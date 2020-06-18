@@ -66,10 +66,10 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     } else {
         return prepareError("Error occurred while encoding the string");
     }
-    if (requestBody != EMPTY_STRING) {
-        body = requestBody + AMPERSAND_SYMBOL;
+    if (requestBody != "") {
+        body = requestBody + "&";
     }
-    return body + key + EQUAL_SYMBOL + encodedString;
+    return body + key + "=" + encodedString;
 }
 
 function convertToBoolean(json|error value) returns boolean {
