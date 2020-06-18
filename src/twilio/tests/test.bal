@@ -28,7 +28,7 @@ TwilioConfiguration twilioConfig = {
     authToken: config:getAsString(AUTH_TOKEN),
     xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
-Client twilioClient = new (twilioConfig);
+Client twilioClient = new(twilioConfig);
 
 @test:Config {
     groups: ["basic", "root"]
@@ -39,7 +39,7 @@ function testAccountDetails() {
         authToken: config:getAsString(AUTH_TOKEN),
         xAuthyKey: config:getAsString(AUTHY_API_KEY)
     };
-    Client twilioClient = new (twilioConfig);
+    Client twilioClient = new(twilioConfig);
 
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");

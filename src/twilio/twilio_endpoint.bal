@@ -35,28 +35,28 @@ public type Client client object {
         self.accountSId = twilioConfig.accountSId;
         self.xAuthyKey = twilioConfig.xAuthyKey;
 
-        auth:OutboundBasicAuthProvider basicAuthProvider = new ({
+        auth:OutboundBasicAuthProvider basicAuthProvider = new({
             username: twilioConfig.accountSId,
             password: twilioConfig.authToken
         });
-        http:BasicAuthHandler basicAuthHandler = new (basicAuthProvider);
+        http:BasicAuthHandler basicAuthHandler = new(basicAuthProvider);
 
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
-            self.basicClient = new (TWILIO_API_BASE_URL, config = {
+            self.basicClient = new(TWILIO_API_BASE_URL, config = {
                 auth: {
                     authHandler: basicAuthHandler
                 },
                 secureSocket: secureSocket
             });
-            self.authyClient = new (AUTHY_API_BASE_URL, config = {
+            self.authyClient = new(AUTHY_API_BASE_URL, config = {
                 auth: {
                     authHandler: basicAuthHandler
                 },
                 secureSocket: secureSocket
             });
         } else {
-            self.basicClient = new (TWILIO_API_BASE_URL, config = {
+            self.basicClient = new(TWILIO_API_BASE_URL, config = {
                 auth: {
                     authHandler: basicAuthHandler
                 },
@@ -64,7 +64,7 @@ public type Client client object {
                     disable: true
                 }
             });
-            self.authyClient = new (AUTHY_API_BASE_URL, config = {
+            self.authyClient = new(AUTHY_API_BASE_URL, config = {
                 auth: {
                     authHandler: basicAuthHandler
                 },
