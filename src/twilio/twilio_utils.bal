@@ -17,6 +17,7 @@
 import ballerina/encoding;
 import ballerina/http;
 import ballerina/lang.'boolean;
+import ballerina/log;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
@@ -27,30 +28,27 @@ function parseResponseToJson(http:Response|error httpResponse) returns @tainted 
         
         if (jsonResponse is json) {
             if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
-                string errMsg = jsonResponse.message.toString();
-                string errCode = "";
-
+                string code = "";
                 if (jsonResponse?.error_code != ()) {
-                    errCode = jsonResponse.error_code.toString();
+                    code = jsonResponse.error_code.toString();
                 } else if (jsonResponse?.'error != ()) {
-                    errCode =jsonResponse.'error.toString();
+                    code = jsonResponse.'error.toString();
                 }
-                string errorMessage = errCode != "" ? httpResponse.statusCode.toString() + WHITE_SPACE
-                + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
-                + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg : httpResponse.statusCode.toString() + WHITE_SPACE
-                + httpResponse.reasonPhrase + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg;
-                error err = error(TWILIO_ERROR_CODE, message = errorMessage);
-                return err;
+
+                string message = jsonResponse.message.toString();
+                string errorMessage = httpResponse.statusCode.toString() + " " + httpResponse.reasonPhrase;
+                if (code != "") {
+                    errorMessage += " - " + code;
+                }
+                errorMessage += " : " + message;
+                return prepareError(errorMessage);
             }
             return jsonResponse;
         } else {
-            error err = error(TWILIO_ERROR_CODE,
-            message = "Error occurred while accessing the JSON payload of the response");
-            return err;
+            return prepareError("Error occurred while accessing the JSON payload of the response");
         }
     } else {
-        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while invoking the REST API");
-        return err;
+        return prepareError("Error occurred while invoking the REST API");
     }
 }
 
@@ -66,8 +64,7 @@ function createUrlEncodedRequestBody(string requestBody, string key, string valu
     if (encodedVar is string) {
         encodedString = encodedVar;
     } else {
-        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while encoding the string");
-        return err;
+        return prepareError("Error occurred while encoding the string");
     }
     if (requestBody != EMPTY_STRING) {
         body = requestBody + AMPERSAND_SYMBOL;
@@ -83,4 +80,15 @@ function convertToBoolean(json|error value) returns boolean {
         }
     }
     return false;
+}
+
+function prepareError(string message, error? err = ()) returns Error {
+    log:printError(message, err);
+    Error twilioError;
+    if (err is error) {
+        twilioError = TwilioError(message, err);
+    } else {
+        twilioError = TwilioError(message);
+    }
+    return twilioError;
 }

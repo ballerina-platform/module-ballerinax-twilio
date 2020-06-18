@@ -31,7 +31,7 @@ public type Client client object {
     public http:Client basicClient;
     public http:Client authyClient;
 
-    public function __init(TwilioConfiguration twilioConfig) {
+    public function init(TwilioConfiguration twilioConfig) {
         self.accountSId = twilioConfig.accountSId;
         self.xAuthyKey = twilioConfig.xAuthyKey;
 

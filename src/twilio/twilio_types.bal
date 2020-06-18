@@ -212,3 +212,9 @@ public type AuthyOtpVerifyResponse record {
     string token = "";
     boolean isSuccess = false;
 };
+
+# Represents the Twilio error. This will be returned if an error occurred on Twilio operations.
+public type TwilioError distinct error;
+
+# Represents the Twilio module related error.
+public type Error TwilioError;
