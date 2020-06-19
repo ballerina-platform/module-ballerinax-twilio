@@ -15,11 +15,12 @@ The `ballerinax/twilio` module contains operations to get the Twilio account det
 The `ballerinax/twilio` module contains operations to get Authy app details, add a user, delete a user, get user status, get user secret, request OTP via SMS, request OTP via call, and verify OTP.
 
 ## Compatibility
-|                          |    Version     |
-|:------------------------:|:--------------:|
-| Ballerina Language       | 2.0.0          |
-| Twilio Basic API         | 2010-04-01     |
-| Twilio Authy API Version | v1             |
+
+|                          |    Version         |
+|:------------------------:|:------------------:|
+| Ballerina Language       | Swan Lake Preview1 |
+| Twilio Basic API         | 2010-04-01         |
+| Twilio Authy API Version | v1                 |
 
 ## Sample
 First, import the `ballerinax/twilio` module into the Ballerina project.
