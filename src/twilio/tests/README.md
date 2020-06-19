@@ -8,7 +8,7 @@ WhatsApp messaging requires users to use predefined [message templates](https://
 
 | Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
 |:---------------------------:|:------------------------:|:------------------------:|
-| 1.1.4                       | 2010-04-01               | v1                       |
+| 2.0.0                       | 2010-04-01               | v1                       |
 
 ## Running tests
 
