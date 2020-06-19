@@ -53,6 +53,3 @@ final string URL = "Url";
 final string ACCOUNT_SID = "ACCOUNT_SID";
 final string AUTH_TOKEN = "AUTH_TOKEN";
 final string AUTHY_API_KEY = "AUTHY_API_KEY";
-
-//Error codes
-public const TWILIO_ERROR = "(ballerinax/twilio)TwilioError";
