@@ -21,36 +21,33 @@ import ballerina/lang.'boolean;
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
 # + return - `json` payload or `error` if anything wrong happen when HTTP client invocation or parsing response to `json`
-function parseResponseToJson(http:Response|error httpResponse) returns @tainted json|error {
+function parseResponseToJson(http:Response|http:ClientError httpResponse) returns @tainted json|Error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
         
         if (jsonResponse is json) {
             if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
-                string errMsg = jsonResponse.message.toString();
-                string errCode = "";
-
+                string code = "";
                 if (jsonResponse?.error_code != ()) {
-                    errCode = jsonResponse.error_code.toString();
+                    code = jsonResponse.error_code.toString();
                 } else if (jsonResponse?.'error != ()) {
-                    errCode =jsonResponse.'error.toString();
+                    code = jsonResponse.'error.toString();
                 }
-                string errorMessage = errCode != "" ? httpResponse.statusCode.toString() + WHITE_SPACE
-                + httpResponse.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + errCode
-                + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg : httpResponse.statusCode.toString() + WHITE_SPACE
-                + httpResponse.reasonPhrase + COLON_WITH_WHITE_SPACES_SYMBOL + errMsg;
-                error err = error(TWILIO_ERROR_CODE, message = errorMessage);
-                return err;
+
+                string message = jsonResponse.message.toString();
+                string errorMessage = httpResponse.statusCode.toString() + " " + httpResponse.reasonPhrase;
+                if (code != "") {
+                    errorMessage += " - " + code;
+                }
+                errorMessage += " : " + message;
+                return prepareError(errorMessage);
             }
             return jsonResponse;
         } else {
-            error err = error(TWILIO_ERROR_CODE,
-            message = "Error occurred while accessing the JSON payload of the response");
-            return err;
+            return prepareError("Error occurred while accessing the JSON payload of the response");
         }
     } else {
-        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while invoking the REST API");
-        return err;
+        return prepareError("Error occurred while invoking the REST API");
     }
 }
 
@@ -59,20 +56,19 @@ function parseResponseToJson(http:Response|error httpResponse) returns @tainted 
 # + key - Key of the form value parameter
 # + value - Value of the form value parameter
 # + return - Created request body with encoded string or `error` if anything wrong happen when encoding the value
-function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|error {
+function createUrlEncodedRequestBody(string requestBody, string key, string value) returns string|Error {
     var encodedVar = encoding:encodeUriComponent(value, CHARSET_UTF8);
     string encodedString = "";
     string body = "";
     if (encodedVar is string) {
         encodedString = encodedVar;
     } else {
-        error err = error(TWILIO_ERROR_CODE, message = "Error occurred while encoding the string");
-        return err;
+        return prepareError("Error occurred while encoding the string");
     }
-    if (requestBody != EMPTY_STRING) {
-        body = requestBody + AMPERSAND_SYMBOL;
+    if (requestBody != "") {
+        body = requestBody + "&";
     }
-    return body + key + EQUAL_SYMBOL + encodedString;
+    return body + key + "=" + encodedString;
 }
 
 function convertToBoolean(json|error value) returns boolean {
@@ -83,4 +79,14 @@ function convertToBoolean(json|error value) returns boolean {
         }
     }
     return false;
+}
+
+function prepareError(string message, error? err = ()) returns Error {
+    Error twilioError;
+    if (err is error) {
+        twilioError = TwilioError(message, err);
+    } else {
+        twilioError = TwilioError(message);
+    }
+    return twilioError;
 }

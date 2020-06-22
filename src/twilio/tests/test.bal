@@ -28,7 +28,7 @@ TwilioConfiguration twilioConfig = {
     authToken: config:getAsString(AUTH_TOKEN),
     xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
-Client twilioClient = new (twilioConfig);
+Client twilioClient = new(twilioConfig);
 
 @test:Config {
     groups: ["basic", "root"]
@@ -39,7 +39,7 @@ function testAccountDetails() {
         authToken: config:getAsString(AUTH_TOKEN),
         xAuthyKey: config:getAsString(AUTHY_API_KEY)
     };
-    Client twilioClient = new (twilioConfig);
+    Client twilioClient = new(twilioConfig);
 
     io:println("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
@@ -48,7 +48,7 @@ function testAccountDetails() {
     if (details is Account) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -69,7 +69,7 @@ function testSendSms() {
     if (details is SmsResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -89,7 +89,7 @@ function testSendWhatsAppMessage() {
     if (details is WhatsAppResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -109,7 +109,7 @@ function testMakeVoiceCall() {
     if (details is VoiceCallResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -124,7 +124,7 @@ function testAuthyAppDetails() {
     if (details is AuthyAppDetailsResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -145,7 +145,7 @@ function testAuthyUserAdd() {
         io:println(details);
         testUserId = <@untainted>details.userId;
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -161,7 +161,7 @@ function testAuthyUserStatus() {
     if (details is AuthyUserStatusResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -178,7 +178,7 @@ function testAuthyUserDelete() {
     if (details is AuthyUserDeleteResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -194,7 +194,7 @@ function testAuthyUserSecret() {
     if (details is AuthyUserSecretResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -210,7 +210,7 @@ function testAuthyOtpViaSms() {
     if (details is AuthyOtpResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -226,7 +226,7 @@ function testAuthyOtpViaCall() {
     if (details is AuthyOtpResponse) {
         io:println(details);
     } else {
-        test:assertFail(msg = <string>details.detail()["message"]);
+        test:assertFail(msg = details.message());
     }
 }
 
@@ -245,6 +245,6 @@ function testAuthyOtpVerify() {
         io:println(details);
     } else {
         // This always returns a error since the token should be what the user get.
-        io:println(<string>details.detail()["message"]);
+        io:println(details.message());
     }
 }
