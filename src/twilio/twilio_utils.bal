@@ -17,7 +17,6 @@
 import ballerina/encoding;
 import ballerina/http;
 import ballerina/lang.'boolean;
-import ballerina/log;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
@@ -83,7 +82,6 @@ function convertToBoolean(json|error value) returns boolean {
 }
 
 function prepareError(string message, error? err = ()) returns Error {
-    log:printError(message, err);
     Error twilioError;
     if (err is error) {
         twilioError = TwilioError(message, err);
