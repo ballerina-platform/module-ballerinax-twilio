@@ -81,7 +81,7 @@ public client class Client{
     public remote function getAccountDetails() returns @tainted Account|Error {
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + ACCOUNT_DETAILS;
         var response = self.basicClient->get(requestPath);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAccount(jsonResponse);
     }
 
@@ -103,7 +103,7 @@ public client class Client{
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + SMS_SEND;
         var response = self.basicClient->post(requestPath, req);
 
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToSmsResponse(jsonResponse);
     }
 
@@ -123,7 +123,7 @@ public client class Client{
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + WHATSAPP_SEND;
         var response = self.basicClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
 
         return mapJsonToWhatsAppResponse(jsonResponse);
     }
@@ -145,7 +145,7 @@ public client class Client{
 
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + VOICE_CALL;
         var response = self.basicClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToVoiceCallResponse(jsonResponse);
     }
 
@@ -158,7 +158,7 @@ public client class Client{
 
         string requestPath = AUTHY_APP_API;
         var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyAppDetailsResponse(jsonResponse);
     }
 
@@ -180,7 +180,7 @@ public client class Client{
 
         string requestPath = AUTHY_USER_API + USER_ADD;
         var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserAddRespones(jsonResponse);
     }
 
@@ -193,7 +193,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_USER_API + "/" + userId + USER_STATUS;
         var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserStatusResponse(jsonResponse);
     }
 
@@ -206,7 +206,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_USER_API + "/" + userId + USER_REMOVE;
         var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserDeleteResponse(jsonResponse);
     }
 
@@ -219,7 +219,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_USER_API + "/" + userId + USER_SECRET;
         var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserSecretResponse(jsonResponse);
     }
 
@@ -232,7 +232,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_OTP_SMS_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
     }
 
@@ -245,7 +245,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_OTP_CALL_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
     }
 
@@ -259,7 +259,7 @@ public client class Client{
         req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
         string requestPath = AUTHY_OTP_VERIFY_API + "/" + token + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(response);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpVerifyResponse(jsonResponse);
     }
 }

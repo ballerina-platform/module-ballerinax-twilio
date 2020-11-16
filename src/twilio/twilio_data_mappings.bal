@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-function mapJsonToAccount(json jsonPayload) returns Account {
+isolated function mapJsonToAccount(json jsonPayload) returns Account {
     Account account = {};
     account.sid = jsonPayload.sid.toString();
     account.name = jsonPayload.friendly_name.toString();
@@ -25,7 +25,7 @@ function mapJsonToAccount(json jsonPayload) returns Account {
     return account;
 }
 
-function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
+isolated function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     SmsResponse smsResponse = {};
     smsResponse.sid = jsonPayload.sid.toString();
     smsResponse.dateCreated = jsonPayload.date_created.toString();
@@ -45,7 +45,7 @@ function mapJsonToSmsResponse(json jsonPayload) returns SmsResponse {
     return smsResponse;
 }
 
-function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
+isolated function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
     WhatsAppResponse whatsAppResponse = {};
     whatsAppResponse.sid = jsonPayload.sid.toString();
     whatsAppResponse.dateCreated = jsonPayload.date_created.toString();
@@ -69,7 +69,7 @@ function mapJsonToWhatsAppResponse(json jsonPayload) returns WhatsAppResponse {
     return whatsAppResponse;
 }
 
-function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
+isolated function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse {
     VoiceCallResponse voiceCallResponse = {};
     voiceCallResponse.sid = jsonPayload.sid.toString();
     voiceCallResponse.status = jsonPayload.status.toString();
@@ -78,7 +78,7 @@ function mapJsonToVoiceCallResponse(json jsonPayload) returns VoiceCallResponse 
     return voiceCallResponse;
 }
 
-function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
+isolated function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse {
     AuthyAppDetailsResponse authyAppDetailsResponse = {};
     authyAppDetailsResponse.appId = jsonPayload.app.app_id.toString();
     authyAppDetailsResponse.name = jsonPayload.app.name.toString();
@@ -91,7 +91,7 @@ function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDeta
     return authyAppDetailsResponse;
 }
 
-function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
+isolated function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse {
     AuthyUserAddResponse authyUserAddResponse = {};
     authyUserAddResponse.userId = jsonPayload.user.id.toString();
     authyUserAddResponse.message = jsonPayload.message.toString();
@@ -99,7 +99,7 @@ function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddRes
     return authyUserAddResponse;
 }
 
-function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
+isolated function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse {
     AuthyUserStatusResponse authyUserStatusResponse = {};
     authyUserStatusResponse.userId = jsonPayload.status.authy_id.toString();
     authyUserStatusResponse.isConfirmed = convertToBoolean(jsonPayload.status.confirmed);
@@ -112,14 +112,14 @@ function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserSta
     return authyUserStatusResponse;
 }
 
-function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
+isolated function mapJsonToAuthyUserDeleteResponse(json jsonPayload) returns AuthyUserDeleteResponse {
     AuthyUserDeleteResponse authyUserDeleteResponse = {};
     authyUserDeleteResponse.message = jsonPayload.message.toString();
     authyUserDeleteResponse.isSuccess = convertToBoolean(jsonPayload.success);
     return authyUserDeleteResponse;
 }
 
-function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
+isolated function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSecretResponse {
     AuthyUserSecretResponse authyUserSecretResponse = {};
     authyUserSecretResponse.issuer = jsonPayload.issuer.toString();
     authyUserSecretResponse.label = jsonPayload.label.toString();
@@ -128,7 +128,7 @@ function mapJsonToAuthyUserSecretResponse(json jsonPayload) returns AuthyUserSec
     return authyUserSecretResponse;
 }
 
-function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
+isolated function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
     AuthyOtpResponse authyOtpResponse = {};
     authyOtpResponse.message = jsonPayload.message.toString();
     authyOtpResponse.cellphone = jsonPayload.cellphone.toString();
@@ -137,7 +137,7 @@ function mapJsonToAuthyOtpResponse(json jsonPayload) returns AuthyOtpResponse {
     return authyOtpResponse;
 }
 
-function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
+isolated function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns AuthyOtpVerifyResponse {
     AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
     authyOtpVerifyResponse.message = jsonPayload.message.toString();
     authyOtpVerifyResponse.token = jsonPayload.token.toString();
