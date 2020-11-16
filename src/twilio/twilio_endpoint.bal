@@ -24,7 +24,7 @@ import ballerina/mime;
 # + xAuthyKey - Unique identifier of Authy API account
 # + basicClient - HTTP client endpoint for basic api
 # + authyClient - HTTP client endpoint for authy api
-public type Client client object {
+public client class Client{
 
     public string accountSId;
     public string xAuthyKey;
@@ -262,7 +262,7 @@ public type Client client object {
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToAuthyOtpVerifyResponse(jsonResponse);
     }
-};
+}
 
 # Twilio Configuration.
 #
