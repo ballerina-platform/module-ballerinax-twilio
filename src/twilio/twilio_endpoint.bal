@@ -24,7 +24,7 @@ import ballerina/mime;
 # + xAuthyKey - Unique identifier of Authy API account
 # + basicClient - HTTP client endpoint for basic api
 # + authyClient - HTTP client endpoint for authy api
-public client class Client{
+public client class Client {
 
     public string accountSId;
     public string xAuthyKey;
