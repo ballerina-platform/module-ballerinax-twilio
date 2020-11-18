@@ -15,7 +15,7 @@ jobs:
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
                   args:
-                      build --offline -a -c --skip-tests
+                      build --offline -a -c 
             - name: Ballerina Push
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
