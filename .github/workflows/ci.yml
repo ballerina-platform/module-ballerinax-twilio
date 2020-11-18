@@ -13,4 +13,4 @@ jobs:
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
                   args:
-                      build -a -c --skip-tests
+                      build --offline -a -c --skip-tests
