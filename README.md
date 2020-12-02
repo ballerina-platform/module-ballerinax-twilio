@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ballerina-platform/module-twilio.svg?branch=master)](https://travis-ci.org/ballerina-platform/module-twilio)
+[![Build Status](https://travis-ci.org/ballerina-platform/module-ballerinax-twilio.svg?branch=master)](https://travis-ci.org/ballerina-platform/module-ballerinax-twilio)
 
 # Twilio Connector
 
