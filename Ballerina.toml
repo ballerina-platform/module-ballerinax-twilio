@@ -1,6 +1,6 @@
 [package]
 org = "ballerinax"
-name = "module_ballerinax_twilio"
+name = "twilio"
 version = "0.9.2"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
