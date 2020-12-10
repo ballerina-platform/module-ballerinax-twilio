@@ -1,7 +1,11 @@
-[project]
-org-name = "ballerinax"
-version = "0.99.1"
+[package]
+org = "ballerinax"
+name = "twilio"
+version = "0.9.2"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
 keywords = ["twilio", "sms", "call", "otp", "whatsapp"]
 license = ["Apache-2.0"]
+
+[build-options]
+observabilityIncluded = true

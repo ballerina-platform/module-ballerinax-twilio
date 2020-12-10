@@ -15,7 +15,7 @@ jobs:
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
                   args:
-                      build --offline -a -c
+                      build -c
               env:
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
                   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
@@ -32,6 +32,6 @@ jobs:
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
                   args:
-                      push -a
+                      push 
               env:
                   BALLERINA_CENTRAL_ACCESS_TOKEN: ${{ secrets.BALLERINA_CENTRAL_ACCESS_TOKEN }}

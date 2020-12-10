@@ -13,7 +13,7 @@ jobs:
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:
                   args:
-                      build  -a -c --skip-tests
+                      build -c
               env:
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
                   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
