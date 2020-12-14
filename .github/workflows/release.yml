@@ -12,10 +12,10 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Ballerina Build
-              uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
+              uses: ballerina-platform/ballerina-action/@slp7
               with:
                   args:
-                      build -c
+                      build -c --skip-tests
               env:
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
                   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
@@ -29,7 +29,7 @@ jobs:
                   SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }}
                   SAMPLE_AUTHY_USER_COUNTRY_CODE: ${{ secrets.SAMPLE_AUTHY_USER_COUNTRY_CODE }}  
             - name: Ballerina Push
-              uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
+              uses: ballerina-platform/ballerina-action/@slp7
               with:
                   args:
                       push 
