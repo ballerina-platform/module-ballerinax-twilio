@@ -42,7 +42,7 @@ function testAccountDetails() {
     Client twilioClient = new(twilioConfig);
 
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> getAccountDetails()");
+    log:print("twilioClient -> getAccountDetails()");
 
     var details = twilioClient->getAccountDetails();
     if (details is Account) {
@@ -58,7 +58,7 @@ function testAccountDetails() {
 }
 function testSendSms() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> sendSms()");
+    log:print("twilioClient -> sendSms()");
 
     string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
@@ -79,7 +79,7 @@ function testSendSms() {
 }
 function testSendWhatsAppMessage() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> sendWhatsAppMessage()");
+    log:print("twilioClient -> sendWhatsAppMessage()");
 
     string fromMobile = config:getAsString("SAMPLE_WHATSAPP_SANDBOX");
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
@@ -99,7 +99,7 @@ function testSendWhatsAppMessage() {
 }
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> makeVoiceCall()");
+    log:print("twilioClient -> makeVoiceCall()");
 
     string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
@@ -118,7 +118,7 @@ function testMakeVoiceCall() {
 }
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> getAuthyAppDetails()");
+    log:print("twilioClient -> getAuthyAppDetails()");
 
     var details = twilioClient->getAuthyAppDetails();
     if (details is AuthyAppDetailsResponse) {
@@ -134,7 +134,7 @@ function testAuthyAppDetails() {
 }
 function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> addAuthyUser()");
+    log:print("twilioClient -> addAuthyUser()");
 
     string email = config:getAsString("SAMPLE_AUTHY_USER_EMAIL");
     string phone = config:getAsString("SAMPLE_AUTHY_USER_PHONE");
@@ -155,7 +155,7 @@ function testAuthyUserAdd() {
 }
 function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> getAuthyUserStatus()");
+    log:print("twilioClient -> getAuthyUserStatus()");
 
     var details = twilioClient->getAuthyUserStatus(testUserId);
     if (details is AuthyUserStatusResponse) {
@@ -172,7 +172,7 @@ function testAuthyUserStatus() {
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> deleteAuthyUser()");
+    log:print("twilioClient -> deleteAuthyUser()");
 
     var details = twilioClient->deleteAuthyUser(testUserId);
     if (details is AuthyUserDeleteResponse) {
@@ -188,7 +188,7 @@ function testAuthyUserDelete() {
 }
 function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> getAuthyUserSecret()");
+    log:print("twilioClient -> getAuthyUserSecret()");
 
     var details = twilioClient->getAuthyUserSecret(testUserId);
     if (details is AuthyUserSecretResponse) {
@@ -204,7 +204,7 @@ function testAuthyUserSecret() {
 }
 function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> requestOtpViaSms()");
+    log:print("twilioClient -> requestOtpViaSms()");
 
     var details = twilioClient->requestOtpViaSms(testUserId);
     if (details is AuthyOtpResponse) {
@@ -220,7 +220,7 @@ function testAuthyOtpViaSms() {
 }
 function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> requestOtpViaCall()");
+    log:print("twilioClient -> requestOtpViaCall()");
 
     var details = twilioClient->requestOtpViaCall(testUserId);
     if (details is AuthyOtpResponse) {
@@ -236,7 +236,7 @@ function testAuthyOtpViaCall() {
 }
 function testAuthyOtpVerify() {
     io:println("\n ---------------------------------------------------------------------------");
-    log:printInfo("twilioClient -> verifyOtp()");
+    log:print("twilioClient -> verifyOtp()");
 
     string token = "8875458";
 
