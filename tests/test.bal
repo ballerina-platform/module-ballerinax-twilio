@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/config;
 import ballerina/io;
 import ballerina/log;
@@ -28,18 +27,16 @@ TwilioConfiguration twilioConfig = {
     authToken: config:getAsString(AUTH_TOKEN),
     xAuthyKey: config:getAsString(AUTHY_API_KEY)
 };
-Client twilioClient = new(twilioConfig);
+Client twilioClient = new (twilioConfig);
 
-@test:Config {
-    groups: ["basic", "root"]
-}
+@test:Config {groups: ["basic", "root"]}
 function testAccountDetails() {
     TwilioConfiguration twilioConfig = {
         accountSId: config:getAsString(ACCOUNT_SID),
         authToken: config:getAsString(AUTH_TOKEN),
         xAuthyKey: config:getAsString(AUTHY_API_KEY)
     };
-    Client twilioClient = new(twilioConfig);
+    Client twilioClient = new (twilioConfig);
 
     io:println("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> getAccountDetails()");
@@ -63,7 +60,6 @@ function testSendSms() {
     string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
     string message = config:getAsString("SAMPLE_MESSAGE");
-
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message);
     if (details is SmsResponse) {
@@ -113,9 +109,7 @@ function testMakeVoiceCall() {
     }
 }
 
-@test:Config {
-    groups: ["authy", "root"]
-}
+@test:Config {groups: ["authy", "root"]}
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> getAuthyAppDetails()");
@@ -167,7 +161,7 @@ function testAuthyUserStatus() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms",
+    dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", 
     "testAuthyOtpViaCall", "testAuthyOtpVerify"]
 }
 function testAuthyUserDelete() {

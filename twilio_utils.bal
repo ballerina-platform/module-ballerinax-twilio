@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/encoding;
 import ballerina/http;
 import ballerina/lang.'boolean;
@@ -24,7 +23,7 @@ import ballerina/lang.'boolean;
 isolated function parseResponseToJson(http:Response|http:ClientError httpResponse) returns @tainted json|Error {
     if (httpResponse is http:Response) {
         var jsonResponse = httpResponse.getJsonPayload();
-        
+
         if (jsonResponse is json) {
             if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
                 string code = "";

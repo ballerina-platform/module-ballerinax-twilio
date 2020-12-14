@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
@@ -35,42 +34,30 @@ public client class Client {
         self.accountSId = twilioConfig.accountSId;
         self.xAuthyKey = twilioConfig?.xAuthyKey;
 
-        auth:OutboundBasicAuthProvider basicAuthProvider = new({
+        auth:OutboundBasicAuthProvider basicAuthProvider = new ({
             username: twilioConfig.accountSId,
             password: twilioConfig.authToken
         });
-        http:BasicAuthHandler basicAuthHandler = new(basicAuthProvider);
+        http:BasicAuthHandler basicAuthHandler = new (basicAuthProvider);
 
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
-            self.basicClient = new(TWILIO_API_BASE_URL, config = {
-                auth: {
-                    authHandler: basicAuthHandler
-                },
+            self.basicClient = new (TWILIO_API_BASE_URL, config = {
+                auth: {authHandler: basicAuthHandler},
                 secureSocket: secureSocket
             });
-            self.authyClient = new(AUTHY_API_BASE_URL, config = {
-                auth: {
-                    authHandler: basicAuthHandler
-                },
+            self.authyClient = new (AUTHY_API_BASE_URL, config = {
+                auth: {authHandler: basicAuthHandler},
                 secureSocket: secureSocket
             });
         } else {
-            self.basicClient = new(TWILIO_API_BASE_URL, config = {
-                auth: {
-                    authHandler: basicAuthHandler
-                },
-                secureSocket: {
-                    disable: true
-                }
+            self.basicClient = new (TWILIO_API_BASE_URL, config = {
+                auth: {authHandler: basicAuthHandler},
+                secureSocket: {disable: true}
             });
-            self.authyClient = new(AUTHY_API_BASE_URL, config = {
-                auth: {
-                    authHandler: basicAuthHandler
-                },
-                secureSocket: {
-                    disable: true
-                }
+            self.authyClient = new (AUTHY_API_BASE_URL, config = {
+                auth: {authHandler: basicAuthHandler},
+                secureSocket: {disable: true}
             });
         }
     }
@@ -113,7 +100,8 @@ public client class Client {
     # + toNo - Mobile number by which the WhatsApp message should be received
     # + message - Message body of the WhatsApp message
     # + return - If success, returns a WhatsAppResponse object, else returns error
-    remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|Error {
+    remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|
+    Error {
         http:Request req = new;
 
         string requestBody = "";
@@ -154,9 +142,9 @@ public client class Client {
     # + return - If success, returns Authy app response object with basic details, else returns error
     remote function getAuthyAppDetails() returns @tainted AuthyAppDetailsResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_APP_API;
@@ -171,11 +159,12 @@ public client class Client {
     # + phone - Phone number of the new user
     # + countryCode - Country code of the new user
     # + return - If success, returns Authy user add response object with basic details, else returns error
-    remote function addAuthyUser(string email, string phone, string countryCode) returns @tainted AuthyUserAddResponse|Error {
+    remote function addAuthyUser(string email, string phone, string countryCode) returns @tainted AuthyUserAddResponse|
+    Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestBody = "";
@@ -196,9 +185,9 @@ public client class Client {
     # + return - If success, returns Authy user status response object with basic details, else returns error
     remote function getAuthyUserStatus(string userId) returns @tainted AuthyUserStatusResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_STATUS;
@@ -213,9 +202,9 @@ public client class Client {
     # + return - If success, returns Authy user delete response object with basic details, else returns error
     remote function deleteAuthyUser(string userId) returns @tainted AuthyUserDeleteResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_REMOVE;
@@ -230,9 +219,9 @@ public client class Client {
     # + return - If success, returns Authy user secret response object with basic details, else returns error
     remote function getAuthyUserSecret(string userId) returns @tainted AuthyUserSecretResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_SECRET;
@@ -247,9 +236,9 @@ public client class Client {
     # + return - If success, returns Authy OTP response object with basic details, else returns error
     remote function requestOtpViaSms(string userId) returns @tainted AuthyOtpResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_OTP_SMS_API + "/" + userId;
@@ -264,9 +253,9 @@ public client class Client {
     # + return - If success, returns Authy OTP response object with basic details, else returns error
     remote function requestOtpViaCall(string userId) returns @tainted AuthyOtpResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_OTP_CALL_API + "/" + userId;
@@ -282,9 +271,9 @@ public client class Client {
     # + return - If success, returns Authy OTP verify response object with basic details, else returns error
     remote function verifyOtp(string userId, string token) returns @tainted AuthyOtpVerifyResponse|Error {
         http:Request req = new;
-        if(self.xAuthyKey != ()){
+        if (self.xAuthyKey != ()) {
             req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        }else{
+        } else {
             return prepareError("No xAuthyKey found");
         }
         string requestPath = AUTHY_OTP_VERIFY_API + "/" + token + "/" + userId;
