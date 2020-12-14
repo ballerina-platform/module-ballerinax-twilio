@@ -27,13 +27,13 @@ import ballerina/mime;
 public client class Client {
 
     public string accountSId;
-    public string xAuthyKey;
+    public string? xAuthyKey;
     public http:Client basicClient;
     public http:Client authyClient;
 
     public function init(TwilioConfiguration twilioConfig) {
         self.accountSId = twilioConfig.accountSId;
-        self.xAuthyKey = twilioConfig.xAuthyKey;
+        self.xAuthyKey = twilioConfig?.xAuthyKey;
 
         auth:OutboundBasicAuthProvider basicAuthProvider = new({
             username: twilioConfig.accountSId,
@@ -154,8 +154,11 @@ public client class Client {
     # + return - If success, returns Authy app response object with basic details, else returns error
     public remote function getAuthyAppDetails() returns @tainted AuthyAppDetailsResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_APP_API;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -170,8 +173,11 @@ public client class Client {
     # + return - If success, returns Authy user add response object with basic details, else returns error
     public remote function addAuthyUser(string email, string phone, string countryCode) returns @tainted AuthyUserAddResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
-
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
         requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
@@ -190,7 +196,11 @@ public client class Client {
     # + return - If success, returns Authy user status response object with basic details, else returns error
     public remote function getAuthyUserStatus(string userId) returns @tainted AuthyUserStatusResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_STATUS;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -203,7 +213,11 @@ public client class Client {
     # + return - If success, returns Authy user delete response object with basic details, else returns error
     public remote function deleteAuthyUser(string userId) returns @tainted AuthyUserDeleteResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_REMOVE;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -216,7 +230,11 @@ public client class Client {
     # + return - If success, returns Authy user secret response object with basic details, else returns error
     public remote function getAuthyUserSecret(string userId) returns @tainted AuthyUserSecretResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_USER_API + "/" + userId + USER_SECRET;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -229,7 +247,11 @@ public client class Client {
     # + return - If success, returns Authy OTP response object with basic details, else returns error
     public remote function requestOtpViaSms(string userId) returns @tainted AuthyOtpResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_OTP_SMS_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -242,7 +264,11 @@ public client class Client {
     # + return - If success, returns Authy OTP response object with basic details, else returns error
     public remote function requestOtpViaCall(string userId) returns @tainted AuthyOtpResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_OTP_CALL_API + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -256,7 +282,11 @@ public client class Client {
     # + return - If success, returns Authy OTP verify response object with basic details, else returns error
     public remote function verifyOtp(string userId, string token) returns @tainted AuthyOtpVerifyResponse|Error {
         http:Request req = new;
-        req.addHeader(X_AUTHY_API_KEY, self.xAuthyKey);
+        if(self.xAuthyKey != ()){
+            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+        }else{
+            return prepareError("No xAuthyKey found");
+        }
         string requestPath = AUTHY_OTP_VERIFY_API + "/" + token + "/" + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
@@ -273,6 +303,6 @@ public client class Client {
 public type TwilioConfiguration record {
     string accountSId;
     string authToken;
-    string xAuthyKey;
+    string xAuthyKey?;
     http:ClientSecureSocket secureSocket?;
 };
