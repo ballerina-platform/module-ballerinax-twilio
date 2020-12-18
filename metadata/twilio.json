@@ -2,6 +2,7 @@
     "connector": {
         "name": "twilio",
         "displayName": "Twilio",
+        "organization":"ballerinax",
         "module": "twilio",
         "icon": "twilio.png",
         "clients": [
