@@ -18,7 +18,7 @@ The `ballerinax/twilio` package contains operations to get Authy app details, ad
 
 |                          |    Version         |
 |:------------------------:|:------------------:|
-| Ballerina Language       | Swan Lake Preview7 |
+| Ballerina Language       | Swan Lake Preview8 |
 | Twilio Basic API         | 2010-04-01         |
 | Twilio Authy API Version | v1                 |
 

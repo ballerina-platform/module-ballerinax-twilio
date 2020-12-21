@@ -19,7 +19,7 @@ isolated function mapJsonToAccount(json jsonPayload) returns Account {
     account.sid = jsonPayload.sid.toString();
     account.name = jsonPayload.friendly_name.toString();
     account.status = jsonPayload.status.toString();
-    account.'type =jsonPayload.'type.toString();
+    account.'type = jsonPayload.'type.toString();
     account.createdDate = jsonPayload.date_created.toString();
     account.updatedDate = jsonPayload.date_updated.toString();
     return account;
