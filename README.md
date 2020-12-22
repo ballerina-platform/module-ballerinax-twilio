@@ -46,7 +46,7 @@ WhatsApp messaging requires users to use predefined [message templates](https://
         if (details is twilio:Account) {
             io:println("Account Details: ", details);
         } else {
-            // If unsuccessful, print the error returned.
+            // If unsuccessful, prints the error returned.
             io:println("Error: ", details);
         }
     }
