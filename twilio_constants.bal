@@ -25,7 +25,7 @@ final string AUTHY_OTP_SMS_API = "/json/sms";
 final string AUTHY_OTP_CALL_API = "/json/call";
 final string AUTHY_OTP_VERIFY_API = "/json/verify";
 
-final string SMS_SEND = "/SMS/Messages.json";
+final string SMS_SEND = "/Messages.json";
 final string WHATSAPP_SEND = "/Messages.json";
 final string VOICE_CALL = "/Calls.json";
 final string ACCOUNT_DETAILS = ".json";
