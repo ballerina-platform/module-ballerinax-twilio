@@ -1,0 +1,1 @@
+{"ballerinax/twilio:0.99.5:AuthyUserStatusResponse":{"userId":"string","isConfirmed":"boolean","isRegistered":"boolean","countryCode":"string","phoneNumber":"string","isAccountDisabled":"boolean","message":"string","isSuccess":"boolean"}}

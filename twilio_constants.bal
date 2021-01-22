@@ -25,7 +25,7 @@ final string AUTHY_OTP_SMS_API = "/json/sms";
 final string AUTHY_OTP_CALL_API = "/json/call";
 final string AUTHY_OTP_VERIFY_API = "/json/verify";
 
-final string SMS_SEND = "/SMS/Messages.json";
+final string SMS_SEND = "/Messages.json";
 final string WHATSAPP_SEND = "/Messages.json";
 final string VOICE_CALL = "/Calls.json";
 final string ACCOUNT_DETAILS = ".json";
@@ -48,8 +48,15 @@ final string TO = "To";
 final string FROM = "From";
 final string BODY = "Body";
 final string URL = "Url";
+final string STATUS_CALLBACK_URL = "StatusCallback";
+final string STATUS_CALLBACK_METHOD = "StatusCallbackMethod";
+final string STATUS_CALLBACK_EVENT = "StatusCallbackEvent";
 
 // Conf parameter keys
 final string ACCOUNT_SID = "ACCOUNT_SID";
 final string AUTH_TOKEN = "AUTH_TOKEN";
 final string AUTHY_API_KEY = "AUTHY_API_KEY";
+
+// HTTP methods for incoming event payload
+public const POST = "POST";
+public const GET = "GET";

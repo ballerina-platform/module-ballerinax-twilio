@@ -78,13 +78,19 @@ public client class Client {
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
     # + return - If success, returns a programmable SMS response object, else returns error
-    remote function sendSms(string fromNo, string toNo, string message) returns @tainted SmsResponse|Error {
+    remote function sendSms(string fromNo, string toNo, string message, string|() statusCallbackUrl = ()) returns @tainted 
+    SmsResponse|Error {
         http:Request req = new;
 
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
+
+        if (statusCallbackUrl is string) {
+            requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallbackUrl);
+        }
+
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + SMS_SEND;
@@ -121,14 +127,30 @@ public client class Client {
     # + fromNo - Mobile number which the voice call should be send from
     # + toNo - Mobile number which the voice call should be received to
     # + twiml - TwiML URL which the response of the voice call is stated
+    # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status needs to be delivered.
     # + return - If success, returns voice call response object with basic details, else returns error
-    remote function makeVoiceCall(string fromNo, string toNo, string twiml) returns @tainted VoiceCallResponse|Error {
+    remote function makeVoiceCall(string fromNo, string toNo, string twiml, StatusCallback|() statusCallback = ()) returns @tainted 
+    VoiceCallResponse|Error {
         http:Request req = new;
 
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
+
+        if (statusCallback is StatusCallback) {
+            requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallback.url);
+            requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_METHOD, statusCallback.method);
+
+            string[]|() events = statusCallback?.events;
+
+            if(events is string[]){
+                foreach string event in events {
+                    requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_EVENT, event);
+                }
+            }
+        }
+
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
         string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + VOICE_CALL;

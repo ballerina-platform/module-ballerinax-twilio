@@ -1,10 +1,10 @@
 [package]
 org = "ballerinax"
 name = "twilio"
-version = "0.99.4"
+version = "0.99.5"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
-keywords = ["twilio", "sms", "call", "otp", "whatsapp"]
+keywords = ["twilio", "sms", "call", "otp", "whatsapp", "webhook"]
 license = ["Apache-2.0"]
 
 [build-options]

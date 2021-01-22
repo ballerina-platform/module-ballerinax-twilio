@@ -218,3 +218,10 @@ public type TwilioError distinct error;
 
 # Represents the Twilio module related error.
 public type Error TwilioError;
+
+
+public type StatusCallback record {
+    string url;
+    string method;
+    string[] events?;
+};

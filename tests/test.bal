@@ -29,7 +29,10 @@ TwilioConfiguration twilioConfig = {
 };
 Client twilioClient = new (twilioConfig);
 
-@test:Config {groups: ["basic", "root"]}
+@test:Config {
+    groups: ["basic", "root"],
+    enable: true
+}
 function testAccountDetails() {
     TwilioConfiguration twilioConfig = {
         accountSId: config:getAsString(ACCOUNT_SID),
@@ -51,7 +54,8 @@ function testAccountDetails() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"]
+    dependsOn: ["testAccountDetails"],
+    enable: false
 }
 function testSendSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -61,7 +65,9 @@ function testSendSms() {
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
     string message = config:getAsString("SAMPLE_MESSAGE");
 
-    var details = twilioClient->sendSms(fromMobile, toMobile, message);
+    string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
+
+    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
     if (details is SmsResponse) {
         io:println(details);
     } else {
@@ -71,7 +77,8 @@ function testSendSms() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"]
+    dependsOn: ["testAccountDetails"],
+    enable: false
 }
 function testSendWhatsAppMessage() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -91,7 +98,8 @@ function testSendWhatsAppMessage() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"]
+    dependsOn: ["testAccountDetails"],
+    enable: false
 }
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -109,7 +117,10 @@ function testMakeVoiceCall() {
     }
 }
 
-@test:Config {groups: ["authy", "root"]}
+@test:Config {
+    groups: ["authy", "root"],
+    enable: false
+}
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> getAuthyAppDetails()");
@@ -124,7 +135,8 @@ function testAuthyAppDetails() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyAppDetails"]
+    dependsOn: ["testAuthyAppDetails"],
+    enable: false
 }
 function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -145,7 +157,8 @@ function testAuthyUserAdd() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"]
+    dependsOn: ["testAuthyUserAdd"],
+    enable: false
 }
 function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -162,7 +175,8 @@ function testAuthyUserStatus() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", 
-    "testAuthyOtpViaCall", "testAuthyOtpVerify"]
+    "testAuthyOtpViaCall", "testAuthyOtpVerify"],
+    enable: false
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -178,7 +192,8 @@ function testAuthyUserDelete() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"]
+    dependsOn: ["testAuthyUserAdd"],
+    enable: false
 }
 function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -194,7 +209,8 @@ function testAuthyUserSecret() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"]
+    dependsOn: ["testAuthyUserAdd"],
+    enable: false
 }
 function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -210,7 +226,8 @@ function testAuthyOtpViaSms() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"]
+    dependsOn: ["testAuthyUserAdd"],
+    enable: false
 }
 function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -226,7 +243,8 @@ function testAuthyOtpViaCall() {
 
 @test:Config {
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"]
+    dependsOn: ["testAuthyUserAdd"],
+    enable: false
 }
 function testAuthyOtpVerify() {
     io:println("\n ---------------------------------------------------------------------------");
