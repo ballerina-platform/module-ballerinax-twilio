@@ -77,6 +77,7 @@ public client class Client {
     # + fromNo - Mobile number which the SMS should be send from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
+    # + statusCallbackUrl - (optional) Callback URL where the status callback events needs to be dispatched
     # + return - If success, returns a programmable SMS response object, else returns error
     remote function sendSms(string fromNo, string toNo, string message, string|() statusCallbackUrl = ()) returns @tainted 
     SmsResponse|Error {
