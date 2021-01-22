@@ -23,33 +23,33 @@ public type SmsEvent record {|
 |};
 
 public type CallEvent record {|
-    string AccountSid;
-    string ApiVersion;
-    string CallSid;
-    string CallStatus; 
-    string Called; 
-    string CalledCity?;
-    string CalledCountry;
-    string CalledState?
-    string CalledZip?
-    string Caller;
+    string AccountSid; 
+    string ApiVersion; 
+    string CallSid; 
+    string CallStatus;  
+    string Called;  
+    string CalledCity?; 
+    string CalledCountry; 
+    string CalledState?;
+    string CalledZip?;
+    string Caller; 
     string CallDuration?;
     string CallerCity?; 
     string CallerCountry?; 
     string CallerState?; 
     string CallerZip?; 
-    string Direction;
+    string Direction; 
     string Duration?; 
-    string From;
+    string From; 
     string FromCity?; 
     string FromCountry?; 
     string FromState?; 
     string FromZip?; 
-    string To;
-    string ToCity?;
-    string ToCountry;
-    string ToState?
-    string ToZip?
+    string To; 
+    string ToCity?; 
+    string ToCountry; 
+    string ToState?;
+    string ToZip?;
     string Timestamp?;
     string CallbackSource?; 
     string SipResponseCode?;
