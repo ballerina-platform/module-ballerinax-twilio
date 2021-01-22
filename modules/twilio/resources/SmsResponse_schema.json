@@ -1,1 +1,0 @@
-{"ballerinax/twilio:0.99.5:SmsResponse":{"sid":"string","dateCreated":"string","dateUpdated":"string","dateSent":"string","accountSid":"string","toNumber":"string","fromNumber":"string","body":"string","status":"string","direction":"string","apiVersion":"string","price":"string","priceUnit":"string","uri":"string","numSegments":"string"}}

@@ -1,1 +1,0 @@
-{"ballerinax/twilio:0.99.5:AuthyAppDetailsResponse":{"appId":"string","name":"string","plan":"string","isSmsEnabled":"boolean","isPhoneCallsEnabled":"boolean","isOnetouchEnabled":"boolean","message":"string","isSuccess":"boolean"}}
