@@ -55,7 +55,7 @@ function testAccountDetails() {
 @test:Config {
     groups: ["basic"],
     dependsOn: ["testAccountDetails"],
-    enable: false
+    enable: true
 }
 function testSendSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -78,7 +78,7 @@ function testSendSms() {
 @test:Config {
     groups: ["basic"],
     dependsOn: ["testAccountDetails"],
-    enable: false
+    enable: true
 }
 function testSendWhatsAppMessage() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -99,7 +99,7 @@ function testSendWhatsAppMessage() {
 @test:Config {
     groups: ["basic"],
     dependsOn: ["testAccountDetails"],
-    enable: false
+    enable: true
 }
 function testMakeVoiceCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -119,7 +119,7 @@ function testMakeVoiceCall() {
 
 @test:Config {
     groups: ["authy", "root"],
-    enable: false
+    enable: true
 }
 function testAuthyAppDetails() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -136,7 +136,7 @@ function testAuthyAppDetails() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyAppDetails"],
-    enable: false
+    enable: true
 }
 function testAuthyUserAdd() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -158,7 +158,7 @@ function testAuthyUserAdd() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd"],
-    enable: false
+    enable: true
 }
 function testAuthyUserStatus() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -176,7 +176,7 @@ function testAuthyUserStatus() {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", 
     "testAuthyOtpViaCall", "testAuthyOtpVerify"],
-    enable: false
+    enable: true
 }
 function testAuthyUserDelete() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -193,7 +193,7 @@ function testAuthyUserDelete() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd"],
-    enable: false
+    enable: true
 }
 function testAuthyUserSecret() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -210,7 +210,7 @@ function testAuthyUserSecret() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd"],
-    enable: false
+    enable: true
 }
 function testAuthyOtpViaSms() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -227,7 +227,7 @@ function testAuthyOtpViaSms() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd"],
-    enable: false
+    enable: true
 }
 function testAuthyOtpViaCall() {
     io:println("\n ---------------------------------------------------------------------------");
@@ -244,7 +244,7 @@ function testAuthyOtpViaCall() {
 @test:Config {
     groups: ["authy"],
     dependsOn: ["testAuthyUserAdd"],
-    enable: false
+    enable: true
 }
 function testAuthyOtpVerify() {
     io:println("\n ---------------------------------------------------------------------------");
