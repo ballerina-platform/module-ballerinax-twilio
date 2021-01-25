@@ -142,7 +142,7 @@ public client class Client {
         if (statusCallback is StatusCallback) {
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallback.url);
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_METHOD, statusCallback.method);
-            string[]|() events = statusCallback?.events;
+            string[]? events = statusCallback?.events;
             
             if(events is string[]) {
                 foreach string event in events {

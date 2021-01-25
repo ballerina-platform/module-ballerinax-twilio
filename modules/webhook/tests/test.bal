@@ -50,23 +50,23 @@ service websub:SubscriberService /twilio on twilioListener {
 
         if (payload is SmsEvent) {
 
-            if (payload.SmsStatus === QUEUED) {
+            if (payload.SmsStatus == QUEUED) {
                 smsQueuedNotified = true;
-            } else if (payload.SmsStatus === SENT) {
+            } else if (payload.SmsStatus == SENT) {
                 smsSentNotified = true;
-            } else if (payload.SmsStatus === RECEIVED) {
+            } else if (payload.SmsStatus == RECEIVED) {
                 smsRecievedNotified = true;
             }
 
         } else if (payload is CallEvent) {
 
-            if (payload.CallStatus === QUEUED) {
+            if (payload.CallStatus == QUEUED) {
                 callQueuedNotified = true;
-            } else if (payload.CallStatus === RINGING) {
+            } else if (payload.CallStatus == RINGING) {
                 callRingingNotified = true;
-            } else if (payload.CallStatus === IN_PROGRESS) {
+            } else if (payload.CallStatus == IN_PROGRESS) {
                 callInProgressNotified = true;
-            } else if (payload.CallStatus === COMPLETED) {
+            } else if (payload.CallStatus == COMPLETED) {
                 callCompletedNotified = true;
             }
         }
