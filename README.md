@@ -100,7 +100,10 @@ Callback URL registration method depends on the event type.
     import ballerina/websub;
     import ballerina/config;
 
-    listener webhook:Listener twilioListener = new (8080);
+    string port = config:getAsString("PORT");
+
+    int PORT = check ints:fromString(port);
+    listener TwilioWebhookListener twilioListener = new (PORT);
 
     @websub:SubscriberServiceConfig {
         subscribeOnStartUp: false
