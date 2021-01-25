@@ -48,6 +48,8 @@ twilio:Client twilioClient = new(twilioConfig);
 ```
 
 The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number with the specified message.
+Note: In occations where we do need to register a status call back to get notified about status change of the SMS, we can give the callbackUrl as the 4th parameter which is optional
+
 ```ballerina
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
 if (details is  twilio:SmsResponse) {
