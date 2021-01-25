@@ -16,7 +16,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 The Twilio Listener connector allows you to listen to Twilio SMS and Call status change events.
 
-### Feature Overview
+## Feature Overview
 
 1. Listen to incoming message events and message status change callback events from the twilio SMS
 2. Listen to incoming call events and call status change callback events from the twilio Voice Call
@@ -35,7 +35,7 @@ Callback URL registration method depends on the event type.
  - Status change events
     - Callback webhook URL has to be registered at the time of making the call (from the client connector)
 
-### Getting started
+## Getting started
 
 1.  Refer the [Get Started](https://ballerina.io/v1-1/learn/) section to download and install Ballerina.
 
@@ -48,9 +48,8 @@ Callback URL registration method depends on the event type.
     import ballerina/config;
 
     string port = config:getAsString("PORT");
-
     int PORT = check ints:fromString(port);
-    listener TwilioWebhookListener twilioListener = new (PORT);
+    listener webhook:TwilioWebhookListener twilioListener = new (PORT);
 
     @websub:SubscriberServiceConfig {
         subscribeOnStartUp: false

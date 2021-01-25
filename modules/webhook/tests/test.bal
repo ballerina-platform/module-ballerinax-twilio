@@ -15,12 +15,12 @@
 // under the License.
 
 import ballerina/config;
+import ballerina/log;
+import ballerina/lang.'int as ints;
+import ballerina/runtime;
 import ballerina/test;
 import ballerina/websub;
 import ballerinax/twilio;
-import ballerina/runtime;
-import ballerina/log;
-import ballerina/lang.'int as ints;
 
 string port = config:getAsString("PORT");
 string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
@@ -39,7 +39,6 @@ boolean callQueuedNotified = false;
 boolean callRingingNotified = false;
 boolean callInProgressNotified = false;
 boolean callCompletedNotified = false;
-
 
 // Mock service for testing webhook events
 

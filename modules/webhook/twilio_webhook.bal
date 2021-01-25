@@ -52,8 +52,8 @@ public class TwilioWebhookListener {
     # + notification - websub Notification object containing the event payload and information
     # + return - If success, returns TwilioEvent object, else returns error
     public isolated function getEventType(websub:Notification notification) returns @tainted error|TwilioEvent {
-        map<string> ss = check notification.getFormParams();
-        TwilioEvent eventPayload = check ss.cloneWithType(TwilioEvent);
+        map<string> formPayload = check notification.getFormParams();
+        TwilioEvent eventPayload = check formPayload.cloneWithType(TwilioEvent);
         return eventPayload;
     }
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+// Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 //
 // WSO2 Inc. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
@@ -79,7 +79,7 @@ public client class Client {
     # + message - Message body of the SMS
     # + statusCallbackUrl - (optional) Callback URL where the status callback events needs to be dispatched
     # + return - If success, returns a programmable SMS response object, else returns error
-    remote function sendSms(string fromNo, string toNo, string message, string|() statusCallbackUrl = ()) returns @tainted 
+    remote function sendSms(string fromNo, string toNo, string message, string? statusCallbackUrl = ()) returns @tainted 
     SmsResponse|Error {
         http:Request req = new;
 
@@ -130,7 +130,7 @@ public client class Client {
     # + twiml - TwiML URL which the response of the voice call is stated
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status needs to be delivered.
     # + return - If success, returns voice call response object with basic details, else returns error
-    remote function makeVoiceCall(string fromNo, string toNo, string twiml, StatusCallback|() statusCallback = ()) returns @tainted 
+    remote function makeVoiceCall(string fromNo, string toNo, string twiml, StatusCallback? statusCallback = ()) returns @tainted 
     VoiceCallResponse|Error {
         http:Request req = new;
 
@@ -144,7 +144,7 @@ public client class Client {
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_METHOD, statusCallback.method);
             string[]|() events = statusCallback?.events;
             
-            if(events is string[]){
+            if(events is string[]) {
                 foreach string event in events {
                     requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_EVENT, event);
                 }

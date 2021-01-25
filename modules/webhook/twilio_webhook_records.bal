@@ -86,5 +86,4 @@ public type CallRecordingEvent record {|
     string RecordingTrack;
 |};
 
-
 public type TwilioEvent SmsEvent|CallEvent;

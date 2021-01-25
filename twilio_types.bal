@@ -219,7 +219,10 @@ public type TwilioError distinct error;
 # Represents the Twilio module related error.
 public type Error TwilioError;
 
-
+# Represents the StatusCallback record for registering status change callback URL for Twilio Voice status change events.
+# + url - Callback URL where the status changes needs to be delivered.
+# + method - HTTP method in which the event payload needs to be delivered
+# + events - Interested list of status change events.
 public type StatusCallback record {
     string url;
     string method;

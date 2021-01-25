@@ -21,14 +21,14 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 WhatsApp messaging requires users to use predefined [message templates](https://www.twilio.com/docs/sms/whatsapp/tutorial/send-whatsapp-notification-messages-templates). Templates are message formats, which can be used over and over again to message users. Use of templates enables to maintain high-quality content as well as to avoid spam messages. However, this requires the WhatsApp message templates to be predefined.
 
-### Feature Overview
+## Feature Overview
 
 1. Send SMS, WhatsApp messages
 2. Send OTP via messages or voice message (via a call)
 3. Add and delete [Authy](https://www.twilio.com/authy) users.
 3. Make voice calls
 
-### Getting started
+## Getting started
 
 1.  Refer the [Get Started](https://ballerina.io/v1-1/learn/) section to download and install Ballerina.
 
@@ -101,9 +101,8 @@ Callback URL registration method depends on the event type.
     import ballerina/config;
 
     string port = config:getAsString("PORT");
-
     int PORT = check ints:fromString(port);
-    listener TwilioWebhookListener twilioListener = new (PORT);
+    listener webhook:TwilioWebhookListener twilioListener = new (PORT);
 
     @websub:SubscriberServiceConfig {
         subscribeOnStartUp: false
