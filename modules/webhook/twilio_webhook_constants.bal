@@ -55,3 +55,6 @@ public const string CANCELED= "canceled";
 // HTTP methods for incoming event payload
 public const POST = "POST";
 public const GET = "GET";
+
+// Custom Error Definitions
+const INVALID_SIGNATURE = "Invalid Signature";

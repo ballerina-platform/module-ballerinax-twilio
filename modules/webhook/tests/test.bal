@@ -48,7 +48,7 @@ service websub:SubscriberService /twilio on twilioListener {
 
         var payload = twilioListener.getEventType(notification);
 
-        if (payload is SmsEvent) {
+        if (payload is SmsStatusChangeEvent) {
 
             if (payload.SmsStatus == QUEUED) {
                 smsQueuedNotified = true;
@@ -58,7 +58,7 @@ service websub:SubscriberService /twilio on twilioListener {
                 smsRecievedNotified = true;
             }
 
-        } else if (payload is CallEvent) {
+        } else if (payload is CallStatusChangeEvent) {
 
             if (payload.CallStatus == QUEUED) {
                 callQueuedNotified = true;
@@ -88,6 +88,7 @@ twilio:Client twilioClient = new (twilioConfig);
 function testSmsQueued() {
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
+
     if (details is twilio:SmsResponse) {
         log:print(details.toBalString());
     } else {
@@ -111,6 +112,7 @@ function testSmsQueued() {
 function testSmsSent() {
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
+
     if (details is twilio:SmsResponse) {
         log:print(details.toBalString());
     } else {
@@ -139,6 +141,7 @@ function testVoiceCallRinging() {
     };
 
     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
+
     if (details is twilio:VoiceCallResponse) {
         log:print(details.toBalString());
     } else {
@@ -216,4 +219,3 @@ function testVoiceCallCompleted() {
     test:assertTrue(callCompletedNotified, msg = "expected a call to be make and receive a completed notification");
 
 }
-

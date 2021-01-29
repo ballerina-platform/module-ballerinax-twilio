@@ -106,8 +106,15 @@ function testMakeVoiceCall() {
     string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
     string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
     string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
+    string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
 
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl);
+    StatusCallback statusCallback = {
+        url: statusCallbackUrl,
+        method: POST,
+        events: ["ringing"]
+    };
+
+    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
     if (details is VoiceCallResponse) {
         log:print(details.toBalString());
     } else {

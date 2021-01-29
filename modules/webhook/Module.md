@@ -63,7 +63,7 @@ Callback URL registration method depends on the event type.
             TwilioEvent payload = twilioListener.getEventType(notification);
 
             // Applying a conditional filtering to extract the events we are interested in.
-            if (payload is webhook:SmsEvent) {
+            if (payload is webhook:SmsStatusChangeEvent) {
 
                 if (payload.SmsStatus === webhook:RECEIVED) {
                     io:println("message received");
