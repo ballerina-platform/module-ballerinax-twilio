@@ -43,3 +43,6 @@ target/
 *Ballerina.lock
 #test CI file
 test.yml
+
+# Ignore resource .json files
+**/resources/*.json

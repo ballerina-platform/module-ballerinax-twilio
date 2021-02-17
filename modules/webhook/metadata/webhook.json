@@ -1,0 +1,20 @@
+{
+    "connector": {
+        "name": "twilio",
+        "displayName": "Twilio",
+        "organization":"ballerinax",
+        "module": "twilio.webhook",
+        "icon": "webhook.png",
+        "clients":[],
+        "listener":{
+            "name":"Listener",
+            "displayName":"Webhook Listener",
+            "triggers":[
+                {
+                    "name":"onNotification",
+                    "displayName":"Event Payload Recieved"
+                }
+            ]
+        }
+    }
+}

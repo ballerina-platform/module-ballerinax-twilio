@@ -48,8 +48,15 @@ final string TO = "To";
 final string FROM = "From";
 final string BODY = "Body";
 final string URL = "Url";
+final string STATUS_CALLBACK_URL = "StatusCallback";
+final string STATUS_CALLBACK_METHOD = "StatusCallbackMethod";
+final string STATUS_CALLBACK_EVENT = "StatusCallbackEvent";
 
 // Conf parameter keys
 final string ACCOUNT_SID = "ACCOUNT_SID";
 final string AUTH_TOKEN = "AUTH_TOKEN";
 final string AUTHY_API_KEY = "AUTHY_API_KEY";
+
+// HTTP methods for incoming event payload
+public const POST = "POST";
+public const GET = "GET";

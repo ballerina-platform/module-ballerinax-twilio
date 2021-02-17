@@ -48,6 +48,7 @@ twilio:Client twilioClient = new(twilioConfig);
 ```
 
 The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number with the specified message.
+Note: In occations where we do need to register a status callback to get notified about status change of the SMS, we can give the callbackUrl as the 4th parameter which is optional
 ```ballerina
 var details = twilioClient->sendSms(fromMobile, toMobile, message);
 if (details is  twilio:SmsResponse) {
@@ -56,6 +57,33 @@ if (details is  twilio:SmsResponse) {
 } else {
     // If unsuccessful, print the error returned.
     io:println("Error: ", details);
+}
+```
+
+The `makeVoiceCall` remote function makes a voice call to a given mobile number from a twilio number.
+```ballerina
+var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl);
+if (details is twilio:VoiceCallResponse) {
+    // If successfull, print VoiceCallResponse details
+    io:println("Voice Call Details: ", details);
+} else {
+    // If unsuccessful, print the error returned.
+    io:println("Error: ", details);
+}
+```
+Note: In occations where we do need to register a status callback to get notified about status change of the Voice Call, we can give the callback URL as the 4th parameter which is optional like follows.
+```ballerina
+twilio:StatusCallback statusCallback = {
+    url: statusCallbackUrl,
+    method: twilio:POST,
+    events: [twilio.webhook:RINGING]
+};
+
+var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
+if (details is twilio:VoiceCallResponse) {
+    log:print(details.toBalString());
+} else {
+    test:assertFail(msg = details.message());
 }
 ```
 

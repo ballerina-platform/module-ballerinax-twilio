@@ -1,4 +1,4 @@
-// Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+// Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 //
 // WSO2 Inc. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
@@ -218,3 +218,13 @@ public type TwilioError distinct error;
 
 # Represents the Twilio module related error.
 public type Error TwilioError;
+
+# Represents the StatusCallback record for registering status change callback URL for Twilio Voice status change events.
+# + url - Callback URL where the status changes needs to be delivered.
+# + method - HTTP method in which the event payload needs to be delivered
+# + events - Interested list of status change events.
+public type StatusCallback record {
+    string url;
+    string method;
+    string[] events?;
+};
