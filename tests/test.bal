@@ -20,6 +20,9 @@ import ballerina/test;
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
 string testUserId = "";
 
+// This is message SID that provided by twilio.
+string messageSid = "";
+
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 TwilioConfiguration twilioConfig = {
     accountSId: config:getAsString(ACCOUNT_SID),
@@ -45,7 +48,7 @@ function testAccountDetails() {
 
     var details = twilioClient->getAccountDetails();
     if (details is Account) {
-        log:print(details.toBalString());
+        log:print("Account Name: " + details.name.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -67,7 +70,24 @@ function testSendSms() {
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
     if (details is SmsResponse) {
-        log:print(details.toBalString());
+        log:print("SMS_SID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
+        messageSid = <@untainted>details.sid;
+    } else {
+        test:assertFail(msg = details.message());
+    }
+}
+
+@test:Config {
+    groups: ["basic"],
+    dependsOn: ["testAccountDetails", "testSendSms"],
+    enable: true
+}
+function testGetMessage() {
+    log:print("\n ---------------------------------------------------------------------------");
+    log:print("twilioClient -> getMessage()");
+    var details = twilioClient->getMessage(messageSid);
+    if (details is MessageResourceResponse) {
+        log:print("MESSAGE_SID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -88,7 +108,7 @@ function testSendWhatsAppMessage() {
 
     var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
     if (details is WhatsAppResponse) {
-        log:print(details.toBalString());
+        log:print("WhatsAPP_MSID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -116,7 +136,7 @@ function testMakeVoiceCall() {
 
     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
     if (details is VoiceCallResponse) {
-        log:print(details.toBalString());
+        log:print(details.sid.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -177,10 +197,11 @@ function testAuthyUserStatus() {
     }
 }
 
-@test:Config {
+@test:Config 
+{
     groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", 
-    "testAuthyOtpViaCall", "testAuthyOtpVerify"],
+    dependsOn: 
+    ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", "testAuthyOtpViaCall", "testAuthyOtpVerify"],
     enable: true
 }
 function testAuthyUserDelete() {

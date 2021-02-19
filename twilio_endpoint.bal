@@ -66,7 +66,7 @@ public client class Client {
     #
     # + return - If success, returns account object with basic details, else returns error
     remote function getAccountDetails() returns @tainted Account|Error {
-        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + ACCOUNT_DETAILS;
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + JSON_EXTENSION;
         var response = self.basicClient->get(requestPath);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAccount(jsonResponse);
@@ -94,11 +94,22 @@ public client class Client {
 
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + SMS_SEND;
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
         var response = self.basicClient->post(requestPath, req);
 
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToSmsResponse(jsonResponse);
+    }
+
+    # Get the relavant message from a given message-sid.
+    #
+    # + messageSid - Message-sid of a relavant message
+    # + return - If success, returns a message resourse responce record, else returns error
+    remote function getMessage(string messageSid) returns @tainted MessageResourceResponse|Error {
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + MESSAGE + messageSid + JSON_EXTENSION;
+        var response = self.basicClient->get(requestPath);
+        json jsonResponse = check parseResponseToJson(<http:Response>response);
+        return mapJsonToMessageResourceResponse(jsonResponse);
     }
 
     # Send WhatsApp message from the given Sender ID of the account.
@@ -110,13 +121,12 @@ public client class Client {
     remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|
     Error {
         http:Request req = new;
-
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + ":" + fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + ":" + toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
-        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + WHATSAPP_SEND;
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
         var response = self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
 
@@ -133,7 +143,6 @@ public client class Client {
     remote function makeVoiceCall(string fromNo, string toNo, string twiml, StatusCallback? statusCallback = ()) returns @tainted 
     VoiceCallResponse|Error {
         http:Request req = new;
-
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
@@ -153,7 +162,7 @@ public client class Client {
 
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-        string requestPath = TWILIO_ACCOUNTS_API + "/" + self.accountSId + VOICE_CALL;
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + VOICE_CALL;
         var response = self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToVoiceCallResponse(jsonResponse);
@@ -212,7 +221,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_USER_API + "/" + userId + USER_STATUS;
+        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserStatusResponse(jsonResponse);
@@ -229,7 +238,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_USER_API + "/" + userId + USER_REMOVE;
+        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserDeleteResponse(jsonResponse);
@@ -246,7 +255,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_USER_API + "/" + userId + USER_SECRET;
+        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
         var response = self.authyClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyUserSecretResponse(jsonResponse);
@@ -263,7 +272,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_OTP_SMS_API + "/" + userId;
+        string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
@@ -280,7 +289,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_OTP_CALL_API + "/" + userId;
+        string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpResponse(jsonResponse);
@@ -298,7 +307,7 @@ public client class Client {
         } else {
             return prepareError("No xAuthyKey found");
         }
-        string requestPath = AUTHY_OTP_VERIFY_API + "/" + token + "/" + userId;
+        string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
         var response = self.authyClient->get(requestPath, message = req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
         return mapJsonToAuthyOtpVerifyResponse(jsonResponse);

@@ -13,11 +13,11 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
 import ballerina/websub;
 import ballerina/encoding;
 import ballerina/crypto;
 import ballerina/config;
-import ballerina/log;
 
 ////////////////////////////////////////////////////////////////////
 /// Twilio Webhook Listener (WebSub Subscriber Service Listener) ///
@@ -60,47 +60,38 @@ public class TwilioWebhookListener {
         string callbackUrl = config:getAsString("STATUS_CALLBACK_URL");
         map<string> formPayload = check notification.getFormParams();
         TwilioEvent eventPayload = check formPayload.cloneWithType(TwilioEvent);
-        
+
         // Signature check
         string incomingTwilioSignature = notification.getHeader("X-Twilio-Signature");
         var generatedSignature = check self.getSignature(authToken, callbackUrl, eventPayload);
-
-        log:print(incomingTwilioSignature);
-
-        if(generatedSignature != incomingTwilioSignature){
+        if (generatedSignature != incomingTwilioSignature) {
             return error(INVALID_SIGNATURE);
         }
-        
         return eventPayload;
     }
 
     # Generate a signature from the incoming request
     # + authToken - Auth Token from the twilio account
     # + url - Registered callback URL where the event payload dispatched
-    # + params - Event payload
+    # + eventPayload - Event payload
     # + return - Generated signature out of the data from the incoming request payload.
     isolated function getSignature(string authToken, string url, TwilioEvent eventPayload) returns error?|string {
         final map<string> keyValueMap = {};
         string[] keys = [];
-
-        foreach var[key,value] in eventPayload.entries(){
+        foreach var [key, value] in eventPayload.entries() {
             keys.push(key);
-            keyValueMap[key]=value;
+            keyValueMap[key] = value;
         }
-        
         string[] sortedKeyArray = keys.sort();
         // accumated string of key values pairs from the payload, initialized with the URL
         string accumilatedKeyValue = url;
-
-        foreach var key in sortedKeyArray{
-            accumilatedKeyValue = accumilatedKeyValue+key+<string>eventPayload[key];
+        foreach var key in sortedKeyArray {
+            accumilatedKeyValue = accumilatedKeyValue + key + <string>eventPayload[key];
         }
-        
         var decodedMessageBody = check encoding:decodeUriComponent(accumilatedKeyValue, "UTF-8");
-        byte[] hmac = crypto:hmacSha1(decodedMessageBody.toBytes(),authToken.toBytes());
+        byte[] hmac = crypto:hmacSha1(decodedMessageBody.toBytes(), authToken.toBytes());
         string urlEncodedValue = hmac.toBase64();
 
         return urlEncodedValue;
     }
 }
-

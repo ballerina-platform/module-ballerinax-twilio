@@ -144,3 +144,28 @@ isolated function mapJsonToAuthyOtpVerifyResponse(json jsonPayload) returns Auth
     authyOtpVerifyResponse.isSuccess = convertToBoolean(jsonPayload.success);
     return authyOtpVerifyResponse;
 }
+
+isolated function mapJsonToMessageResourceResponse(json jsonPayload) returns MessageResourceResponse {
+    MessageResourceResponse messageResourceResponse = {};
+    messageResourceResponse.body = jsonPayload.body.toString();
+    messageResourceResponse.numSegments = jsonPayload.num_segments.toString();
+    messageResourceResponse.direction = jsonPayload.direction.toString();
+    messageResourceResponse.fromNumber = jsonPayload.'from.toString();
+    messageResourceResponse.toNumber = jsonPayload.to.toString();
+    messageResourceResponse.dateUpdated = jsonPayload.date_updated.toString();
+    messageResourceResponse.price = jsonPayload.price.toString();
+    messageResourceResponse.errorMessage = jsonPayload.error_message.toString();
+    messageResourceResponse.uri = jsonPayload.uri.toString();
+    messageResourceResponse.accountSid = jsonPayload.account_sid.toString();
+    messageResourceResponse.numMedia = jsonPayload.num_media.toString();
+    messageResourceResponse.status = jsonPayload.status.toString();
+    messageResourceResponse.messagingServiceSid = jsonPayload.messaging_service_sid.toString();
+    messageResourceResponse.sid = jsonPayload.sid.toString();
+    messageResourceResponse.dateSent = jsonPayload.date_sent.toString();
+    messageResourceResponse.dateCreated = jsonPayload.date_created.toString();
+    messageResourceResponse.errorCode = jsonPayload.error_code.toString();
+    messageResourceResponse.priceUnit = jsonPayload.price_unit.toString();
+    messageResourceResponse.apiVersion = jsonPayload.api_version.toString();
+    messageResourceResponse.subresourceUris = jsonPayload.subresource_uris.toString();
+    return messageResourceResponse;
+}

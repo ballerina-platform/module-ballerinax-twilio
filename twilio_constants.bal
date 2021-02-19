@@ -28,12 +28,13 @@ final string AUTHY_OTP_VERIFY_API = "/json/verify";
 final string SMS_SEND = "/Messages.json";
 final string WHATSAPP_SEND = "/Messages.json";
 final string VOICE_CALL = "/Calls.json";
-final string ACCOUNT_DETAILS = ".json";
+final string JSON_EXTENSION = ".json";
 
 final string USER_ADD = "/new";
 final string USER_STATUS = "/status";
 final string USER_REMOVE = "/remove";
 final string USER_SECRET = "/secret";
+final string MESSAGE = "/Messages/";
 
 // Pre defined strings
 final string CHARSET_UTF8 = "utf-8";
@@ -60,3 +61,6 @@ final string AUTHY_API_KEY = "AUTHY_API_KEY";
 // HTTP methods for incoming event payload
 public const POST = "POST";
 public const GET = "GET";
+
+//Symbols
+const string FORWARD_SLASH = "/";
