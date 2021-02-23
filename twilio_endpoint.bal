@@ -13,6 +13,7 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
 import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
@@ -34,29 +35,27 @@ public client class Client {
         self.accountSId = twilioConfig.accountSId;
         self.xAuthyKey = twilioConfig?.xAuthyKey;
 
-        auth:OutboundBasicAuthProvider basicAuthProvider = new ({
+        auth:CredentialsConfig config = {
             username: twilioConfig.accountSId,
             password: twilioConfig.authToken
-        });
-        http:BasicAuthHandler basicAuthHandler = new (basicAuthProvider);
-
+        };
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
-            self.basicClient = new (TWILIO_API_BASE_URL, config = {
-                auth: {authHandler: basicAuthHandler},
+            self.basicClient = checkpanic new (TWILIO_API_BASE_URL, config = {
+                auth: config ,
                 secureSocket: secureSocket
             });
-            self.authyClient = new (AUTHY_API_BASE_URL, config = {
-                auth: {authHandler: basicAuthHandler},
+            self.authyClient = checkpanic new (AUTHY_API_BASE_URL, config = {
+                auth: config,
                 secureSocket: secureSocket
             });
         } else {
-            self.basicClient = new (TWILIO_API_BASE_URL, config = {
-                auth: {authHandler: basicAuthHandler},
+            self.basicClient = checkpanic new (TWILIO_API_BASE_URL, config = {
+                auth: config,
                 secureSocket: {disable: true}
             });
-            self.authyClient = new (AUTHY_API_BASE_URL, config = {
-                auth: {authHandler: basicAuthHandler},
+            self.authyClient = checkpanic new (AUTHY_API_BASE_URL, config = {
+                auth: config,
                 secureSocket: {disable: true}
             });
         }
@@ -65,11 +64,12 @@ public client class Client {
     # Return account details of the given account-sid.
     #
     # + return - If success, returns account object with basic details, else returns error
-    remote function getAccountDetails() returns @tainted Account|Error {
+    remote function getAccountDetails() returns @tainted Account|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + JSON_EXTENSION;
-        var response = self.basicClient->get(requestPath);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAccount(jsonResponse);
+        http:Response response = <http:Response> check self.basicClient->get(requestPath);
+        json jsonResponse = check parseResponseToJson(response);
+        map<json> payloadMap = <map<json>>jsonResponse;
+        return mapJsonToAccount(payloadMap);
     }
 
     # Send SMS from the given account-sid.
@@ -80,7 +80,7 @@ public client class Client {
     # + statusCallbackUrl - (optional) Callback URL where the status callback events needs to be dispatched
     # + return - If success, returns a programmable SMS response object, else returns error
     remote function sendSms(string fromNo, string toNo, string message, string? statusCallbackUrl = ()) returns @tainted 
-    SmsResponse|Error {
+    SmsResponse|error {
         http:Request req = new;
 
         string requestBody = "";
@@ -95,21 +95,23 @@ public client class Client {
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
-        var response = self.basicClient->post(requestPath, req);
 
+        http:Response response = <http:Response>check self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToSmsResponse(jsonResponse);
+        map<json> payloadMap = <map<json>>jsonResponse;
+        return mapJsonToSmsResponse(payloadMap);
     }
 
     # Get the relavant message from a given message-sid.
     #
     # + messageSid - Message-sid of a relavant message
     # + return - If success, returns a message resourse responce record, else returns error
-    remote function getMessage(string messageSid) returns @tainted MessageResourceResponse|Error {
+    remote function getMessage(string messageSid) returns @tainted MessageResourceResponse|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + MESSAGE + messageSid + JSON_EXTENSION;
-        var response = self.basicClient->get(requestPath);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToMessageResourceResponse(jsonResponse);
+        http:Response response = <http:Response>check self.basicClient->get(requestPath);
+        json jsonResponse = check parseResponseToJson(response);
+        map<json> payloadMap = <map<json>>jsonResponse;
+        return mapJsonToMessageResourceResponse(payloadMap);
     }
 
     # Send WhatsApp message from the given Sender ID of the account.
@@ -119,7 +121,7 @@ public client class Client {
     # + message - Message body of the WhatsApp message
     # + return - If success, returns a WhatsAppResponse object, else returns error
     remote function sendWhatsAppMessage(string fromNo, string toNo, string message) returns @tainted WhatsAppResponse|
-    Error {
+    error {
         http:Request req = new;
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + ":" + fromNo);
@@ -127,10 +129,10 @@ public client class Client {
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
-        var response = self.basicClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-
-        return mapJsonToWhatsAppResponse(jsonResponse);
+        http:Response response = <http:Response>check self.basicClient->post(requestPath, req);
+        json jsonResponse = check parseResponseToJson(response);
+        map<json> payloadMap = <map<json>>jsonResponse;
+        return mapJsonToWhatsAppResponse(payloadMap);
     }
 
     # Make a voice call from the given account-sid.
@@ -141,7 +143,7 @@ public client class Client {
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status needs to be delivered.
     # + return - If success, returns voice call response object with basic details, else returns error
     remote function makeVoiceCall(string fromNo, string toNo, string twiml, StatusCallback? statusCallback = ()) returns @tainted 
-    VoiceCallResponse|Error {
+    VoiceCallResponse|error {
         http:Request req = new;
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
@@ -163,155 +165,165 @@ public client class Client {
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + VOICE_CALL;
-        var response = self.basicClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToVoiceCallResponse(jsonResponse);
+        http:Response response = <http:Response>check self.basicClient->post(requestPath, req);
+        json jsonResponse = check parseResponseToJson(response);
+        map<json> payloadMap = <map<json>>jsonResponse;
+        return mapJsonToVoiceCallResponse(payloadMap);
     }
 
-    # Get the Authy app details.
-    #
-    # + return - If success, returns Authy app response object with basic details, else returns error
-    remote function getAuthyAppDetails() returns @tainted AuthyAppDetailsResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_APP_API;
-        var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyAppDetailsResponse(jsonResponse);
-    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  The Authy:2FA and Passwordless Login(Actions) will not be supported by the connector at the moment                //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // # Get the Authy app details.
+    // #
+    // # + return - If success, returns Authy app response object with basic details, else returns error
+    // remote function getAuthyAppDetails() returns @tainted AuthyAppDetailsResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_APP_API;
+    //     http:Response response = <http:Response> check self.authyClient->get(requestPath, message = req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     return mapJsonToAuthyAppDetailsResponse(jsonResponse);
+    // }
 
-    # Add an user for Authy app.
-    #
-    # + email - Email of the new user
-    # + phone - Phone number of the new user
-    # + countryCode - Country code of the new user
-    # + return - If success, returns Authy user add response object with basic details, else returns error
-    remote function addAuthyUser(string email, string phone, string countryCode) returns @tainted AuthyUserAddResponse|
-    Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestBody = "";
-        requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
-        requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
-        requestBody = check createUrlEncodedRequestBody(requestBody, "user[country_code]", countryCode);
-        req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+    // # Add an user for Authy app.
+    // #
+    // # + email - Email of the new user
+    // # + phone - Phone number of the new user
+    // # + countryCode - Country code of the new user
+    // # + return - If success, returns Authy user add response object with basic details, else returns error
+    // remote function addAuthyUser(string email, string phone, string countryCode) returns @tainted AuthyUserAddResponse|
+    // Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestBody = "";
+    //     requestBody = check createUrlEncodedRequestBody(requestBody, "user[email]", email);
+    //     requestBody = check createUrlEncodedRequestBody(requestBody, "user[cellphone]", phone);
+    //     requestBody = check createUrlEncodedRequestBody(requestBody, "user[country_code]", countryCode);
+    //     req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
 
-        string requestPath = AUTHY_USER_API + USER_ADD;
-        var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyUserAddRespones(jsonResponse);
-    }
+    //     string requestPath = AUTHY_USER_API + USER_ADD;
+    //     http:Response response = <http:Response> check self.authyClient->post(requestPath, req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     return mapJsonToAuthyUserAddRespones(jsonResponse);
+    // }
 
-    # Get the user details of Authy for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user status response object with basic details, else returns error
-    remote function getAuthyUserStatus(string userId) returns @tainted AuthyUserStatusResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
-        var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyUserStatusResponse(jsonResponse);
-    }
+    // # Get the user details of Authy for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + return - If success, returns Authy user status response object with basic details, else returns error
+    // remote function getAuthyUserStatus(string userId) returns @tainted AuthyUserStatusResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_STATUS;
+    //     http:Response response = <http:Response>check self.authyClient->get(requestPath, message = req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     return mapJsonToAuthyUserStatusResponse(jsonResponse);
+    // }
 
-    # Delete the user of Authy for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user delete response object with basic details, else returns error
-    remote function deleteAuthyUser(string userId) returns @tainted AuthyUserDeleteResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
-        var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyUserDeleteResponse(jsonResponse);
-    }
+    // # Delete the user of Authy for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + return - If success, returns Authy user delete response object with basic details, else returns error
+    // remote function deleteAuthyUser(string userId) returns @tainted AuthyUserDeleteResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_REMOVE;
+    //     http:Response response = <http:Response>check self.authyClient->post(requestPath, req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     map<json> payloadMap = <map<json>>jsonResponse;
+    //     return mapJsonToAuthyUserDeleteResponse(payloadMap);
+    // }
 
-    # Get the user secret of Authy user for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + return - If success, returns Authy user secret response object with basic details, else returns error
-    remote function getAuthyUserSecret(string userId) returns @tainted AuthyUserSecretResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
-        var response = self.authyClient->post(requestPath, req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyUserSecretResponse(jsonResponse);
-    }
+    // # Get the user secret of Authy user for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + return - If success, returns Authy user secret response object with basic details, else returns error
+    // remote function getAuthyUserSecret(string userId) returns @tainted AuthyUserSecretResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_USER_API + FORWARD_SLASH + userId + USER_SECRET;
+    //     http:Response response = <http:Response>check self.authyClient->post(requestPath, req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     map<json> payloadMap = <map<json>>jsonResponse;
+    //     return mapJsonToAuthyUserSecretResponse(payloadMap);
+    // }
 
-    # Request OTP for the user of Authy via SMS for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + return - If success, returns Authy OTP response object with basic details, else returns error
-    remote function requestOtpViaSms(string userId) returns @tainted AuthyOtpResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
-        var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyOtpResponse(jsonResponse);
-    }
+    // # Request OTP for the user of Authy via SMS for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + return - If success, returns Authy OTP response object with basic details, else returns error
+    // remote function requestOtpViaSms(string userId) returns @tainted AuthyOtpResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_OTP_SMS_API + FORWARD_SLASH + userId;
+    //     http:Response response = <http:Response>check self.authyClient->get(requestPath, message = req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     map<json> payloadMap = <map<json>>jsonResponse;
+    //     return mapJsonToAuthyOtpResponse(payloadMap);
+    // }
 
-    # Request OTP for the user of Authy via call for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + return - If success, returns Authy OTP response object with basic details, else returns error
-    remote function requestOtpViaCall(string userId) returns @tainted AuthyOtpResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
-        var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyOtpResponse(jsonResponse);
-    }
+    // # Request OTP for the user of Authy via call for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + return - If success, returns Authy OTP response object with basic details, else returns error
+    // remote function requestOtpViaCall(string userId) returns @tainted AuthyOtpResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_OTP_CALL_API + FORWARD_SLASH + userId;
+    //     http:Response response = <http:Response>check self.authyClient->get(requestPath, message = req);
+    //     json jsonResponse = check parseResponseToJson(<http:Response>response);
+    //     map<json> payloadMap = <map<json>>jsonResponse;
+    //     return mapJsonToAuthyOtpResponse(payloadMap);
+    // }
 
-    # Verify OTP for the user of Authy for the given user-id.
-    #
-    # + userId - Unique identifier of the user
-    # + token - The OTP token to be verified
-    # + return - If success, returns Authy OTP verify response object with basic details, else returns error
-    remote function verifyOtp(string userId, string token) returns @tainted AuthyOtpVerifyResponse|Error {
-        http:Request req = new;
-        if (self.xAuthyKey != ()) {
-            req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
-        } else {
-            return prepareError("No xAuthyKey found");
-        }
-        string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
-        var response = self.authyClient->get(requestPath, message = req);
-        json jsonResponse = check parseResponseToJson(<http:Response>response);
-        return mapJsonToAuthyOtpVerifyResponse(jsonResponse);
-    }
+    // # Verify OTP for the user of Authy for the given user-id.
+    // #
+    // # + userId - Unique identifier of the user
+    // # + token - The OTP token to be verified
+    // # + return - If success, returns Authy OTP verify response object with basic details, else returns error
+    // remote function verifyOtp(string userId, string token) returns @tainted AuthyOtpVerifyResponse|Error|error {
+    //     http:Request req = new;
+    //     if (self.xAuthyKey != ()) {
+    //         req.addHeader(X_AUTHY_API_KEY, <string>self.xAuthyKey);
+    //     } else {
+    //         return prepareError("No xAuthyKey found");
+    //     }
+    //     string requestPath = AUTHY_OTP_VERIFY_API + FORWARD_SLASH + token + FORWARD_SLASH + userId;
+    //     http:Response response = <http:Response>check self.authyClient->get(requestPath, message = req);
+    //     json jsonResponse = check parseResponseToJson(response);
+    //     map<json> payloadMap = <map<json>>jsonResponse;
+    //     return mapJsonToAuthyOtpVerifyResponse(payloadMap);
+    // }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                      End of Authy Releated Action Operations                                       //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 # Twilio Configuration.

@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-import ballerina/config;
 import ballerina/log;
 import ballerina/test;
 
@@ -24,10 +23,20 @@ string testUserId = "";
 string messageSid = "";
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
+
+configurable string accountSIdC = ?;
+configurable string authTokenC = "";
+configurable string xAuthyKeyC = "";
+configurable string fromNumber = ?;
+configurable string toNumber = ?;
+configurable string messageC = ?;
+configurable string clbckC = ?;
+configurable string fromWhatsappNumber = ?;
+
 TwilioConfiguration twilioConfig = {
-    accountSId: config:getAsString(ACCOUNT_SID),
-    authToken: config:getAsString(AUTH_TOKEN),
-    xAuthyKey: config:getAsString(AUTHY_API_KEY)
+    accountSId: accountSIdC,
+    authToken: authTokenC,
+    xAuthyKey: xAuthyKeyC
 };
 Client twilioClient = new (twilioConfig);
 
@@ -37,9 +46,9 @@ Client twilioClient = new (twilioConfig);
 }
 function testAccountDetails() {
     TwilioConfiguration twilioConfig = {
-        accountSId: config:getAsString(ACCOUNT_SID),
-        authToken: config:getAsString(AUTH_TOKEN),
-        xAuthyKey: config:getAsString(AUTHY_API_KEY)
+        accountSId: accountSIdC,
+        authToken: authTokenC,
+        xAuthyKey: xAuthyKeyC
     };
     Client twilioClient = new (twilioConfig);
 
@@ -56,17 +65,17 @@ function testAccountDetails() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"],
-    enable: true
+    dependsOn: [testAccountDetails],
+    enable: false
 }
 function testSendSms() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> sendSms()");
 
-    string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
-    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
-    string message = config:getAsString("SAMPLE_MESSAGE");
-    string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
+    string fromMobile = fromNumber;
+    string toMobile = toNumber;
+    string message = messageC;
+    string statusCallbackUrl = clbckC;
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
     if (details is SmsResponse) {
@@ -79,8 +88,8 @@ function testSendSms() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails", "testSendSms"],
-    enable: true
+    dependsOn: [testAccountDetails, testSendSms],
+    enable: false
 }
 function testGetMessage() {
     log:print("\n ---------------------------------------------------------------------------");
@@ -95,16 +104,16 @@ function testGetMessage() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"],
+    dependsOn: [testAccountDetails],
     enable: true
 }
 function testSendWhatsAppMessage() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> sendWhatsAppMessage()");
 
-    string fromMobile = config:getAsString("SAMPLE_WHATSAPP_SANDBOX");
-    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
-    string message = config:getAsString("SAMPLE_MESSAGE");
+    string fromMobile = fromWhatsappNumber;
+    string toMobile = toNumber;
+    string message = messageC;
 
     var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
     if (details is WhatsAppResponse) {
@@ -116,17 +125,17 @@ function testSendWhatsAppMessage() {
 
 @test:Config {
     groups: ["basic"],
-    dependsOn: ["testAccountDetails"],
-    enable: true
+    dependsOn: [testAccountDetails],
+    enable: false
 }
 function testMakeVoiceCall() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> makeVoiceCall()");
 
-    string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
-    string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
-    string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
-    string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
+    string fromMobile = fromNumber;
+    string toMobile = toNumber;
+    string twimlUrl = clbckC;
+    string statusCallbackUrl = clbckC;
 
     StatusCallback statusCallback = {
         url: statusCallbackUrl,
@@ -141,148 +150,152 @@ function testMakeVoiceCall() {
         test:assertFail(msg = details.message());
     }
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                  Authy Releated Operation will not be support by the connector at the moment                       //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//@test:Config {
+//     groups: ["authy", "root"],
+//     enable: true
+// }
+// function testAuthyAppDetails() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> getAuthyAppDetails()");
 
-@test:Config {
-    groups: ["authy", "root"],
-    enable: true
-}
-function testAuthyAppDetails() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> getAuthyAppDetails()");
+//     var details = twilioClient->getAuthyAppDetails();
+//     if (details is AuthyAppDetailsResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->getAuthyAppDetails();
-    if (details is AuthyAppDetailsResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyAppDetails],
+//     enable: true
+// }
+// function testAuthyUserAdd() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> addAuthyUser()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyAppDetails"],
-    enable: true
-}
-function testAuthyUserAdd() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> addAuthyUser()");
+//     string email = "";
+//     string phone = "";
+//     string countryCode = "";
 
-    string email = config:getAsString("SAMPLE_AUTHY_USER_EMAIL");
-    string phone = config:getAsString("SAMPLE_AUTHY_USER_PHONE");
-    string countryCode = config:getAsString("SAMPLE_AUTHY_USER_COUNTRY_CODE");
+//     var details = twilioClient->addAuthyUser(email, phone, countryCode);
+//     if (details is AuthyUserAddResponse) {
+//         log:print(details.toBalString());
+//         testUserId = <@untainted>details.userId;
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->addAuthyUser(email, phone, countryCode);
-    if (details is AuthyUserAddResponse) {
-        log:print(details.toBalString());
-        testUserId = <@untainted>details.userId;
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyUserAdd],
+//     enable: true
+// }
+// function testAuthyUserStatus() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> getAuthyUserStatus()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"],
-    enable: true
-}
-function testAuthyUserStatus() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> getAuthyUserStatus()");
+//     var details = twilioClient->getAuthyUserStatus(testUserId);
+//     if (details is AuthyUserStatusResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->getAuthyUserStatus(testUserId);
-    if (details is AuthyUserStatusResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config 
+// {
+//     groups: ["authy"],
+//     dependsOn: 
+//     [testAuthyUserAdd, testAuthyUserStatus, testAuthyUserSecret, testAuthyOtpViaSms, testAuthyOtpViaCall, testAuthyOtpVerify],
+//     enable: true
+// }
+// function testAuthyUserDelete() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> deleteAuthyUser()");
 
-@test:Config 
-{
-    groups: ["authy"],
-    dependsOn: 
-    ["testAuthyUserAdd", "testAuthyUserStatus", "testAuthyUserSecret", "testAuthyOtpViaSms", "testAuthyOtpViaCall", "testAuthyOtpVerify"],
-    enable: true
-}
-function testAuthyUserDelete() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> deleteAuthyUser()");
+//     var details = twilioClient->deleteAuthyUser(testUserId);
+//     if (details is AuthyUserDeleteResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->deleteAuthyUser(testUserId);
-    if (details is AuthyUserDeleteResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyUserAdd],
+//     enable: true
+// }
+// function testAuthyUserSecret() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> getAuthyUserSecret()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"],
-    enable: true
-}
-function testAuthyUserSecret() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> getAuthyUserSecret()");
+//     var details = twilioClient->getAuthyUserSecret(testUserId);
+//     if (details is AuthyUserSecretResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->getAuthyUserSecret(testUserId);
-    if (details is AuthyUserSecretResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyUserAdd],
+//     enable: true
+// }
+// function testAuthyOtpViaSms() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> requestOtpViaSms()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"],
-    enable: true
-}
-function testAuthyOtpViaSms() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> requestOtpViaSms()");
+//     var details = twilioClient->requestOtpViaSms(testUserId);
+//     if (details is AuthyOtpResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->requestOtpViaSms(testUserId);
-    if (details is AuthyOtpResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyUserAdd],
+//     enable: true
+// }
+// function testAuthyOtpViaCall() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> requestOtpViaCall()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"],
-    enable: true
-}
-function testAuthyOtpViaCall() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> requestOtpViaCall()");
+//     var details = twilioClient->requestOtpViaCall(testUserId);
+//     if (details is AuthyOtpResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         test:assertFail(msg = details.message());
+//     }
+// }
 
-    var details = twilioClient->requestOtpViaCall(testUserId);
-    if (details is AuthyOtpResponse) {
-        log:print(details.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
-}
+// @test:Config {
+//     groups: ["authy"],
+//     dependsOn: [testAuthyUserAdd],
+//     enable: true
+// }
+// function testAuthyOtpVerify() {
+//     log:print("\n ---------------------------------------------------------------------------");
+//     log:print("twilioClient -> verifyOtp()");
 
-@test:Config {
-    groups: ["authy"],
-    dependsOn: ["testAuthyUserAdd"],
-    enable: true
-}
-function testAuthyOtpVerify() {
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioClient -> verifyOtp()");
+//     string token = "8875458";
 
-    string token = "8875458";
-
-    var details = twilioClient->verifyOtp(testUserId, token);
-    if (details is AuthyOtpVerifyResponse) {
-        log:print(details.toBalString());
-    } else {
-        // This always returns a error since the token should be what the user get.
-        log:print(details.message());
-    }
-}
+//     var details = twilioClient->verifyOtp(testUserId, token);
+//     if (details is AuthyOtpVerifyResponse) {
+//         log:print(details.toBalString());
+//     } else {
+//         // This always returns a error since the token should be what the user get.
+//         log:print(details.message());
+//     }
+// }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                          End of Authy App Releated Tests                                                           //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

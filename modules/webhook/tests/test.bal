@@ -13,21 +13,26 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
-import ballerina/config;
 import ballerina/log;
 import ballerina/lang.'int as ints;
-import ballerina/runtime;
+import ballerina/lang.runtime as runtime;
 import ballerina/test;
 import ballerina/websub;
 import ballerinax/twilio;
 
-string port = config:getAsString("PORT");
-string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
-string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
-string message = config:getAsString("SAMPLE_MESSAGE");
-string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
-string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
+configurable string accountSIdC = ?;
+configurable string authTokenC = ?;
+configurable string fromNumber =  ?;
+configurable string toNumber =  ?;
+configurable string messageC = ?;
+configurable string clbckC =  ?;
+configurable string xAuthyKeyC =  ?;
+configurable string port =  ?;
+configurable string fromMobile =  ?;
+configurable string toMobile =  ?;
+configurable string message =  ?;
+configurable string twimlUrl =  ?;
+configurable string statusCallbackUrl =  ?;
 
 int PORT = check ints:fromString(port);
 listener TwilioWebhookListener twilioListener = new (PORT);
@@ -42,10 +47,10 @@ boolean callCompletedNotified = false;
 
 // Mock service for testing webhook events
 
-@websub:SubscriberServiceConfig {subscribeOnStartUp: false}
-service websub:SubscriberService /twilio on twilioListener {
-    remote function onNotification(websub:Notification notification) {
-
+//@websub:SpecificSubscriber
+service /twilio on twilioListener {
+    remote function onEventNotification(websub:ContentDistributionMessage notification) {
+ 
         var payload = twilioListener.getEventType(notification);
 
         if (payload is SmsStatusChangeEvent) {
@@ -77,16 +82,15 @@ service websub:SubscriberService /twilio on twilioListener {
 // Test functions for twilio webhook events
 
 twilio:TwilioConfiguration twilioConfig = {
-    accountSId: config:getAsString("ACCOUNT_SID"),
-    authToken: config:getAsString("AUTH_TOKEN"),
-    xAuthyKey: config:getAsString("AUTHY_API_KEY")
+    accountSId: accountSIdC,
+    authToken: authTokenC,
+    xAuthyKey: xAuthyKeyC
 };
 
 twilio:Client twilioClient = new (twilioConfig);
 
-@test:Config {enable: false}
+@test:Config {enable: true}
 function testSmsQueued() {
-
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
 
     if (details is twilio:SmsResponse) {
@@ -97,7 +101,7 @@ function testSmsQueued() {
 
     int counter = 50;
     while (!smsQueuedNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -108,7 +112,7 @@ function testSmsQueued() {
 
 }
 
-@test:Config {enable: false}
+@test:Config {enable: true}
 function testSmsSent() {
 
     var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
@@ -121,7 +125,7 @@ function testSmsSent() {
 
     int counter = 50;
     while (!smsSentNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -131,7 +135,7 @@ function testSmsSent() {
     test:assertTrue(smsSentNotified, msg = "expected a sms to be send and receive a sent notification");
 }
 
-@test:Config {enable: false}
+@test:Config {enable: true}
 function testVoiceCallRinging() {
 
     twilio:StatusCallback statusCallback = {
@@ -150,7 +154,7 @@ function testVoiceCallRinging() {
 
     int counter = 50;
     while (!callRingingNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -161,7 +165,7 @@ function testVoiceCallRinging() {
 
 }
 
-@test:Config {enable: false, dependsOn: ["testVoiceCallRinging"]}
+@test:Config {enable: false, dependsOn: [testVoiceCallRinging]}
 function testVoiceCallAnswered() {
 
     twilio:StatusCallback statusCallback = {
@@ -179,7 +183,7 @@ function testVoiceCallAnswered() {
 
     int counter = 50;
     while (!callInProgressNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -190,7 +194,7 @@ function testVoiceCallAnswered() {
 
 }
 
-@test:Config {enable: false, dependsOn: ["testVoiceCallAnswered"]}
+@test:Config {enable: false, dependsOn: [testVoiceCallAnswered]}
 function testVoiceCallCompleted() {
 
     twilio:StatusCallback statusCallback = {
@@ -209,7 +213,7 @@ function testVoiceCallCompleted() {
 
     int counter = 50;
     while (!callCompletedNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 

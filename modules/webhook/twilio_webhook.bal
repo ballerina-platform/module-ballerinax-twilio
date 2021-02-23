@@ -17,7 +17,9 @@
 import ballerina/websub;
 import ballerina/encoding;
 import ballerina/crypto;
-import ballerina/config;
+
+configurable string authToken = ?;
+configurable string callbackUrl = ?;
 
 ////////////////////////////////////////////////////////////////////
 /// Twilio Webhook Listener (WebSub Subscriber Service Listener) ///
@@ -28,11 +30,11 @@ public class TwilioWebhookListener {
     private websub:Listener websubListener;
 
     public isolated function init(int port) {
-        websub:SubscriberListenerConfiguration slConfig = {};
-        self.websubListener = new (port, slConfig);
+        //websub:ListenerConfiguration slConfig = {};
+        self.websubListener = checkpanic new (port);
     }
 
-    public isolated function attach(service object {} s, string[]|string? name = ()) returns error? {
+    public  function attach(service object {} s, string[]|string? name = ()) returns error? {
         return self.websubListener.attach(s, name);
     }
 
@@ -40,11 +42,11 @@ public class TwilioWebhookListener {
         return self.websubListener.detach(s);
     }
 
-    public function 'start() returns error? {
+    public isolated function 'start() returns error? {
         return self.websubListener.'start();
     }
 
-    public isolated function gracefulStop() returns error? {
+    public isolated  function gracefulStop() returns error? {
         return self.websubListener.gracefulStop();
     }
 
@@ -55,14 +57,17 @@ public class TwilioWebhookListener {
     # Returns TwilioEvent corresponding to the incoming Notification
     # + notification - websub Notification object containing the event payload and information
     # + return - If success, returns TwilioEvent object, else returns error
-    public isolated function getEventType(websub:Notification notification) returns @tainted error|TwilioEvent {
-        string authToken = config:getAsString("AUTH_TOKEN");
-        string callbackUrl = config:getAsString("STATUS_CALLBACK_URL");
-        map<string> formPayload = check notification.getFormParams();
-        TwilioEvent eventPayload = check formPayload.cloneWithType(TwilioEvent);
+    public  function getEventType(websub:ContentDistributionMessage notification) returns @tainted error|TwilioEvent {
+        //map<string> formPayload = check notification.getFormParams();
+        json receivedContent = <json> notification.content;
+        TwilioEvent eventPayload = check receivedContent.cloneWithType(TwilioEvent);
 
         // Signature check
-        string incomingTwilioSignature = notification.getHeader("X-Twilio-Signature");
+        string incomingTwilioSignature = "";
+        if(notification.headers != ()) {
+            incomingTwilioSignature = notification.headers["X-Twilio-Signature"].toString();
+        }
+        //string incomingTwilioSignature = notification.getHeader("X-Twilio-Signature");
         var generatedSignature = check self.getSignature(authToken, callbackUrl, eventPayload);
         if (generatedSignature != incomingTwilioSignature) {
             return error(INVALID_SIGNATURE);
@@ -89,7 +94,7 @@ public class TwilioWebhookListener {
             accumilatedKeyValue = accumilatedKeyValue + key + <string>eventPayload[key];
         }
         var decodedMessageBody = check encoding:decodeUriComponent(accumilatedKeyValue, "UTF-8");
-        byte[] hmac = crypto:hmacSha1(decodedMessageBody.toBytes(), authToken.toBytes());
+        byte[] hmac = check crypto:hmacSha1(decodedMessageBody.toBytes(), authToken.toBytes());
         string urlEncodedValue = hmac.toBase64();
 
         return urlEncodedValue;
