@@ -11,7 +11,7 @@ user secrets via SMS or voice message, verify OTP, and add and delete users. It 
 
 |                          |    Version         |
 |:------------------------:|:------------------:|
-| Ballerina Language       | Swan Lake Preview8 |
+| Ballerina Language       | Swan Lake Alpha2 |
 | Twilio Basic API         | 2010-04-01         |
 
 The Twilio Listener connector allows you to listen to Twilio SMS and Call status change events.
@@ -41,36 +41,48 @@ Callback URL registration method depends on the event type.
 
 2. Import the Twilio Webhook module to your Ballerina program as follows.
 
-	```ballerina
-	import ballerina/io;
-    import ballerinax/twilio.webhook as webhook;
-    import ballerina/websub;
-    import ballerina/config;
+```ballerina
+	
+import ballerina/log;
+import ballerinax/twilio;
+import ballerinax/twilio.webhook as webhook;
+import ballerina/http;
 
-    string port = config:getAsString("PORT");
-    int PORT = check ints:fromString(port);
-    listener webhook:TwilioWebhookListener twilioListener = new (PORT);
+configurable string fromMobile = ?;
+configurable string toMobile = ?;
+configurable string accountSId = ?;
+configurable string authToken = ?;
+configurable string message = "Wso2-Test-SMS-Message";
 
-    @websub:SubscriberServiceConfig {
-        subscribeOnStartUp: false
-    }
-    service websub:SubscriberService /twilio on twilioListener {
+//ngork is used to get the callback url eg: http://6d602a963438.ngrok.io/twilio
+configurable string statusCallbackUrl = ?;
 
-        // All the incoming events from Twilio will trigger this onNotification() function
-        remote function onNotification(websub:Notification notification) {
 
-            // getEventType() function from the twilio listener instance will extract the event payload as TwilioEvent record.
-            TwilioEvent payload = twilioListener.getEventType(notification);
+//Starting a service with twilio listner by providing port,authToken, status call back url.
+listener webhook:TwilioEventListener twilioListener = new (9090, authToken, statusCallbackUrl);
+service / on twilioListener {
+    resource function post twilio(http:Caller caller, http:Request request) returns error? {
+        var payload = check twilioListener.getEventType(caller, request);
 
-            // Applying a conditional filtering to extract the events we are interested in.
-            if (payload is webhook:SmsStatusChangeEvent) {
-
-                if (payload.SmsStatus === webhook:RECEIVED) {
-                    io:println("message received");
-                    io:println(payload);
-                } 
-
+        //Check for the event and get the status of the event.
+        if (payload is webhook:SmsStatusChangeEvent) {
+            if (payload.SmsStatus == webhook:SENT) {
+                log:print("An SMS has been sent");
             } 
-        }
+        } 
     }
-	```
+}
+
+public function main() {
+    twilio:TwilioConfiguration twilioConfig = {
+        accountSId: accountSId,
+        authToken: authToken
+    };
+    twilio:Client twilioClient = new (twilioConfig);
+    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
+    if (details is error) {
+        log:print(details.message());
+    }
+
+}
+```

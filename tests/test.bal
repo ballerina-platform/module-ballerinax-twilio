@@ -15,6 +15,7 @@
 // under the License.
 import ballerina/log;
 import ballerina/test;
+import ballerina/os;
 
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
 string testUserId = "";
@@ -24,19 +25,17 @@ string messageSid = "";
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 
-configurable string accountSIdC = ?;
-configurable string authTokenC = "";
-configurable string xAuthyKeyC = "";
-configurable string fromNumber = ?;
-configurable string toNumber = ?;
-configurable string messageC = ?;
-configurable string clbckC = ?;
-configurable string fromWhatsappNumber = ?;
+configurable string twilioAccountSid = os:getEnv("ACCOUNT_SID");
+configurable string twilioAuthToken = os:getEnv("AUTH_TOKEN");
+configurable string fromNumber = os:getEnv("SAMPLE_FROM_MOBILE");
+configurable string toNumber = os:getEnv("SAMPLE_TO_MOBILE");
+configurable string test_message = os:getEnv("SAMPLE_MESSAGE");
+configurable string fromWhatsappNumber = os:getEnv("SAMPLE_WHATSAPP_SANDBOX");
+configurable string twimlUrl = os:getEnv("SAMPLE_TWIML_URL");
 
 TwilioConfiguration twilioConfig = {
-    accountSId: accountSIdC,
-    authToken: authTokenC,
-    xAuthyKey: xAuthyKeyC
+    accountSId: twilioAccountSid,
+    authToken: twilioAuthToken
 };
 Client twilioClient = new (twilioConfig);
 
@@ -46,15 +45,12 @@ Client twilioClient = new (twilioConfig);
 }
 function testAccountDetails() {
     TwilioConfiguration twilioConfig = {
-        accountSId: accountSIdC,
-        authToken: authTokenC,
-        xAuthyKey: xAuthyKeyC
+        accountSId: twilioAccountSid,
+        authToken: twilioAuthToken
     };
     Client twilioClient = new (twilioConfig);
-
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> getAccountDetails()");
-
     var details = twilioClient->getAccountDetails();
     if (details is Account) {
         log:print("Account Name: " + details.name.toBalString());
@@ -66,20 +62,17 @@ function testAccountDetails() {
 @test:Config {
     groups: ["basic"],
     dependsOn: [testAccountDetails],
-    enable: false
+    enable: true
 }
 function testSendSms() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> sendSms()");
-
     string fromMobile = fromNumber;
     string toMobile = toNumber;
-    string message = messageC;
-    string statusCallbackUrl = clbckC;
-
-    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
+    string message = test_message;
+    var details = twilioClient->sendSms(fromMobile, toMobile, message);
     if (details is SmsResponse) {
-        log:print("SMS_SID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
+        log:print("SMS_SID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
         messageSid = <@untainted>details.sid;
     } else {
         test:assertFail(msg = details.message());
@@ -89,14 +82,14 @@ function testSendSms() {
 @test:Config {
     groups: ["basic"],
     dependsOn: [testAccountDetails, testSendSms],
-    enable: false
+    enable: true
 }
 function testGetMessage() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> getMessage()");
     var details = twilioClient->getMessage(messageSid);
     if (details is MessageResourceResponse) {
-        log:print("MESSAGE_SID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
+        log:print("MESSAGE_SID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -110,14 +103,12 @@ function testGetMessage() {
 function testSendWhatsAppMessage() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> sendWhatsAppMessage()");
-
     string fromMobile = fromWhatsappNumber;
     string toMobile = toNumber;
-    string message = messageC;
-
+    string message = test_message;
     var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
     if (details is WhatsAppResponse) {
-        log:print("WhatsAPP_MSID: " + details.body.toBalString() + ", Body: " + details.body.toBalString());
+        log:print("WhatsAPP_MSID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
@@ -126,24 +117,15 @@ function testSendWhatsAppMessage() {
 @test:Config {
     groups: ["basic"],
     dependsOn: [testAccountDetails],
-    enable: false
+    enable: true
 }
 function testMakeVoiceCall() {
     log:print("\n ---------------------------------------------------------------------------");
     log:print("twilioClient -> makeVoiceCall()");
-
     string fromMobile = fromNumber;
     string toMobile = toNumber;
-    string twimlUrl = clbckC;
-    string statusCallbackUrl = clbckC;
-
-    StatusCallback statusCallback = {
-        url: statusCallbackUrl,
-        method: POST,
-        events: ["ringing"]
-    };
-
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
+    string twimlURL = twimlUrl;
+    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL);
     if (details is VoiceCallResponse) {
         log:print(details.sid.toBalString());
     } else {

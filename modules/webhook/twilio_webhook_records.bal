@@ -15,99 +15,59 @@
 // under the License.
 
 public type SmsStatusChangeEvent record {|
-    string SmsSid;
-    string SmsStatus;
-    string From;
-    string To;
-    string ApiVersion;
-    string MessageSid;
-    string AccountSid;
-    string MessageStatus;
-|};
-
-public type IncomingSmsEvent record {|
-    string SmsSid;
-    string SmsStatus;
-    string From;
-    string To;
-    string ApiVersion;
-    string MessageSid;
-    string AccountSid;
+    string SmsSid = "";
+    string SmsStatus = "";
+    string From = "";
+    string To = "";
+    string ApiVersion = "";
+    string MessageSid = "";
+    string AccountSid = "";
     string ToCountry = "";
     string ToState = "";
-    string SmsMessageSid;
-    string NumMedia?;
-    string ToCity?;
+    string SmsMessageSid = "";
+    string NumMedia = "";
+    string ToCity = "";
     string FromZip = "";
     string FromState = "";
     string FromCity = "";
-    string Body?;
-    string FromCountry?;
+    string Body = "";
+    string FromCountry = "";
     string ToZip = "";
-    string NumSegments;
+    string NumSegments = "";
+    string MessageStatus = "";
 |};
 
 public type CallStatusChangeEvent record {|
-
-    string AccountSid;
-    string ApiVersion;
-    string CallSid;
-    string CallStatus;
-    string Called;
+    string AccountSid = "";
+    string ApiVersion = "";
+    string CallSid = "";
+    string CallStatus = "";
+    string Called = "";
     string CalledCity = "";
-    string CalledCountry;
+    string CalledCountry = "";
     string CalledState = "";
     string CalledZip = "";
-    string Caller;
-    string CallerCountry?;
-    string CallerCity;
-    string CallerZip?;
-    string CallerState?;
-    string Direction;
-    string From;
+    string Caller = "";
+    string CallerCountry = "";
+    string CallDuration = "";
+    string CallerCity = "";
+    string CallerZip = "";
+    string CallerState = "";
+    string Direction = "";
+    string From = "";
     string FromCity = "";
-    string FromCountry;
+    string FromCountry = "";
     string FromState = "";
     string FromZip = "";
-    string To;
+    string To = "";
     string ToCity = "";
-    string ToCountry;
+    string ToCountry = "";
     string ToZip = "";
     string ToState = "";
-    string Timestamp;
-    string CallbackSource;
-    string SequenceNumber;
-    string SipResponseCode?;
-|};
-
-public type IncomingCallEvent record {|
-    string AccountSid;
-    string ApiVersion;
-    string CallSid;
-    string CallStatus;
-    string Called;
-    string CalledCity;
-    string CalledCountry;
-    string CalledState?;
-    string CalledZip?;
-    string Caller;
-    string CallDuration?;
-    string CallerCity?;
-    string CallerCountry?;
-    string CallerState?;
-    string CallerZip?;
-    string Direction;
-    string From;
-    string FromCity = "";
-    string FromCountry?;
-    string FromState = "";
-    string FromZip = "";
-    string To;
-    string ToCity?;
-    string ToCountry;
-    string ToState = "";
-    string ToZip = "";
-    string SipResponseCode?;
+    string Timestamp = "";
+    string CallbackSource = "";
+    string SequenceNumber = "";
+    string SipResponseCode = "";
 |};
 
 public type CallRecordingEvent record {|
@@ -123,4 +83,4 @@ public type CallRecordingEvent record {|
     string RecordingTrack;
 |};
 
-public type TwilioEvent IncomingCallEvent|CallStatusChangeEvent|IncomingSmsEvent|SmsStatusChangeEvent;
+public type TwilioEvent CallStatusChangeEvent|SmsStatusChangeEvent;
