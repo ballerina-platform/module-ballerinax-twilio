@@ -16,19 +16,18 @@ Twilio uses webhooks to asynchronously let your application know when events hap
 The Twilio connector allows you to send SMS, voice and WhatsApp messages through the Twilio REST API and also connector provides the facility to receive inbound HTTP(S) requests (also known as webhooks) from Twilio's servers.
 The Twilio connector consists with two modules
 
-*Twilio Client module  - The default module has the twilio client that is used to communicate through the SMS, VoiceCalls and Whatsapp messages.
+* Twilio client module  - The default module that has the twilio client which can be used to communicate through the SMS, VoiceCalls and Whatsapp messages.
 
-*Webhook Listener module  - The module that provides the listener supports for the twilio events such as SentSMSEvent, VoiceCallRinging etc.
+* Webhook listener module  - The module that provides the listener supports for the twilio events such as SentSMSEvent, VoiceCallRinging etc.
 
 # Prerequisites
 
 * [Twilio Account](https://www.twilio.com/) to obtain Account SID, Auth Token and Twilio phone number
 
-* Java 11 Installed
+* Java 11 Installed. 
 Java Development Kit (JDK) with version 11 is required.
 
-* Ballerina SLAlpha2 Installed
-Ballerina Swan Lake Alpha 2 is required. 
+* Ballerina Swan Lake Alpha 2 is required. 
 
 * (optional)[ngork](https://ngrok.com/) is requried to test listner samples using localhost
 
@@ -165,13 +164,13 @@ Sample is available at:
     configurable string authToken = ?;
 
     public function main() {
-        //Twilio Client configuration
+        //Twilio client configuration
         twilio:TwilioConfiguration twilioConfig = {
             accountSId: accountSId,
             authToken: authToken
         };
 
-        //Twilio Client
+        //Twilio client
         twilio:Client twilioClient = new (twilioConfig);
 
         //Get account detail remote function is called by the twilio client
@@ -202,13 +201,13 @@ configurable string message = "Wso2-Test-SMS-Message";
 
 
 public function main() {
-    //Twilio Client configuration
+    //Twilio client configuration
     twilio:TwilioConfiguration twilioConfig = {
         accountSId: accountSId,
         authToken: authToken
     };
 
-    //Twilio Client
+    //Twilio client
     twilio:Client twilioClient = new (twilioConfig);
 
     //Send SMS remote function is called by the twilio client
@@ -257,10 +256,10 @@ Sample is available at:
 ```
 ### Make a voice call
 You can make voice call with twilio voice enabled phone number. The following should be provided in addition to the account access credentials.
-    "fromNo" - the voice-enabled Twilio phone number you added to your account earlier
-    "toNo" - the person you'd like to call
-    "twiml" - Instructions in the form [TwiML](https://www.twilio.com/docs/voice/twiml) that explains what should happen when the other party picks up the phone
-    "statusCallback" - Optionally, instead of passing the Twiml parameter, you can provide a Url that returns TwiML Voice instructions.
+⋅⋅* `fromNo` - the voice-enabled Twilio phone number you added to your account earlier
+⋅⋅* `toNo` - the person you'd like to call
+⋅⋅* `twiml` - Instructions in the form [TwiML](https://www.twilio.com/docs/voice/twiml) that explains what should happen when the other party picks up the phone
+⋅⋅* `statusCallback` - Optionally, instead of passing the Twiml parameter, you can provide a Url that returns TwiML Voice instructions.
 Sample is available at:
 ```ballerina
     import ballerina/log;
@@ -305,13 +304,13 @@ Sample is available at:
     configurable string authToken = ?;
 
     public function main() {
-        //Twilio Client configuration
+        //Twilio client configuration
         twilio:TwilioConfiguration twilioConfig = {
             accountSId: accountSId,
             authToken: authToken
         };
 
-        //Twilio Client
+        //Twilio client
         twilio:Client twilioClient = new (twilioConfig);
         
         //Set Message resource SID to get the message detial
@@ -330,8 +329,8 @@ Sample is available at:
 ```
 ## Twilio Listener Operations
 
-### QUEUED/SENT SMS Event
-This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here.
+### QUEUED/SENT SMS Events
+This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](../samples/listener samples)
 ```ballerina
 import ballerina/log;
 import ballerinax/twilio;
@@ -376,7 +375,7 @@ public function main() {
 }
 ```
 ### Ringing/InProgress/Completed Voice Call Events
-This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here.
+This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](../samples/listener samples)
 ```ballerina
 
 import ballerina/log;
