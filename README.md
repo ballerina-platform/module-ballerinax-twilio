@@ -15,7 +15,9 @@ Twilio uses webhooks to asynchronously let your application know when events hap
 
 The Twilio connector allows you to send SMS, voice and WhatsApp messages through the Twilio REST API and also connector provides the facility to receive inbound HTTP(S) requests (also known as webhooks) from Twilio's servers.
 The Twilio connector consists with two modules
+
 *Twilio Client module  - The default module has the twilio client that is used to communicate through the SMS, VoiceCalls and Whatsapp messages.
+
 *Webhook Listener module  - The module that provides the listener supports for the twilio events such as SentSMSEvent, VoiceCallRinging etc.
 
 # Prerequisites
@@ -55,13 +57,14 @@ Ballerina Swan Lake Alpha 2 is required.
 
 ### Getting started
 
-1.  Have a [Quick Tour](https://ballerina.io/learn/getting-started/quick-tour/) section to download and install Ballerina.
-    ![image](samples/docs/dashboardTokens.png)
+1.  Have a [Quick Tour](https://ballerina.io/learn/getting-started/quick-tour/) section to download and install Ballerina.  
 
 2.  To use Twilio endpoint, you need to provide the following:
 
        - Account SId
        - Auth Token
+
+![image](samples/docs/dashboardTokens.png)
 
 3. Import the Twilio module to your Ballerina program as follows. You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials.
 
