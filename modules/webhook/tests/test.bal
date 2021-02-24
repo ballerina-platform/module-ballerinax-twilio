@@ -41,35 +41,34 @@ boolean callInProgressNotified = false;
 boolean callCompletedNotified = false;
 
 // Mock service for testing webhook events
+//Please Uncomment the Service before test the listenr
+// service / on twilioListener {
+//      resource function post twilio(http:Caller caller, http:Request request) returns error? {
+//         var payload = twilioListener.getEventType(caller, request);
+//         if (payload is SmsStatusChangeEvent) {
+//             if (payload.SmsStatus == QUEUED) {
+//                 smsQueuedNotified = true;
+//             } else if (payload.SmsStatus == SENT) {
+//                 smsSentNotified = true;
+//             } else if (payload.SmsStatus == RECEIVED) {
+//                 smsRecievedNotified = true;
+//             }
+//         } else if (payload is CallStatusChangeEvent) {
+//             if (payload.CallStatus == QUEUED) {
+//                 callQueuedNotified = true;
+//             } else if (payload.CallStatus == RINGING) {
+//                 callRingingNotified = true;
+//             } else if (payload.CallStatus == IN_PROGRESS) {
+//                 callInProgressNotified = true;
+//             } else if (payload.CallStatus == COMPLETED) {
+//                 callCompletedNotified = true;
+//             }
+//         } else {
+//             log:print(payload.message());
+//         }
+//     }
 
-//@websub:SpecificSubscriber
-service / on twilioListener {
-     resource function post twilio(http:Caller caller, http:Request request) returns error? {
-        var payload = twilioListener.getEventType(caller, request);
-        if (payload is SmsStatusChangeEvent) {
-            if (payload.SmsStatus == QUEUED) {
-                smsQueuedNotified = true;
-            } else if (payload.SmsStatus == SENT) {
-                smsSentNotified = true;
-            } else if (payload.SmsStatus == RECEIVED) {
-                smsRecievedNotified = true;
-            }
-        } else if (payload is CallStatusChangeEvent) {
-            if (payload.CallStatus == QUEUED) {
-                callQueuedNotified = true;
-            } else if (payload.CallStatus == RINGING) {
-                callRingingNotified = true;
-            } else if (payload.CallStatus == IN_PROGRESS) {
-                callInProgressNotified = true;
-            } else if (payload.CallStatus == COMPLETED) {
-                callCompletedNotified = true;
-            }
-        } else {
-            log:print(payload.message());
-        }
-    }
-
-}
+// }
 // Test functions for twilio webhook events
 
 twilio:TwilioConfiguration twilioConfig = {
