@@ -13,6 +13,7 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
 import ballerina/encoding;
 import ballerina/http;
 import ballerina/lang.'boolean;
@@ -28,12 +29,27 @@ isolated function parseResponseToJson(http:Response|http:ClientError httpRespons
             if (httpResponse.statusCode != http:STATUS_OK && httpResponse.statusCode != http:STATUS_CREATED) {
                 string code = "";
                 if (jsonResponse?.error_code != ()) {
-                    code = jsonResponse.error_code.toString();
+                    json|error codeTemp = jsonResponse?.error_code;
+                    if(codeTemp is json) {
+                        code = codeTemp.toString();
+                    } else{
+                        code = codeTemp.toString();
+                    }
                 } else if (jsonResponse?.'error != ()) {
-                    code = jsonResponse.'error.toString();
+                    json|error errorTemp = jsonResponse.'error;
+                    if(errorTemp is json) {
+                        code = errorTemp.toString();
+                    } else{
+                        code = errorTemp.toString();
+                    }
                 }
-
-                string message = jsonResponse.message.toString();
+                string message = "";
+                json|error messageTemp = jsonResponse.message;
+                if(messageTemp is json) {
+                    message  = messageTemp.toString();
+                } else{
+                    message = messageTemp.toString();
+                }
                 string errorMessage = httpResponse.statusCode.toString() + " " + httpResponse.reasonPhrase;
                 if (code != "") {
                     errorMessage += " - " + code;
@@ -83,9 +99,9 @@ isolated function convertToBoolean(json|error value) returns boolean {
 isolated function prepareError(string message, error? err = ()) returns Error {
     Error twilioError;
     if (err is error) {
-        twilioError = TwilioError(message, err);
+        twilioError = error TwilioError(message, err);
     } else {
-        twilioError = TwilioError(message);
+        twilioError = error TwilioError(message);
     }
     return twilioError;
 }

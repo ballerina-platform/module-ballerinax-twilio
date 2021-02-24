@@ -228,3 +228,47 @@ public type StatusCallback record {
     string method;
     string[] events?;
 };
+
+#Represnets the message resource in the twilio rest api
+# + body - The message body 
+# + numSegments - The number of segments, which make up the complete message
+# + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
+# + fromNumber - The phone number from which the message sent
+# + toNumber - The phone number to which the message received
+# + dateUpdated - The date and time at which this resource was last updated
+# + price - The price amount of the message
+# + errorMessage - The description of the error_code if the message status is failed or undelivered
+# + uri -The URI of the resource relative to https://api.twilio.com
+# + accountSid - The unique identifier of the account, which sent the message
+# + numMedia - The number of associated media files 
+# + status - The status of the message
+# + messagingServiceSid - The SID of the Messaging Service used with the message. The value is null if a Messaging Service was not used
+# + sid - The unique string that created to identify the message resource
+# + dateSent - The date and time in GMT that the resource was sent specified in RFC 2822 format
+# + dateCreated - The date and time in GMT that the resource was created specified in RFC 2822 format
+# + errorCode - The error code returned if your message status is failed or undelivered
+# + priceUnit - The currency in which price is measured, in ISO 4127 format
+# + apiVersion - The API version used to process the message
+# + subresourceUris - A list of related resources identified by their URIs relative to https://api.twilio.com
+public type MessageResourceResponse record {
+    string body = "";
+    string numSegments = "";
+    string direction = "";
+    string fromNumber = "";
+    string toNumber = "";
+    string dateUpdated = "";
+    string price = "";
+    string errorMessage = "";
+    string uri = "";
+    string accountSid = "";
+    string numMedia = "";
+    string status = "";
+    string messagingServiceSid = "";
+    string sid = "";
+    string dateSent = "";
+    string dateCreated = "";
+    string errorCode = "";
+    string priceUnit = "";
+    string apiVersion = "";
+    json subresourceUris = {};
+};

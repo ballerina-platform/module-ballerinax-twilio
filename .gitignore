@@ -46,3 +46,6 @@ test.yml
 
 # Ignore resource .json files
 **/resources/*.json
+
+#Ingnore Config.toml
+Config.toml

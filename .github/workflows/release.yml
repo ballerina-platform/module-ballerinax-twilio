@@ -19,15 +19,11 @@ jobs:
               env:
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
                   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-                  AUTHY_API_KEY: ${{ secrets.AUTHY_API_KEY }}
                   SAMPLE_FROM_MOBILE: ${{ secrets.SAMPLE_FROM_MOBILE }}
                   SAMPLE_TO_MOBILE: ${{ secrets.SAMPLE_TO_MOBILE }}
                   SAMPLE_MESSAGE: ${{ secrets.SAMPLE_MESSAGE }}
-                  SAMPLE_AUTHY_USER_EMAIL: ${{ secrets.SAMPLE_AUTHY_USER_EMAIL }}
-                  SAMPLE_AUTHY_USER_PHONE: ${{ secrets.SAMPLE_AUTHY_USER_PHONE }}
                   SAMPLE_TWIML_URL: ${{ secrets.SAMPLE_TWIML_URL }}
-                  SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }}
-                  SAMPLE_AUTHY_USER_COUNTRY_CODE: ${{ secrets.SAMPLE_AUTHY_USER_COUNTRY_CODE }}  
+                  SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }} 
             - name: Ballerina Push
               uses: ballerina-platform/ballerina-action/@swan-lake-connector-release
               with:

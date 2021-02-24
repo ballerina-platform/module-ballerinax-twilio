@@ -14,23 +14,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/config;
 import ballerina/log;
 import ballerina/lang.'int as ints;
-import ballerina/runtime;
+import ballerina/lang.runtime as runtime;
 import ballerina/test;
-import ballerina/websub;
 import ballerinax/twilio;
+import ballerina/http;
 
-string port = config:getAsString("PORT");
-string fromMobile = config:getAsString("SAMPLE_FROM_MOBILE");
-string toMobile = config:getAsString("SAMPLE_TO_MOBILE");
-string message = config:getAsString("SAMPLE_MESSAGE");
-string twimlUrl = config:getAsString("SAMPLE_TWIML_URL");
-string statusCallbackUrl = config:getAsString("STATUS_CALLBACK_URL");
+configurable string twilioAccountSid = ?;
+configurable string twilioAuthToken = ?;
+configurable string fromNumber =  ?;
+configurable string toNumber =  ?;
+configurable string test_message = ?;
+configurable string port =  ?;
+configurable string twimlUrl =  ?;
+configurable string callbackUrl =  ?;
 
 int PORT = check ints:fromString(port);
-listener TwilioWebhookListener twilioListener = new (PORT);
+listener TwilioEventListener twilioListener = new (PORT, twilioAuthToken, callbackUrl);
 
 boolean smsQueuedNotified = false;
 boolean smsSentNotified = false;
@@ -41,15 +42,10 @@ boolean callInProgressNotified = false;
 boolean callCompletedNotified = false;
 
 // Mock service for testing webhook events
-
-@websub:SubscriberServiceConfig {subscribeOnStartUp: false}
-service websub:SubscriberService /twilio on twilioListener {
-    remote function onNotification(websub:Notification notification) {
-
-        var payload = twilioListener.getEventType(notification);
-
+service / on twilioListener {
+     resource function post twilio(http:Caller caller, http:Request request) returns error? {
+        var payload = twilioListener.getEventType(caller, request);
         if (payload is SmsStatusChangeEvent) {
-
             if (payload.SmsStatus == QUEUED) {
                 smsQueuedNotified = true;
             } else if (payload.SmsStatus == SENT) {
@@ -57,9 +53,7 @@ service websub:SubscriberService /twilio on twilioListener {
             } else if (payload.SmsStatus == RECEIVED) {
                 smsRecievedNotified = true;
             }
-
         } else if (payload is CallStatusChangeEvent) {
-
             if (payload.CallStatus == QUEUED) {
                 callQueuedNotified = true;
             } else if (payload.CallStatus == RINGING) {
@@ -69,35 +63,32 @@ service websub:SubscriberService /twilio on twilioListener {
             } else if (payload.CallStatus == COMPLETED) {
                 callCompletedNotified = true;
             }
+        } else {
+            log:print(payload.message());
         }
     }
-
 }
-
 // Test functions for twilio webhook events
 
 twilio:TwilioConfiguration twilioConfig = {
-    accountSId: config:getAsString("ACCOUNT_SID"),
-    authToken: config:getAsString("AUTH_TOKEN"),
-    xAuthyKey: config:getAsString("AUTHY_API_KEY")
+    accountSId: twilioAccountSid,
+    authToken: twilioAuthToken
 };
 
 twilio:Client twilioClient = new (twilioConfig);
 
 @test:Config {enable: false}
 function testSmsQueued() {
-
-    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
-
+    var details = twilioClient->sendSms(fromNumber, toNumber, test_message, callbackUrl);
     if (details is twilio:SmsResponse) {
-        log:print(details.toBalString());
+        log:print(details.sid.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
 
     int counter = 50;
     while (!smsQueuedNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -110,18 +101,16 @@ function testSmsQueued() {
 
 @test:Config {enable: false}
 function testSmsSent() {
-
-    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
-
+    var details = twilioClient->sendSms(fromNumber, toNumber, test_message, callbackUrl);
     if (details is twilio:SmsResponse) {
-        log:print(details.toBalString());
+        log:print(details.sid.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
 
     int counter = 50;
     while (!smsSentNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
@@ -133,89 +122,83 @@ function testSmsSent() {
 
 @test:Config {enable: false}
 function testVoiceCallRinging() {
-
+    log:print("\n -------------------------Starting CallRingingEvent-------------------------------------------------");
+    log:print("twilioWebhook -> testVoiceCallRinging()");
     twilio:StatusCallback statusCallback = {
-        url: statusCallbackUrl,
+        url: callbackUrl,
         method: POST,
         events: [RINGING]
     };
-
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
-
+    runtime:sleep(10);
+    var details = twilioClient->makeVoiceCall(fromNumber, toNumber, twimlUrl, statusCallback);
+    log:print("\n ------------The call needn't to be answered--------------------------------------------------------");
     if (details is twilio:VoiceCallResponse) {
-        log:print(details.toBalString());
+        log:print(details.status.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
 
     int counter = 50;
     while (!callRingingNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
-
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioWebhook -> testVoiceCallRinging()");
-
     test:assertTrue(callRingingNotified, msg = "expected a call to be make and receive a ringing notification");
-
+    log:print("\n -----------------------The End of CallRingingEvent Test--------------------------------------------");
 }
 
-@test:Config {enable: false, dependsOn: ["testVoiceCallRinging"]}
+@test:Config {enable: false }
 function testVoiceCallAnswered() {
-
+    log:print("\n --------------Starting CallAnswerdEvent------------------------------------------------------------");
+    log:print("twilioWebhook -> testVoiceCallAnswered()");
     twilio:StatusCallback statusCallback = {
-        url: statusCallbackUrl,
+        url: callbackUrl,
         method: POST,
         events: [ANSWERED]
     };
-
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
+    runtime:sleep(10);
+    var details = twilioClient->makeVoiceCall(fromNumber, toNumber, twimlUrl, statusCallback);
+    log:print("\n ------------The call should be answered------------------------------------------------------------");
     if (details is twilio:VoiceCallResponse) {
-        log:print(details.toBalString());
+        log:print(details.status.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
 
     int counter = 50;
     while (!callInProgressNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
-
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioWebhook -> testVoiceCallAnswered()");
-
     test:assertTrue(callInProgressNotified, msg = "expected a call to be make and receive a answered notification");
-
+    log:print("\n --------------The End of  CallAnswerdEvent Test--------------------------------------------------");
 }
 
-@test:Config {enable: false, dependsOn: ["testVoiceCallAnswered"]}
+@test:Config {enable: false}
 function testVoiceCallCompleted() {
-
+    log:print("\n --------------Starting CallCompletedEvent Test-----------------------------------------------------");
+    log:print("twilioWebhook -> testVoiceCallCompleted()");
     twilio:StatusCallback statusCallback = {
-        url: statusCallbackUrl,
+        url: callbackUrl,
         method: POST,
         events: [COMPLETED]
     };
 
-
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlUrl, statusCallback);
+    runtime:sleep(10);
+    var details = twilioClient->makeVoiceCall(fromNumber, toNumber, twimlUrl, statusCallback);
+    log:print("\n ------------The call should be answered------------------------------------------------------------");
     if (details is twilio:VoiceCallResponse) {
-        log:print(details.toBalString());
+        log:print(details.status.toBalString());
     } else {
         test:assertFail(msg = details.message());
     }
 
     int counter = 50;
     while (!callCompletedNotified && counter >= 0) {
-        runtime:sleep(1000);
+        runtime:sleep(1);
         counter -= 1;
     }
 
-    log:print("\n ---------------------------------------------------------------------------");
-    log:print("twilioWebhook -> testVoiceCallCompleted()");
-
     test:assertTrue(callCompletedNotified, msg = "expected a call to be make and receive a completed notification");
-
+    log:print("\n --------------The End of  CallCompletedEvent Test--------------------------------------------------");
 }
