@@ -21,11 +21,9 @@ import ballerina/mime;
 # Object for Twilio endpoint.
 #
 # + accountSId - Unique identifier of the account
-# + xAuthyKey - Unique identifier of Authy API account
 # + basicClient - HTTP client endpoint for basic api
 # + authyClient - HTTP client endpoint for authy api
 public client class Client {
-
     public string accountSId;
     public http:Client basicClient;
     public http:Client authyClient;
