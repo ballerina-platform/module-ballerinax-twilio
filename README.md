@@ -156,7 +156,7 @@ Callback URL registration method depends on the event type.
 
 ### Get Account details
 This shows you how to obtain the account details of your twilio account.
-Sample is available at: 
+Sample is available at: samples/client samples/getAccountDetail.bal
 ```ballerina
     import ballerina/log;
     import ballerinax/twilio;
@@ -188,8 +188,7 @@ Sample is available at:
 
 ### Send an SMS
 This section shows how to use the connector to send an SMS. You will need a verfied phone number if you are using a trial account to send the message from your twilio phone number. if the SMS is sent successfully it will provides SMSResponse record with details of the SMS otherwise it will provide the error occured.
-
-Sample is available at: 
+Sample is available at: samples/client samples/sendSMS.bal
 ```ballerina
 import ballerina/log;
 import ballerinax/twilio;
@@ -224,7 +223,7 @@ public function main() {
 ```
 ### Send a whatappMessage
 As the following example, the connector supports to send whatapp messages and if the message is successfully sent , you will get WhatsAppResponse record otherwsie an error message.
-Sample is available at:
+Sample is available at: samples/client samples/sendWhatsappMessage.bal
 ```ballerina
     import ballerina/log;
     import ballerinax/twilio;
@@ -261,7 +260,7 @@ You can make voice call with twilio voice enabled phone number. The following sh
 ⋅⋅* `toNo` - the person you'd like to call
 ⋅⋅* `twiml` - Instructions in the form [TwiML](https://www.twilio.com/docs/voice/twiml) that explains what should happen when the other party picks up the phone
 ⋅⋅* `statusCallback` - Optionally, instead of passing the Twiml parameter, you can provide a Url that returns TwiML Voice instructions.
-Sample is available at:
+Sample is available at: samples/client samples/makeVoiceCall.bal
 ```ballerina
     import ballerina/log;
     import ballerinax/twilio;
@@ -296,7 +295,7 @@ Sample is available at:
 
 ### Get a message
 This section shows you how to get a message details  from your account. you need to provide message sid to retreive the details from the message list of your account. If the request is successful, it will send the MessageResourceResponse record else an error message with the details.
-Sample is available at:
+Sample is available at: samples/client samples/getMessage.bal
 ```ballerina
     import ballerina/log;
     import ballerinax/twilio;
@@ -331,7 +330,7 @@ Sample is available at:
 ## Twilio Listener Operations
 
 ### QUEUED/SENT SMS Events
-This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](../samples/listener samples)
+This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
 ```ballerina
 import ballerina/log;
 import ballerinax/twilio;
@@ -376,7 +375,7 @@ public function main() {
 }
 ```
 ### Ringing/InProgress/Completed Voice Call Events
-This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](../samples/listener samples)
+This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
 ```ballerina
 
 import ballerina/log;
