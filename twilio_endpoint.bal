@@ -27,13 +27,11 @@ import ballerina/mime;
 public client class Client {
 
     public string accountSId;
-    public string? xAuthyKey;
     public http:Client basicClient;
     public http:Client authyClient;
 
     public function init(TwilioConfiguration twilioConfig) {
         self.accountSId = twilioConfig.accountSId;
-        self.xAuthyKey = twilioConfig?.xAuthyKey;
 
         auth:CredentialsConfig config = {
             username: twilioConfig.accountSId,
@@ -330,11 +328,9 @@ public client class Client {
 #
 # + accountSId - Unique identifier of the account
 # + authToken - The authentication token of the account
-# + xAuthyKey - The authentication token for the Authy API
 # + secureSocket - ???
 public type TwilioConfiguration record {
     string accountSId;
     string authToken;
-    string xAuthyKey?;
     http:ClientSecureSocket secureSocket?;
 };
