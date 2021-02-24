@@ -13,8 +13,8 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
 import ballerina/log;
-import ballerina/http;
 import ballerina/lang.'int as ints;
 import ballerina/lang.runtime as runtime;
 import ballerina/test;
@@ -41,7 +41,7 @@ boolean callInProgressNotified = false;
 boolean callCompletedNotified = false;
 
 // Mock service for testing webhook events
-//Please Uncomment the Service before test the listenr
+//Please Uncomment the Service before test the listener and import ballerina/http 
 // service / on twilioListener {
 //      resource function post twilio(http:Caller caller, http:Request request) returns error? {
 //         var payload = twilioListener.getEventType(caller, request);
