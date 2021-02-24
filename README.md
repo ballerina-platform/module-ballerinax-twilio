@@ -330,7 +330,7 @@ Sample is available at: samples/client samples/getMessage.bal
 ## Twilio Listener Operations
 
 ### QUEUED/SENT SMS Events
-This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
+This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more samples from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
 ```ballerina
 import ballerina/log;
 import ballerinax/twilio;
@@ -375,7 +375,7 @@ public function main() {
 }
 ```
 ### Ringing/InProgress/Completed Voice Call Events
-This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more sample from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
+This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. [Find more samples from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
 ```ballerina
 
 import ballerina/log;
