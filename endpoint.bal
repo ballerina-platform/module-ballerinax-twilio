@@ -151,7 +151,7 @@ public client class Client {
     @display {label: "Make Voice Call"}
     remote function makeVoiceCall(@display {label: "Sender's Number"} string fromNo,
                                   @display {label: "Receiver's Number"} string toNo, 
-                                  @display {label: "MeTwiML URLssage"} string twiml, 
+                                  @display {label: "TwiML URL"} string twiml, 
                                   @display {label: "Status callback"} StatusCallback? statusCallback = ()) 
                                   returns @tainted @display {label: "Voice Call Response"} VoiceCallResponse|error {
         http:Request req = new;
