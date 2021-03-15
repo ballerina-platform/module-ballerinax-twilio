@@ -19,6 +19,7 @@ import ballerina/encoding;
 import ballerina/crypto;
 
 //todo:Verify by signing secret
+@display {label: "Twilio Listener"}
 public class TwilioEventListener {
     private http:Listener httpListener;
     private string callbackUrl = "";
