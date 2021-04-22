@@ -98,7 +98,7 @@ function testGetMessage() {
 @test:Config {
     groups: ["basic"],
     dependsOn: [testAccountDetails],
-    enable: true
+    enable: false
 }
 function testSendWhatsAppMessage() {
     log:printInfo("\n ---------------------------------------------------------------------------");

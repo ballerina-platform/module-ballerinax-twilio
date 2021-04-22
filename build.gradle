@@ -62,8 +62,8 @@ allprojects {
         maven {
             url = 'https://maven.pkg.github.com/ballerina-platform/ballerina-lang'
             credentials {
-                username "connector-ecosystem"
-                password "a3ced134d80ae64bbb2cc9fe7f74dba4e5146e64"
+                username System.getenv("packageUser")
+                password System.getenv("packagePAT")
             }
         }
     }

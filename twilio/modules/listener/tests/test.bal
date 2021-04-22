@@ -46,9 +46,15 @@ service / on twilioListener {
     isolated remote function onSmsDelivered(SmsStatusChangeEvent event) returns error? {
         log:printInfo("Received onSmsDelivered-message ", eventMsg = event);
     }
+    isolated remote function onCallRang(SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Received onCallRang-message ", eventMsg = event);
+    }
+    isolated remote function onCallCompleted(SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Received onCallCompleted-message ", eventMsg = event);
+    }
 }
 
-http:Client httpClient = checkpanic new("http://localhost:8080/onChange");
+http:Client httpClient = checkpanic new("http://localhost:9000/onChange");
 
 @test:Config {}
 function testOnSmsSent() returns @tainted error? {
@@ -89,6 +95,28 @@ function testOnCallRang() returns @tainted error? {
     http:Request request = new;
 json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"2010-04-01",
                 CallSid:"CA2f371edbd571d804ca3cb088f4f1bbdb", CallStatus:"ringing", Called:"%2B94776718102",
+                CalledCountry:"LK", Caller:"%2B14156620230", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
+                CallerState:"CA", Direction:"outbound-api", From:"%2B14156620230", FromCity:"NICASIO", FromCountry:"US",
+                FromState:"CA", FromZip:"94946", To:"%2B94776718102", ToCountry:"LK",
+                Timestamp:"Thu%2C%2022%20Apr%202021%2006%3A50%3A57%20%2B0000", CallbackSource:"call-progress-events",
+                SequenceNumber:"0"};
+
+    request.setPayload(payload);
+    request.setHeader("Content-type","application/x-www-form-urlencoded");
+
+    var response = httpClient->post("/", request);
+    if (response is http:Response) {
+        test:assertEquals(response.statusCode, 200);
+    } else {
+        test:assertFail("Twilio listener onCallRang test failed");
+    }
+}
+
+@test:Config {}
+function testOnCallCompleted() returns @tainted error? {
+    http:Request request = new;
+json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"2010-04-01",
+                CallSid:"CA2f371edbd571d804ca3cb088f4f1bbdb", CallStatus:"completed", Called:"%2B94776718102",
                 CalledCountry:"LK", Caller:"%2B14156620230", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
                 CallerState:"CA", Direction:"outbound-api", From:"%2B14156620230", FromCity:"NICASIO", FromCountry:"US",
                 FromState:"CA", FromZip:"94946", To:"%2B94776718102", ToCountry:"LK",
