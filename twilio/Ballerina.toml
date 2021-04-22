@@ -1,0 +1,14 @@
+[package]
+org = "ballerinax"
+name = "twilio"
+version = "0.99.7"
+authors = ["Ballerina"]
+repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
+keywords = ["twilio", "sms", "call", "otp", "whatsapp", "webhook"]
+license = ["Apache-2.0"]
+
+[[platform.java11.dependency]]
+path = "../java-wrapper/build/libs/java-wrapper-0.0.1-SNAPSHOT.jar"
+groupId = "io.ballerinax.webhook"
+artifactId = "java-wrapper"
+version = "0.0.1-SNAPSHOT"
