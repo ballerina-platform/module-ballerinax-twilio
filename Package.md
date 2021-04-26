@@ -27,8 +27,8 @@ The Twilio connector consists with two modules
 * Java 11 Installed
 Java Development Kit (JDK) with version 11 is required.
 
-* Ballerina SLAlpha2 Installed
-Ballerina Swan Lake Alpha 2 is required. 
+* Ballerina SLAlpha4 Installed
+Ballerina Swan Lake Alpha 4 is required. 
 
 * (optional)[ngork](https://ngrok.com/) is requried to test listner samples using localhost
 
@@ -38,7 +38,7 @@ Ballerina Swan Lake Alpha 2 is required.
 
 |                           |    Version         |
 |:-------------------------:|:------------------:|
-| Ballerina Language        | Swan Lake Alpha2   |
+| Ballerina Language        | Swan Lake Alpha 4  |
 | Twilio Basic API          | 2010-04-01         |
 | Java Development Kit (JDK)| 11                 |
 
@@ -90,9 +90,9 @@ Ballerina Swan Lake Alpha 2 is required.
 
         //Response is printed as log messages
         if (details is twilio:Account) {
-            log:print("Account Detail: " + details.toString());
+            log:printInfo("Account Detail: " + details.toString());
         } else {
-            log:print(details.message());
+            log:printInfo(details.message());
         }
     }
 	```
@@ -145,7 +145,7 @@ Callback URL registration method depends on the event type.
             var payload = check twilioListener.getEventType(caller, request);
             if (payload is webhook:CallStatusChangeEvent) {
                 if (payload.CallStatus == webhook:RINGING) {
-                    log:print("The call is in rining status");
+                    log:printInfo("The call is in rining status");
                 } 
             } 
         }
@@ -179,9 +179,9 @@ Sample is available at:
 
         //Response is printed as log messages
         if (details is twilio:Account) {
-            log:print("Account Detail: " + details.toString());
+            log:printInfo("Account Detail: " + details.toString());
         } else {
-            log:print(details.message());
+            log:printInfo(details.message());
         }
     }
 ```
@@ -216,9 +216,9 @@ public function main() {
 
     //Response is printed as log messages
     if (details is twilio:SmsResponse) {
-        log:print("SMS_SID: " + details.sid.toString() + ", Body: " + details.body.toString());
+        log:printInfo("SMS_SID: " + details.sid.toString() + ", Body: " + details.body.toString());
     } else {
-        log:print(details.message());
+        log:printInfo(details.message());
     }
 }
 ```
@@ -249,9 +249,9 @@ Sample is available at:
 
         //Response is printed as log messages
         if (details is twilio:WhatsAppResponse) {
-            log:print("Message Detail: " + details.toString());
+            log:printInfo("Message Detail: " + details.toString());
         } else {
-            log:print(details.message());
+            log:printInfo(details.message());
         }
     }
 ```
@@ -287,9 +287,9 @@ Sample is available at:
 
         //Response is printed as log messages
         if (details is twilio:VoiceCallResponse) {
-            log:print("Message Detail: " + details.toString());
+            log:printInfo("Message Detail: " + details.toString());
         } else {
-            log:print(details.message());
+            log:printInfo(details.message());
         }
     }
 ```
@@ -322,87 +322,85 @@ Sample is available at:
 
         //Response is printed as log messages
         if (details is twilio:MessageResourceResponse) {
-            log:print("Message Detail: " + details.toString());
+            log:printInfo("Message Detail: " + details.toString());
         } else {
-            log:print(details.message());
+            log:printInfo(details.message());
         }
     }
 ```
 ## Twilio Listener Operations
 
-### QUEUED/SENT SMS Event
-This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here.
+### QUEUED/SENT/DELIVERED SMS Event
+This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here. [Find more samples from here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/samples/listener%20samples)
+
 ```ballerina
 import ballerina/log;
 import ballerinax/twilio;
-import ballerinax/twilio.webhook as webhook;
-import ballerina/http;
+import ballerinax/twilio.'listener as twilioListener;
 
-configurable string fromMobile = ?;
-configurable string toMobile = ?;
-configurable string accountSId = ?;
-configurable string authToken = ?;
-configurable string message = "Wso2-Test-SMS-Message";
+configurable string & readonly twilioAccountSid = ?;
+configurable string & readonly twilioAuthToken = ?;
+configurable string & readonly fromNumber = ?;
+configurable string & readonly toNumber = ?;
+configurable string & readonly test_message = ?;
+configurable string & readonly twimlUrl = ?;
+configurable string & readonly callbackUrl = ?;
+configurable int & readonly port = ?;
 
-//ngork is used to get the callback url eg: http://6d602a963438.ngrok.io/twilio
-configurable string statusCallbackUrl = ?;
+listener twilioListener:Listener tListener = new (port, twilioAuthToken, callbackUrl);
 
-//Starting a service with twilio listner by providing port,authToken, status call back url.
-listener webhook:TwilioEventListener twilioListener = new (9090, authToken, statusCallbackUrl);
-service / on twilioListener {
-    resource function post twilio(http:Caller caller, http:Request request) returns error? {
-        var payload = check twilioListener.getEventType(caller, request);
-
-        //Check for the event and get the status of the event.
-        if (payload is webhook:SmsStatusChangeEvent) {
-            if (payload.SmsStatus == webhook:QUEUED) {
-                log:print("The SMS has been queued to be sent");
-            } 
-        } 
+service / on tListener {
+    remote function onSmsQueued(twilioListener:SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Queued", event);
+    }
+    remote function onSmsSent(twilioListener:SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Sent", event);
+    }
+    remote function onSmsDelivered(twilioListener:SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Delivered", event);
     }
 }
 
 public function main() {
     twilio:TwilioConfiguration twilioConfig = {
-        accountSId: accountSId,
-        authToken: authToken
+        accountSId: twilioAccountSid,
+        authToken: twilioAuthToken
     };
     twilio:Client twilioClient = new (twilioConfig);
-    var details = twilioClient->sendSms(fromMobile, toMobile, message, statusCallbackUrl);
+    var details = twilioClient->sendSms(fromNumber, toNumber, test_message, callbackUrl);
     if (details is error) {
-        log:print(details.message());
+        log:printInfo(details.message());
     }
-
 }
 ```
 ### Ringing/InProgress/Completed Voice Call Events
 This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here.
-```ballerina
 
+```ballerina
 import ballerina/log;
 import ballerinax/twilio;
-import ballerinax/twilio.webhook as webhook;
-import ballerina/http;
+import ballerinax/twilio.'listener as twilioListener;
 
-configurable string fromMobile = ?;
-configurable string toMobile = ?;
-configurable string accountSId = ?;
-configurable string authToken = ?;
-configurable string twimlURL = ?;
+configurable string & readonly twilioAccountSid = ?;
+configurable string & readonly twilioAuthToken = ?;
+configurable string & readonly fromNumber = ?;
+configurable string & readonly toNumber = ?;
+configurable string & readonly test_message = ?;
+configurable string & readonly twimlUrl = ?;
+configurable string & readonly callbackUrl = ?;
+configurable int & readonly port = ?;
 
-//ngork is used to get the callback url eg: http://6d602a963438.ngrok.io/twilio
-configurable string statusCallbackUrl = ?;
+listener twilioListener:Listener tListener = new (port, twilioAuthToken, callbackUrl);
 
-//Starting a service with using twilio listner by providing port,authToken, status call back url.
-listener webhook:TwilioEventListener twilioListener = new (9090, authToken, statusCallbackUrl);
-service / on twilioListener {
-    resource function post twilio(http:Caller caller, http:Request request) returns error? {
-        var payload = check twilioListener.getEventType(caller, request);
-        if (payload is webhook:CallStatusChangeEvent) {
-            if (payload.CallStatus == webhook:COMPLETED) {
-                log:print("The call has been answered");
-            } 
-        } 
+service / on tListener {
+    remote function onCallRang(twilioListener:CallStatusChangeEvent event) returns error? {
+        log:printInfo("Ringing", event);
+    }
+    remote function onCallAnswered(twilioListener:CallStatusChangeEvent event) returns error? {
+        log:printInfo("In Progress", event);
+    }
+    remote function onCallCompleted(twilioListener:CallStatusChangeEvent event) returns error? {
+        log:printInfo("Completed", event);
     }
 }
 
@@ -413,15 +411,14 @@ public function main() {
     };
     twilio:Client twilioClient = new (twilioConfig);
     
-    //Setting webhook callback details
-    twilio:StatusCallback webhookCallbackInfo = {
+    twilio:StatusCallback callbackInfo = {
         url: statusCallbackUrl,
-        method: webhook:POST,
-        events: [webhook:COMPLETED]
+        method: twilio:POST,
+        events: [twilio:COMPLETED]
     };
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL, webhookCallbackInfo);
+    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL, callbackInfo);
     if (details is error) {
-        log:print(details.message());
+        log:printInfo(details.message());
     }
 
 }
