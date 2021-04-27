@@ -37,6 +37,8 @@ jobs:
                   SAMPLE_MESSAGE: ${{ secrets.SAMPLE_MESSAGE }}
                   SAMPLE_TWIML_URL: ${{ secrets.SAMPLE_TWIML_URL }}
                   SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }} 
+                  CALLBACK_URL: ${{ secrets.CALLBACK_URL }}
+                  PORT: ${{ secrets.PORT }} 
             - name: Ballerina Push
               uses: ballerina-platform/ballerina-action/@master
               with:

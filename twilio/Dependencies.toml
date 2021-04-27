@@ -41,6 +41,6 @@ version = "1.1.0-alpha7"
 [[dependency]]
 org = "ballerina"
 name = "os"
-version = "0.8.0-alpha7"
+version = "1.1.0-alpha7"
 
 
