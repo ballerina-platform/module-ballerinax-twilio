@@ -27,6 +27,7 @@ jobs:
               with:
                   args: build -c ./twilio
               env:
+                  JAVA_HOME: /usr/lib/jvm/default-jvm
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
                   AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
                   SAMPLE_FROM_MOBILE: ${{ secrets.SAMPLE_FROM_MOBILE }}
