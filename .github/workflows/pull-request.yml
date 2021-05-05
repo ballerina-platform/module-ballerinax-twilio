@@ -25,7 +25,7 @@ jobs:
             - name: Ballerina Build
               uses: ballerina-platform/ballerina-action/@master
               with:
-                  args: build -c ./twilio
+                  args: build -c --skip-tests ./twilio
               env:
                   JAVA_HOME: /usr/lib/jvm/default-jvm
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}

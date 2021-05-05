@@ -43,25 +43,32 @@ service / on twilioListener {
     isolated remote function onSmsSent(SmsStatusChangeEvent event) returns error? {
         log:printInfo("Received onSmsSent-message ", eventMsg = event);
     }
+
+    isolated remote function onSmsReceived(SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Received onSmsReceived(Incoming)-message ", eventMsg = event);
+    }
+
     isolated remote function onSmsDelivered(SmsStatusChangeEvent event) returns error? {
         log:printInfo("Received onSmsDelivered-message ", eventMsg = event);
     }
-    isolated remote function onCallRang(SmsStatusChangeEvent event) returns error? {
+
+    isolated remote function onCallRang(CallStatusChangeEvent event) returns error? {
         log:printInfo("Received onCallRang-message ", eventMsg = event);
     }
-    isolated remote function onCallCompleted(SmsStatusChangeEvent event) returns error? {
+
+    isolated remote function onCallCompleted(CallStatusChangeEvent event) returns error? {
         log:printInfo("Received onCallCompleted-message ", eventMsg = event);
     }
 }
 
 http:Client httpClient = checkpanic new("http://localhost:9000/onChange");
 
-@test:Config {}
+@test:Config {enable: false}
 function testOnSmsSent() returns @tainted error? {
     http:Request request = new;
-    json payload = {SmsSid:"SMa0244efd22094511a99a27282a98ea02", SmsStatus:"sent", From:"%2B14156620230",
-                    To:"%2B94776718102", ApiVersion:"2010-04-01", MessageSid:"SMa0244efd22094511a99a27282a98ea02",
-                    AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", MessageStatus:"sent"};
+    json payload = {SmsSid: "***", SmsStatus:"sent", From: "%2B<fromPhoneNumber>",
+                    To: "%2B<ToPhoneNumber>", ApiVersion:"2010-04-01", MessageSid:"***",
+                    AccountSid: "***", MessageStatus:"sent"};
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
@@ -73,12 +80,12 @@ function testOnSmsSent() returns @tainted error? {
     }
 }
 
-@test:Config {}
+@test:Config {enable: false}
 function testOnSmsDelivered() returns @tainted error? {
     http:Request request = new;
-    json payload = {SmsSid:"SMa0244efd22094511a99a27282a98ea02", SmsStatus:"delivered", From:"%2B14156620230",
-                    To:"%2B94776718102", ApiVersion:"2010-04-01", MessageSid:"SMa0244efd22094511a99a27282a98ea02",
-                    AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", MessageStatus:"delivered"};
+    json payload = {SmsSid: "***", SmsStatus:"delivered", From: "%2B<fromPhoneNumber>",
+                    To: "%2B<ToPhoneNumber>", ApiVersion:"2010-04-01", MessageSid:"***",
+                    AccountSid: "***", MessageStatus:"delivered"};
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
@@ -90,16 +97,16 @@ function testOnSmsDelivered() returns @tainted error? {
     }
 }
 
-@test:Config {}
+@test:Config {enable: false}
 function testOnCallRang() returns @tainted error? {
     http:Request request = new;
-json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"2010-04-01",
-                CallSid:"CA2f371edbd571d804ca3cb088f4f1bbdb", CallStatus:"ringing", Called:"%2B94776718102",
-                CalledCountry:"LK", Caller:"%2B14156620230", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
-                CallerState:"CA", Direction:"outbound-api", From:"%2B14156620230", FromCity:"NICASIO", FromCountry:"US",
-                FromState:"CA", FromZip:"94946", To:"%2B94776718102", ToCountry:"LK",
-                Timestamp:"Thu%2C%2022%20Apr%202021%2006%3A50%3A57%20%2B0000", CallbackSource:"call-progress-events",
-                SequenceNumber:"0"};
+    json payload = {AccountSid: "***", ApiVersion:"2010-04-01",
+        CallSid: "***", CallStatus:"ringing", Called:"%2BcalledNumber",
+        CalledCountry:"LK", Caller: "<callerNumber", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
+        CallerState:"CA", Direction:"outbound-api", From: "%2B<fromPhoneNumber>", FromCity:"NICASIO", FromCountry:"US",
+        FromState:"CA", FromZip:"94946", To: "%2B<ToPhoneNumber>", ToCountry:"LK",
+        Timestamp:"Thu%2C%2022%20Apr%202021%2006%3A50%3A57%20%2B0000", CallbackSource:"call-progress-events",
+        SequenceNumber:"0"};
 
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
@@ -112,16 +119,16 @@ json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"201
     }
 }
 
-@test:Config {}
+@test:Config {enable: false}
 function testOnCallCompleted() returns @tainted error? {
     http:Request request = new;
-json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"2010-04-01",
-                CallSid:"CA2f371edbd571d804ca3cb088f4f1bbdb", CallStatus:"completed", Called:"%2B94776718102",
-                CalledCountry:"LK", Caller:"%2B14156620230", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
-                CallerState:"CA", Direction:"outbound-api", From:"%2B14156620230", FromCity:"NICASIO", FromCountry:"US",
-                FromState:"CA", FromZip:"94946", To:"%2B94776718102", ToCountry:"LK",
-                Timestamp:"Thu%2C%2022%20Apr%202021%2006%3A50%3A57%20%2B0000", CallbackSource:"call-progress-events",
-                SequenceNumber:"0"};
+    json payload = {AccountSid: "***", ApiVersion:"2010-04-01",
+        CallSid: "***", CallStatus:"completed", Called:"%2BcalledNumber",
+        CalledCountry:"LK", Caller: "<callerNumber", CallerCountry:"US", CallerCity:"NICASIO", CallerZip:"94946",
+        CallerState:"CA", Direction:"outbound-api", From: "%2B<fromPhoneNumber>", FromCity:"NICASIO", FromCountry:"US",
+        FromState:"CA", FromZip:"94946", To: "%2B<ToPhoneNumber>", ToCountry:"LK",
+        Timestamp:"Thu%2C%2022%20Apr%202021%2006%3A50%3A57%20%2B0000", CallbackSource:"call-progress-events",
+        SequenceNumber:"0"};
 
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
@@ -132,10 +139,4 @@ json payload = {AccountSid:"AC0c2ca82ba8140a1a3af02adb5d307a88", ApiVersion:"201
     } else {
         test:assertFail("Twilio listener onCallRang test failed");
     }
-}
-
-@test:AfterSuite {}
-isolated function AfterSuite() {
-    runtime:sleep(10);    
-    log:printInfo("Listener Stopped");
 }

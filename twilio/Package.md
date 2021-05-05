@@ -38,7 +38,7 @@ Ballerina Swan Lake Alpha 4 is required.
 
 |                           |    Version         |
 |:-------------------------:|:------------------:|
-| Ballerina Language        | Swan Lake Alpha 4  |
+| Ballerina Language        | Swan Lake Alpha 5  |
 | Twilio Basic API          | 2010-04-01         |
 | Java Development Kit (JDK)| 11                 |
 

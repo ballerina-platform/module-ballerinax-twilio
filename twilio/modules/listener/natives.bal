@@ -16,6 +16,11 @@
 
 import ballerina/jballerina.java;
 
+isolated function callOnSmsReceived(SimpleHttpService httpService, SmsStatusChangeEvent event)
+                                returns error? = @java:Method {
+    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+} external;
+
 isolated function callOnSmsQueued(SimpleHttpService httpService, SmsStatusChangeEvent event)
                                 returns error? = @java:Method {
     'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
@@ -46,7 +51,7 @@ isolated function callOnCallCompleted(SimpleHttpService httpService, CallStatusC
     'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
 } external;
 
-# Invoke native method to retrive implemented method names in the subscriber service
+# Invoke native method to retrieve implemented method names in the subscriber service
 #
 # + httpService - current http service
 # + return - {@code string[]} containing the method-names in current implementation
