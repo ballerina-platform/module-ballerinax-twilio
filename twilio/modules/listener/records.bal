@@ -14,6 +14,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
+# Description
+#
+# + SmsSid - Twilio SID of the SMS  
+# + SmsStatus - Status of the SMS  
+# + From - From phone number  
+# + To - To phone number  
+# + ApiVersion - Twilio API version  
+# + MessageSid - Message SID  
+# + AccountSid - Account SID  
+# + ToCountry - To country of the SMS
+# + ToState - To state of the SMS  
+# + SmsMessageSid - SMS message SID  
+# + NumMedia - Number Media  
+# + ToCity - To city of the SMS  
+# + FromZip - From Zip of the SMS  
+# + FromState - From State of the SMS  
+# + FromCity - From City of the SMS  
+# + Body - Body of the SMS  
+# + FromCountry - From country of the SMS  
+# + ToZip - To zip of the SMS  
+# + NumSegments - Number segments of the SMS  
+# + MessageStatus - Message Status  
 public type SmsStatusChangeEvent record {|
     string SmsSid?;
     string SmsStatus?;
@@ -37,6 +59,39 @@ public type SmsStatusChangeEvent record {|
     string MessageStatus?;
 |};
 
+# Description
+#
+# + AccountSid - Account SID  
+# + ApiVersion - Twilio API version  
+# + CallSid - Call SID  
+# + CallStatus - A descriptive status for the call  
+# + Called - The called number
+# + CalledCity - The city of the call  
+# + CalledCountry - The country of the call  
+# + CalledState - The state of the call  
+# + CalledZip - The zip of the call  
+# + Caller - The caller number  
+# + CallerCountry - The country of the caller  
+# + CallDuration - Duration of the call  
+# + CallerCity - The city of the caller  
+# + CallerZip - The zip of the caller  
+# + CallerState - The state of the caller  
+# + Direction - The direction of the call  
+# + Duration - Time duration of the call  
+# + From - From phone number of the call  
+# + FromCity - From city of the call  
+# + FromCountry - From country of the call  
+# + FromState - From state of the call  
+# + FromZip - From zip of the call  
+# + To - To phone number of the call  
+# + ToCity - To city of the call   
+# + ToCountry - To country of the call  
+# + ToZip - To zip of the call  
+# + ToState - To state of the call  
+# + Timestamp - Timestamp of the call  
+# + CallbackSource - The source of the webhook   
+# + SequenceNumber - The order in which the events were fired, starting from 0  
+# + SipResponseCode - The SIP code that resulted in a failed call 
 public type CallStatusChangeEvent record {|
     string AccountSid?;
     string ApiVersion?;
@@ -71,17 +126,5 @@ public type CallStatusChangeEvent record {|
     string SipResponseCode?;
 |};
 
-public type CallRecordingEvent record {|
-    string AccountSid;
-    string CallSid;
-    string RecordingSid;
-    string RecordingUrl;
-    string RecordingStatus;
-    float RecordingDuration;
-    int RecordingChanels;
-    string RecordingStartTime;
-    string RecordingSource;
-    string RecordingTrack;
-|};
-
+# Union type for status   
 public type TwilioEvent CallStatusChangeEvent|SmsStatusChangeEvent;

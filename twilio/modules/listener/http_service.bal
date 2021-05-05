@@ -24,6 +24,7 @@ service class HttpService {
     private boolean isOnSmsQueued = false;
     private boolean isOnSmsSent = false;
     private boolean isOnSmsDelivered = false;
+    private boolean isOnSmsReceived = false;
 
     private boolean isOnCallRang = false;
     private boolean isOnCallAnswered = false;
@@ -41,6 +42,9 @@ service class HttpService {
 
         foreach var methodName in methodNames {
             match methodName {
+                "onSmsReceived" => {
+                    self.isOnSmsReceived = true;
+                }
                 "onSmsQueued" => {
                     self.isOnSmsQueued = true;
                 }
@@ -78,7 +82,7 @@ service class HttpService {
         check caller->respond(http:STATUS_OK); 
         if(payload.hasKey("CallStatus")) {
             CallStatusChangeEvent eventPayload = check payload.cloneWithType(CallStatusChangeEvent);
-            string CallStatus = check eventPayload?.CallStatus;
+            string? CallStatus =  eventPayload?.CallStatus;
             match CallStatus.toString() {
                 RINGING => {
                     if (self.isOnCallRang) {
@@ -103,7 +107,7 @@ service class HttpService {
             return;
         } else if (payload.hasKey("SmsStatus")) {
             SmsStatusChangeEvent eventPayload = check payload.cloneWithType(SmsStatusChangeEvent);
-            string SmsStatus = check eventPayload?.SmsStatus;
+            string? SmsStatus = eventPayload?.SmsStatus;
             match SmsStatus.toString() {
                 QUEUED => {
                     if (self.isOnSmsQueued) {
@@ -116,8 +120,13 @@ service class HttpService {
                     }
                 }
                 DELIVERED => {
-                    if (self.isOnCallCompleted) {
+                    if (self.isOnSmsDelivered) {
                         check callOnSmsDelivered(self.httpService, eventPayload);
+                    }
+                }
+                RECEIVED => {
+                    if (self.isOnSmsReceived) {
+                        check callOnSmsReceived(self.httpService, eventPayload);
                     }
                 }
                 _ => {
@@ -127,7 +136,7 @@ service class HttpService {
             }
             return;
         } else {
-            return error("Invalid payload or an eventtype listener currently does not support");
+            return error("Invalid payload or an event type listener currently does not support");
         }
     }
 

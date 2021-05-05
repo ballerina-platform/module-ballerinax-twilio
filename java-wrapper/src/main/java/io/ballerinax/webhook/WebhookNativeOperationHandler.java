@@ -21,6 +21,11 @@ import java.util.concurrent.CountDownLatch;
 import static io.ballerina.runtime.api.utils.StringUtils.fromString;
 
 public class WebhookNativeOperationHandler {
+
+    public static Object callOnSmsReceived(Environment env, BObject bWebhookService, BMap<BString, Object> message) {
+        return invokeRemoteFunction(env, bWebhookService, message, "callOnSmsReceived", "onSmsReceived");
+    }
+
     public static Object callOnSmsQueued(Environment env, BObject bWebhookService, BMap<BString, Object> message) {
         return invokeRemoteFunction(env, bWebhookService, message, "callOnSmsQueued", "onSmsQueued");
     }
