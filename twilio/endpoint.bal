@@ -23,6 +23,7 @@ import ballerina/mime;
 # + accountSId - Unique identifier of the account
 # + basicClient - HTTP client endpoint for basic api
 # + authyClient - HTTP client endpoint for authy api
+@display {label: "Twilio Client", iconPath: "TwilioLogo.png"}
 public client class Client {
     public string accountSId;
     public http:Client basicClient;
@@ -30,7 +31,6 @@ public client class Client {
 
     public isolated function init(TwilioConfiguration twilioConfig) {
         self.accountSId = twilioConfig.accountSId;
-
         auth:CredentialsConfig config = {
             username: twilioConfig.accountSId,
             password: twilioConfig.authToken
@@ -58,7 +58,8 @@ public client class Client {
     # Return account details of the given account-sid.
     #
     # + return - If success, returns account object with basic details, else returns error
-    remote isolated function getAccountDetails() returns @tainted Account|error {
+    @display {label: "Get twilio account details"}
+    remote isolated function getAccountDetails() returns @tainted @display {label: "Account"} Account|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + JSON_EXTENSION;
         http:Response response = check self.basicClient->get(requestPath);
         json jsonResponse = check parseResponseToJson(response);
@@ -73,23 +74,23 @@ public client class Client {
     # + message - Message body of the SMS
     # + statusCallbackUrl - (optional) Callback URL where the status callback events needs to be dispatched
     # + return - If success, returns a programmable SMS response object, else returns error
-    remote isolated function sendSms(string fromNo, string toNo, string message, string? statusCallbackUrl = ()) returns 
-                                     @tainted SmsResponse|error {
+    @display {label: "Get an SMS"}
+    remote isolated function sendSms(@display {label: "Sender's Number"} string fromNo, 
+                                     @display {label: "Recipient's Number"} string toNo, 
+                                     @display {label: "Message"} string message, 
+                                     @display {label: "Callback URL"}string? statusCallbackUrl = ()) returns 
+                                     @tainted @display {label: "SMS Response"} SmsResponse|error {
         http:Request req = new;
-
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
-
         if (statusCallbackUrl is string) {
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallbackUrl);
         }
 
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
-
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
-
         http:Response response = check self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
         map<json> payloadMap = <map<json>>jsonResponse;
@@ -100,7 +101,9 @@ public client class Client {
     #
     # + messageSid - Message-sid of a relavant message
     # + return - If success, returns a message resourse responce record, else returns error
-    remote isolated function getMessage(string messageSid) returns @tainted MessageResourceResponse|error {
+    @display {label: "Get Message"}
+    remote isolated function getMessage(@display {label: "Message SID"} string messageSid) returns @tainted 
+                                        @display {label: "Message Resource Response"} MessageResourceResponse|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + MESSAGE + messageSid 
             + JSON_EXTENSION;
         http:Response response = check self.basicClient->get(requestPath);
@@ -115,8 +118,12 @@ public client class Client {
     # + toNo - Mobile number by which the WhatsApp message should be received
     # + message - Message body of the WhatsApp message
     # + return - If success, returns a WhatsAppResponse object, else returns error
-    remote isolated function sendWhatsAppMessage(string fromNo, string toNo, string message) returns 
-                                                 @tainted WhatsAppResponse|error {
+    @display {label: "Send a WhatsApp Message"}
+    remote isolated function sendWhatsAppMessage(@display {label: "Sender's Number"} string fromNo, 
+                                                 @display {label: "Recipient's Number"} string toNo, 
+                                                 @display {label: "Message"} string message) returns 
+                                                 @tainted @display {label: "WhatsApp Message Response"} WhatsAppResponse
+                                                 |error {
         http:Request req = new;
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + ":" + fromNo);
@@ -138,15 +145,17 @@ public client class Client {
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status 
     #                     needs to be delivered.
     # + return - If success, returns voice call response object with basic details, else returns error
-    remote isolated function makeVoiceCall(string fromNo, string toNo, string twiml, 
-                                           StatusCallback? statusCallback = ()) returns 
-                                           @tainted VoiceCallResponse|error {
+    @display {label: "Make a voice call"}
+    remote isolated function makeVoiceCall(@display {label: "Caller Number"} string fromNo, 
+                                           @display {label: "Callee Number"}string toNo, 
+                                           @display {label: "TwiML URL"} string twiml, 
+                                           @display {label: "Callback URL"} StatusCallback? statusCallback = ()) returns 
+                                           @tainted  @display {label: "Voice Call Response"} VoiceCallResponse|error {
         http:Request req = new;
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
-
         if (statusCallback is StatusCallback) {
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallback.url);
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_METHOD, statusCallback.method);
@@ -160,7 +169,6 @@ public client class Client {
         }
 
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
-
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + VOICE_CALL;
         http:Response response = check self.basicClient->post(requestPath, req);
         json jsonResponse = check parseResponseToJson(response);
