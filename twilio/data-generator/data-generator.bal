@@ -61,11 +61,11 @@ string SmsStatusChangeEvent = rootPath + "SmsStatusChangeEvent"+fileExtension;
 string CallStatusChangeEvent = rootPath + "CallStatusChangeEvent"+fileExtension;
 
 public function main() returns error? {
-    // _ = check generateAccountData();
-    // _ = check generateSmsResponseData();
-    // _ = check generateMessageResourceResponseData();
-    // _ = check generateWhatsAppResponseData();
-    // _ = check generateVoiceCallResponseData();
+    _ = check generateAccountData();
+    _ = check generateSmsResponseData();
+    _ = check generateMessageResourceResponseData();
+    _ = check generateWhatsAppResponseData();
+    _ = check generateVoiceCallResponseData();
     _ = check generateOnSmsReceivedData();
     _ = check generateOnCallCompletedData();
 }
