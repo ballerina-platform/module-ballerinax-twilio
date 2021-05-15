@@ -47,5 +47,11 @@ test.yml
 # Ignore resource .json files
 **/resources/*.json
 
-#Ingnore Config.toml
+# Ignore Config.toml
 Config.toml
+
+# Ignore Gradle files
+.gradle/**
+
+# Ignore Java Wrapper build
+java-wrapper/build/**
