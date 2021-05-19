@@ -1,0 +1,28 @@
+{
+    "ballerinax/twilio:0.99.8:Account": [
+        {
+            "sid": "AC1096e2715af9d49f2baa66fc26449122",
+            "name": "DressYou.lk",
+            "status": "active",
+            "type": "Trial",
+            "createdDate": "Sat, 31 Mar 2018 07:40:50 +0000",
+            "updatedDate": "Mon, 26 Apr 2021 19:10:01 +0000"
+        },
+        {
+            "sid": "AC1096e2715af9d49f2baa66fc26449122",
+            "name": "DressYou.lk",
+            "status": "active",
+            "type": "Trial",
+            "createdDate": "Sat, 31 Mar 2018 07:40:50 +0000",
+            "updatedDate": "Mon, 26 Apr 2021 19:10:01 +0000"
+        },
+        {
+            "sid": "AC1096e2715af9d49f2baa66fc26449122",
+            "name": "DressYou.lk",
+            "status": "active",
+            "type": "Trial",
+            "createdDate": "Sat, 31 Mar 2018 07:40:50 +0000",
+            "updatedDate": "Mon, 26 Apr 2021 19:10:01 +0000"
+        }
+    ]
+}

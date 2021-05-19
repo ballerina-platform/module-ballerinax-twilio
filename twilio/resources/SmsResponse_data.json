@@ -1,0 +1,55 @@
+{
+    "ballerinax/twilio:0.99.8:SmsResponse": [
+        {
+            "sid": "SMf5a0097444fc4a93890704d4c3c7c258",
+            "dateCreated": "Sat, 15 May 2021 02:45:14 +0000",
+            "dateUpdated": "Sat, 15 May 2021 02:45:14 +0000",
+            "dateSent": "",
+            "accountSid": "AC109XXXXXXXXXXXXXX",
+            "toNumber": "+94775856964",
+            "fromNumber": "+447588744864",
+            "body": "Sent from your Twilio trial account - Test from Nuwan",
+            "status": "queued",
+            "direction": "outbound-api",
+            "apiVersion": "2010-04-01",
+            "price": "",
+            "priceUnit": "USD",
+            "uri": "/2010-04-01/Accounts/AC1096e2715af9d49f2baa66fc26449122/Messages/SMf5a0097444fc4a93890704d4c3c7c258.json",
+            "numSegments": "1"
+        },
+        {
+            "sid": "SMed2b67c36a1e4897b2c97b4a4180b317",
+            "dateCreated": "Sat, 15 May 2021 02:45:15 +0000",
+            "dateUpdated": "Sat, 15 May 2021 02:45:15 +0000",
+            "dateSent": "",
+            "accountSid": "AC109XXXXXXXXXXXXXX",
+            "toNumber": "+94775856964",
+            "fromNumber": "+447588744864",
+            "body": "Sent from your Twilio trial account - Test from Nuwan",
+            "status": "queued",
+            "direction": "outbound-api",
+            "apiVersion": "2010-04-01",
+            "price": "",
+            "priceUnit": "USD",
+            "uri": "/2010-04-01/Accounts/AC1096e2715af9d49f2baa66fc26449122/Messages/SMed2b67c36a1e4897b2c97b4a4180b317.json",
+            "numSegments": "1"
+        },
+        {
+            "sid": "SM58019a9dc4a34df79f8fab28ddd526a1",
+            "dateCreated": "Sat, 15 May 2021 02:45:15 +0000",
+            "dateUpdated": "Sat, 15 May 2021 02:45:15 +0000",
+            "dateSent": "",
+            "accountSid": "AC109XXXXXXXXXXXXXX",
+            "toNumber": "+94775856964",
+            "fromNumber": "+447588744864",
+            "body": "Sent from your Twilio trial account - Test from Nuwan",
+            "status": "queued",
+            "direction": "outbound-api",
+            "apiVersion": "2010-04-01",
+            "price": "",
+            "priceUnit": "USD",
+            "uri": "/2010-04-01/Accounts/AC1096e2715af9d49f2baa66fc26449122/Messages/SM58019a9dc4a34df79f8fab28ddd526a1.json",
+            "numSegments": "1"
+        }
+    ]
+}
