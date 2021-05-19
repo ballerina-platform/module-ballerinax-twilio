@@ -199,7 +199,7 @@ function generateOnSmsReceivedData() returns error? {
     string array = SQUARE_BRACKET_LEFT + details1.toJsonString() + COMMA 
                                 + details1.toJsonString() + COMMA + details1.toJsonString() 
                                 + SQUARE_BRACKET_RIGHT;
-    string preparedJson = "{"+"\"ballerinax/SmsStatusChangeEvent:"+connecterVersion+":SmsStatusChangeEvent\""+":"+array+"}";
+    string preparedJson = "{"+"\"ballerinax/twilio:"+connecterVersion+":SmsStatusChangeEvent\""+":"+array+"}";
     check io:fileWriteJson(SmsStatusChangeEvent, check preparedJson.cloneWithType(json));
 }
 
@@ -271,6 +271,6 @@ function generateOnCallCompletedData() returns error? {
     string array = SQUARE_BRACKET_LEFT + details1.toJsonString() + COMMA 
                                 + details2.toJsonString() + COMMA + details3.toJsonString() 
                                 + SQUARE_BRACKET_RIGHT;
-    string preparedJson = "{"+"\"ballerinax/SmsStatusChangeEvent:"+connecterVersion+":CallStatusChangeEvent\""+":"+array+"}";
+    string preparedJson = "{"+"\"ballerinax/twilio:"+connecterVersion+":CallStatusChangeEvent\""+":"+array+"}";
     check io:fileWriteJson(CallStatusChangeEvent, check preparedJson.cloneWithType(json));
 }

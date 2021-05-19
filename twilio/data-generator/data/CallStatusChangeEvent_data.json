@@ -1,5 +1,5 @@
 {
-    "ballerinax/SmsStatusChangeEvent:0.99.8:CallStatusChangeEvent": [
+    "ballerinax/twilio:0.99.8:CallStatusChangeEvent": [
         {
             "AccountSid": "AC1096e2715af9d49f2baa66fc26449122",
             "ApiVersion": "2010-04-01",
