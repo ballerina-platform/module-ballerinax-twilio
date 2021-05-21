@@ -49,6 +49,7 @@ final string TO = "To";
 final string FROM = "From";
 final string BODY = "Body";
 final string URL = "Url";
+final string TWIML = "Twiml";
 final string STATUS_CALLBACK_URL = "StatusCallback";
 final string STATUS_CALLBACK_METHOD = "StatusCallbackMethod";
 final string STATUS_CALLBACK_EVENT = "StatusCallbackEvent";
