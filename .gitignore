@@ -56,3 +56,6 @@ Config.toml
 
 # Ignore Java Wrapper build
 java-wrapper/build/**
+
+#Ignore docker caches
+.ballerina

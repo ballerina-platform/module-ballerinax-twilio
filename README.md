@@ -54,6 +54,7 @@ Java Development Kit (JDK) with version 11 is required.
 
 1. Send SMS, WhatsApp messages
 2. Make voice calls
+3. Get Account Details
 
 ### Getting started
 
@@ -64,7 +65,7 @@ Java Development Kit (JDK) with version 11 is required.
        - Account SId
        - Auth Token
 
-![image](samples/docs/dashboardTokens.png)
+![image](twilio/samples/docs/dashboardTokens.png)
 
 3. Import the Twilio module to your Ballerina program as follows. You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials.
 
@@ -97,7 +98,7 @@ Java Development Kit (JDK) with version 11 is required.
     }
 	```
 
-## Module - `ballerinax/twilio.webhook`
+## Module - `ballerinax/twilio.listener`
 
 ### Feature Overview
 
@@ -123,34 +124,25 @@ Callback URL registration method depends on the event type.
 
 1.  Have a [Quick Tour](https://ballerina.io/learn/getting-started/quick-tour/) section to download and install Ballerina.
 
-2. Import the Twilio Webhook module to your Ballerina program as follows.
+2. Import the Twilio listener module to your Ballerina program as follows.
 
-	```ballerina
-	import ballerina/log;
-    import ballerinax/twilio;
-    import ballerinax/twilio.webhook as webhook;
-    import ballerina/http;
+```ballerina
+import ballerina/log;
+import ballerinax/twilio;
+import ballerinax/twilio.'listener as twilioListener;
 
-    configurable string fromMobile = ?;
-    configurable string toMobile = ?;
-    configurable string accountSId = ?;
-    configurable string authToken = ?;
-    configurable string twimlURL = ?;
-    configurable string statusCallbackUrl = ?;
+configurable string & readonly twilioAuthToken = ?;
+configurable string & readonly callbackUrl = ?;
+configurable int & readonly port = ?;
 
-    //Starting a service with using twilio listner by providing port,authToken, status call back url.
-    listener webhook:TwilioEventListener twilioListener = new (9090, authToken, statusCallbackUrl);
-    service / on twilioListener {
-        resource function post twilio(http:Caller caller, http:Request request) returns error? {
-            var payload = check twilioListener.getEventType(caller, request);
-            if (payload is webhook:CallStatusChangeEvent) {
-                if (payload.CallStatus == webhook:RINGING) {
-                    log:printInfo("The call is in rining status");
-                } 
-            } 
-        }
+listener twilioListener:Listener tListener = new (port, twilioAuthToken, callbackUrl);
+
+service / on tListener {
+    remote function onSmsDelivered(twilioListener:SmsStatusChangeEvent event) returns error? {
+        log:printInfo("Delivered", event);
     }
-	```
+}
+```
 # Samples
 ## Twilio Client Operations
 
@@ -225,34 +217,32 @@ public function main() {
 As the following example, the connector supports to send whatapp messages and if the message is successfully sent , you will get WhatsAppResponse record otherwsie an error message.
 Sample is available at: samples/client samples/sendWhatsappMessage.bal
 ```ballerina
-    import ballerina/log;
-    import ballerinax/twilio;
+import ballerina/log;
+import ballerinax/twilio;
+configurable string accountSId = ?;
+configurable string authToken = ?;
+configurable string fromMobile = ?;
+configurable string toMobile = ?;
+public function main() {
+    //Twilio Client configuration
+    twilio:TwilioConfiguration twilioConfig = {
+        accountSId: accountSId,
+        authToken: authToken
+    };
 
-    configurable string accountSId = ?;
-    configurable string authToken = ?;
-    configurable string fromMobile = ?;
-    configurable string toMobile = ?;
+    //Twilio Client
+    twilio:Client twilioClient = new (twilioConfig);
 
-    public function main() {
-        //Twilio Client configuration
-        twilio:TwilioConfiguration twilioConfig = {
-            accountSId: accountSId,
-            authToken: authToken
-        };
+    //Send whatsapp remote function is called by the twilio client
+    var details = twilioClient->sendWhatsAppMessage(fromNo = fromMobile, toNo = toMobile, message = "Test Whatsapp");
 
-        //Twilio Client
-        twilio:Client twilioClient = new (twilioConfig);
-
-        //Send whatsapp remote function is called by the twilio client
-        var details = twilioClient->sendWhatsAppMessage(fromNo = fromMobile, toNo = toMobile, message = "Test Whatsapp");
-
-        //Response is printed as log messages
-        if (details is twilio:WhatsAppResponse) {
-            log:printInfo("Message Detail: " + details.toString());
-        } else {
-            log:printInfo(details.message());
-        }
+    //Response is printed as log messages
+    if (details is twilio:WhatsAppResponse) {
+        log:printInfo("Message Detail: " + details.toString());
+    } else {
+        log:printInfo(details.message());
     }
+}
 ```
 ### Make a voice call
 You can make voice call with twilio voice enabled phone number. The following should be provided in addition to the account access credentials.
@@ -262,70 +252,75 @@ You can make voice call with twilio voice enabled phone number. The following sh
 ⋅⋅* `statusCallback` - Optionally, instead of passing the Twiml parameter, you can provide a Url that returns TwiML Voice instructions.
 Sample is available at: samples/client samples/makeVoiceCall.bal
 ```ballerina
-    import ballerina/log;
-    import ballerinax/twilio;
+import ballerina/log;
+import ballerinax/twilio;
 
-    configurable string accountSId = ?;
-    configurable string authToken = ?;
-    configurable string fromMobile = ?;
-    configurable string toMobile = ?;
-    configurable string twimlURL = ?;
+configurable string accountSId = ?;
+configurable string authToken = ?;
+configurable string fromMobile = ?;
+configurable string toMobile = ?;
+configurable string messageOrLink = ?;
 
-    public function main() {
-        //Twilio Client configuration
-        twilio:TwilioConfiguration twilioConfig = {
-            accountSId: accountSId,
-            authToken: authToken
-        };
+public function main() returns error?{
+    //Voice message type: twilio:MESSAGE_IN_TEXT or twilio:TWIML_URL
+    twilio:VoiceCallInput voiceInput = { 
+        userInput:messageOrLink, 
+        userInputType: twilio:MESSAGE_IN_TEXT
+    };
+      
+   //Twilio Client configuration
+    twilio:TwilioConfiguration twilioConfig = {
+        accountSId: accountSId,
+        authToken: authToken
+    };
 
-        //Twilio Client
-        twilio:Client twilioClient = new (twilioConfig);
+    //Twilio Client
+    twilio:Client twilioClient = check new (twilioConfig);
 
-        //Make voice Call remote function is called by the twilio client
-        var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL);
+    //Make voice Call remote function is called by the twilio client
+     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
 
-        //Response is printed as log messages
-        if (details is twilio:VoiceCallResponse) {
-            log:printInfo("Message Detail: " + details.toString());
-        } else {
-            log:printInfo(details.message());
-        }
+    //Response is printed as log messages
+    if (details is twilio:VoiceCallResponse) {
+        log:printInfo("Message Detail: " + details.toString());
+    } else {
+        log:printInfo(details.message());
     }
-```
+}
+
+```   
 
 ### Get a message
 This section shows you how to get a message details  from your account. you need to provide message sid to retreive the details from the message list of your account. If the request is successful, it will send the MessageResourceResponse record else an error message with the details.
 Sample is available at: samples/client samples/getMessage.bal
 ```ballerina
-    import ballerina/log;
-    import ballerinax/twilio;
+import ballerina/log;
+import ballerinax/twilio;
+configurable string accountSId = ?;
+configurable string authToken = ?;
+public function main() {
+    //Twilio client configuration
+    twilio:TwilioConfiguration twilioConfig = {
+        accountSId: accountSId,
+        authToken: authToken
+    };
 
-    configurable string accountSId = ?;
-    configurable string authToken = ?;
+    //Twilio client
+    twilio:Client twilioClient = new(twilioConfig);
+    
+    //Set Message resource SID to get themessage detial
+    string messageSid = "<Add Mesaage SID>";
 
-    public function main() {
-        //Twilio client configuration
-        twilio:TwilioConfiguration twilioConfig = {
-            accountSId: accountSId,
-            authToken: authToken
-        };
-
-        //Twilio client
-        twilio:Client twilioClient = new (twilioConfig);
-        
-        //Set Message resource SID to get the message detial
-        string messageSid = "<Add Mesaage SID>";
-
-        //Get SMS remote function is called by the twilio client
-        var details = twilioClient->getMessage(messageSid);
-
-        //Response is printed as log messages
-        if (details is twilio:MessageResourceResponse) {
-            log:printInfo("Message Detail: " + details.toString());
-        } else {
-            log:printInfo(details.message());
-        }
+    //Get SMS remote function is called by thetwilio client
+    var details = twilioClient->getMessag(messageSid);
+    
+    //Response is printed as log messages
+    if (details istwilio:MessageResourceResponse) {
+        log:printInfo("Message Detail: " +details.toString());
+    } else {
+        log:printInfo(details.message());
     }
+}
 ```
 ## Twilio Listener Operations
 
