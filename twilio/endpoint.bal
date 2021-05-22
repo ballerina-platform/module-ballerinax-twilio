@@ -29,7 +29,7 @@ public client class Client {
     public http:Client basicClient;
     public http:Client authyClient;
 
-    public isolated function init(TwilioConfiguration twilioConfig) {
+    public isolated function init(TwilioConfiguration twilioConfig) returns error? {
         self.accountSId = twilioConfig.accountSId;
         auth:CredentialsConfig config = {
             username: twilioConfig.accountSId,
@@ -37,19 +37,19 @@ public client class Client {
         };
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
-            self.basicClient = checkpanic new (TWILIO_API_BASE_URL, config = {
+            self.basicClient = check new (TWILIO_API_BASE_URL, config = {
                 auth: config ,
                 secureSocket: secureSocket
             });
-            self.authyClient = checkpanic new (AUTHY_API_BASE_URL, config = {
+            self.authyClient = check new (AUTHY_API_BASE_URL, config = {
                 auth: config,
                 secureSocket: secureSocket
             });
         } else {
-            self.basicClient = checkpanic new (TWILIO_API_BASE_URL, config = {
+            self.basicClient = check new (TWILIO_API_BASE_URL, config = {
                 auth: config
             });
-            self.authyClient = checkpanic new (AUTHY_API_BASE_URL, config = {
+            self.authyClient = check new (AUTHY_API_BASE_URL, config = {
                 auth: config
             });
         }
@@ -141,21 +141,27 @@ public client class Client {
     #
     # + fromNo - Mobile number which the voice call should be send from
     # + toNo - Mobile number which the voice call should be received to
-    # + twiml - TwiML URL which the response of the voice call is stated
+    # + voiceCallInput - What should be heard when the other party picks up the phone (a Url that returns TwiML Voice instructions or 
+    #                    inline message. example: "http://demo.twilio.com/docs/voice.xml" or "Thank you for calling")
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status 
-    #                     needs to be delivered.
+    #                     needs to be delivered
     # + return - If success, returns voice call response object with basic details, else returns error
     @display {label: "Make a voice call"}
     remote isolated function makeVoiceCall(@display {label: "Caller Number"} string fromNo, 
                                            @display {label: "Callee Number"}string toNo, 
-                                           @display {label: "TwiML URL"} string twiml, 
+                                           @display {label: "Voice Message and Type"} VoiceCallInput voiceCallInput, 
                                            @display {label: "Callback URL"} StatusCallback? statusCallback = ()) returns 
                                            @tainted  @display {label: "Voice Call Response"} VoiceCallResponse|error {
         http:Request req = new;
         string requestBody = "";
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, URL, twiml);
+        if(voiceCallInput.userInputType == TWIML_URL)  {
+            requestBody = check createUrlEncodedRequestBody(requestBody, URL, voiceCallInput.userInput);
+        } else {
+            string voiceMessage = string `<Response><Say>${voiceCallInput.userInput}</Say></Response>`;
+            requestBody = check createUrlEncodedRequestBody(requestBody, TWIML, voiceMessage);
+        }
         if (statusCallback is StatusCallback) {
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_URL, statusCallback.url);
             requestBody = check createUrlEncodedRequestBody(requestBody, STATUS_CALLBACK_METHOD, statusCallback.method);

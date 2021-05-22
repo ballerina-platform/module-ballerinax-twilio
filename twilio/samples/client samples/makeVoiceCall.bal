@@ -21,20 +21,26 @@ configurable string accountSId = ?;
 configurable string authToken = ?;
 configurable string fromMobile = ?;
 configurable string toMobile = ?;
-configurable string twimlURL = ?;
+configurable string messageOrLink = ?;
 
-public function main() {
-    //Twilio Client configuration
+public function main() returns error?{
+    //Voice message type: twilio:MESSAGE_IN_TEXT or twilio:TWIML_URL
+    twilio:VoiceCallInput voiceInput = { 
+        userInput:messageOrLink, 
+        userInputType: twilio:MESSAGE_IN_TEXT
+    };
+      
+   //Twilio Client configuration
     twilio:TwilioConfiguration twilioConfig = {
         accountSId: accountSId,
         authToken: authToken
     };
 
     //Twilio Client
-    twilio:Client twilioClient = new (twilioConfig);
+    twilio:Client twilioClient = check new (twilioConfig);
 
     //Make voice Call remote function is called by the twilio client
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL);
+     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
 
     //Response is printed as log messages
     if (details is twilio:VoiceCallResponse) {
