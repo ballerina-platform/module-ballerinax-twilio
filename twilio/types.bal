@@ -278,8 +278,8 @@ public type MessageResourceResponse record {
 # + userInput - A Twiml URL or an inline Message that what should be heard when the other party picks up the phone 
 # + userInputType - Whether the userInput is a URL or inline message  
 public type VoiceCallInput record {
-     string userInput;
      VoiceCallInputType userInputType;
+     string userInput;
 };
 
 public enum VoiceCallInputType {
