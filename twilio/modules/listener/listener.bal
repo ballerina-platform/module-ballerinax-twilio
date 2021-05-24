@@ -16,12 +16,12 @@
 
 import ballerina/http;
 
-//todo:Verify by signing secret
+
+# Listener for the Twilio connector
+@display {label: "Twilio Listener"}
 public class Listener {
     private HttpService httpService;
-
     private http:Listener httpListener;
-
     private string callbackUrl = "";
     private string authToken = "";
     
