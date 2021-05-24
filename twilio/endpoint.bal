@@ -148,8 +148,8 @@ public client class Client {
     # + return - If success, returns voice call response object with basic details, else returns error
     @display {label: "Make a voice call"}
     remote isolated function makeVoiceCall(@display {label: "Caller Number"} string fromNo, 
-                                           @display {label: "Callee Number"}string toNo, 
-                                           @display {label: "Voice Message and Type"} VoiceCallInput voiceCallInput,  
+                                           @display {label: "Callee Number"} string toNo, 
+                                           @display {label: "Input"} VoiceCallInput voiceCallInput,  
                                            @display {label: "Callback URL"} StatusCallback? statusCallback = ()) returns 
                                            @tainted  @display {label: "Voice Call Response"} VoiceCallResponse|error {
         http:Request req = new;
