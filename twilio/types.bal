@@ -272,3 +272,17 @@ public type MessageResourceResponse record {
     string apiVersion = "";
     json subresourceUris = {};
 };
+
+# Represents voice call message input options
+#
+# + userInput - A Twiml URL or an inline Message that what should be heard when the other party picks up the phone 
+# + userInputType - Whether the userInput is a URL or inline message  
+public type VoiceCallInput record {
+     VoiceCallInputType userInputType;
+     string userInput;
+};
+
+public enum VoiceCallInputType {
+    TWIML_URL,
+    MESSAGE_IN_TEXT
+}

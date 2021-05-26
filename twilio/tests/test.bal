@@ -37,7 +37,7 @@ TwilioConfiguration twilioConfig = {
     accountSId: twilioAccountSid,
     authToken: twilioAuthToken
 };
-Client twilioClient = new (twilioConfig);
+Client twilioClient = check new (twilioConfig);
 
 @test:Config {
     groups: ["basic", "root"],
@@ -48,7 +48,6 @@ function testAccountDetails() {
         accountSId: twilioAccountSid,
         authToken: twilioAuthToken
     };
-    Client twilioClient = new (twilioConfig);
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
     var details = twilioClient->getAccountDetails();
@@ -124,8 +123,11 @@ function testMakeVoiceCall() {
     log:printInfo("twilioClient -> makeVoiceCall()");
     string fromMobile = fromNumber;
     string toMobile = toNumber;
-    string twimlURL = twimlUrl;
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, twimlURL);
+    //Set string Message or Twiml Link
+    //string twimlURL = twimlUrl; 
+    string message = "This is a test call from eco system team";
+    VoiceCallInput voiceInput = { userInput:message, userInputType: MESSAGE_IN_TEXT};
+    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
     if (details is VoiceCallResponse) {
         log:printInfo(details.sid.toBalString());
     } else {
