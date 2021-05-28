@@ -28,9 +28,41 @@ The Twilio connector consists with two modules
 * Java 11 Installed. 
 Java Development Kit (JDK) with version 11 is required.
 
-* Ballerina Swan Lake Alpha 4 is required. 
+* Ballerina Swan Lake Beta 1 is required. 
 
 * (optional)[ngork](https://ngrok.com/) is requried to test listner samples using localhost
+
+# Configuration
+
+## Twilio Client Connector Configuration
+
+1. Create a twilio account and follow [this link](https://support.twilio.com/hc/en-us/articles/223136107-How-does-Twilio-s-Free-Trial-work-) to obtain a twilio phone number. If you use a trail account, you may need to verify your recipient phone numbers before having any communication with them.
+
+2. Go to this follow [this link](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them) to obtain twilio Account, Auth Token. 
+
+3. If you want to use Whatsapp service, Please configure your twilio phone number to use whatsApp services. You can find more detail on Twilio Whatsapp service [here](https://www.twilio.com/docs/whatsapp/api#manage-and-configure-your-whatsapp-enabled-twilio-numbers)
+
+4. Now you can use the obtained credential to use Twilio client connector. To do that, you may create a twilio client as shown in the samples with the following configuration record. You can also use Ballerina configurable variables to provide the credentials.
+
+```ballerina
+twilio:TwilioConfiguration twilioConfig = {
+        accountSId: <YOUR ACCOUNT SID>,
+        authToken: <YOUR AUTH TOKEN>
+    };
+```
+## Twilio Listener Configuration
+
+1. Similar to the above steps you need to obtain a twilio Auth token to use the twilio listener.
+
+2. You need to provide port number where the twilio listener listens for any twilio events requests from Twilio service
+
+3. You also need to provide a callback url before running the listener with suffix "onChange"
+example: <YOUR_CALL_BACK_URL>/onChange
+
+4. To Listen to incoming SMS or Voice call events, you need to add a callback url in your twilio account as shown in the following figure.
+
+![image](docs/images/webhook_callback.png)
+
 
 # Supported Versions & Limitations
 
@@ -38,7 +70,7 @@ Java Development Kit (JDK) with version 11 is required.
 
 |                           |    Version         |
 |:-------------------------:|:------------------:|
-| Ballerina Language        | Swan Lake Alpha 5  |
+| Ballerina Language        | Swan Lake Beta 1   |
 | Twilio Basic API          | 2010-04-01         |
 | Java Development Kit (JDK)| 11                 |
 
@@ -417,3 +449,22 @@ public function main() {
 
 }
 ```
+# Building from the source
+1. You need to obtain a twilio Account SID, an Auth Token and a valid twilio phone number to use the twilio connector operations.
+2. Clone the repository and Be sure to change to the branch which has the name as the Ballerina version. Eg: slAlpha5
+    * Note: You need to install the relevant Ballerina version before going to the next step.
+3. First, If you want to run tests, you will need to add to a Config.toml files to the client module test directory with the following credentials.
+```ballerina
+[ballerinax.twilio]
+twilioAccountSid ="<ACCOUNT SID>"
+twilioAuthToken ="<AUTH TOKEN>"
+fromNumber ="<YOUR TWILIO NUMBER>"
+toNumber ="RECIPIENT NUMBER"
+test_message ="<SMS MESSAGE>"
+twimlUrl ="<TWIML LINK>"
+fromWhatsappNumber="<TWILIO WHATSAPP NUMBER>"
+```
+4. Run `./gradlew build` to build the java wrapper.
+
+5. Run `bal build twilio` to build with tests or else Run `bal build --skip-tests twilio`.
+
