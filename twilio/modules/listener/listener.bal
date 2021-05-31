@@ -25,7 +25,9 @@ public class Listener {
     private string callbackUrl = "";
     private string authToken = "";
     
-    public isolated function init(int port, string authToken, string callbackUrl) returns error? {
+    public isolated function init(@display{label: "Port to listen on"} int port, 
+                                  @display{label: "Auth Token"} string authToken, 
+                                  @display{label: "Callback URL"} string callbackUrl) returns error? {
         self.authToken = authToken;
         self.callbackUrl = callbackUrl;
         self.httpListener = check new (port);
