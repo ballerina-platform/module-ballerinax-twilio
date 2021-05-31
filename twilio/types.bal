@@ -154,7 +154,7 @@ public type AuthyUserAddResponse record {
 # Represents Authy user status response.
 # + userId - Unique identifier of the user
 # + isConfirmed - Is user confirmed or not
-# + isRegistered - Is user registerd or not
+# + isRegistered - Is user registered or not
 # + countryCode - Country code of user
 # + phoneNumber - Phone number of user
 # + isAccountDisabled - Is account disabled or not
@@ -229,7 +229,7 @@ public type StatusCallback record {
     string[] events?;
 };
 
-#Represnets the message resource in the twilio rest api
+# Represents the message resource in the twilio rest api
 # + body - The message body 
 # + numSegments - The number of segments, which make up the complete message
 # + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
@@ -282,6 +282,10 @@ public type VoiceCallInput record {
      string userInput;
 };
 
+# Represents voice call input types
+#
+# + TWIML_URL - A URL that returns TwiML Voice instructions
+# + MESSAGE_IN_TEXT - A message in plain text format
 public enum VoiceCallInputType {
     TWIML_URL,
     MESSAGE_IN_TEXT
