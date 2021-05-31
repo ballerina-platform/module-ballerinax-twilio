@@ -8,7 +8,7 @@ WhatsApp messaging requires users to use predefined [message templates](https://
 
 |                          |    Version         |
 |:------------------------:|:------------------:|
-| Ballerina Language       | Swan Lake Alpha 5  |
+| Ballerina Language       | Swan Lake Beta 1   |
 | Twilio Basic API         | 2010-04-01         |
 
 ## Running tests
