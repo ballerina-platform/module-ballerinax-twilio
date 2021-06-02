@@ -61,9 +61,6 @@ example: <YOUR_CALL_BACK_URL>/onChange
 
 4. To Listen to incoming SMS or Voice call events, you need to add a callback url in your twilio account as shown in the following figure.
 
-![image](docs/images/webhook_callback.png)
-
-
 # Supported Versions & Limitations
 
 ## Supported Versions

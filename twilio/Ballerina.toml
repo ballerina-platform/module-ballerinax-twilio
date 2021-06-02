@@ -10,6 +10,6 @@ license = ["Apache-2.0"]
 
 [[platform.java11.dependency]]
 path = "../java-wrapper/build/libs/java-wrapper-0.99.9-SNAPSHOT.jar"
-groupId = "io.ballerinax.webhook"
+groupId = "org.ballerinalang.twilio"
 artifactId = "java-wrapper"
 version = "0.99.9-SNAPSHOT"

@@ -83,7 +83,7 @@ twilio:TwilioConfiguration twilioConfig = {
        - Account SId
        - Auth Token
 
-![image](twilio/samples/docs/dashboardTokens.png)
+![image](../twilio/samples/docs/dashboardTokens.png)
 
 3. Import the Twilio module to your Ballerina program as follows. You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials.
 
