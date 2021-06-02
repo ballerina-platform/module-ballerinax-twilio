@@ -1,4 +1,4 @@
-package io.ballerinax.webhook;
+package org.ballerinalang.twilio;
 
 import io.ballerina.runtime.api.Environment;
 import io.ballerina.runtime.api.Future;
@@ -20,7 +20,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static io.ballerina.runtime.api.utils.StringUtils.fromString;
 
-public class WebhookNativeOperationHandler {
+public class HttpNativeOperationHandler {
 
     public static Object callOnSmsReceived(Environment env, BObject bWebhookService, BMap<BString, Object> message) {
         return invokeRemoteFunction(env, bWebhookService, message, "callOnSmsReceived", "onSmsReceived");
