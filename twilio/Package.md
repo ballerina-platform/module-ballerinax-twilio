@@ -61,7 +61,7 @@ example: <YOUR_CALL_BACK_URL>/onChange
 
 4. To Listen to incoming SMS or Voice call events, you need to add the callback url in your twilio account as shown in the following figure.
 
-![image](docs/images/webhook_callback.png)
+![image](../docs/images/webhook_callback.png)
 
 
 # Supported Versions & Limitations
@@ -97,7 +97,7 @@ example: <YOUR_CALL_BACK_URL>/onChange
        - Account SId
        - Auth Token
 
-![image](twilio/samples/docs/dashboardTokens.png)
+![image](../twilio/samples/docs/dashboardTokens.png)
 
 3. Import the Twilio module to your Ballerina program as follows. You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials.
 

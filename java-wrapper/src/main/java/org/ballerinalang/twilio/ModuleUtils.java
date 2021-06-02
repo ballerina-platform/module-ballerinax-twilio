@@ -1,4 +1,4 @@
-package io.ballerinax.webhook;
+package org.ballerinalang.twilio;
 
 import io.ballerina.runtime.api.Environment;
 import io.ballerina.runtime.api.Module;
