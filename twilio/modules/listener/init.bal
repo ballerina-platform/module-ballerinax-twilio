@@ -21,5 +21,5 @@ isolated function init() {
 }
 
 isolated function setModule() = @java:Method {
-    'class: "io.ballerinax.webhook.ModuleUtils"
+    'class: "org.ballerinalang.twilio.ModuleUtils"
 } external;

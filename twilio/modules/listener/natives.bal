@@ -18,37 +18,37 @@ import ballerina/jballerina.java;
 
 isolated function callOnSmsReceived(SimpleHttpService httpService, SmsStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnSmsQueued(SimpleHttpService httpService, SmsStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnSmsSent(SimpleHttpService httpService, SmsStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnSmsDelivered(SimpleHttpService httpService, SmsStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnCallRang(SimpleHttpService httpService, CallStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnCallAnswered(SimpleHttpService httpService, CallStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 isolated function callOnCallCompleted(SimpleHttpService httpService, CallStatusChangeEvent event)
                                 returns error? = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
 
 # Invoke native method to retrieve implemented method names in the subscriber service
@@ -56,5 +56,5 @@ isolated function callOnCallCompleted(SimpleHttpService httpService, CallStatusC
 # + httpService - current http service
 # + return - {@code string[]} containing the method-names in current implementation
 isolated function getServiceMethodNames(SimpleHttpService httpService) returns string[] = @java:Method {
-    'class: "io.ballerinax.webhook.WebhookNativeOperationHandler"
+    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
 } external;
