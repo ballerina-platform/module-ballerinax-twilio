@@ -65,3 +65,5 @@ public const GET = "GET";
 
 //Symbols
 const string FORWARD_SLASH = "/";
+const string EMPTY_STRING = "";
+const string COLON = ":";
