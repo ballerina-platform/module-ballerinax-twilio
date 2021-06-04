@@ -18,7 +18,7 @@ import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
 
-# Object for Twilio endpoint.
+# Client for Twilio endpoint.
 #
 # + accountSId - Unique identifier of the account
 # + basicClient - HTTP client endpoint for basic api
@@ -49,7 +49,7 @@ public client class Client {
     # Return account details of the given account-sid.
     #
     # + return - If success, returns account object with basic details, else returns error
-    @display {label: "Get twilio account details"}
+    @display {label: "Get Twilio Account Details"}
     remote isolated function getAccountDetails() returns @tainted @display {label: "Account"} Account|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + JSON_EXTENSION;
         http:Response response = check self.basicClient->get(requestPath);
@@ -65,14 +65,14 @@ public client class Client {
     # + message - Message body of the SMS
     # + statusCallbackUrl - (optional) Callback URL where the status callback events are needed to be dispatched
     # + return - If success, returns a programmable SMS response object, else returns error
-    @display {label: "Get an SMS"}
+    @display {label: "Send SMS"}
     remote isolated function sendSms(@display {label: "Sender's Number"} string fromNo, 
                                      @display {label: "Recipient's Number"} string toNo, 
                                      @display {label: "Message"} string message, 
                                      @display {label: "Callback URL"}string? statusCallbackUrl = ()) returns 
                                      @tainted @display {label: "SMS Response"} SmsResponse|error {
         http:Request req = new;
-        string requestBody = "";
+        string requestBody = EMPTY_STRING;
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
@@ -92,7 +92,7 @@ public client class Client {
     #
     # + messageSid - Message-sid of a relevant message
     # + return - If success, returns a message resource response record, else returns error
-    @display {label: "Get Message"}
+    @display {label: "Get Message Details"}
     remote isolated function getMessage(@display {label: "Message SID"} string messageSid) returns @tainted 
                                         @display {label: "Message Resource Response"} MessageResourceResponse|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + MESSAGE + messageSid 
@@ -109,16 +109,16 @@ public client class Client {
     # + toNo - Mobile number by which the WhatsApp message should be received
     # + message - Message body of the WhatsApp message
     # + return - If success, returns a WhatsAppResponse object, else returns error
-    @display {label: "Send a WhatsApp Message"}
+    @display {label: "Send WhatsApp Message"}
     remote isolated function sendWhatsAppMessage(@display {label: "Sender's Number"} string fromNo, 
                                                  @display {label: "Recipient's Number"} string toNo, 
                                                  @display {label: "Message"} string message) returns 
                                                  @tainted @display {label: "WhatsApp Message Response"} WhatsAppResponse
                                                  |error {
         http:Request req = new;
-        string requestBody = "";
-        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + ":" + fromNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + ":" + toNo);
+        string requestBody = EMPTY_STRING;
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, WHATSAPP + COLON + fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, WHATSAPP + COLON + toNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
         req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + WHATSAPP_SEND;
@@ -137,14 +137,14 @@ public client class Client {
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status 
     #                     needs to be delivered
     # + return - If success, returns voice call response object with basic details, else returns error
-    @display {label: "Make a voice call"}
+    @display {label: "Make Voice Call"}
     remote isolated function makeVoiceCall(@display {label: "Caller Number"} string fromNo, 
                                            @display {label: "Callee Number"} string toNo, 
                                            @display {label: "Input"} VoiceCallInput voiceCallInput, 
                                            @display {label: "Callback URL"} StatusCallback? statusCallback = ()) returns 
                                            @tainted  @display {label: "Voice Call Response"} VoiceCallResponse|error {
         http:Request req = new;
-        string requestBody = "";
+        string requestBody = EMPTY_STRING;
         requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
         requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
         if(voiceCallInput.userInputType == TWIML_URL)  {
