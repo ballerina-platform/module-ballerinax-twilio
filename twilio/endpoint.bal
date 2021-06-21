@@ -69,7 +69,7 @@ public client class Client {
     remote isolated function sendSms(@display {label: "Sender's Number"} string fromNo, 
                                      @display {label: "Recipient's Number"} string toNo, 
                                      @display {label: "Message"} string message, 
-                                     @display {label: "Callback URL"}string? statusCallbackUrl = ()) returns 
+                                     @display {label: "Callback URL"} string? statusCallbackUrl = ()) returns 
                                      @tainted @display {label: "SMS Response"} SmsResponse|error {
         http:Request req = new;
         string requestBody = EMPTY_STRING;
