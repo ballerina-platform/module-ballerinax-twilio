@@ -224,8 +224,11 @@ public type Error TwilioError;
 # + method - HTTP method in which the event payload needs to be delivered
 # + events - Interested list of status change events.
 public type StatusCallback record {
+    @display {label: "URL"}
     string url;
+    @display {label: "Method"}
     string method;
+    @display {label: "Events"}
     string[] events?;
 };
 
@@ -274,12 +277,13 @@ public type MessageResourceResponse record {
 };
 
 # Represents voice call message input options
-#
-# + userInput - A Twiml URL or an inline Message that what should be heard when the other party picks up the phone 
 # + userInputType - Whether the userInput is a URL or inline message  
+# + userInput - A Twiml URL or an inline Message that what should be heard when the other party picks up the phone 
 public type VoiceCallInput record {
-     VoiceCallInputType userInputType;
-     string userInput;
+    @display {label: "User Input Type"}
+    VoiceCallInputType userInputType;
+    @display {label: "User Input"}
+    string userInput;
 };
 
 # Represents voice call input types
