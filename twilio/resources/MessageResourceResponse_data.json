@@ -1,5 +1,5 @@
 {
-    "ballerinax/twilio:0.99.8:MessageResourceResponse": [
+    "ballerinax/twilio:0.99.9-SNAPSHOT:MessageResourceResponse": [
         {
             "body": "Ballerina is an open source programming language and platform for cloud-era application programmers to easily write software that just works.",
             "numSegments": "1",

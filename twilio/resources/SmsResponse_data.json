@@ -1,5 +1,5 @@
 {
-    "ballerinax/twilio:0.99.8:SmsResponse": [
+    "ballerinax/twilio:0.99.9-SNAPSHOT:SmsResponse": [
         {
             "sid": "SMf5a0097444fc4a93890704d4c3c7c258",
             "dateCreated": "Sat, 15 May 2021 02:45:14 +0000",
