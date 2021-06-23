@@ -1,5 +1,5 @@
 {
-    "ballerinax/twilio:0.99.8:WhatsAppResponse": [
+    "ballerinax/twilio:0.99.9-SNAPSHOT:WhatsAppResponse": [
         {
             "sid": "SMfae912edd0d3409eac614e3e606932fa",
             "dateCreated": "Sat, 15 May 2021 02:45:18 +0000",

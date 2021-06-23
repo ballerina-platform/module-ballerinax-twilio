@@ -1,5 +1,5 @@
 {
-    "ballerinax/twilio:0.99.8:VoiceCallResponse": [
+    "ballerinax/twilio:0.99.9-SNAPSHOT:VoiceCallResponse": [
         {
             "sid": "CAe174a5e2635b1dc9c2dccd86b13bd2ce",
             "status": "queued",
