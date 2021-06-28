@@ -16,45 +16,47 @@
 
 import ballerina/jballerina.java;
 
-isolated function callOnSmsReceived(SimpleHttpService httpService, SmsStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+isolated class HttpToTwilioAdaptor {
+    isolated function init(SimpleHttpService serviceObj) returns error? {
+        externInit(self, serviceObj);
+    }
 
-isolated function callOnSmsQueued(SimpleHttpService httpService, SmsStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnSmsReceived(SmsStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-isolated function callOnSmsSent(SimpleHttpService httpService, SmsStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnSmsQueued(SmsStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-isolated function callOnSmsDelivered(SimpleHttpService httpService, SmsStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnSmsSent(SmsStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-isolated function callOnCallRang(SimpleHttpService httpService, CallStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnSmsDelivered(SmsStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-isolated function callOnCallAnswered(SimpleHttpService httpService, CallStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnCallRang(CallStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-isolated function callOnCallCompleted(SimpleHttpService httpService, CallStatusChangeEvent event)
-                                returns error? = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
-} external;
+    isolated function callOnCallAnswered(CallStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
 
-# Invoke native method to retrieve implemented method names in the subscriber service
-#
-# + httpService - current http service
-# + return - {@code string[]} containing the method-names in current implementation
-isolated function getServiceMethodNames(SimpleHttpService httpService) returns string[] = @java:Method {
-    'class: "org.ballerinalang.twilio.HttpNativeOperationHandler"
+    isolated function callOnCallCompleted(CallStatusChangeEvent event) returns error? = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
+
+    # Invoke native method to retrieve implemented method names in the subscriber service
+    #
+    # + return - {@code string[]} containing the method-names in current implementation
+    isolated function getServiceMethodNames() returns string[] = @java:Method {
+        'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
+    } external;
+}
+
+isolated function externInit(HttpToTwilioAdaptor adaptor, SimpleHttpService serviceObj) = @java:Method {
+    'class: "org.ballerinalang.twilio.NativeHttpToTwilioAdaptor"
 } external;
