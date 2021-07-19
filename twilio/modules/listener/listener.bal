@@ -33,8 +33,9 @@ public class Listener {
         self.httpListener = check new (port);
     }
 
-    public isolated function attach(SimpleHttpService s, string[]|string? name) returns error? {       
-        self.httpService = new HttpService(s, self.callbackUrl, self.authToken);
+    public isolated function attach(SimpleHttpService s, string[]|string? name) returns error? {  
+        HttpToTwilioAdaptor adaptor = check new (s);    
+        self.httpService = new HttpService(adaptor, self.callbackUrl, self.authToken);
         check self.httpListener.attach(self.httpService, name);
     }
 

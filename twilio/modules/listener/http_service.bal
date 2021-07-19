@@ -19,53 +19,38 @@ import ballerina/http;
 import ballerina/log;
 import ballerina/url;
 
-service class HttpService {
+isolated service class HttpService {
 
-    private boolean isOnSmsQueued = false;
-    private boolean isOnSmsSent = false;
-    private boolean isOnSmsDelivered = false;
-    private boolean isOnSmsReceived = false;
+    private final boolean isOnSmsQueued;
+    private final boolean isOnSmsSent;
+    private final boolean isOnSmsDelivered;
+    private final boolean isOnSmsReceived;
 
-    private boolean isOnCallRang = false;
-    private boolean isOnCallAnswered = false;
-    private boolean isOnCallCompleted = false;
+    private final boolean isOnCallRang;
+    private final boolean isOnCallAnswered;
+    private final boolean isOnCallCompleted;
     
-    private SimpleHttpService httpService;
-    private string authToken;
-    private string callbackUrl;
+    private final HttpToTwilioAdaptor adaptor;
+    private final string authToken;
+    private final string callbackUrl;
 
-    public isolated function init(SimpleHttpService httpService, string callbackUrl, string authToken) {
-        self.httpService = httpService;
+    isolated function init(HttpToTwilioAdaptor adaptor, string callbackUrl, string authToken) {
+        self.adaptor = adaptor;
         self.callbackUrl = callbackUrl;
         self.authToken = authToken;
-        string[] methodNames = getServiceMethodNames(httpService);
 
-        foreach var methodName in methodNames {
-            match methodName {
-                "onSmsReceived" => {
-                    self.isOnSmsReceived = true;
-                }
-                "onSmsQueued" => {
-                    self.isOnSmsQueued = true;
-                }
-                "onSmsSent" => {
-                    self.isOnSmsSent = true;
-                }
-                "onSmsDelivered" => {
-                    self.isOnSmsDelivered = true;
-                }
-                "onCallRang" => {
-                    self.isOnCallRang = true;
-                }
-                "onCallAnswered" => {
-                    self.isOnCallAnswered = true;
-                }
-                "onCallCompleted" => {
-                    self.isOnCallCompleted = true;
-                }
-                _ => {
-                    log:printError("Unrecognized method [" + methodName + "] found in the implementation");
-                }
+        string[] methodNames = adaptor.getServiceMethodNames();
+        self.isOnSmsReceived = isMethodAvailable("onSmsReceived", methodNames);
+        self.isOnSmsQueued = isMethodAvailable("onSmsQueued", methodNames);
+        self.isOnSmsSent = isMethodAvailable("onSmsSent", methodNames);
+        self.isOnSmsDelivered = isMethodAvailable("onSmsDelivered", methodNames);
+        self.isOnCallRang = isMethodAvailable("onCallRang", methodNames);
+        self.isOnCallAnswered = isMethodAvailable("onCallAnswered", methodNames);
+        self.isOnCallCompleted = isMethodAvailable("onCallCompleted", methodNames);
+
+        if (methodNames.length() > 0) {
+            foreach string methodName in methodNames {
+                log:printError("Unrecognized method [" + methodName + "] found in user implementation."); 
             }
         }
     }
@@ -86,17 +71,17 @@ service class HttpService {
             match CallStatus.toString() {
                 RINGING => {
                     if (self.isOnCallRang) {
-                        check callOnCallRang(self.httpService, eventPayload);
+                        check self.adaptor.callOnCallRang(eventPayload);
                     }
                 }
                 IN_PROGRESS => {
                     if (self.isOnCallAnswered) {
-                        check callOnCallAnswered(self.httpService, eventPayload);
+                        check self.adaptor.callOnCallAnswered(eventPayload);
                     }
                 }
                 COMPLETED => {
                     if (self.isOnCallCompleted) {
-                        check callOnCallCompleted(self.httpService, eventPayload);
+                        check self.adaptor.callOnCallCompleted(eventPayload);
                     }
                 }
                 _ => {
@@ -111,22 +96,22 @@ service class HttpService {
             match SmsStatus.toString() {
                 QUEUED => {
                     if (self.isOnSmsQueued) {
-                        check callOnSmsQueued(self.httpService, eventPayload);
+                        check self.adaptor.callOnSmsQueued(eventPayload);
                     }
                 }
                 SENT => {
                     if (self.isOnSmsSent) {
-                        check callOnSmsSent(self.httpService, eventPayload);
+                        check self.adaptor.callOnSmsSent(eventPayload);
                     }
                 }
                 DELIVERED => {
                     if (self.isOnSmsDelivered) {
-                        check callOnSmsDelivered(self.httpService, eventPayload);
+                        check self.adaptor.callOnSmsDelivered(eventPayload);
                     }
                 }
                 RECEIVED => {
                     if (self.isOnSmsReceived) {
-                        check callOnSmsReceived(self.httpService, eventPayload);
+                        check self.adaptor.callOnSmsReceived(eventPayload);
                     }
                 }
                 _ => {
@@ -166,4 +151,20 @@ service class HttpService {
 
         return urlEncodedValue;
     }
+}
+
+# Retrieves whether the particular remote method is available.
+#
+# + methodName - Name of the required method
+# + methods - All available methods
+# + return - `true` if method available or else `false`
+isolated function isMethodAvailable(string methodName, string[] methods) returns boolean {
+    boolean isAvailable = methods.indexOf(methodName) is int;
+    if (isAvailable) {
+        var index = methods.indexOf(methodName);
+        if (index is int) {
+            _ = methods.remove(index);
+        }
+    }
+    return isAvailable;
 }
