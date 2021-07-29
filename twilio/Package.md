@@ -1,8 +1,8 @@
 Connects to Twilio from Ballerina
 
 ### Package Overview
-The `ballerinax/twilio` is a [Ballerina](https://ballerina.io/) connector for twilio.
-This package provides the capability to easily access twilio communication services.
+The `ballerinax/twilio` is a [Ballerina](https://ballerina.io/) connector for Twilio.
+This package provides the capability to easily access Twilio communication services.
 
 #### Compatibility
 |                               | Version                              |

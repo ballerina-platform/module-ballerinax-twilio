@@ -229,7 +229,7 @@ public type StatusCallback record {
     string[] events?;
 };
 
-# Represents the message resource in the twilio rest api
+# Represents the message resource in the Twilio rest api.
 # + body - The message body 
 # + numSegments - The number of segments, which make up the complete message
 # + direction - The direction of the message (inbound, outbound-api, outbound-call, outbound-reply)
@@ -273,7 +273,7 @@ public type MessageResourceResponse record {
     json subresourceUris = {};
 };
 
-# Represents voice call message input options
+# Represents voice call message input options.
 #
 # + userInput - A Twiml URL or an inline Message that what should be heard when the other party picks up the phone 
 # + userInputType - Whether the userInput is a URL or inline message  
@@ -282,7 +282,7 @@ public type VoiceCallInput record {
     string userInput;
 };
 
-# Represents voice call input types
+# Represents voice call input types.
 #
 # + TWIML_URL - A URL that returns TwiML Voice instructions
 # + MESSAGE_IN_TEXT - A message in plain text format

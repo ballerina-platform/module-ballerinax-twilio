@@ -83,7 +83,7 @@ You can make voice call with twilio voice enabled phone number. The following sh
 2. `toNo` - the person you'd like to call
 3. `VoiceCallInput` - Instructions in the form [TwiML](https://www.twilio.com/docs/voice/twiml) that explains what should happen when the other party picks up the phone.
 4. `statusCallback` - Optionally, instead of passing the Twiml parameter, you can provide a Url that returns TwiML Voice instructions.
-Sample is available at: samples/client samples/makeVoiceCall.bal
+To understand this scenario better, try out the [Make Voice Call sample](samples/makeVoiceCall.bal)
 ```ballerina
     //Voice message type: twilio:MESSAGE_IN_TEXT or twilio:TWIML_URL
     twilio:VoiceCallInput voiceInput = { 
@@ -94,8 +94,7 @@ Sample is available at: samples/client samples/makeVoiceCall.bal
     twilio:VoiceCallResponse response = check twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
 ```   
 * Get a message
-This section shows you how to get a message details  from your account. you need to provide message sid to retrieve the details from the message list of your account. If the request is successful, it will send the MessageResourceResponse record else an error message with the details.
-Sample is available at: samples/client samples/getMessage.bal
+This section shows you how to get details of a message from your account. You need to provide the message SID (<EXPANSION_OF_SID>) to retrieve the details from the message list of your account. If the request is successful, you will receive the MessageResourceResponse record. If not, you will receive an error message with details
 ```ballerina    
     twilio:MessageResourceResponse response = check twilioClient->getMessage(<Add Mesaage SID>);
 ```
