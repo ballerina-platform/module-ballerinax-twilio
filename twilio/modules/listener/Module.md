@@ -4,21 +4,8 @@ The Twilio Listener connector allows you to listen to Twilio SMS and Call status
 1. Listen to incoming message events and message status change callback events from the twilio SMS
 2. Listen to incoming call events and call status change callback events from the twilio Voice Call
 
-This module supports 2010-04-01 version
+This module supports [Twilio Basic API 2010-04-01](https://www.twilio.com/docs/all) version.
 
-### Note:
-
-Callback URL registration method depends on the event type.
-1. Twilio SMS
- - Incoming Messages
-    - Callback webhook URL has to be registered in the console under the particular Twilio number.
- - Status change events
-    - Callback webhook URL has to be registered at the time of sending the SMS (from the client connector)
-2. Twilio Call
- - Incoming Call
-    - Callback webhook URL has to be registered in the console under the particular Twilio number.
- - Status change events
-    - Callback webhook URL has to be registered at the time of making the call (from the client connector)
 
 ## Prerequisites
 Before using this connector in your Ballerina application, complete the following:
@@ -40,19 +27,34 @@ Before using this connector in your Ballerina application, complete the followin
 
 To use the twilio listener in your Ballerina application, update the .bal file as follows:
 
-### Step 1: Import twilio listener
+### Note:
+
+Callback URL registration method depends on the event type.
+1. Twilio SMS
+ - Incoming Messages
+    - Callback webhook URL has to be registered in the console under the particular Twilio number.
+ - Status change events
+    - Callback webhook URL has to be registered at the time of sending the SMS (from the client connector)
+2. Twilio Call
+ - Incoming Call
+    - Callback webhook URL has to be registered in the console under the particular Twilio number.
+ - Status change events
+    - Callback webhook URL has to be registered at the time of making the call (from the client connector)
+
+### Step 1 - Import listener
 ```ballerina
     import ballerinax/twilio.'listener as twilioListener;
 ```
-### Step 2: Provide credentials for the configuration
+### Step 2 - Create a new listener instance
 ```ballerina
     configurable string & readonly twilioAuthToken = ?;
     configurable string & readonly callbackUrl = ?;
     configurable int & readonly port = ?;
-```
-### Step 3: Initialize the listener with the port and the configuration details
+
     listener twilioListener:Listener tListener = new (port, twilioAuthToken, callbackUrl);
-### Step 4: Add the relevant remote function inside the service to be triggered by the twilio events
+```
+### Step 3 - Add a service 
+1. Add a service with necessary remote functions as below
 ```ballerina
     service / on tListener {
         remote function onSmsDelivered(twilioListener:SmsStatusChangeEvent event) returns error? {
@@ -60,6 +62,7 @@ To use the twilio listener in your Ballerina application, update the .bal file a
         }
     }
 ```
+2. Use `bal run` command to compile and run the Ballerina program.
 
 ## Quick reference
 Code snippets of some frequently used functions: 
