@@ -9,14 +9,12 @@ Twilio’s APIs power its platform for communications.
 
 The Twilio connector allows you to send SMS, voice, and WhatsApp messages via the Twilio REST API. It also facilitates receiving inbound HTTP(S) requests (also known as webhooks) from Twilio's servers. 
  
-For more information about configuration and operations, go to the module. 
-- [`twilio`](twilio/Module.md)
-- [`twilio.listener`](twilio/modules/listener/Module.md)
+For more information about configurations and operations, click the relevant module in [Ballerina Documentation - ballerinax/twilio](https://lib.ballerina.io/ballerinax/twilio/latest)
 
 
 ## Building from the Source
 ### Setting Up the Prerequisites
-1. Download and install Java SE Development Kit (JDK) version 11 (from one of the following locations).
+1. Download and install Java SE Development Kit (JDK) version 11 from one of the following locations.
  
   * [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
  
@@ -30,7 +28,7 @@ For more information about configuration and operations, go to the module.
  
 ### Building the Source
  
-Execute the commands below to build from the source.
+Execute the commands below to build from the source:
  
 * To build the package:
    ```   
@@ -44,7 +42,7 @@ Execute the commands below to build from the source.
  
 As an open source project, Ballerina welcomes contributions from the community.
  
-For more information, go to the [contribution guidelines](https://github.com/ballerina-platform/ballerina-lang/blob/master/CONTRIBUTING.md).
+For more information, see [contribution guidelines](https://github.com/ballerina-platform/ballerina-lang/blob/master/CONTRIBUTING.md).
  
 ## Code of Conduct
  
@@ -52,6 +50,6 @@ All contributors are encouraged to read the [Ballerina Code of Conduct](https://
  
 ## Useful Links
  
-* Discuss code changes of the Ballerina project in [ballerina-dev@googlegroups.com](mailto:ballerina-dev@googlegroups.com).
+* Discuss code changes of the Ballerina project via [ballerina-dev@googlegroups.com](mailto:ballerina-dev@googlegroups.com).
 * Chat live with us via our [Slack channel](https://ballerina.io/community/slack/).
 * Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag.

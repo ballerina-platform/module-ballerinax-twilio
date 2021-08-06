@@ -64,38 +64,4 @@ Callback URL registration method depends on the event type.
 ```
 2. Use `bal run` command to compile and run the Ballerina program.
 
-## Quick reference
-Code snippets of some frequently used functions: 
-* QUEUED/SENT/DELIVERED SMS Event
-This examples shows how you can start a ballerina twilio listener using localhost. you will need to use ngork to expose a web server running on your local machine to the internet.
-```ballerina
-    service / on tListener {
-        remote function onCallRang(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("Ringing", event);
-        }
-        remote function onCallAnswered(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("In Progress", event);
-        }
-        remote function onCallCompleted(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("Completed", event);
-        }
-    }
-}
-```
-* Ringing/InProgress/Completed Voice Call Events
-This provides the listener support to the voice calls. you will need to use ngork to expose a web server running on your local machine to the internet. Find more sample from here.
-```ballerina
-    service / on tListener {
-        remote function onCallRang(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("Ringing", event);
-        }
-        remote function onCallAnswered(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("In Progress", event);
-        }
-        remote function onCallCompleted(twilioListener:CallStatusChangeEvent event) returns error? {
-            log:printInfo("Completed", event);
-        }
-    }
-}
-```
 **[You can find more samples here](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/twilio/samples)**
