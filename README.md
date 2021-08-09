@@ -9,7 +9,9 @@ Twilio’s APIs power its platform for communications.
 
 The Twilio connector allows you to send SMS, voice, and WhatsApp messages via the Twilio REST API. It also facilitates receiving inbound HTTP(S) requests (also known as webhooks) from Twilio's servers. 
  
-For more information about configurations and operations, click the relevant module in [Ballerina Documentation - ballerinax/twilio](https://lib.ballerina.io/ballerinax/twilio/latest)
+For more information about configuration and operations, go to the module. 
+- [twilio](twilio/Module.md)
+- [twilio.listener](twilio/modules/listener/Module.md)
 
 
 ## Building from the Source
