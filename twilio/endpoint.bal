@@ -18,15 +18,23 @@ import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
 
-# Client for Twilio endpoint.
+# The Twilio API provides capability to access its platform for communications. These APIs connects 
+# the software layer and communications networks around the world to allow users to call and message anyone, globally. 
 #
 # + accountSId - Unique identifier of the account
 # + basicClient - HTTP client endpoint for basic api
 @display {label: "Twilio Client", iconPath: "logo.svg"}
-public client class Client {
-    public string accountSId;
-    public http:Client basicClient;
+public isolated client class Client {
+    private final string accountSId;
+    private final http:Client basicClient;
 
+    # Gets invoked to initialize the `connector`.
+    # The connector initialization requires setting the API credentials. 
+    # Create a [Twilio](https://www.twilio.com/) account and obtain account SID and auth token at [console](twilio.com/console) 
+    # or else follow this [guide](https://www.twilio.com/docs/usage/api#authenticate-with-http) for more details.
+    #
+    # + twilioConfig - Twilio connection configuration 
+    # + return - `http:Error` in case of failure to initialize or `null` if successfully initialized
     public isolated function init(TwilioConfiguration twilioConfig) returns error? {
         self.accountSId = twilioConfig.accountSId;
         auth:CredentialsConfig config = {
@@ -46,25 +54,24 @@ public client class Client {
         }
     }
 
-    # Return account details of the given account-sid.
+    # Gets account details of the given account-sid.
     #
-    # + return - If success, returns account object with basic details, else returns error
+    # + return - An account object with basic details or else an error
     @display {label: "Get Twilio Account Details"}
     remote isolated function getAccountDetails() returns @tainted @display {label: "Account"} Account|error {
         string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + JSON_EXTENSION;
         http:Response response = check self.basicClient->get(requestPath);
-        json jsonResponse = check parseResponseToJson(response);
-        map<json> payloadMap = <map<json>>jsonResponse;
+        map<json> payloadMap = <map<json>> check parseResponseToJson(response);
         return mapJsonToAccount(payloadMap);
     }
 
-    # Send SMS from the given account-sid.
+    # Sends SMS from the given account-sid.
     #
     # + fromNo - Mobile number which the SMS should be sent from
     # + toNo - Mobile number which the SMS should be received to
     # + message - Message body of the SMS
     # + statusCallbackUrl - (optional) Callback URL where the status callback events are needed to be dispatched
-    # + return - If success, returns a programmable SMS response object, else returns error
+    # + return - A programmable SMS response object or else an error
     @display {label: "Send SMS"}
     remote isolated function sendSms(@display {label: "Sender's Number"} string fromNo, 
                                      @display {label: "Recipient's Number"} string toNo, 
@@ -88,10 +95,10 @@ public client class Client {
         return mapJsonToSmsResponse(payloadMap);
     }
 
-    # Get the relavant message from a given message-sid.
+    # Gets the relevant message from a given message-sid.
     #
     # + messageSid - Message-sid of a relevant message
-    # + return - If success, returns a message resource response record, else returns error
+    # + return -  A message resource response record or else an error
     @display {label: "Get Message Details"}
     remote isolated function getMessage(@display {label: "Message SID"} string messageSid) returns @tainted 
                                         @display {label: "Message Resource Response"} MessageResourceResponse|error {
@@ -103,12 +110,12 @@ public client class Client {
         return mapJsonToMessageResourceResponse(payloadMap);
     }
 
-    # Send WhatsApp message from the given Sender ID of the account.
+    # Sends WhatsApp message from the given Sender ID of the account.
     #
     # + fromNo - Mobile number from which the WhatsApp message should be sent
     # + toNo - Mobile number by which the WhatsApp message should be received
     # + message - Message body of the WhatsApp message
-    # + return - If success, returns a WhatsAppResponse object, else returns error
+    # + return - A whatsAppResponse object or else an error
     @display {label: "Send WhatsApp Message"}
     remote isolated function sendWhatsAppMessage(@display {label: "Sender's Number"} string fromNo, 
                                                  @display {label: "Recipient's Number"} string toNo, 
@@ -128,7 +135,7 @@ public client class Client {
         return mapJsonToWhatsAppResponse(payloadMap);
     }
 
-    # Make a voice call from the given account-sid.
+    # Makes a voice call from the given account-sid.
     #
     # + fromNo - Mobile number which the voice call should be sent from
     # + toNo - Mobile number which the voice call should be received to
@@ -136,7 +143,7 @@ public client class Client {
     #                    inline message. example: "http://demo.twilio.com/docs/voice.xml" or "Thank you for calling")
     # + statusCallback - (optional) StatusCallback record which contains the callback url and the events whose status 
     #                     needs to be delivered
-    # + return - If success, returns voice call response object with basic details, else returns error
+    # + return - A voiceCallresponse object with basic details or else an error
     @display {label: "Make Voice Call"}
     remote isolated function makeVoiceCall(@display {label: "Caller Number"} string fromNo, 
                                            @display {label: "Callee Number"} string toNo, 
