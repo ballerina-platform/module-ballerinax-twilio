@@ -40,7 +40,7 @@ string COMMA = ",";
 string SQUARE_BRACKET_LEFT = "[";
 string SQUARE_BRACKET_RIGHT = "]";
 
-twilio:TwilioConfiguration twilioConfig = {
+twilio:ConnectionConfig twilioConfig = {
     accountSId: twilioAccountSid,
     authToken: twilioAuthToken
 };

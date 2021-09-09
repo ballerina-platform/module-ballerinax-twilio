@@ -33,7 +33,7 @@ configurable string test_message = os:getEnv("SAMPLE_MESSAGE");
 configurable string fromWhatsappNumber = os:getEnv("SAMPLE_WHATSAPP_SANDBOX");
 configurable string twimlUrl = os:getEnv("SAMPLE_TWIML_URL");
 
-TwilioConfiguration twilioConfig = {
+ConnectionConfig twilioConfig = {
     accountSId: twilioAccountSid,
     authToken: twilioAuthToken
 };
@@ -44,7 +44,7 @@ Client twilioClient = check new (twilioConfig);
     enable: true
 }
 function testAccountDetails() {
-    TwilioConfiguration twilioConfig = {
+    ConnectionConfig twilioConfig = {
         accountSId: twilioAccountSid,
         authToken: twilioAuthToken
     };

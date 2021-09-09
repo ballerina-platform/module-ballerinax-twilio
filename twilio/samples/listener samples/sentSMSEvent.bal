@@ -36,7 +36,7 @@ service / on tListener {
 }
 
 public function main() {
-    twilio:TwilioConfiguration twilioConfig = {
+    twilio:ConnectionConfig twilioConfig = {
         accountSId: twilioAccountSid,
         authToken: twilioAuthToken
     };
