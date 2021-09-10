@@ -23,7 +23,7 @@ import ballerina/mime;
 #
 # + accountSId - Unique identifier of the account
 # + basicClient - HTTP client endpoint for basic api
-@display {label: "Twilio Client", iconPath: "logo.svg"}
+@display {label: "Twilio Client", iconPath: "resources/twilio.svg"}
 public isolated client class Client {
     private final string accountSId;
     private final http:Client basicClient;
@@ -35,23 +35,15 @@ public isolated client class Client {
     #
     # + twilioConfig - Twilio connection configuration 
     # + return - `http:Error` in case of failure to initialize or `null` if successfully initialized
-    public isolated function init(TwilioConfiguration twilioConfig) returns error? {
+    public isolated function init(ConnectionConfig twilioConfig, http:ClientConfiguration httpClientConfig = {}) returns error? {
         self.accountSId = twilioConfig.accountSId;
-        auth:CredentialsConfig config = {
+        auth:CredentialsConfig authConfig = {
             username: twilioConfig.accountSId,
             password: twilioConfig.authToken
         };
-        var secureSocket = twilioConfig?.secureSocket;
-        if (secureSocket is http:ClientSecureSocket) {
-            self.basicClient = check new (TWILIO_API_BASE_URL, config = {
-                auth: config ,
-                secureSocket: secureSocket
-            });
-        } else {
-            self.basicClient = check new (TWILIO_API_BASE_URL, config = {
-                auth: config
-            });
-        }
+        http:ClientConfiguration httpConfig = httpClientConfig;
+        httpConfig.auth = authConfig;
+        self.basicClient = check new (TWILIO_API_BASE_URL, httpConfig);
     }
 
     # Gets account details of the given account-sid.
@@ -187,11 +179,9 @@ public isolated client class Client {
 # + authToken - The authentication token of the account
 # + secureSocket - SSL configurations 
 @display{label: "Connection Config"} 
-public type TwilioConfiguration record {
+public type ConnectionConfig record {
     @display{label: "Account SID"} 
     string accountSId;
     @display{label: "Auth Token"} 
     string authToken;
-    @display{label: "SSL Config"} 
-    http:ClientSecureSocket secureSocket?;
 };

@@ -42,7 +42,7 @@ To create a new connector instance, add a configuration as follows:
 configurable string accountSId = ?;
 configurable string authToken = ?;
 
-twilio:TwilioConfiguration twilioConfig = {
+twilio:ConnectionConfig twilioConfig = {
     accountSId: accountSId,
     authToken: authToken
 };

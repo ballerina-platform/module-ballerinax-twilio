@@ -5,7 +5,7 @@ version = "0.99.9-SNAPSHOT"
 export = ["twilio", "twilio.listener"]
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
-keywords = ["twilio", "sms", "call", "communication", "whatsapp", "webhook"]
+keywords = ["communication/phone & sms", "cost/paid"]
 license = ["Apache-2.0"]
 
 [[platform.java11.dependency]]

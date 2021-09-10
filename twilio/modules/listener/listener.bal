@@ -18,7 +18,7 @@ import ballerina/http;
 
 
 # Listener for the Twilio connector
-@display {label: "Twilio Listener"}
+@display {label: "Twilio Listener", iconPath: "resources/twilio.svg"}
 public class Listener {
     private HttpService httpService;
     private http:Listener httpListener;
