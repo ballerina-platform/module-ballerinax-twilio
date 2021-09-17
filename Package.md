@@ -28,7 +28,7 @@ The Twilio connector consists with two modules
 * Java 11 Installed. 
 Java Development Kit (JDK) with version 11 is required.
 
-* Ballerina Swan Lake Alpha 5 is required. 
+* Ballerina Swan Lake Beta3 is required. 
 
 * (optional)[ngork](https://ngrok.com/) is requried to test listner samples using localhost
 
@@ -70,7 +70,7 @@ example: <YOUR_CALL_BACK_URL>/onChange
 
 |                           |    Version         |
 |:-------------------------:|:------------------:|
-| Ballerina Language        | Swan Lake Alpha5   |
+| Ballerina Language        | Swan Lake Beta3    |
 | Twilio Basic API          | 2010-04-01         |
 | Java Development Kit (JDK)| 11                 |
 
@@ -451,7 +451,7 @@ public function main() {
 ```
 # Building from the source
 1. You need to obtain a twilio Account SID, an Auth Token and a valid twilio phone number to use the twilio connector operations.
-2. Clone the repository and Be sure to change the branch which has the name as the Ballerina version. Eg: slAlpha5
+2. Clone the repository and Be sure to change the branch which has the name as the Ballerina version. Eg: slBeta3
     * Note: You need to install the relevant Ballerina version before going to the next step.
 3. First, If you want to run tests, you will need to add to a Config.toml file to the client module tests directory with the following credentials.
 ```ballerina

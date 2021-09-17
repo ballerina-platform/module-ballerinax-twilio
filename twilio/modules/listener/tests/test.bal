@@ -72,7 +72,7 @@ function testOnSmsSent() returns @tainted error? {
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
-    var response = httpClient->post("/", request);
+    http:Response|error response = httpClient->post("/", request);
     if (response is http:Response) {
         test:assertEquals(response.statusCode, 200);
     } else {
@@ -89,7 +89,7 @@ function testOnSmsDelivered() returns @tainted error? {
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
-    var response = httpClient->post("/", request);
+    http:Response|error response = httpClient->post("/", request);
     if (response is http:Response) {
         test:assertEquals(response.statusCode, 200);
     } else {
@@ -111,7 +111,7 @@ function testOnCallRang() returns @tainted error? {
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
-    var response = httpClient->post("/", request);
+    http:Response|error response = httpClient->post("/", request);
     if (response is http:Response) {
         test:assertEquals(response.statusCode, 200);
     } else {
@@ -133,7 +133,7 @@ function testOnCallCompleted() returns @tainted error? {
     request.setPayload(payload);
     request.setHeader("Content-type","application/x-www-form-urlencoded");
 
-    var response = httpClient->post("/", request);
+    http:Response|error response = httpClient->post("/", request);
     if (response is http:Response) {
         test:assertEquals(response.statusCode, 200);
     } else {
