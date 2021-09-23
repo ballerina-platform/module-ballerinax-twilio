@@ -177,7 +177,6 @@ public isolated client class Client {
 #
 # + accountSId - Unique identifier of the account
 # + authToken - The authentication token of the account
-# + secureSocket - SSL configurations 
 @display{label: "Connection Config"} 
 public type ConnectionConfig record {
     @display{label: "Account SID"} 
