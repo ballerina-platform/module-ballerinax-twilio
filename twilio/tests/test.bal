@@ -19,10 +19,10 @@ import ballerina/test;
 import ballerina/os;
 
 // This user-id is initialized after the testAuthyUserAdd() function call and will be used for testAuthyUserDelete()
-string testUserId = "";
+string testUserId = EMPTY_STRING;
 
 // This is message SID that provided by twilio.
-string messageSid = "";
+string messageSid = EMPTY_STRING;
 
 // ACCOUNT_SID, AUTH_TOKEN, AUTHY_API_KEY should be changed with your own account credentials
 configurable string twilioAccountSid = os:getEnv("ACCOUNT_SID");
@@ -32,11 +32,24 @@ configurable string toNumber = os:getEnv("SAMPLE_TO_MOBILE");
 configurable string test_message = os:getEnv("SAMPLE_MESSAGE");
 configurable string fromWhatsappNumber = os:getEnv("SAMPLE_WHATSAPP_SANDBOX");
 configurable string twimlUrl = os:getEnv("SAMPLE_TWIML_URL");
+configurable string twilioAPIKey = os:getEnv("twilioAPIKey");
+configurable string twilioAPISecret = os:getEnv("twilioAPISecret");
 
 ConnectionConfig twilioConfig = {
-    accountSId: twilioAccountSid,
-    authToken: twilioAuthToken
+    auth: {
+        accountSId: twilioAccountSid,
+        authToken: twilioAuthToken
+    }
 };
+
+// ConnectionConfig twilioConfig = {
+//     auth: {
+//         accountSId: twilioAccountSid,
+//         apiKey: twilioAPIKey,
+//         apiSecret: twilioAPISecret
+//     }
+// };
+
 Client twilioClient = check new (twilioConfig);
 
 @test:Config {
@@ -44,10 +57,6 @@ Client twilioClient = check new (twilioConfig);
     enable: true
 }
 function testAccountDetails() {
-    ConnectionConfig twilioConfig = {
-        accountSId: twilioAccountSid,
-        authToken: twilioAuthToken
-    };
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
     var details = twilioClient->getAccountDetails();

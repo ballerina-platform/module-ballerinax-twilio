@@ -25,8 +25,10 @@ configurable string toMobile = ?;
 public function main() {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
-        accountSId: accountSId,
-        authToken: authToken
+        auth: {
+            accountSId: accountSId,
+            authToken: authToken
+        }
     };
 
     //Twilio Client

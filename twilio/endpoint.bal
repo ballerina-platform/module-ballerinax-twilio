@@ -36,14 +36,21 @@ public isolated client class Client {
     # + twilioConfig - Twilio connection configuration 
     # + return - `http:Error` in case of failure to initialize or `null` if successfully initialized
     public isolated function init(ConnectionConfig twilioConfig, http:ClientConfiguration httpClientConfig = {}) returns error? {
-        self.accountSId = twilioConfig.accountSId;
-        auth:CredentialsConfig authConfig = {
-            username: twilioConfig.accountSId,
-            password: twilioConfig.authToken
-        };
-        http:ClientConfiguration httpConfig = httpClientConfig;
-        httpConfig.auth = authConfig;
-        self.basicClient = check new (TWILIO_API_BASE_URL, httpConfig);
+        self.accountSId = twilioConfig.auth.accountSId;
+        if (twilioConfig.auth is TokenBasedAuthentication) {
+            auth:CredentialsConfig credentialsConfig = {
+                username: self.accountSId,
+                password: twilioConfig.auth?.authToken.toString()
+            };
+            httpClientConfig.auth = credentialsConfig;
+        } else {
+            auth:CredentialsConfig credentialsConfig = {
+                username: twilioConfig.auth?.apiKey.toString(),
+                password: twilioConfig.auth?.apiSecret.toString()
+            };
+            httpClientConfig.auth = credentialsConfig;
+        } 
+        self.basicClient = check new (TWILIO_API_BASE_URL, httpClientConfig);
     }
 
     # Gets account details of the given account-sid.
@@ -175,12 +182,36 @@ public isolated client class Client {
 
 # Twilio Configuration.
 #
-# + accountSId - Unique identifier of the account
-# + authToken - The authentication token of the account
+# + auth - Twilio authentication configuration 
 @display{label: "Connection Config"} 
 public type ConnectionConfig record {
+    @display{label: "Authentication Configuration"} 
+    TokenBasedAuthentication|APIKeyBasedAuthentication auth;
+};
+
+# Twilio Token Based Authentication
+#
+# + accountSId - Twilio account SID  
+# + authToken - The authentication token of the account 
+@display{label: "Auth Token Based Connection Config"} 
+public type TokenBasedAuthentication record {
     @display{label: "Account SID"} 
     string accountSId;
     @display{label: "Auth Token"} 
     string authToken;
+};
+
+# Twilio API Key Based Authentication
+#
+# + accountSId - Twilio account SID  
+# + apiKey - Twilio API key SID 
+# + apiSecret - Twilio API key Secret
+@display{label: "API Key Based Connection Config"} 
+public type APIKeyBasedAuthentication record {
+    @display{label: "Twilio Account SID"} 
+    string accountSId;
+    @display{label: "API Key SID"} 
+    string apiKey;
+    @display{label: "API Key Secret"} 
+    string apiSecret;
 };
