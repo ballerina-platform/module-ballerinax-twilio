@@ -136,7 +136,7 @@ isolated service class HttpService {
         foreach var [entry, value] in eventPayload.entries() {
             if(keyValueMap[entry] == "") {
                 keys.push(entry);
-                keyValueMap[entry] = value;
+                keyValueMap[entry] = value.toString();
             }
         }
         string[] sortedKeyArray = keys.sort();
