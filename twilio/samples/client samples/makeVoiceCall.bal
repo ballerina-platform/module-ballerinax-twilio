@@ -32,8 +32,10 @@ public function main() returns error?{
       
    //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
-        accountSId: accountSId,
-        authToken: authToken
+        auth: {
+            accountSId: accountSId,
+            authToken: authToken
+        }
     };
 
     //Twilio Client

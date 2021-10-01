@@ -18,8 +18,8 @@ import ballerina/log;
 import ballerinax/twilio;
 import ballerinax/twilio.'listener as twilioListener;
 
-configurable string & readonly twilioAccountSid = ?;
-configurable string & readonly twilioAuthToken = ?;
+configurable string & readonly accountSid = ?;
+configurable string & readonly authToken = ?;
 configurable string & readonly fromNumber = ?;
 configurable string & readonly toNumber = ?;
 configurable string & readonly test_message = ?;
@@ -37,8 +37,10 @@ service / on tListener {
 
 public function main() {
     twilio:ConnectionConfig twilioConfig = {
-        accountSId: twilioAccountSid,
-        authToken: twilioAuthToken
+        auth: {
+            accountSId: accountSid,
+            authToken: authToken
+        }
     };
     twilio:Client twilioClient = new (twilioConfig);
     var details = twilioClient->sendSms(fromNumber, toNumber, test_message, callbackUrl);

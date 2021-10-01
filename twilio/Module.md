@@ -43,8 +43,10 @@ configurable string accountSId = ?;
 configurable string authToken = ?;
 
 twilio:ConnectionConfig twilioConfig = {
-    accountSId: accountSId,
-    authToken: authToken
+    auth: {
+        accountSId: accountSId,
+        authToken: authToken
+    }
 };
 
 twilio:Client twilioClient = new (twilioConfig);
