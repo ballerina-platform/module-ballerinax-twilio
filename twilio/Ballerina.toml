@@ -9,8 +9,7 @@ keywords = ["twilio", "sms", "call", "otp", "whatsapp", "webhook"]
 license = ["Apache-2.0"]
 
 [[platform.java11.dependency]]
-path = "../java-wrapper/build/libs/java-wrapper-0.99.10.jar"
+path = "../java-wrapper/build/libs/java-wrapper-0.99.11.jar"
 groupId = "org.ballerinalang.twilio"
 artifactId = "java-wrapper"
-version = "0.99.10"
-
+version = "0.99.11"
