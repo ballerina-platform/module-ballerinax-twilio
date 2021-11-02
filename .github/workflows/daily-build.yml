@@ -40,7 +40,14 @@ jobs:
               uses: ballerina-platform/ballerina-action/@nightly
               with:
                   args:
-                      build -c ./twilio
+                      pack ./twilio
+              env:
+                  JAVA_HOME: /usr/lib/jvm/default-jvm
+            - name: Ballerina Tests
+              uses: ballerina-platform/ballerina-action@nightly
+              with:
+                  args:
+                      test ./twilio
               env:
                 JAVA_HOME: /usr/lib/jvm/default-jvm
                 ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}

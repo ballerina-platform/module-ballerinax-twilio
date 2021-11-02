@@ -38,7 +38,7 @@ Execute the commands below to build from the source:
    ```
 * To build the package without tests:
    ```
-   bal build -c --skip-tests
+   bal pack 
    ```
 ## Contributing to Ballerina
  
