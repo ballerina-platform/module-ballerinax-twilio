@@ -20,16 +20,14 @@ import ballerina/log;
 import ballerina/url;
 
 isolated service class HttpService {
-
+    *http:Service;
     private final boolean isOnSmsQueued;
     private final boolean isOnSmsSent;
     private final boolean isOnSmsDelivered;
     private final boolean isOnSmsReceived;
-
     private final boolean isOnCallRang;
     private final boolean isOnCallAnswered;
     private final boolean isOnCallCompleted;
-    
     private final HttpToTwilioAdaptor adaptor;
     private final string authToken;
     private final string callbackUrl;
@@ -61,8 +59,6 @@ isolated service class HttpService {
     # + return - If success, returns TwilioEvent object, else returns error
     isolated resource function post onChange(http:Caller caller, http:Request twilioRequest) returns 
                                            error? {
-        SmsStatusChangeEvent smsEvent = {};
-        CallStatusChangeEvent callEvent = {};
         map<string> payload = check twilioRequest.getFormParams();
         check caller->respond(http:STATUS_OK); 
         if(payload.hasKey("CallStatus")) {

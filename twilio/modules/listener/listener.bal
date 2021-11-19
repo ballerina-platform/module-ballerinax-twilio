@@ -20,7 +20,7 @@ import ballerina/http;
 # Listener for the Twilio connector
 @display {label: "Twilio Listener", iconPath: "resources/twilio.svg"}
 public class Listener {
-    private HttpService httpService;
+    private HttpService? httpService;
     private http:Listener httpListener;
     private string callbackUrl = "";
     private string authToken = "";
@@ -31,16 +31,21 @@ public class Listener {
         self.authToken = authToken;
         self.callbackUrl = callbackUrl;
         self.httpListener = check new (port);
+        self.httpService = ();
     }
 
     public isolated function attach(SimpleHttpService s, string[]|string? name) returns error? {  
         HttpToTwilioAdaptor adaptor = check new (s);    
-        self.httpService = new HttpService(adaptor, self.callbackUrl, self.authToken);
-        check self.httpListener.attach(self.httpService, name);
+        HttpService currentHttpService = new HttpService(adaptor, self.callbackUrl, self.authToken);
+        self.httpService = currentHttpService;
+        check self.httpListener.attach(currentHttpService, name);
     }
 
     public isolated function detach(SimpleHttpService s) returns error? {
-        return self.httpListener.detach(s);
+        HttpService? currentHttpService = self.httpService;
+        if currentHttpService is HttpService {
+            return self.httpListener.detach(currentHttpService);
+        } 
     }
 
     public isolated function 'start() returns error? {
