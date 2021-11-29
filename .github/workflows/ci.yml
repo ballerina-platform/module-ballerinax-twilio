@@ -23,14 +23,14 @@ jobs:
               run: |
                   ./gradlew build
             - name: Ballerina Build
-              uses: ballerina-platform/ballerina-action/@nightly
+              uses: ballerina-platform/ballerina-action/@slbeta4
               with:
                   args:
                       pack ./twilio
               env:
                   JAVA_HOME: /usr/lib/jvm/default-jvm
             - name: Ballerina Tests
-              uses: ballerina-platform/ballerina-action@nightly
+              uses: ballerina-platform/ballerina-action@slbeta4
               with:
                   args:
                       test ./twilio
