@@ -23,7 +23,7 @@ import ballerina/mime;
 #
 # + accountSId - Unique identifier of the account
 # + basicClient - HTTP client endpoint for basic api
-@display {label: "Twilio Client", iconPath: "resources/twilio.svg"}
+@display {label: "Twilio Client", iconPath: "icon.png"}
 public isolated client class Client {
     private final string accountSId;
     private final http:Client basicClient;
