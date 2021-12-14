@@ -125,6 +125,3 @@ public type CallStatusChangeEvent record {|
     string SequenceNumber?;
     string SipResponseCode?;
 |};
-
-# Union type for status   
-public type TwilioEvent CallStatusChangeEvent|SmsStatusChangeEvent;
