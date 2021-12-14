@@ -1,7 +1,8 @@
 [package]
+distribution = "slbeta6"
 org = "ballerinax"
 name = "twilio"
-version = "2.0.0"
+version = "2.1.0"
 export = ["twilio", "twilio.listener"]
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
@@ -10,7 +11,7 @@ icon = "icon.png"
 license = ["Apache-2.0"]
 
 [[platform.java11.dependency]]
-path = "../java-wrapper/build/libs/java-wrapper-0.99.9-SNAPSHOT.jar"
+path = "../java-wrapper/build/libs/java-wrapper-2.1.0.jar"
 groupId = "org.ballerinalang.twilio"
 artifactId = "java-wrapper"
-version = "0.99.9-SNAPSHOT"
+version = "2.1.0"
