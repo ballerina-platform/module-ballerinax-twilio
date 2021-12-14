@@ -8,7 +8,7 @@ sending an SMS, getting message details, making a voice call etc.
 ### Compatibility
 |                               | Version                              |
 |-------------------------------|--------------------------------------|
-| Ballerina Language            | Swan Lake Beta 3                     |
+| Ballerina Language            | Swan Lake Beta 6                     |
 | Twilio Basic API              | 2010-04-01                           |     
 
 ## Report issues
