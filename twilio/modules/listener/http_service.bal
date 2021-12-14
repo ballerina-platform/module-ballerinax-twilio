@@ -14,10 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/crypto;
 import ballerina/http;
 import ballerina/log;
-import ballerina/url;
 
 isolated service class HttpService {
     *http:Service;
@@ -119,33 +117,6 @@ isolated service class HttpService {
         } else {
             return error("Invalid payload or an event type listener currently does not support");
         }
-    }
-
-    # Generate a signature from the incoming request
-    # + authToken - Auth Token from the twilio account
-    # + url - Registered callback URL where the event payload dispatched
-    # + eventPayload - Event payload
-    # + return - Generated signature out of the data from the incoming request payload.
-    isolated function getSignature(string authToken, string url, TwilioEvent eventPayload) returns error|string {
-        final map<string> keyValueMap = {};
-        string[] keys = [];
-        foreach var [entry, value] in eventPayload.entries() {
-            if(keyValueMap[entry] == "") {
-                keys.push(entry);
-                keyValueMap[entry] = value.toString();
-            }
-        }
-        string[] sortedKeyArray = keys.sort();
-        // accumated string of key values pairs from the payload, initialized with the URL
-        string accumilatedKeyValue = url;
-        foreach var entry in sortedKeyArray {
-            accumilatedKeyValue = accumilatedKeyValue + entry + <string>eventPayload[entry];
-        }
-        string decodedMessageBody = check url:decode(accumilatedKeyValue, "UTF-8");
-        byte[] hmac = check crypto:hmacSha1(decodedMessageBody.toBytes(), authToken.toBytes());
-        string urlEncodedValue = hmac.toBase64();
-
-        return urlEncodedValue;
     }
 }
 
