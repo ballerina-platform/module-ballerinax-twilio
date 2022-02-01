@@ -6,10 +6,10 @@ This package provides the capability to access [Twilio communication services](h
 sending an SMS, getting message details, making a voice call etc.
 
 ### Compatibility
-|                               | Version                              |
-|-------------------------------|--------------------------------------|
-| Ballerina Language            | Swan Lake Beta 6                     |
-| Twilio Basic API              | 2010-04-01                           |     
+|                        | Version             |
+|------------------------|---------------------|
+| Ballerina Language     | Swan Lake 2201.0.0  |
+| Twilio Basic API       | 2010-04-01          |     
 
 ## Report issues
 To report bugs, request new features, start new discussions, view project boards, etc., go to the [Ballerina Extended Library repository](https://github.com/ballerina-platform/ballerina-extended-library)
