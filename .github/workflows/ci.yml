@@ -33,7 +33,7 @@ jobs:
               uses: ballerina-platform/ballerina-action@nightly
               with:
                   args:
-                      test ./twilio
+                      test --code-coverage ./twilio
               env:
                   JAVA_HOME: /usr/lib/jvm/default-jvm
                   ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
@@ -45,3 +45,18 @@ jobs:
                   SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }}
                   CALLBACK_URL: ${{ secrets.CALLBACK_URL }}
                   PORT: ${{ secrets.PORT }} 
+           
+            # Read the ballerina test results
+            - name: Read Ballerina Test Results
+              id: test_results
+              run: |
+                content=`cat ./twilio/target/report/test_results.json`                
+                content="${content//'%'/'%25'}"
+                content="${content//$'\n'/'%0A'}"
+                content="${content//$'\r'/'%0D'}"
+                echo "::set-output name=testResultsJson::$content"
+
+            # Print the code coverage information
+            - name: Code Coverage
+              run: |
+                echo "Code Coverage Percentage : ${{fromJson(steps.test_results.outputs.testResultsJson).coveragePercentage}}"
