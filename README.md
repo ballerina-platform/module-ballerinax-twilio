@@ -11,8 +11,6 @@ The Twilio connector allows you to send SMS, voice, and WhatsApp messages via th
  
 For more information about configuration and operations, go to the module. 
 - [twilio](twilio/Module.md)
-- [twilio.listener](twilio/modules/listener/Module.md)
-
 
 ## Building from the Source
 ### Setting Up the Prerequisites
@@ -34,11 +32,11 @@ Execute the commands below to build from the source:
  
 * To build the package:
    ```   
-   bal build -c
+   bal build ./twilio
    ```
-* To build the package without tests:
+* To run tests after build:
    ```
-   bal pack 
+   bal test ./twilio 
    ```
 ## Contributing to Ballerina
  
