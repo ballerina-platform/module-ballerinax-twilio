@@ -20,7 +20,7 @@ import ballerinax/twilio;
 configurable string accountSId = ?;
 configurable string authToken = ?;
 
-public function main() {
+public function main() returns error? {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
@@ -30,15 +30,9 @@ public function main() {
     };
 
     //Twilio Client
-    twilio:Client twilioClient = new (twilioConfig);
+    twilio:Client twilioClient = check new (twilioConfig);
 
     //Get account detail remote function is called by the twilio client
-    var details = twilioClient->getAccountDetails();
-
-    //Response is printed as log messages
-    if (details is twilio:Account) {
-        log:printInfo("Account Detail: " + details.toString());
-    } else {
-        log:printInfo(details.message());
-    }
+    twilio:Account accountDetails = check twilioClient->getAccountDetails();
+    log:printInfo("Account Details: " + accountDetails.toString());
 }

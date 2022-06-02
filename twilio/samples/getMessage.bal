@@ -20,7 +20,7 @@ import ballerinax/twilio;
 configurable string accountSId = ?;
 configurable string authToken = ?;
 
-public function main() {
+public function main() returns error? {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
@@ -30,18 +30,12 @@ public function main() {
     };
 
     //Twilio Client
-    twilio:Client twilioClient = new (twilioConfig);
+    twilio:Client twilioClient = check new (twilioConfig);
     
     //Set Message resource SID to get the message detial
     string messageSid = "<Add Mesaage SID>";
 
     //Get SMS remote function is called by the twilio client
-    var details = twilioClient->getMessage(messageSid);
-
-    //Response is printed as log messages
-    if (details is twilio:MessageResourceResponse) {
-        log:printInfo("Message Detail: " + details.toString());
-    } else {
-        log:printInfo(details.message());
-    }
+    twilio:MessageResourceResponse details = check twilioClient->getMessage(messageSid);
+    log:printInfo("Message Detail: " + details.toString());
 }

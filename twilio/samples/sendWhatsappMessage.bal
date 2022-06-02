@@ -22,7 +22,7 @@ configurable string authToken = ?;
 configurable string fromMobile = ?;
 configurable string toMobile = ?;
 
-public function main() {
+public function main() returns error? {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
@@ -32,15 +32,10 @@ public function main() {
     };
 
     //Twilio Client
-    twilio:Client twilioClient = new (twilioConfig);
+    twilio:Client twilioClient = check new (twilioConfig);
 
     //Send whatsapp remote function is called by the twilio client
-    var details = twilioClient->sendWhatsAppMessage(fromNo = fromMobile, toNo = toMobile, message = "Test Whatsapp");
-
-    //Response is printed as log messages
-    if (details is twilio:WhatsAppResponse) {
-        log:printInfo("Message Detail: " + details.toString());
-    } else {
-        log:printInfo(details.message());
-    }
+    twilio:WhatsAppResponse response = check twilioClient->sendWhatsAppMessage(fromNo = fromMobile, toNo = toMobile, 
+            message = "Test Whatsapp");
+    log:printInfo("Message Detail: " + response.toString());
 }
