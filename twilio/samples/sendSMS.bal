@@ -24,7 +24,7 @@ configurable string authToken = ?;
 configurable string message = "Wso2-Test-SMS-Message";
 
 
-public function main() {
+public function main() returns error? {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
@@ -34,15 +34,9 @@ public function main() {
     };
 
     //Twilio Client
-    twilio:Client twilioClient = new (twilioConfig);
+    twilio:Client twilioClient = check new (twilioConfig);
 
     //Send SMS remote function is called by the twilio client
-    var details = twilioClient->sendSms(fromMobile, toMobile, message);
-
-    //Response is printed as log messages
-    if (details is twilio:SmsResponse) {
-        log:printInfo("SMS_SID: " + details.sid.toString() + ", Body: " + details.body.toString());
-    } else {
-        log:printInfo(details.message());
-    }
+    twilio:SmsResponse response = check twilioClient->sendSms(fromMobile, toMobile, message);
+    log:printInfo("SMS_SID: " + response.sid.toString() + ", Body: " + response.body.toString());
 }

@@ -56,15 +56,11 @@ Client twilioClient = check new (twilioConfig);
     groups: ["basic", "root"],
     enable: true
 }
-function testAccountDetails() {
+function testAccountDetails() returns error? {
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getAccountDetails()");
-    var details = twilioClient->getAccountDetails();
-    if (details is Account) {
-        log:printInfo("Account Name: " + details.name.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
+    Account details = check twilioClient->getAccountDetails();
+    log:printInfo("Account Name: " + details.name.toBalString());
 }
 
 @test:Config {
@@ -72,19 +68,15 @@ function testAccountDetails() {
     dependsOn: [testAccountDetails],
     enable: true
 }
-function testSendSms() {
+function testSendSms() returns error? {
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> sendSms()");
     string fromMobile = fromNumber;
     string toMobile = toNumber;
     string message = test_message;
-    var details = twilioClient->sendSms(fromMobile, toMobile, message);
-    if (details is SmsResponse) {
-        log:printInfo("SMS_SID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
-        messageSid = <@untainted>details.sid;
-    } else {
-        test:assertFail(msg = details.message());
-    }
+    SmsResponse response = check twilioClient->sendSms(fromMobile, toMobile, message);
+    log:printInfo("SMS_SID: " + response.sid.toBalString() + ", Body: " + response.body.toBalString());
+    messageSid = response.sid;
 }
 
 @test:Config {
@@ -92,15 +84,11 @@ function testSendSms() {
     dependsOn: [testAccountDetails, testSendSms],
     enable: true
 }
-function testGetMessage() {
+function testGetMessage() returns error? {
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> getMessage()");
-    var details = twilioClient->getMessage(messageSid);
-    if (details is MessageResourceResponse) {
-        log:printInfo("MESSAGE_SID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
+    MessageResourceResponse response = check twilioClient->getMessage(messageSid);
+    log:printInfo("MESSAGE_SID: " + response.sid.toBalString() + ", Body: " + response.body.toBalString());
 }
 
 @test:Config {
@@ -108,18 +96,14 @@ function testGetMessage() {
     dependsOn: [testAccountDetails],
     enable: false
 }
-function testSendWhatsAppMessage() {
+function testSendWhatsAppMessage() returns error? {
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> sendWhatsAppMessage()");
     string fromMobile = fromWhatsappNumber;
     string toMobile = toNumber;
     string message = test_message;
-    var details = twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
-    if (details is WhatsAppResponse) {
-        log:printInfo("WhatsAPP_MSID: " + details.sid.toBalString() + ", Body: " + details.body.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
+    WhatsAppResponse response = check twilioClient->sendWhatsAppMessage(fromMobile, toMobile, message);
+    log:printInfo("WhatsAPP_MSID: " + response.sid.toBalString() + ", Body: " + response.body.toBalString());
 }
 
 @test:Config {
@@ -127,7 +111,7 @@ function testSendWhatsAppMessage() {
     dependsOn: [testAccountDetails],
     enable: true
 }
-function testMakeVoiceCall() {
+function testMakeVoiceCall() returns error? {
     log:printInfo("\n ---------------------------------------------------------------------------");
     log:printInfo("twilioClient -> makeVoiceCall()");
     string fromMobile = fromNumber;
@@ -136,10 +120,6 @@ function testMakeVoiceCall() {
     //string twimlURL = twimlUrl; 
     string message = "This is a test call from eco system team";
     VoiceCallInput voiceInput = { userInput:message, userInputType: MESSAGE_IN_TEXT};
-    var details = twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
-    if (details is VoiceCallResponse) {
-        log:printInfo(details.sid.toBalString());
-    } else {
-        test:assertFail(msg = details.message());
-    }
+    VoiceCallResponse response = check twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
+    log:printInfo(response.sid.toBalString());
 }

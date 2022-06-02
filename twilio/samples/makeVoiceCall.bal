@@ -23,7 +23,7 @@ configurable string fromMobile = ?;
 configurable string toMobile = ?;
 configurable string messageOrLink = ?;
 
-public function main() returns error?{
+public function main() returns error? {
     //Voice message type: twilio:MESSAGE_IN_TEXT or twilio:TWIML_URL
     twilio:VoiceCallInput voiceInput = { 
         userInput:messageOrLink, 
@@ -42,12 +42,6 @@ public function main() returns error?{
     twilio:Client twilioClient = check new (twilioConfig);
 
     //Make voice Call remote function is called by the twilio client
-     var details = twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
-
-    //Response is printed as log messages
-    if (details is twilio:VoiceCallResponse) {
-        log:printInfo("Message Detail: " + details.toString());
-    } else {
-        log:printInfo(details.message());
-    }
+    twilio:VoiceCallResponse response = check twilioClient->makeVoiceCall(fromMobile, toMobile, voiceInput);
+    log:printInfo("Voice Call Response: " + response.toString());
 }
