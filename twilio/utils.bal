@@ -16,7 +16,6 @@
 
 import ballerina/url;
 import ballerina/http;
-import ballerina/lang.'boolean;
 
 # Check for HTTP response and if response is success parse HTTP response object into `json` and parse error otherwise.
 # + httpResponse - HTTP response or HTTP Connector error with network related errors
@@ -84,26 +83,6 @@ isolated function createUrlEncodedRequestBody(string requestBody, string key, st
         body = requestBody + "&";
     }
     return body + key + "=" + encodedString;
-}
-
-isolated function createxAuthyKeyHeaderMap(string? xAuthyKey) returns map<string>|Error {
-    if (xAuthyKey !== ()) {
-        return {
-            [X_AUTHY_API_KEY] : <string>xAuthyKey
-        };
-    } else {
-        return prepareError("No xAuthyKey found");
-    }
-}
-
-isolated function convertToBoolean(json|error value) returns boolean {
-    if (value is json) {
-        boolean|error result = 'boolean:fromString(value.toString());
-        if (result is boolean) {
-            return result;
-        }
-    }
-    return false;
 }
 
 isolated function prepareError(string message, error? err = ()) returns Error {
