@@ -78,54 +78,6 @@ isolated function mapJsonToVoiceCallResponse(map<json> jsonPayload) returns Voic
     return voiceCallResponse;
 }
 
-isolated function mapJsonToAuthyAppDetailsResponse(json jsonPayload) returns AuthyAppDetailsResponse|error {
-    AuthyAppDetailsResponse|error authyAppDetailsResponse = jsonPayload.cloneWithType(AuthyAppDetailsResponse);   
-    return authyAppDetailsResponse;
-}
-
-isolated function mapJsonToAuthyUserAddRespones(json jsonPayload) returns AuthyUserAddResponse|error {
-    AuthyUserAddResponse|error authyUserAddResponse = jsonPayload.cloneWithType(AuthyUserAddResponse);   
-    return authyUserAddResponse;
-}
-
-isolated function mapJsonToAuthyUserStatusResponse(json jsonPayload) returns AuthyUserStatusResponse|error {
-    AuthyUserStatusResponse|error authyUserStatusResponse = jsonPayload.cloneWithType(AuthyUserStatusResponse);  
-    return authyUserStatusResponse;
-}
-
-isolated function mapJsonToAuthyUserDeleteResponse(map<json> jsonPayload) returns AuthyUserDeleteResponse|error {
-    AuthyUserDeleteResponse authyUserDeleteResponse = {};
-    authyUserDeleteResponse.message = jsonPayload["message"].toString();
-    authyUserDeleteResponse.isSuccess = convertToBoolean(jsonPayload["success"]);    
-    return authyUserDeleteResponse;
-}
-
-isolated function mapJsonToAuthyUserSecretResponse(map<json> jsonPayload) returns AuthyUserSecretResponse|error {
-    AuthyUserSecretResponse authyUserSecretResponse = {};
-    authyUserSecretResponse.issuer = jsonPayload["issuer"].toString();
-    authyUserSecretResponse.label = jsonPayload["label"].toString();
-    authyUserSecretResponse.qrCodeUrl = jsonPayload["qr_code"].toString();
-    authyUserSecretResponse.isSuccess = convertToBoolean(jsonPayload["success"]);
-    return authyUserSecretResponse;
-}
-
-isolated function mapJsonToAuthyOtpResponse(map<json> jsonPayload) returns AuthyOtpResponse|error {
-    AuthyOtpResponse authyOtpResponse = {};
-    authyOtpResponse.message = jsonPayload["message"].toString();
-    authyOtpResponse.cellphone = jsonPayload["cellphone"].toString();
-    authyOtpResponse.isIgnored = convertToBoolean(jsonPayload["ignored"]);
-    authyOtpResponse.isSuccess = convertToBoolean(jsonPayload["success"]);
-    return authyOtpResponse;
-}
-
-isolated function mapJsonToAuthyOtpVerifyResponse(map<json> jsonPayload) returns AuthyOtpVerifyResponse|error {
-    AuthyOtpVerifyResponse authyOtpVerifyResponse = {};
-    authyOtpVerifyResponse.message = jsonPayload["message"].toString();
-    authyOtpVerifyResponse.token = jsonPayload["token"].toString();
-    authyOtpVerifyResponse.isSuccess = convertToBoolean(jsonPayload["success"]); 
-    return authyOtpVerifyResponse;
-}
-
 isolated function mapJsonToMessageResourceResponse(map<json> jsonPayload) returns MessageResourceResponse|error {
     MessageResourceResponse messageResourceResponse = {};
     messageResourceResponse.body = jsonPayload["body"].toString();
