@@ -35,18 +35,34 @@ public isolated client class Client {
     #
     # + twilioConfig - Twilio connection configuration 
     # + return - `http:Error` in case of failure to initialize or `null` if successfully initialized
-    public isolated function init(ConnectionConfig twilioConfig, http:ClientConfiguration httpClientConfig = {}) returns error? {
-        self.accountSId = twilioConfig.auth.accountSId;
-        if (twilioConfig.auth is TokenBasedAuthentication) {
+    public isolated function init(ConnectionConfig config) returns error? {
+        http:ClientConfiguration httpClientConfig = {
+            httpVersion: config.httpVersion,
+            http1Settings: {...config.http1Settings},
+            http2Settings: config.http2Settings,
+            timeout: config.timeout,
+            forwarded: config.forwarded,
+            poolConfig: config.poolConfig,
+            cache: config.cache,
+            compression: config.compression,
+            circuitBreaker: config.circuitBreaker,
+            retryConfig: config.retryConfig,
+            responseLimits: config.responseLimits,
+            secureSocket: config.secureSocket,
+            proxy: config.proxy,
+            validation: config.validation
+        };
+        self.accountSId = config.auth.accountSId;
+        if (config.auth is TokenBasedAuthentication) {
             auth:CredentialsConfig credentialsConfig = {
                 username: self.accountSId,
-                password: twilioConfig.auth?.authToken.toString()
+                password: config.auth?.authToken.toString()
             };
             httpClientConfig.auth = credentialsConfig;
         } else {
             auth:CredentialsConfig credentialsConfig = {
-                username: twilioConfig.auth?.apiKey.toString(),
-                password: twilioConfig.auth?.apiSecret.toString()
+                username: config.auth?.apiKey.toString(),
+                password: config.auth?.apiSecret.toString()
             };
             httpClientConfig.auth = credentialsConfig;
         } 
@@ -180,38 +196,4 @@ public isolated client class Client {
     }
 }
 
-# Twilio Configuration.
-#
-# + auth - Twilio authentication configuration 
-@display{label: "Connection Config"} 
-public type ConnectionConfig record {
-    @display{label: "Authentication Configuration"} 
-    TokenBasedAuthentication|APIKeyBasedAuthentication auth;
-};
 
-# Twilio Token Based Authentication
-#
-# + accountSId - Twilio account SID  
-# + authToken - The authentication token of the account 
-@display{label: "Auth Token Based Connection Config"} 
-public type TokenBasedAuthentication record {
-    @display{label: "Account SID"} 
-    string accountSId;
-    @display{label: "Auth Token"} 
-    string authToken;
-};
-
-# Twilio API Key Based Authentication
-#
-# + accountSId - Twilio account SID  
-# + apiKey - Twilio API key SID 
-# + apiSecret - Twilio API key Secret
-@display{label: "API Key Based Connection Config"} 
-public type APIKeyBasedAuthentication record {
-    @display{label: "Twilio Account SID"} 
-    string accountSId;
-    @display{label: "API Key SID"} 
-    string apiKey;
-    @display{label: "API Key Secret"} 
-    string apiSecret;
-};
