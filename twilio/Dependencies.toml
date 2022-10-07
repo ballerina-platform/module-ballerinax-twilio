@@ -188,7 +188,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "log"
-version = "2.4.0"
+version = "2.4.1"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
@@ -295,6 +295,18 @@ modules = [
 
 [[package]]
 org = "ballerinax"
+name = "client.config"
+version = "1.0.1"
+dependencies = [
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "oauth2"}
+]
+modules = [
+	{org = "ballerinax", packageName = "client.config", moduleName = "client.config"}
+]
+
+[[package]]
+org = "ballerinax"
 name = "twilio"
 version = "3.1.0"
 dependencies = [
@@ -304,7 +316,8 @@ dependencies = [
 	{org = "ballerina", name = "mime"},
 	{org = "ballerina", name = "os"},
 	{org = "ballerina", name = "test"},
-	{org = "ballerina", name = "url"}
+	{org = "ballerina", name = "url"},
+	{org = "ballerinax", name = "client.config"}
 ]
 modules = [
 	{org = "ballerinax", packageName = "twilio", moduleName = "twilio"}
