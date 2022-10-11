@@ -14,6 +14,47 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import ballerinax/'client.config;
+
+# Twilio Connector configurations.
+@display {label: "Connection Config"}
+public type ConnectionConfig record {|
+    *config:ConnectionConfig;
+    never auth?;
+    # Twilio authentication configuration
+    TokenBasedAuthentication|APIKeyBasedAuthentication twilioAuth;
+|};
+
+# Twilio Token Based Authentication
+#
+# + accountSId - Twilio account SID  
+# + authToken - The authentication token of the account 
+@display{label: "Auth Token Based Connection Config"} 
+public type TokenBasedAuthentication record {
+    string accountSId;
+    @display{
+        label: "",
+        kind: "password"
+    } 
+    string authToken;
+};
+
+# Twilio API Key Based Authentication
+#
+# + accountSId - Twilio account SID  
+# + apiKey - Twilio API key SID 
+# + apiSecret - Twilio API key Secret
+@display{label: "API Key Based Connection Config"} 
+public type APIKeyBasedAuthentication record {
+    string accountSId;
+    string apiKey;
+    @display{
+        label: "",
+        kind: "password"
+    }
+    string apiSecret;
+};
+
 # Represents Twilio account.
 # + sid - Unique identifier of the account
 # + name - The name of the account

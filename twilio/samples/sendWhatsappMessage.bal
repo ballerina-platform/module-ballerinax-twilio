@@ -25,7 +25,7 @@ configurable string toMobile = ?;
 public function main() returns error? {
     //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
-        auth: {
+        twilioAuth: {
             accountSId: accountSId,
             authToken: authToken
         }

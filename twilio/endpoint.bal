@@ -17,6 +17,7 @@
 import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
+import ballerinax/'client.config;
 
 # The Twilio API provides capability to access its platform for communications. These APIs connects 
 # the software layer and communications networks around the world to allow users to call and message anyone, globally. 
@@ -36,33 +37,18 @@ public isolated client class Client {
     # + twilioConfig - Twilio connection configuration 
     # + return - `http:Error` in case of failure to initialize or `null` if successfully initialized
     public isolated function init(ConnectionConfig config) returns error? {
-        http:ClientConfiguration httpClientConfig = {
-            httpVersion: config.httpVersion,
-            http1Settings: {...config.http1Settings},
-            http2Settings: config.http2Settings,
-            timeout: config.timeout,
-            forwarded: config.forwarded,
-            poolConfig: config.poolConfig,
-            cache: config.cache,
-            compression: config.compression,
-            circuitBreaker: config.circuitBreaker,
-            retryConfig: config.retryConfig,
-            responseLimits: config.responseLimits,
-            secureSocket: config.secureSocket,
-            proxy: config.proxy,
-            validation: config.validation
-        };
-        self.accountSId = config.auth.accountSId;
-        if (config.auth is TokenBasedAuthentication) {
+        http:ClientConfiguration httpClientConfig = check config:constructHTTPClientConfig(config);
+        self.accountSId = config.twilioAuth.accountSId;
+        if (config.twilioAuth is TokenBasedAuthentication) {
             auth:CredentialsConfig credentialsConfig = {
                 username: self.accountSId,
-                password: config.auth?.authToken.toString()
+                password: config.twilioAuth?.authToken.toString()
             };
             httpClientConfig.auth = credentialsConfig;
         } else {
             auth:CredentialsConfig credentialsConfig = {
-                username: config.auth?.apiKey.toString(),
-                password: config.auth?.apiSecret.toString()
+                username: config.twilioAuth?.apiKey.toString(),
+                password: config.twilioAuth?.apiSecret.toString()
             };
             httpClientConfig.auth = credentialsConfig;
         } 

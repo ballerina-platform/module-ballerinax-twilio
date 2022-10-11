@@ -36,14 +36,14 @@ configurable string twilioAPIKey = os:getEnv("twilioAPIKey");
 configurable string twilioAPISecret = os:getEnv("twilioAPISecret");
 
 ConnectionConfig twilioConfig = {
-    auth: {
+    twilioAuth: {
         accountSId: twilioAccountSid,
         authToken: twilioAuthToken
     }
 };
 
 // ConnectionConfig twilioConfig = {
-//     auth: {
+//     twilioAuth: {
 //         accountSId: twilioAccountSid,
 //         apiKey: twilioAPIKey,
 //         apiSecret: twilioAPISecret
