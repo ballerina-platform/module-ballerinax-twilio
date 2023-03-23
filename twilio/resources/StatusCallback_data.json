@@ -1,9 +1,0 @@
-{
-    "ballerinax/twilio:0.99.9-SNAPSHOT:StatusCallback": [
-        {
-            "method": "POST",
-            "url": "https://c8dc2d71a386.ngrok.io",
-            "events": "[completed]"
-        }
-    ]
-}
