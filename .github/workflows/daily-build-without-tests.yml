@@ -14,8 +14,7 @@ jobs:
       - name: Ballerina Build
         uses: ballerina-platform/ballerina-action/@nightly
         with:
-          args:
-            build
+          args: build ./twilio
 
       # Send notification when build fails
       - name: Notify failure

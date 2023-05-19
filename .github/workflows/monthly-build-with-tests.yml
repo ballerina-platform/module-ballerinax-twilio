@@ -16,15 +16,13 @@ jobs:
       - name: Ballerina Build
         uses: ballerina-platform/ballerina-action/@nightly
         with:
-          args:
-            pack ./twilio
+          args: build ./twilio
 
       # Run Ballerina tests
       - name: Ballerina Tests
         uses: ballerina-platform/ballerina-action@nightly
         with:
-          args:
-            test --code-coverage ./twilio
+          args: test --code-coverage ./twilio
         env:
           ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
