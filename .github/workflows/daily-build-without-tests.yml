@@ -1,4 +1,5 @@
 name: Daily build without tests
+
 on:
   schedule:
     - cron: '30 2 * * *'

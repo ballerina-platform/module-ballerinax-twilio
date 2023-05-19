@@ -1,5 +1,6 @@
-# This workflow is introduced (instead running tests daily) to avoid exceeding Twilio account credit limits.
+# This workflow is introduced (instead of running tests daily) to avoid exceeding Twilio account credit limits.
 name: Monthly build with tests
+
 on:
   schedule:
     # Runs on the first day of every month at 00:00 UTC
