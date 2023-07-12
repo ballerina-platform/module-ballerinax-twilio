@@ -31,4 +31,4 @@ jobs:
           version: latest
 
       - name: Run Ballerina build using the native executable
-        run: bal build --native ./twilio
+        run: bal build --graalvm ./twilio
