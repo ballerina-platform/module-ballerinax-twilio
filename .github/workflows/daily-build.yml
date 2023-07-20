@@ -16,7 +16,18 @@ jobs:
         uses: ballerina-platform/ballerina-action/@nightly
         with:
           args: build ./twilio
-
+      - name: Ballerina Test
+        uses: ballerina-platform/ballerina-action/@nightly
+        with:
+            args:
+                test --test-report --code-coverage --coverage-format=xml ./twilio
+        env:
+            REFRESH_URL: ${{ secrets.REFRESH_URL }}
+            REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+            CLIENT_ID: ${{ secrets.CLIENT_ID }}
+            CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
       # Send notification when build fails
       - name: Notify failure
         if: ${{ failure() }}
