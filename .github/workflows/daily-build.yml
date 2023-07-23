@@ -22,10 +22,15 @@ jobs:
             args:
                 test --test-report --code-coverage --coverage-format=xml ./twilio
         env:
-            REFRESH_URL: ${{ secrets.REFRESH_URL }}
-            REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
-            CLIENT_ID: ${{ secrets.CLIENT_ID }}
-            CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+            ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
+            AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+            SAMPLE_FROM_MOBILE: ${{ secrets.SAMPLE_FROM_MOBILE }}
+            SAMPLE_TO_MOBILE: ${{ secrets.SAMPLE_TO_MOBILE }}
+            SAMPLE_MESSAGE: ${{ secrets.SAMPLE_MESSAGE }}
+            SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }}
+            SAMPLE_TWIML_URL: ${{ secrets.SAMPLE_TWIML_URL }}
+            twilioAPIKey: ${{ secrets.twilioAPIKey }}
+            twilioAPISecret: ${{ secrets.twilioAPISecret }}
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
       # Send notification when build fails
