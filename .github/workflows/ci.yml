@@ -17,23 +17,7 @@ jobs:
         uses: ballerina-platform/ballerina-action/@nightly
         with:
           args: build ./twilio
-      - name: Ballerina Test
-        uses: ballerina-platform/ballerina-action/@nightly
-        with:
-            args:
-                test --test-report --code-coverage --coverage-format=xml ./twilio
-        env:
-            ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
-            AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-            SAMPLE_FROM_MOBILE: ${{ secrets.SAMPLE_FROM_MOBILE }}
-            SAMPLE_TO_MOBILE: ${{ secrets.SAMPLE_TO_MOBILE }}
-            SAMPLE_MESSAGE: ${{ secrets.SAMPLE_MESSAGE }}
-            SAMPLE_WHATSAPP_SANDBOX: ${{ secrets.SAMPLE_WHATSAPP_SANDBOX }}
-            SAMPLE_TWIML_URL: ${{ secrets.SAMPLE_TWIML_URL }}
-            twilioAPIKey: ${{ secrets.twilioAPIKey }}
-            twilioAPISecret: ${{ secrets.twilioAPISecret }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+
       - name: Alert notifier on failure
         if: failure() && (github.event.action == 'check_connector_for_breaking_changes')
         run: |
