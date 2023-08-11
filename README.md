@@ -38,7 +38,7 @@ Execute the commands below to build from the source:
    ```
 * To run tests after build:
    ```
-   bal test ./twilio 
+   bal test ./ballerina 
    ```
 ## Contributing to Ballerina
  
