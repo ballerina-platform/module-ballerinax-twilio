@@ -19,6 +19,8 @@ import ballerinax/twilio;
 
 configurable string accountSId = ?;
 configurable string authToken = ?;
+configurable string fromMobile = ?;
+configurable string toMobile = ?;
 
 public function main() returns error? {
     //Twilio Client configuration
@@ -31,11 +33,9 @@ public function main() returns error? {
 
     //Twilio Client
     twilio:Client twilioClient = check new (twilioConfig);
-    
-    //Set Message resource SID to get the message detial
-    string messageSid = "<Add Mesaage SID>";
 
-    //Get SMS remote function is called by the twilio client
-    twilio:MessageResourceResponse details = check twilioClient->getMessage(messageSid);
-    log:printInfo("Message Detail: " + details.toString());
+    //Send whatsapp remote function is called by the twilio client
+    twilio:WhatsAppResponse response = check twilioClient->sendWhatsAppMessage(fromNo = fromMobile, toNo = toMobile,
+            message = "Test Whatsapp");
+    log:printInfo("Message Detail: " + response.toString());
 }

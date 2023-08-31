@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
@@ -31,4 +32,4 @@ jobs:
           version: latest
 
       - name: Run Ballerina build using the native executable
-        run: bal build --graalvm ./twilio
+        run: bal build --graalvm ./ballerina
