@@ -1,4 +1,4 @@
-name: Daily build without tests
+name: Daily build
 
 on:
   schedule:
@@ -7,15 +7,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout the repository
       - uses: actions/checkout@v2
 
-      # Build Ballerina package
-      - name: Ballerina Build
-        uses: ballerina-platform/ballerina-action/@nightly
+      # Setup Ballerina Environment
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.0
         with:
-          args: build ./twilio
+          version: latest
+
+      # Build Ballerina Project
+      - name: Ballerina Build
+        run: bal pack ./ballerina
+        env:
+          JAVA_HOME: /usr/lib/jvm/default-jvm
+
+      # Build Module Examples
+      - name: Ballerina Examples Build
+        run: chmod +x ./examples/build.sh && ./examples/build.sh build
+        env:
+          JAVA_HOME: /usr/lib/jvm/default-jvm
 
       # Send notification when build fails
       - name: Notify failure

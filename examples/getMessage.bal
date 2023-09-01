@@ -17,12 +17,8 @@
 import ballerina/log;
 import ballerinax/twilio;
 
-configurable string fromMobile = ?;
-configurable string toMobile = ?;
 configurable string accountSId = ?;
 configurable string authToken = ?;
-configurable string message = "Wso2-Test-SMS-Message";
-
 
 public function main() returns error? {
     //Twilio Client configuration
@@ -36,7 +32,10 @@ public function main() returns error? {
     //Twilio Client
     twilio:Client twilioClient = check new (twilioConfig);
 
-    //Send SMS remote function is called by the twilio client
-    twilio:SmsResponse response = check twilioClient->sendSms(fromMobile, toMobile, message);
-    log:printInfo("SMS_SID: " + response.sid.toString() + ", Body: " + response.body.toString());
+    //Set Message resource SID to get the message detial
+    string messageSid = "<Add Mesaage SID>";
+
+    //Get SMS remote function is called by the twilio client
+    twilio:MessageResourceResponse details = check twilioClient->getMessage(messageSid);
+    log:printInfo("Message Detail: " + details.toString());
 }

@@ -25,12 +25,12 @@ configurable string messageOrLink = ?;
 
 public function main() returns error? {
     //Voice message type: twilio:MESSAGE_IN_TEXT or twilio:TWIML_URL
-    twilio:VoiceCallInput voiceInput = { 
-        userInput:messageOrLink, 
+    twilio:VoiceCallInput voiceInput = {
+        userInput: messageOrLink,
         userInputType: twilio:MESSAGE_IN_TEXT
     };
-      
-   //Twilio Client configuration
+
+    //Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         twilioAuth: {
             accountSId: accountSId,
