@@ -34,7 +34,7 @@ Execute the commands below to build from the source:
  
 * To build the package:
    ```   
-   bal build ./twilio
+   bal build ./ballerina 
    ```
 * To run tests after build:
    ```
