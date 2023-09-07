@@ -14,17 +14,58 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Ballerina Build
         uses: ballerina-platform/ballerina-action/@nightly
         with:
           args: build ./ballerina
 
-      # Build Module Examples
-      - name: Ballerina Examples Build
-        run: chmod +x ./examples/build.sh && ./examples/build.sh build
-        env:
-          JAVA_HOME: /usr/lib/jvm/default-jvm
 
+      # Send notification when build fails
+      - name: Alert notifier on failure
+        if: failure() && (github.event.action == 'check_connector_for_breaking_changes')
+        run: |
+          curl -X POST \
+          'https://api.github.com/repos/ballerina-platform/ballerina-release/dispatches' \
+          --header 'Accept: application/vnd.github.v3+json' \
+          --header 'Authorization: Bearer ${{ secrets.BALLERINA_BOT_TOKEN }}' \
+          --data-raw '{
+            "event_type": "notify-ballerinax-connector-build-failure",
+            "client_payload": {
+              "repoName": "module-ballerinax-twilio",
+              "workflow": "CI"
+            }
+          }'
+
+  run-examples:
+    name: Build Examples
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory:
+          - "examples/1_get_message"
+          - "examples/2_get_account_details"
+          - "examples/3_make_voice_call"
+          - "examples/4_send_sms"
+          - "examples/5_send_whatsapp_message"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Ballerina Pack
+        uses: ballerina-platform/ballerina-action@nightly
+        env:
+          WORKING_DIR: ${{ matrix.directory }}
+        with:
+          args:
+            pack
+      - name: Ballerina Push
+        uses: ballerina-platform/ballerina-action@nightly
+        env:
+          WORKING_DIR: ${{ matrix.directory }}
+        with:
+          args:
+            push --repository=local
+      
       # Send notification when build fails
       - name: Alert notifier on failure
         if: failure() && (github.event.action == 'check_connector_for_breaking_changes')

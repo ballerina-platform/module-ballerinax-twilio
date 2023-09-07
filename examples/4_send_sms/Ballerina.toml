@@ -1,0 +1,7 @@
+[package]
+org = "ballerinax"
+name = "app4_send_sms"
+version = "0.1.0"
+
+[build-options]
+observabilityIncluded = true
