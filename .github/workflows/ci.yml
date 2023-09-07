@@ -14,18 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      # Setup Ballerina Environment
-      - name: Set Up Ballerina
-        uses: ballerina-platform/setup-ballerina@v1.1.0
-        with:
-          version: latest
-
-      # Build Ballerina Project
       - name: Ballerina Build
-        run: bal pack ./ballerina
-        env:
-          JAVA_HOME: /usr/lib/jvm/default-jvm
+        uses: ballerina-platform/ballerina-action/@nightly
+        with:
+          args: build ./ballerina
 
       # Build Module Examples
       - name: Ballerina Examples Build
