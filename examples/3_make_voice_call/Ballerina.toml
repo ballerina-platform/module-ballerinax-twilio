@@ -1,0 +1,7 @@
+[package]
+org = "ballerinax"
+name = "app3_make_voice_call"
+version = "0.1.0"
+
+[build-options]
+observabilityIncluded = true
