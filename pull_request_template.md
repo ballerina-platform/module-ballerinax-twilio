@@ -30,7 +30,6 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 **Test Configuration**:
 * Ballerina Version:
 * Operating System:
-* Java SDK: 
 
 # Checklist:
 

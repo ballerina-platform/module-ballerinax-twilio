@@ -36,10 +36,6 @@ Execute the commands below to build from the source:
    ```   
    bal build ./ballerina 
    ```
-* To run tests after build:
-   ```
-   bal test ./ballerina 
-   ```
 ## Contributing to Ballerina
  
 As an open source project, Ballerina welcomes contributions from the community.

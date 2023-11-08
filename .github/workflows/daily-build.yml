@@ -2,44 +2,13 @@ name: Daily build
 
 on:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: "30 2 * * *"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      # Setup Ballerina Environment
-      - name: Set Up Ballerina
-        uses: ballerina-platform/setup-ballerina@v1.1.0
-        with:
-          version: latest
-
-      # Build Ballerina Project
-      - name: Ballerina Build
-        run: bal pack ./ballerina
-        env:
-          JAVA_HOME: /usr/lib/jvm/default-jvm
-
-      # Build Module Examples
-      - name: Ballerina Examples Build
-        run: chmod +x ./examples/build.sh && ./examples/build.sh build
-        env:
-          JAVA_HOME: /usr/lib/jvm/default-jvm
-
-      # Send notification when build fails
-      - name: Notify failure
-        if: ${{ failure() }}
-        run: |
-          curl -X POST \
-          'https://api.github.com/repos/ballerina-platform/ballerina-release/dispatches' \
-          -H 'Accept: application/vnd.github.v3+json' \
-          -H 'Authorization: Bearer ${{ secrets.BALLERINA_BOT_TOKEN }}' \
-          --data "{
-            \"event_type\": \"notify-build-failure\",
-            \"client_payload\": {
-              \"repoName\": \"module-ballerinax-twilio\"
-            }
-          }"
+  call_workflow:
+    name: Run Daily Build Workflow
+    if: ${{ github.repository_owner == 'ballerina-platform' }}
+    uses: ballerina-platform/ballerina-standard-library/.github/workflows/daily-build-connector-template.yml@main
+    secrets: inherit
+    with:
+      repo-name: module-ballerinax-twilio

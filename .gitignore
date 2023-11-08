@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# Env files
+*.env
+
 #conf file
 ballerina.conf
 
