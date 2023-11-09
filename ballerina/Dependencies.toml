@@ -22,7 +22,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "cache"
-version = "3.7.1"
+version = "3.7.0"
 dependencies = [
 	{org = "ballerina", name = "constraint"},
 	{org = "ballerina", name = "jballerina.java"},
@@ -290,9 +290,9 @@ modules = [
 ]
 
 [[package]]
-org = "dilansorg"
+org = "ballerinax"
 name = "twilio"
-version = "0.1.0"
+version = "3.5.0"
 dependencies = [
 	{org = "ballerina", name = "constraint"},
 	{org = "ballerina", name = "http"},
@@ -301,6 +301,6 @@ dependencies = [
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "dilansorg", packageName = "twilio", moduleName = "twilio"}
+	{org = "ballerinax", packageName = "twilio", moduleName = "twilio"}
 ]
 

@@ -1,8 +1,13 @@
 [package]
-org = "dilansorg"
+distribution = "2201.8.0"
+org = "ballerinax"
 name = "twilio"
-version = "0.1.0"
-distribution = "2201.8.0-20230830-220400-8a7556d8"
+version = "3.5.0"
+authors = ["Ballerina"]
+repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
+keywords = ["Communication/Call & SMS", "Cost/Paid"]
+icon = "icon.png"
+license = ["Apache-2.0"]
 
 [build-options]
 observabilityIncluded = true
