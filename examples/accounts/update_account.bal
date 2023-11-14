@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -42,7 +41,7 @@ public function main() returns error? {
     };
 
     // Update account
-    twilio:Account updatedAccountInfo = check twilioClient->updateAccount(accountSID,updateAccountRequest);
+    twilio:Account updatedAccountInfo = check twilioClient->updateAccount(accountSID, updateAccountRequest);
 
     // Print updated account name
     io:print(updatedAccountInfo?.friendly_name);

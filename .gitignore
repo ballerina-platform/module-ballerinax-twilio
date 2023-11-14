@@ -1,14 +1,11 @@
 # Compiled class file
 *.class
-*.balx
+
 # Log file
 *.log
 
-# Env files
-*.env
-
-#conf file
-ballerina.conf
+#Config file
+Config.toml
 
 # BlueJ files
 *.ctxt
@@ -18,7 +15,7 @@ ballerina.conf
 
 # Package Files #
 *.jar
-!gradle/wrapper/gradle-wrapper.jar
+!gradle-wrapper/*.jar
 *.war
 *.ear
 *.zip
@@ -30,37 +27,24 @@ hs_err_pid*
 
 # Ignore everything in this directory
 target
+
+# mac
+.DS_Store
+
 .classpath
 .settings
 .project
-*.iml
-*.iws
-*.ipr
+
+.vscode
+
+target
 .idea
-.m2
-.vscode/
-# Ignore ballerina files
-accessToken.bal
-temp.bal.ballerina/
-target/
-.DS_Store
-*Ballerina.lock
-#test CI file
-test.yml
+*.iml
+*.ipr
+*.iws
+.gradle
+build
+generated
 
-# Ignore resource .json files
-**/resources/*.json
-!**/resources/*_data.json
-
-# Ignore Config.toml
-Config.toml
-
-# Ignore Gradle files
-.gradle/**
-
-# Ignore Java Wrapper build
-java-wrapper/build/**
-build/**
-
-# Docker build caches
-.ballerina
+# Environment files
+*.env

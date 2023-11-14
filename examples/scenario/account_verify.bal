@@ -16,13 +16,14 @@
 
 
 import ballerina/io;
+import ballerina/os;
 import ballerina/random;
 import ballerinax/twilio;
 
 // Account configurations
-configurable string accountSID = ?;
-configurable string authToken = ?;
-configurable string twilioPhoneNumber = ?;
+configurable string accountSID = os:getEnv("ACCOUNT_SID");
+configurable string authToken = os:getEnv("AUTH_TOKEN");
+configurable string twilioPhoneNumber = os:getEnv("PHONE_NUMBER");
 
 public function main() returns error? {
     // Twilio Client configuration
@@ -34,7 +35,7 @@ public function main() returns error? {
     };
 
     // User Phone Number
-    string phoneNumber = "+94712479175";
+    string phoneNumber = "+xxxxxxxxxxx";
 
     // Initialize Twilio Client
     twilio:Client twilioClient = check new (twilioConfig);

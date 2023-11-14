@@ -22,7 +22,7 @@ import ballerinax/twilio;
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
 configurable string authToken = os:getEnv("AUTH_TOKEN");
 
-// This sample demonstrates a scenario where Twilio connector is used to make a voice call to a number.
+// This sample demonstrates a scenario where Twilio connector is used to send a text message to a number.
 public function main() returns error? {
 
     // Twilio Client configuration
@@ -36,17 +36,16 @@ public function main() returns error? {
     // Initialize Twilio Client
     twilio:Client twilioClient = check new (twilioConfig);
 
-    // Create request for make a voice call
-    twilio:CreateCallRequest callRequest = {
-        To: "+94712479175",
-        From: "+16513215786",
-        Url: "http://demo.twilio.com/docs/voice.xml"
+    // Create request for SMS
+    twilio:CreateMessageRequest messageRequest = {
+        To: "+00123456789",
+        From: "+00123456789",
+        Body: "Hello from Ballerina"
     };
 
-    // Make a voice call
-    twilio:Call responce = check twilioClient->createCall(callRequest);
-
-    // Print call status
+    // Send the SMS
+    twilio:Message responce = check twilioClient->createMessage(messageRequest);
+    
+    // Print SMS status
     io:print(responce?.status);
-
 }

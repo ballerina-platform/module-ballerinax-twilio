@@ -22,7 +22,7 @@ import ballerinax/twilio;
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
 configurable string authToken = os:getEnv("AUTH_TOKEN");
 
-// This sample demonstrates a scenario where Twilio connector is used to send a text message to a number.
+// This sample demonstrates a scenario where Twilio connector is used to send a whatsapp message to a number.
 public function main() returns error? {
 
     // Twilio Client configuration
@@ -38,14 +38,14 @@ public function main() returns error? {
 
     // Create request for SMS
     twilio:CreateMessageRequest messageRequest = {
-        To: "+94712479175",
-        From: "+16513215786",
+        To: "whatsapp:+00123456789",
+        From: "whatsapp:+00123456789",
         Body: "Hello from Ballerina"
     };
 
     // Send the SMS
     twilio:Message responce = check twilioClient->createMessage(messageRequest);
-    
+
     // Print SMS status
     io:print(responce?.status);
 }

@@ -4,7 +4,7 @@
 import ballerina/http;
 
 # This is the public Twilio REST API.
-public isolated client class GeneratedClient {
+public isolated client class Client {
     final http:Client clientEp;
     # Gets invoked to initialize the `connector`.
     #
