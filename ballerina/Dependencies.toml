@@ -317,7 +317,7 @@ modules = [
 [[package]]
 org = "ballerinax"
 name = "twilio"
-version = "3.5.0"
+version = "4.0.0"
 dependencies = [
 	{org = "ballerina", name = "constraint"},
 	{org = "ballerina", name = "http"},
