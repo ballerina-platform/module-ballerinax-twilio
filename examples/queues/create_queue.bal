@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -25,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to create a queue
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -33,18 +31,14 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // Request for create a queue
     twilio:CreateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue"
     };
 
-    // Create a queue
-    twilio:Queue responce = check twilioClient->createQueue(queueRequest);
+    twilio:Queue responce = check twilio->createQueue(queueRequest);
 
-    // Print call queue
-    io:print("Created ",responce?.date_created);
+    io:print("Created ", responce?.date_created);
 
 }

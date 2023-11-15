@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -33,20 +32,15 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // Create request for make a voice call
     twilio:CreateCallRequest callRequest = {
         To: "+00123456789",
         From: "+00123456789",
         Url: "http://demo.twilio.com/docs/voice.xml"
     };
 
-    // Make a voice call
-    twilio:Call responce = check twilioClient->createCall(callRequest);
+    twilio:Call responce = check twilio->createCall(callRequest);
 
-    // Print call status
     io:print(responce?.status);
-
 }

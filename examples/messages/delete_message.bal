@@ -1,3 +1,4 @@
+import ballerina/http;
 // Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
@@ -13,11 +14,9 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
-import ballerina/http;
 
 // Account configurations
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
@@ -26,7 +25,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to fetch a message.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -34,16 +32,12 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // Message SID: The unique, Twilio-provided string that identifies the Message resource.
     string MessageSID = "SM55a867023dcf1e506aa6a67b514d370c";
-      
-    // Fetch message
-    http:Response? responce = check twilioClient->deleteMessage(MessageSID);
 
-    // Print  message info
+    http:Response? responce = check twilio->deleteMessage(MessageSID);
+
     if responce is http:Response {
         io:print("Message deleted successfully!");
     } else {

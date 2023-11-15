@@ -45,7 +45,7 @@ twilio:ConnectionConfig twilioConfig = {
     }
 };
 
-twilio:Client twilioClient = check new (twilioConfig);
+twilio:Client twilio = check new (twilioConfig);
 ```
 
 ### Step 3 - Invoke the connector operation
@@ -54,7 +54,7 @@ twilio:Client twilioClient = check new (twilioConfig);
 
 ```ballerina
 public function main() returns error? {
-    twilio:Account account = check twilioClient->fetchAccount(accountSID);
+    twilio:Account account = check twilio->fetchAccount(accountSID);
 }
 ```
 
@@ -86,7 +86,7 @@ public function main() returns error? {
     };
 
     // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // Create a request for SMS
     twilio:CreateMessageRequest messageRequest = {
@@ -96,7 +96,7 @@ public function main() returns error? {
     };
 
     // Send the SMS
-    twilio:Message response = check twilioClient->createMessage(accountSID, messageRequest);
+    twilio:Message response = check twilio->createMessage(accountSID, messageRequest);
 
     // Print SMS status
     io:print(response?.status);
@@ -125,7 +125,7 @@ public function main() returns error? {
     };
 
     // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // Create a request to make a voice call
     twilio:CreateCallRequest callRequest = {
@@ -135,7 +135,7 @@ public function main() returns error? {
     };
 
     // Make a voice call
-    twilio:Call response = check twilioClient->createCall(accountSID, callRequest);
+    twilio:Call response = check twilio->createCall(accountSID, callRequest);
 
     // Print call status
     io:print(response?.status);

@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -25,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to update a queue
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -33,22 +31,18 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
 
-    // Request for update a queue
     twilio:UpdateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue",
         MaxSize: 2000
     };
 
-    // Update a queue
-    twilio:Queue responce = check twilioClient->updateQueue(QueueSID,queueRequest);
+    twilio:Queue responce = check twilio->updateQueue(QueueSID, queueRequest);
 
-    // Print the updated queue name/max-size
-    io:print(responce?.friendly_name,responce?.max_size);
+    io:print(responce?.friendly_name, responce?.max_size);
 
 }

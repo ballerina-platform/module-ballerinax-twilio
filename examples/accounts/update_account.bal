@@ -24,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to update a Twilio account.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -32,18 +31,14 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // Update account request
     twilio:UpdateAccountRequest updateAccountRequest = {
         FriendlyName: "Sample Account Name"
     };
 
-    // Update account
-    twilio:Account updatedAccountInfo = check twilioClient->updateAccount(accountSID, updateAccountRequest);
+    twilio:Account updatedAccountInfo = check twilio->updateAccount(accountSID, updateAccountRequest);
 
-    // Print updated account name
     io:print(updatedAccountInfo?.friendly_name);
 
 }

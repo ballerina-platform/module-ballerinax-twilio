@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -25,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to fetch a message.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -33,16 +31,12 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // Message SID: The unique, Twilio-provided string that identifies the Message resource.
     string MessageSID = "SM4f16fca1d7391c99249b842f063c4da0";
-      
-    // Fetch message
-    twilio:Message message = check twilioClient->fetchMessage(MessageSID);
 
-    // Print  message info
+    twilio:Message message = check twilio->fetchMessage(MessageSID);
+
     io:print(`
     Date Created: ${message?.date_sent}
     From Number: ${message?.'from}

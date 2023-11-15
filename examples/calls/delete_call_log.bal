@@ -25,7 +25,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to delete a call log.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -33,15 +32,13 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // Call SID: An identifier of 34 digits in length that uniquely identifies a call (https://support.twilio.com/hc/en-us/articles/223180488-What-is-a-Call-SID-). 
     // You can obtain this identifier by running the 'listCall()' or by accessing the TwilioConsole > Monitor > Logs > CallLogs
     string CallSID = "CAeb8427d6e95108ff0a8953fa301d1f1f";
 
-    // Delete call log
-    http:Response? responce = check twilioClient->deleteCall(CallSID);
+    http:Response? responce = check twilio->deleteCall(CallSID);
 
     if responce is http:Response {
         io:println("Call log Deleted.");

@@ -13,8 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
-
 import ballerina/io;
 import ballerina/os;
 import ballerina/random;
@@ -38,17 +36,14 @@ public function main() returns error? {
     string phoneNumber = "+xxxxxxxxxxx";
 
     // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // Generate a random verification code
     string|error verificationCode = generateVerificationCode();
 
     if verificationCode is string {
-        // Send SMS verification
-        check sendSMSVerification(twilioClient, phoneNumber, verificationCode);
-
-        // Make a call for verification
-        check makeCallVerification(twilioClient, phoneNumber, verificationCode);
+        check sendSMSVerification(twilio, phoneNumber, verificationCode);
+        check makeCallVerification(twilio, phoneNumber, verificationCode);
     }
 }
 
@@ -56,14 +51,14 @@ function generateVerificationCode() returns string|error {
     // Generate a random 6-digit verification code
     int min = 100000;
     int max = 999999;
-    int|error code = random:createIntInRange(min,max);
-    if code is error{
+    int|error code = random:createIntInRange(min, max);
+    if code is error {
         return code;
     }
     return code.toString();
 }
 
-function sendSMSVerification(twilio:Client twilioClient,string phoneNumber, string verificationCode) returns error?{
+function sendSMSVerification(twilio:Client twilio, string phoneNumber, string verificationCode) returns error? {
     // Send SMS verification
     twilio:CreateMessageRequest messageRequest = {
         To: phoneNumber,
@@ -71,12 +66,12 @@ function sendSMSVerification(twilio:Client twilioClient,string phoneNumber, stri
         Body: "Your verification code is: " + verificationCode
     };
 
-    twilio:Message response = check twilioClient->createMessage(messageRequest);
+    twilio:Message response = check twilio->createMessage(messageRequest);
 
-    io:println("SMS verification sent with status: ",response?.status);
+    io:println("SMS verification sent with status: ", response?.status);
 }
 
-function makeCallVerification(twilio:Client twilioClient,string phoneNumber,  string verificationCode) returns error?{
+function makeCallVerification(twilio:Client twilio, string phoneNumber, string verificationCode) returns error? {
     // Make a call for verification
     twilio:CreateCallRequest callRequest = {
         To: phoneNumber,
@@ -84,7 +79,7 @@ function makeCallVerification(twilio:Client twilioClient,string phoneNumber,  st
         Url: "http://yourserver.com/verify-call.xml?code=" + verificationCode
     };
 
-    twilio:Call response = check twilioClient->createCall(callRequest);
+    twilio:Call response = check twilio->createCall(callRequest);
 
-    io:println("Call verification initiated with status: ",response?.status);
+    io:println("Call verification initiated with status: ", response?.status);
 }

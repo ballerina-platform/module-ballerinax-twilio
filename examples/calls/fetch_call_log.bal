@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -25,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to fetch a call log.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -34,16 +32,14 @@ public function main() returns error? {
     };
 
     // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // Call SID: An identifier of 34 digits in length that uniquely identifies a call (https://support.twilio.com/hc/en-us/articles/223180488-What-is-a-Call-SID-). 
     // You can obtain this identifier by running the 'listCall()' or by accessing the TwilioConsole > Monitor > Logs > CallLogs
     string CallSID = "CAeb8427d6e95108ff0a8953fa301d1f1f";
 
-    // Fetch call
-    twilio:Call call = check twilioClient->fetchCall(CallSID);
+    twilio:Call call = check twilio->fetchCall(CallSID);
 
-    // Print  call info
     io:print(`
     Date Created: ${call?.date_created}
     From Number: ${call?.'from}

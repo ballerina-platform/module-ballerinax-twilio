@@ -1,3 +1,4 @@
+import ballerina/http;
 // Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
@@ -13,9 +14,7 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
-import ballerina/http;
 import ballerina/os;
 import ballerinax/twilio;
 
@@ -26,7 +25,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to fetch a queue.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -34,14 +32,12 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
 
-    // Delete queue
-    http:Response? responce = check twilioClient->deleteQueue(QueueSID);
+    http:Response? responce = check twilio->deleteQueue(QueueSID);
 
     if responce is http:Response {
         io:println("Queue Deleted.");

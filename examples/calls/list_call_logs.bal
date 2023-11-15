@@ -13,7 +13,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -25,7 +24,6 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // This sample demonstrates a scenario where Twilio connector is used to list all call logs.
 public function main() returns error? {
 
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
@@ -33,13 +31,10 @@ public function main() returns error? {
         }
     };
 
-    // Initialize Twilio Client
-    twilio:Client twilioClient = check new (twilioConfig);
+    twilio:Client twilio = check new (twilioConfig);
 
-    // List all calls from a given account 
-    twilio:ListCallResponse responce = check twilioClient->listCall();
+    twilio:ListCallResponse responce = check twilio->listCall();
 
-    // Print all calls
     twilio:Call[]? calls = responce.calls;
     if calls is twilio:Call[] {
         calls.forEach(function(twilio:Call call) {
