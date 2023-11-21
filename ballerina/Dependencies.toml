@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.8.0-20230830-220400-8a7556d8"
+distribution-version = "2201.8.2"
 
 [[package]]
 org = "ballerina"
@@ -64,7 +64,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "http"
-version = "2.10.3"
+version = "2.10.4"
 dependencies = [
 	{org = "ballerina", name = "auth"},
 	{org = "ballerina", name = "cache"},
@@ -315,9 +315,9 @@ modules = [
 ]
 
 [[package]]
-org = "ballerinax"
+org = "dilans"
 name = "twilio"
-version = "4.0.0"
+version = "4.0.10"
 dependencies = [
 	{org = "ballerina", name = "constraint"},
 	{org = "ballerina", name = "http"},
@@ -328,7 +328,7 @@ dependencies = [
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "ballerinax", packageName = "twilio", moduleName = "twilio"},
-	{org = "ballerinax", packageName = "twilio", moduleName = "twilio.oas"}
+	{org = "dilans", packageName = "twilio", moduleName = "twilio"},
+	{org = "dilans", packageName = "twilio", moduleName = "twilio.oas"}
 ]
 
