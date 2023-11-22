@@ -23,22 +23,16 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to create a queue
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:CreateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue"
     };
-
     twilio:Queue responce = check twilio->createQueue(queueRequest);
-
     io:print("Created ", responce?.date_created);
-
 }

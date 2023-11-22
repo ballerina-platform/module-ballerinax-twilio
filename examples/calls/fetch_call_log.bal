@@ -23,31 +23,16 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to fetch a call log.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
-    // Initialize Twilio Client
     twilio:Client twilio = check new (twilioConfig);
-
     // Call SID: An identifier of 34 digits in length that uniquely identifies a call (https://support.twilio.com/hc/en-us/articles/223180488-What-is-a-Call-SID-). 
     // You can obtain this identifier by running the 'listCall()' or by accessing the TwilioConsole > Monitor > Logs > CallLogs
     string CallSID = "CAeb8427d6e95108ff0a8953fa301d1f1f";
-
     twilio:Call call = check twilio->fetchCall(CallSID);
-
-    io:print(`
-    Date Created: ${call?.date_created}
-    From Number: ${call?.'from}
-    To Number: ${call?.to}
-    Status: ${call?.status}
-    Start Time: ${call?.start_time}
-    End Time: ${call?.end_time}
-    Duration: ${call?.duration}S
-    Price: ${call?.price} ${call?.price_unit}`
-    );
+    io:println("Call details: " + call.toString());
 }

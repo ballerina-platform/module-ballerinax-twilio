@@ -23,24 +23,13 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to fetch an account
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:Account account = check twilio->fetchAccount(accountSID);
-
-    io:print(`
-    Account Name: ${account?.friendly_name}
-    Date Created: ${account?.date_created}
-    Date Updated: ${account?.date_updated}
-    Owner SID: ${account?.owner_account_sid}
-    Status: ${account?.status}
-    Account Type: ${account?.'type}`
-    );
+    io:println("Account details: " + account.toString());
 }

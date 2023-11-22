@@ -23,23 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to list all queues.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:ListQueueResponse responce = check twilio->listQueue();
-
     twilio:Queue[]? queues = responce.queues;
     if queues is twilio:Queue[] {
         queues.forEach(function(twilio:Queue queue) {
-            io:println(`Name:${queue?.friendly_name} DateTime:${queue?.date_created}  CurrentSize:${queue?.current_size}Calls  MaxSize:${queue?.max_size}Calls SID:${queue?.sid}`);
+            io:println("Queue details: " + queue.toString());
         });
     }
-
 }

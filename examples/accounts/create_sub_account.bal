@@ -23,22 +23,16 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to create a subaccount under the account which one used to make the request.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:CreateAccountRequest subAccountReqest = {
         FriendlyName: "Sample Sub Account"
     };
-
     twilio:Account subAccountInfo = check twilio->createAccount(subAccountReqest);
-
-    io:print(subAccountInfo.toString());
-
+    io:println(subAccountInfo.toString());
 }

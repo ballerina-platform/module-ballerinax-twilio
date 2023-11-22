@@ -23,26 +23,15 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to fetch a message.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
+    
     twilio:Client twilio = check new (twilioConfig);
-
     string MessageSID = "SM4f16fca1d7391c99249b842f063c4da0";
-
     twilio:Message message = check twilio->fetchMessage(MessageSID);
-
-    io:print(`
-    Date Created: ${message?.date_sent}
-    From Number: ${message?.'from}
-    To Number: ${message?.to}
-    Status: ${message?.status}
-    Body: ${message?.body}
-    Price: ${message?.price} ${message?.price_unit}`
-    );
+    io:println("Message details: " + message.toString());
 }

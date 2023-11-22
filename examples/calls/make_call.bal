@@ -23,24 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to make a voice call to a number.
 public function main() returns error? {
-
-    // Twilio Client configuration
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:CreateCallRequest callRequest = {
         To: "+00123456789",
         From: "+00123456789",
         Url: "http://demo.twilio.com/docs/voice.xml"
     };
-
     twilio:Call responce = check twilio->createCall(callRequest);
-
-    io:print(responce?.status);
+    io:println(responce?.status);
 }

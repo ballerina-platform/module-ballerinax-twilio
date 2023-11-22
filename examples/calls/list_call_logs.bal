@@ -23,23 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to list all call logs.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:ListCallResponse responce = check twilio->listCall();
-
     twilio:Call[]? calls = responce.calls;
     if calls is twilio:Call[] {
         calls.forEach(function(twilio:Call call) {
-            io:println(`Date&Time: ${call?.date_created}  From: ${call?.'from}  To: ${call?.to}  Status: ${call?.status} SID: ${call?.sid}`);
+            io:println("Call details: " + call.toString());
         });
     }
-
 }

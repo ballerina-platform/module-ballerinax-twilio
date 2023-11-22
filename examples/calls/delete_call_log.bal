@@ -1,4 +1,3 @@
-import ballerina/http;
 // Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
@@ -14,6 +13,7 @@ import ballerina/http;
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+import ballerina/http;
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -24,26 +24,20 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to delete a call log.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     // Call SID: An identifier of 34 digits in length that uniquely identifies a call (https://support.twilio.com/hc/en-us/articles/223180488-What-is-a-Call-SID-). 
     // You can obtain this identifier by running the 'listCall()' or by accessing the TwilioConsole > Monitor > Logs > CallLogs
     string CallSID = "CAeb8427d6e95108ff0a8953fa301d1f1f";
-
     http:Response? responce = check twilio->deleteCall(CallSID);
-
     if responce is http:Response {
         io:println("Call log Deleted.");
-    }
-    else {
+    } else {
         io:println("Error! deleting the call log failed.");
     }
 }

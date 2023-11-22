@@ -23,26 +23,19 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to update a queue
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
-
     twilio:UpdateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue",
         MaxSize: 2000
     };
-
     twilio:Queue responce = check twilio->updateQueue(QueueSID, queueRequest);
-
-    io:print(responce?.friendly_name, responce?.max_size);
-
+    io:println(responce?.friendly_name, responce?.max_size);
 }

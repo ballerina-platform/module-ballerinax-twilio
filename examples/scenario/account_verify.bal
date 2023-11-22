@@ -31,24 +31,20 @@ public function main() returns error? {
             password: authToken
         }
     };
-
     // User Phone Number
     string phoneNumber = "+xxxxxxxxxxx";
-
     // Initialize Twilio Client
     twilio:Client twilio = check new (twilioConfig);
-
     // Generate a random verification code
     string|error verificationCode = generateVerificationCode();
-
     if verificationCode is string {
         check sendSMSVerification(twilio, phoneNumber, verificationCode);
         check makeCallVerification(twilio, phoneNumber, verificationCode);
     }
 }
 
+# Generates a random 6 digit verification code
 function generateVerificationCode() returns string|error {
-    // Generate a random 6-digit verification code
     int min = 100000;
     int max = 999999;
     int|error code = random:createIntInRange(min, max);
@@ -58,28 +54,24 @@ function generateVerificationCode() returns string|error {
     return code.toString();
 }
 
+# Sends an SMS verification
 function sendSMSVerification(twilio:Client twilio, string phoneNumber, string verificationCode) returns error? {
-    // Send SMS verification
     twilio:CreateMessageRequest messageRequest = {
         To: phoneNumber,
         From: twilioPhoneNumber,
         Body: "Your verification code is: " + verificationCode
     };
-
     twilio:Message response = check twilio->createMessage(messageRequest);
-
     io:println("SMS verification sent with status: ", response?.status);
 }
 
+# Makes a call verification
 function makeCallVerification(twilio:Client twilio, string phoneNumber, string verificationCode) returns error? {
-    // Make a call for verification
     twilio:CreateCallRequest callRequest = {
         To: phoneNumber,
         From: twilioPhoneNumber,
         Url: "http://yourserver.com/verify-call.xml?code=" + verificationCode
     };
-
     twilio:Call response = check twilio->createCall(callRequest);
-
     io:println("Call verification initiated with status: ", response?.status);
 }

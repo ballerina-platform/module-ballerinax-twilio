@@ -23,23 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to list all accounts.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:ListAccountResponse responce = check twilio->listAccount();
-
     twilio:Account[]? accounts = responce.accounts;
     if accounts is twilio:Account[] {
         accounts.forEach(function(twilio:Account account) {
-            io:println(account?.friendly_name);
+            io:println("Account details: " + account.toString());
         });
     }
-
 }

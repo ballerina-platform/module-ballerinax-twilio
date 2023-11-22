@@ -23,17 +23,13 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to fetch balance of an account
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:Balance balance = check twilio->fetchBalance(accountSID);
-
-    io:print(balance?.balance, balance?.currency);
+    io:println(balance?.balance, balance?.currency);
 }

@@ -23,23 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to send a text message to a number.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:CreateMessageRequest messageRequest = {
         To: "+00123456789",
         From: "+00123456789",
         Body: "Hello from Ballerina"
     };
-
     twilio:Message responce = check twilio->createMessage(messageRequest);
-
     io:print(responce?.status);
 }

@@ -23,22 +23,18 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // This sample demonstrates a scenario where Twilio connector is used to list all messages.
 public function main() returns error? {
-
     twilio:ConnectionConfig twilioConfig = {
         auth: {
             username: accountSID,
             password: authToken
         }
     };
-
     twilio:Client twilio = check new (twilioConfig);
-
     twilio:ListMessageResponse responce = check twilio->listMessage();
-
     twilio:Message[]? messages = responce.messages;
     if messages is twilio:Message[] {
         messages.forEach(function(twilio:Message message) {
-            io:println(`Date&Time: ${message?.date_sent}  From: ${message?.'from}  To: ${message?.to} Meesage Body: ${message?.body}, ${message?.sid}`);
+            io:println("Message: " + message.toString());
         });
     }
 }
