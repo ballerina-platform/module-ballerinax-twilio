@@ -35,6 +35,6 @@ public function main() returns error? {
         From: "whatsapp:+00123456789",
         Body: "Hello from Ballerina"
     };
-    twilio:Message responce = check twilio->createMessage(messageRequest);
-    io:print(responce?.status);
+    twilio:Message response = check twilio->createMessage(messageRequest);
+    io:print(response?.status);
 }

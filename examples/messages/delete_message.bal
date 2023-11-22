@@ -32,8 +32,8 @@ public function main() returns error? {
     };
     twilio:Client twilio = check new (twilioConfig);
     string MessageSID = "SM55a867023dcf1e506aa6a67b514d370c";
-    http:Response? responce = check twilio->deleteMessage(MessageSID);
-    if responce is http:Response {
+    http:Response? response = check twilio->deleteMessage(MessageSID);
+    if response is http:Response {
         io:println("Message deleted successfully!");
     } else {
         io:println("Error! deleting the message failed.");

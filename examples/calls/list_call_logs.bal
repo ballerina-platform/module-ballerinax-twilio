@@ -30,8 +30,8 @@ public function main() returns error? {
         }
     };
     twilio:Client twilio = check new (twilioConfig);
-    twilio:ListCallResponse responce = check twilio->listCall();
-    twilio:Call[]? calls = responce.calls;
+    twilio:ListCallResponse response = check twilio->listCall();
+    twilio:Call[]? calls = response.calls;
     if calls is twilio:Call[] {
         calls.forEach(function(twilio:Call call) {
             io:println("Call details: " + call.toString());

@@ -66,9 +66,9 @@ CreateMessageRequest msgReq = {
     enable: true
 }
 function testListAccount() returns error? {
-    ListAccountResponse? responce = check twilio->listAccount();
-    if (responce is ListAccountResponse) {
-        Account[]? accounts = responce.accounts;
+    ListAccountResponse? response = check twilio->listAccount();
+    if (response is ListAccountResponse) {
+        Account[]? accounts = response.accounts;
         if accounts is Account[] {
             Account account = accounts[0];
             test:assertEquals(account?.owner_account_sid, accountSid, "ListAccount Failed : SId Missmatch");
@@ -85,9 +85,9 @@ function testListAccount() returns error? {
     enable: true
 }
 function testFetchAccount() returns error? {
-    Account? responce = check twilio->fetchAccount(accountSid);
-    if (responce is Account) {
-        test:assertEquals(responce?.owner_account_sid, accountSid, "FetchAcoount failed : SID Missmatch");
+    Account? response = check twilio->fetchAccount(accountSid);
+    if (response is Account) {
+        test:assertEquals(response?.owner_account_sid, accountSid, "FetchAcoount failed : SID Missmatch");
     } else {
         test:assertFail("FetchAccount Failed : Account Dosen't Exists.");
     }
@@ -98,9 +98,9 @@ function testFetchAccount() returns error? {
     enable: true
 }
 function testUpdateAccount() returns error? {
-    Account? responce = check twilio->updateAccount(accountSid, upAccReq);
-    if (responce is Account) {
-        test:assertEquals(responce?.friendly_name, upAccReq.FriendlyName, "UpdateAcoount failed : Name Missmatch");
+    Account? response = check twilio->updateAccount(accountSid, upAccReq);
+    if (response is Account) {
+        test:assertEquals(response?.friendly_name, upAccReq.FriendlyName, "UpdateAcoount failed : Name Missmatch");
     } else {
         test:assertFail("UpdateAccount Failed : Account Dosen't Exists.");
     }
@@ -111,16 +111,16 @@ function testUpdateAccount() returns error? {
     enable: true
 }
 function testCreateAddress() returns error? {
-    Address? responce = check twilio->createAddress(crAddReq);
-    if (responce is Address) {
-        test:assertEquals(responce?.friendly_name, crAddReq.FriendlyName, "CreateAddress failed : Name Missmatch");
-        test:assertEquals(responce?.street, crAddReq.Street, "CreateAddress failed : Street Missmatch");
-        test:assertEquals(responce?.city, crAddReq.City, "CreateAddress failed : City Missmatch");
-        test:assertEquals(responce?.customer_name, crAddReq.CustomerName, "CreateAddress failed : Customer Name Missmatch");
-        test:assertEquals(responce?.iso_country, crAddReq.IsoCountry, "CreateAddress failed : Country Missmatch");
-        test:assertEquals(responce?.postal_code, crAddReq.PostalCode, "CreateAddress failed : PostalCode Missmatch");
-        test:assertEquals(responce?.region, crAddReq.Region, "CreateAddress failed : Region Missmatch");
-        string? addressSid = responce?.sid;
+    Address? response = check twilio->createAddress(crAddReq);
+    if (response is Address) {
+        test:assertEquals(response?.friendly_name, crAddReq.FriendlyName, "CreateAddress failed : Name Missmatch");
+        test:assertEquals(response?.street, crAddReq.Street, "CreateAddress failed : Street Missmatch");
+        test:assertEquals(response?.city, crAddReq.City, "CreateAddress failed : City Missmatch");
+        test:assertEquals(response?.customer_name, crAddReq.CustomerName, "CreateAddress failed : Customer Name Missmatch");
+        test:assertEquals(response?.iso_country, crAddReq.IsoCountry, "CreateAddress failed : Country Missmatch");
+        test:assertEquals(response?.postal_code, crAddReq.PostalCode, "CreateAddress failed : PostalCode Missmatch");
+        test:assertEquals(response?.region, crAddReq.Region, "CreateAddress failed : Region Missmatch");
+        string? addressSid = response?.sid;
         if addressSid is string {
             globalAddressSid = addressSid;
         } else {
@@ -137,9 +137,9 @@ function testCreateAddress() returns error? {
     dependsOn: [testCreateAddress]
 }
 function testListAddress() returns error? {
-    ListAddressResponse? responce = check twilio->listAddress();
-    if (responce is ListAddressResponse) {
-        Address[]? addresses = responce.addresses;
+    ListAddressResponse? response = check twilio->listAddress();
+    if (response is ListAddressResponse) {
+        Address[]? addresses = response.addresses;
         if addresses is Address[] {
             Address address = addresses[0];
             test:assertEquals(address?.account_sid, accountSid, "ListAddress Failed : SId Missmatch");
@@ -157,15 +157,15 @@ function testListAddress() returns error? {
     dependsOn: [testCreateAddress]
 }
 function testFetchAddress() returns error? {
-    Address? responce = check twilio->fetchAddress(globalAddressSid);
-    if (responce is Address) {
-        test:assertEquals(responce?.friendly_name, crAddReq.FriendlyName, "FetchAddress failed : Name Missmatch");
-        test:assertEquals(responce?.street, crAddReq.Street, "FetchAddress failed : Street Missmatch");
-        test:assertEquals(responce?.city, crAddReq.City, "FetchAddress failed : City Missmatch");
-        test:assertEquals(responce?.customer_name, crAddReq.CustomerName, "FetchAddress failed : Customer Name Missmatch");
-        test:assertEquals(responce?.iso_country, crAddReq.IsoCountry, "FetchAddress failed : Country Missmatch");
-        test:assertEquals(responce?.postal_code, crAddReq.PostalCode, "FetchAddress failed : PostalCode Missmatch");
-        test:assertEquals(responce?.region, crAddReq.Region, "FetchAddress failed : Region Missmatch");
+    Address? response = check twilio->fetchAddress(globalAddressSid);
+    if (response is Address) {
+        test:assertEquals(response?.friendly_name, crAddReq.FriendlyName, "FetchAddress failed : Name Missmatch");
+        test:assertEquals(response?.street, crAddReq.Street, "FetchAddress failed : Street Missmatch");
+        test:assertEquals(response?.city, crAddReq.City, "FetchAddress failed : City Missmatch");
+        test:assertEquals(response?.customer_name, crAddReq.CustomerName, "FetchAddress failed : Customer Name Missmatch");
+        test:assertEquals(response?.iso_country, crAddReq.IsoCountry, "FetchAddress failed : Country Missmatch");
+        test:assertEquals(response?.postal_code, crAddReq.PostalCode, "FetchAddress failed : PostalCode Missmatch");
+        test:assertEquals(response?.region, crAddReq.Region, "FetchAddress failed : Region Missmatch");
     } else {
         test:assertFail("FetchAddress Failed : Account Dosen't Exists.");
     }
@@ -177,9 +177,9 @@ function testFetchAddress() returns error? {
     dependsOn: [testFetchAddress]
 }
 function testUpdateAddress() returns error? {
-    Address? responce = check twilio->updateAddress(globalAddressSid, upAddReq);
-    if (responce is Address) {
-        test:assertEquals(responce?.friendly_name, upAddReq.FriendlyName, "UpdateAddress failed : Name Missmatch");
+    Address? response = check twilio->updateAddress(globalAddressSid, upAddReq);
+    if (response is Address) {
+        test:assertEquals(response?.friendly_name, upAddReq.FriendlyName, "UpdateAddress failed : Name Missmatch");
     } else {
         test:assertFail("UpdateAddress Failed : Address Dosen't Exists.");
     }
@@ -191,9 +191,9 @@ function testUpdateAddress() returns error? {
     dependsOn: [testUpdateAddress]
 }
 function testDeleteAddress() returns error? {
-    http:Response? responce = check twilio->deleteAddress(globalAddressSid);
-    if (responce is http:Response) {
-        test:assertEquals(responce.statusCode, 204, "Delete Address failed");
+    http:Response? response = check twilio->deleteAddress(globalAddressSid);
+    if (response is http:Response) {
+        test:assertEquals(response.statusCode, 204, "Delete Address failed");
     } else {
         test:assertFail("Delete Address Failed");
     }
@@ -204,10 +204,10 @@ function testDeleteAddress() returns error? {
     enable: true
 }
 function testCreateCall() returns error? {
-    Call? responce = check twilio->createCall(callReq);
-    if (responce is Call) {
-        test:assertEquals(responce?.to, callReq.To, "CreateCall failed : Phone Number Missmatch");
-        string? sid = responce?.sid;
+    Call? response = check twilio->createCall(callReq);
+    if (response is Call) {
+        test:assertEquals(response?.to, callReq.To, "CreateCall failed : Phone Number Missmatch");
+        string? sid = response?.sid;
         if sid is string {
             globalCallSid = sid;
         } else {
@@ -224,9 +224,9 @@ function testCreateCall() returns error? {
     dependsOn: [testCreateCall]
 }
 function testListCalls() returns error? {
-    ListCallResponse? responce = check twilio->listCall();
-    if (responce is ListCallResponse) {
-        Call[]? calls = responce.calls;
+    ListCallResponse? response = check twilio->listCall();
+    if (response is ListCallResponse) {
+        Call[]? calls = response.calls;
         if calls is Call[] {
             Call call = calls[0];
             test:assertEquals(call?.account_sid, accountSid, "ListCall Failed : SId Missmatch");
@@ -244,10 +244,10 @@ function testListCalls() returns error? {
     dependsOn: [testCreateCall]
 }
 function testFetchCall() returns error? {
-    Call? responce = check twilio->fetchCall(globalCallSid);
-    if (responce is Call) {
-        test:assertEquals(responce?.to, callReq.To, "FetchCall failed : To Missmatch");
-        test:assertEquals(responce?.'from, callReq.From, "FetchCall failed : From Missmatch");
+    Call? response = check twilio->fetchCall(globalCallSid);
+    if (response is Call) {
+        test:assertEquals(response?.to, callReq.To, "FetchCall failed : To Missmatch");
+        test:assertEquals(response?.'from, callReq.From, "FetchCall failed : From Missmatch");
     } else {
         test:assertFail("FetchCall Failed : Call Dosen't Exists.");
     }
@@ -258,9 +258,9 @@ function testFetchCall() returns error? {
     dependsOn: [testFetchCall,testListCalls]
 }
 function testDeleteCall() returns error? {
-    http:Response? responce = check twilio->deleteCall(globalCallSid);
-    if (responce is http:Response) {
-        test:assertEquals(responce.statusCode, 409, "Delete Call failed");
+    http:Response? response = check twilio->deleteCall(globalCallSid);
+    if (response is http:Response) {
+        test:assertEquals(response.statusCode, 409, "Delete Call failed");
     } else {
         test:assertFail("Delete Call Failed");
     }
@@ -271,10 +271,10 @@ function testDeleteCall() returns error? {
     enable: true
 }
 function testCreateMessage() returns error? {
-    Message? responce = check twilio->createMessage(msgReq);
-    if (responce is Message) {
-        test:assertEquals(responce?.to, msgReq.To, "CreateMessage failed : Phone Number Missmatch");
-        string? sid = responce?.sid;
+    Message? response = check twilio->createMessage(msgReq);
+    if (response is Message) {
+        test:assertEquals(response?.to, msgReq.To, "CreateMessage failed : Phone Number Missmatch");
+        string? sid = response?.sid;
         if sid is string {
             globalMsgSid = sid;
         } else {
@@ -291,9 +291,9 @@ function testCreateMessage() returns error? {
     dependsOn: [testCreateMessage]
 }
 function testListMessages() returns error? {
-    ListMessageResponse? responce = check twilio->listMessage();
-    if (responce is ListMessageResponse) {
-        Message[]? msgs = responce.messages;
+    ListMessageResponse? response = check twilio->listMessage();
+    if (response is ListMessageResponse) {
+        Message[]? msgs = response.messages;
         if msgs is Message[] {
             Message msg = msgs[0];
             test:assertEquals(msg?.account_sid, accountSid, "ListMessage Failed : SId Missmatch");
@@ -311,10 +311,10 @@ function testListMessages() returns error? {
     dependsOn: [testCreateMessage]
 }
 function testFetchMessage() returns error? {
-    Message? responce = check twilio->fetchMessage(globalMsgSid);
-    if (responce is Message) {
-        test:assertEquals(responce?.to, msgReq.To, "FetchMessage failed : To Missmatch");
-        test:assertEquals(responce?.'from, msgReq.From, "FetchMessage failed : From Missmatch");
+    Message? response = check twilio->fetchMessage(globalMsgSid);
+    if (response is Message) {
+        test:assertEquals(response?.to, msgReq.To, "FetchMessage failed : To Missmatch");
+        test:assertEquals(response?.'from, msgReq.From, "FetchMessage failed : From Missmatch");
     } else {
         test:assertFail("FetchMessage Failed : Message Dosen't Exists.");
     }
@@ -325,9 +325,9 @@ function testFetchMessage() returns error? {
     dependsOn: [testFetchMessage,testListMessages]
 }
 function testDeleteMessage() returns error? {
-    http:Response? responce = check twilio->deleteMessage(globalMsgSid);
-    if (responce is http:Response) {
-        test:assertEquals(responce.statusCode, 409, "Delete Message failed");
+    http:Response? response = check twilio->deleteMessage(globalMsgSid);
+    if (response is http:Response) {
+        test:assertEquals(response.statusCode, 409, "Delete Message failed");
     } else {
         test:assertFail("Delete Message Failed");
     }

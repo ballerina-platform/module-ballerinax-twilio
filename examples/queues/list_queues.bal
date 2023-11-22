@@ -30,8 +30,8 @@ public function main() returns error? {
         }
     };
     twilio:Client twilio = check new (twilioConfig);
-    twilio:ListQueueResponse responce = check twilio->listQueue();
-    twilio:Queue[]? queues = responce.queues;
+    twilio:ListQueueResponse response = check twilio->listQueue();
+    twilio:Queue[]? queues = response.queues;
     if queues is twilio:Queue[] {
         queues.forEach(function(twilio:Queue queue) {
             io:println("Queue details: " + queue.toString());

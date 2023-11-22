@@ -33,8 +33,8 @@ public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
-    http:Response? responce = check twilio->deleteQueue(QueueSID);
-    if responce is http:Response {
+    http:Response? response = check twilio->deleteQueue(QueueSID);
+    if response is http:Response {
         io:println("Queue Deleted.");
     } else {
         io:println("Error! deleting the queue log failed.");

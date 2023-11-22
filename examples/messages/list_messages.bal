@@ -30,8 +30,8 @@ public function main() returns error? {
         }
     };
     twilio:Client twilio = check new (twilioConfig);
-    twilio:ListMessageResponse responce = check twilio->listMessage();
-    twilio:Message[]? messages = responce.messages;
+    twilio:ListMessageResponse response = check twilio->listMessage();
+    twilio:Message[]? messages = response.messages;
     if messages is twilio:Message[] {
         messages.forEach(function(twilio:Message message) {
             io:println("Message: " + message.toString());

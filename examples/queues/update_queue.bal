@@ -36,6 +36,6 @@ public function main() returns error? {
         FriendlyName: "Sample Queue",
         MaxSize: 2000
     };
-    twilio:Queue responce = check twilio->updateQueue(QueueSID, queueRequest);
-    io:println(responce?.friendly_name, responce?.max_size);
+    twilio:Queue response = check twilio->updateQueue(QueueSID, queueRequest);
+    io:println(response?.friendly_name, response?.max_size);
 }

@@ -34,8 +34,8 @@ public function main() returns error? {
     // Call SID: An identifier of 34 digits in length that uniquely identifies a call (https://support.twilio.com/hc/en-us/articles/223180488-What-is-a-Call-SID-). 
     // You can obtain this identifier by running the 'listCall()' or by accessing the TwilioConsole > Monitor > Logs > CallLogs
     string CallSID = "CAeb8427d6e95108ff0a8953fa301d1f1f";
-    http:Response? responce = check twilio->deleteCall(CallSID);
-    if responce is http:Response {
+    http:Response? response = check twilio->deleteCall(CallSID);
+    if response is http:Response {
         io:println("Call log Deleted.");
     } else {
         io:println("Error! deleting the call log failed.");

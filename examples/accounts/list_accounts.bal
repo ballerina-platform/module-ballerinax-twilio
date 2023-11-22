@@ -30,8 +30,8 @@ public function main() returns error? {
         }
     };
     twilio:Client twilio = check new (twilioConfig);
-    twilio:ListAccountResponse responce = check twilio->listAccount();
-    twilio:Account[]? accounts = responce.accounts;
+    twilio:ListAccountResponse response = check twilio->listAccount();
+    twilio:Account[]? accounts = response.accounts;
     if accounts is twilio:Account[] {
         accounts.forEach(function(twilio:Account account) {
             io:println("Account details: " + account.toString());

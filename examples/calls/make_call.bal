@@ -35,6 +35,6 @@ public function main() returns error? {
         From: "+00123456789",
         Url: "http://demo.twilio.com/docs/voice.xml"
     };
-    twilio:Call responce = check twilio->createCall(callRequest);
-    io:println(responce?.status);
+    twilio:Call response = check twilio->createCall(callRequest);
+    io:println(response?.status);
 }
