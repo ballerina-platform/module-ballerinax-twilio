@@ -18,18 +18,19 @@ import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
 
-// Account configurations
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
 configurable string authToken = os:getEnv("AUTH_TOKEN");
 
+// Twilio configurations
+twilio:ConnectionConfig twilioConfig = {
+    auth: {
+        username: accountSID,
+        password: authToken
+    }
+};
+
 // This sample demonstrates a scenario where Twilio connector is used to fetch a queue.
 public function main() returns error? {
-    twilio:ConnectionConfig twilioConfig = {
-        auth: {
-            username: accountSID,
-            password: authToken
-        }
-    };
     twilio:Client twilio = check new (twilioConfig);
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";

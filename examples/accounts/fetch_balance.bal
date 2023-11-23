@@ -17,18 +17,19 @@ import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
 
-// Account configurations
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
 configurable string authToken = os:getEnv("AUTH_TOKEN");
 
+// Twilio configurations
+twilio:ConnectionConfig twilioConfig = {
+    auth: {
+        username: accountSID,
+        password: authToken
+    }
+};
+
 // This sample demonstrates a scenario where Twilio connector is used to fetch balance of an account
 public function main() returns error? {
-    twilio:ConnectionConfig twilioConfig = {
-        auth: {
-            username: accountSID,
-            password: authToken
-        }
-    };
     twilio:Client twilio = check new (twilioConfig);
     twilio:Balance balance = check twilio->fetchBalance(accountSID);
     io:println(balance?.balance, balance?.currency);

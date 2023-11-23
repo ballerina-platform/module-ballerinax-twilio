@@ -18,19 +18,20 @@ import ballerina/os;
 import ballerina/random;
 import ballerinax/twilio;
 
-// Account configurations
+//  Configurations
 configurable string accountSID = os:getEnv("ACCOUNT_SID");
 configurable string authToken = os:getEnv("AUTH_TOKEN");
 configurable string twilioPhoneNumber = os:getEnv("PHONE_NUMBER");
 
+// Twilio configurations
+twilio:ConnectionConfig twilioConfig = {
+    auth: {
+        username: accountSID,
+        password: authToken
+    }
+};
+
 public function main() returns error? {
-    // Twilio Client configuration
-    twilio:ConnectionConfig twilioConfig = {
-        auth: {
-            username: accountSID,
-            password: authToken
-        }
-    };
     // User Phone Number
     string phoneNumber = "+xxxxxxxxxxx";
     // Initialize Twilio Client
