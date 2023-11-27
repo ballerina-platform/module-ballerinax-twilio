@@ -11,7 +11,7 @@
 
 Twilio is a cloud communications platform that allows software developers to programmatically make and receive phone calls, send and receive text messages, and perform other communication functions using its web service APIs. 
 
-The Ballerina Twilio connector currently supports the [Twilio Basic API version 2010-04-01](https://www.twilio.com/docs/all), enabling users to leverage these communication capabilities within their Ballerina applications.
+The Ballerina Twilio connector supports the [Twilio Basic API version 2010-04-01](https://www.twilio.com/docs/all), enabling users to leverage these communication capabilities within their Ballerina applications.
 
 ## Setting up the Twilio
 Before using the ballerinax-twilio connector you must have access to Twilio API, If you do not have access to Twilio API please complete the following steps:
