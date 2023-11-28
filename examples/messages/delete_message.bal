@@ -1,4 +1,3 @@
-import ballerina/http;
 // Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
@@ -14,6 +13,7 @@ import ballerina/http;
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+import ballerina/http;
 import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
@@ -32,7 +32,9 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to fetch a message.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     string MessageSID = "SM55a867023dcf1e506aa6a67b514d370c";
+
     http:Response? response = check twilio->deleteMessage(MessageSID);
     if response is http:Response {
         io:println("Message deleted successfully!");

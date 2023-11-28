@@ -31,8 +31,10 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to fetch a queue.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
+
     twilio:Queue queue = check twilio->fetchQueue(QueueSID);
     io:println("Queue details: ", queue.toString());
 }

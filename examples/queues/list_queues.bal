@@ -32,6 +32,7 @@ twilio:ConnectionConfig twilioConfig = {
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
     twilio:ListQueueResponse response = check twilio->listQueue();
+    
     twilio:Queue[]? queues = response.queues;
     if queues is twilio:Queue[] {
         queues.forEach(function(twilio:Queue queue) {

@@ -31,11 +31,13 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to send a text message to a number.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     twilio:CreateMessageRequest messageRequest = {
         To: "+00123456789",
         From: "+00123456789",
         Body: "Hello from Ballerina"
     };
+
     twilio:Message response = check twilio->createMessage(messageRequest);
-    io:print(response?.status);
+    io:print("Message Status: ",response?.status);
 }

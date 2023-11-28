@@ -31,11 +31,13 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to make a voice call to a number.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     twilio:CreateCallRequest callRequest = {
         To: "+00123456789",
         From: "+00123456789",
         Url: "http://demo.twilio.com/docs/voice.xml"
     };
+
     twilio:Call response = check twilio->createCall(callRequest);
-    io:println(response?.status);
+    io:println("Call Status: ",response?.status);
 }

@@ -31,7 +31,9 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to list all messages.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     twilio:ListMessageResponse response = check twilio->listMessage();
+    
     twilio:Message[]? messages = response.messages;
     if messages is twilio:Message[] {
         messages.forEach(function(twilio:Message message) {
@@ -39,4 +41,3 @@ public function main() returns error? {
         });
     }
 }
-

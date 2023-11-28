@@ -83,7 +83,7 @@ public function main() returns error? {
 
     twilio:Message response = check twilio->createMessage(accountSID, messageRequest);
 
-    io:print(response?.status);
+    io:println("Message Status: ", response?.status);
 }
 ```
 

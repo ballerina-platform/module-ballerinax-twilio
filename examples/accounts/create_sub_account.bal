@@ -31,9 +31,11 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to create a subaccount under the account which one used to make the request.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+    
     twilio:CreateAccountRequest subAccountReqest = {
         FriendlyName: "Sample Sub Account"
     };
+    
     twilio:Account subAccountInfo = check twilio->createAccount(subAccountReqest);
     io:println(subAccountInfo.toString());
 }

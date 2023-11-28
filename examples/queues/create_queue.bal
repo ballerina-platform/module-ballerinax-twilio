@@ -34,6 +34,7 @@ public function main() returns error? {
     twilio:CreateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue"
     };
+    
     twilio:Queue response = check twilio->createQueue(queueRequest);
     io:print("Created ", response?.date_created);
 }

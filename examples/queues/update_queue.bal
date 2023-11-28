@@ -31,12 +31,14 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to update a queue
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     // QueueSID: An identifier of 34 digits in length that uniquely identifies a queue
     string QueueSID = "QUe770a247b1e6168d6acef1078c3c4828";
     twilio:UpdateQueueRequest queueRequest = {
         FriendlyName: "Sample Queue",
         MaxSize: 2000
     };
+    
     twilio:Queue response = check twilio->updateQueue(QueueSID, queueRequest);
     io:println(response?.friendly_name, response?.max_size);
 }

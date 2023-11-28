@@ -31,9 +31,11 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to update a Twilio account.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     twilio:UpdateAccountRequest updateAccountRequest = {
         FriendlyName: "Sample Account Name"
     };
+    
     twilio:Account updatedAccountInfo = check twilio->updateAccount(accountSID, updateAccountRequest);
     io:println(updatedAccountInfo?.friendly_name);
 }

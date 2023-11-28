@@ -31,11 +31,13 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to send a whatsapp message to a number.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     twilio:CreateMessageRequest messageRequest = {
         To: "whatsapp:+00123456789",
         From: "whatsapp:+00123456789",
         Body: "Hello from Ballerina"
     };
+
     twilio:Message response = check twilio->createMessage(messageRequest);
-    io:print(response?.status);
+    io:print("Whatsapp Message Status: ",response?.status);
 }

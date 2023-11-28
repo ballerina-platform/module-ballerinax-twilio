@@ -31,7 +31,9 @@ twilio:ConnectionConfig twilioConfig = {
 // This sample demonstrates a scenario where Twilio connector is used to fetch a message.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
+
     string MessageSID = "SM4f16fca1d7391c99249b842f063c4da0";
+    
     twilio:Message message = check twilio->fetchMessage(MessageSID);
     io:println("Message details: " + message.toString());
 }
