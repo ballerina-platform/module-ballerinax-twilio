@@ -32,6 +32,7 @@ twilio:ConnectionConfig twilioConfig = {
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
     twilio:ListAccountResponse response = check twilio->listAccount();
+    
     twilio:Account[]? accounts = response.accounts;
     if accounts is twilio:Account[] {
         accounts.forEach(function(twilio:Account account) {
