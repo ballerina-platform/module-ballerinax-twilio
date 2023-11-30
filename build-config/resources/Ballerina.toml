@@ -2,7 +2,7 @@
 distribution = "2201.8.0"
 org = "ballerinax"
 name = "twilio"
-version = "4.0.0"
+version = "@toml.version@"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
 keywords = ["Communication/Call & SMS", "Cost/Paid"]
