@@ -17,23 +17,23 @@ All trial projects can provision a free trial phone number for testing. Here's h
 `Notice: Trial project phone number selection may be limited. You must upgrade your Twilio project to provision more than one phone number, or to provision a number that is not available to trial projects`.
 
 1. Access the Buy a Number page in the Console.
-![Get Phone Number](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/ballerina/resources/get-phone-number.png?raw=true)
+![Get Phone Number](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-phone-number.png)
 
 2. Enter the criteria for the phone number you need, and then click Search.
-![Configure Phone Number](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/ballerina/resources/phone-number-config.png?raw=true)
+![Configure Phone Number](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/phone-number-config.png)
 
 - Country: Select the desired country from the drop-down menu.
 - Number or Location: Select the desired option to search by digits/phrases, or a specific City or Region.
 - Capabilities: Select your service needs for this number. 
 
 3. Click Buy to purchase a phone number for your current project or sub-account.
-![Search Results](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/ballerina/resources/search-phone-number.png?raw=true)
+![Search Results](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/search-phone-number.png)
 > **Notice:** Many countries require identity documentation for Phone Number compliance. Requests to provision phone numbers with these regulations will be required to select or add the required documentation after clicking Buy in Console. To see which countries and phone number types are affected by these requirements, please see twilio's [Phone Number Regulations](https://www.twilio.com/guidelines/regulatory) site.
 
 ### Step 3: Obtain a Twilio Account SID with Auth Token.
 Twilio uses two credentials to determine which account an API request is coming from: The Account SID, which acts as a `username`, and the Auth Token which acts as a `password`. You can find your account SID and auth token in your [Twilio console](https://www.twilio.com/console).
 
-![Twilio Credentails](https://github.com/ballerina-platform/module-ballerinax-twilio/tree/master/ballerina/resources/get-credentails.png?raw=true)
+![Twilio Credentails](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
 
 Your account's Auth Token is hidden by default. Click show to display the token, and hide to conceal it again. For further information click [here](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them)
 
