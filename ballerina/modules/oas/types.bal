@@ -1980,9 +1980,13 @@ public type ListMemberResponse record {
 
 # The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 public type Incoming_phone_number_capabilities record {
+    # Whether the phone number can send and receive MMS messages. Can be: `true` or `false`.
     boolean mms?;
+    # Whether the phone number can send and receive SMS messages. Can be: `true` or `false`.
     boolean sms?;
+    # Whether the phone number can receive voice calls. Can be: `true` or `false`.
     boolean voice?;
+    # Whether the phone number can receive faxes. Can be: `true` or `false`.
     boolean fax?;
 };
 
@@ -2213,7 +2217,7 @@ public type ListSipAuthRegistrationsCredentialListMappingResponse record {
 };
 
 public type UpdateSigningKeyRequest record {
-    # 
+    # A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the same as the `Sid`.
     string FriendlyName?;
 };
 
@@ -3053,9 +3057,13 @@ public type Recording_enum_status "in-progress"|"paused"|"stopped"|"processing"|
 
 # The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are: `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 public type Available_phone_number_local_capabilities record {
+    # Whether the phone number can send and receive MMS messages. Can be: `true` or `false`.
     boolean mms?;
+    # Whether the phone number can send and receive SMS messages. Can be: `true` or `false`.
     boolean sms?;
+    # Whether the phone number can receive voice calls. Can be: `true` or `false`.
     boolean voice?;
+    # Whether the phone number can receive faxes. Can be: `true` or `false`.
     boolean fax?;
 };
 
