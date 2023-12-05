@@ -42,7 +42,7 @@ public isolated client class Client {
     }
     # Create a new Twilio Subaccount from the account making the request
     #
-    # + payload - You must provide a CreateAccountRequest record, with the `FriendlyName` property set to the name of the account you want to create.
+    # + payload - You must provide a `CreateAccountRequest` record, with the `FriendlyName` property set to the name of the account you want to create.
     # + return - Created 
     remote isolated function createAccount(CreateAccountRequest payload) returns Account|error {
         return self.generatedClient->createAccount(payload);
@@ -55,7 +55,7 @@ public isolated client class Client {
         return self.generatedClient->fetchAccount(sid);
     }
     # Modify the properties of a given Account
-    # + payload - You must provide a UpdateAccountRequest record as a payload to update an Account.
+    # + payload - You must provide a `UpdateAccountRequest` record as a payload to update an Account.
     # + sid - The Account Sid that uniquely identifies the account to update
     # + return - OK 
     remote isolated function updateAccount(string sid, UpdateAccountRequest payload) returns Account|error {
@@ -76,7 +76,7 @@ public isolated client class Client {
     }
     # Create Address
     #
-    # + payload - You must provide a CreateAddressRequest record as a payload to create a new Address resource.
+    # + payload - You must provide a `CreateAddressRequest` record as a payload to create a new Address resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
     # + return - Created 
     remote isolated function createAddress(CreateAddressRequest payload, string? accountSid = ()) returns Address|error {
@@ -93,7 +93,7 @@ public isolated client class Client {
     # Update Address
     #
     # + sid - The Twilio-provided string that uniquely identifies the Address resource to update.
-    # + payload - You must provide a UpdateAddressRequest record as a payload to update an Address resource.
+    # + payload - You must provide a `UpdateAddressRequest` record as a payload to update an Address resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
     # + return - OK 
     remote isolated function updateAddress(string sid, UpdateAddressRequest payload, string? accountSid = ()) returns Address|error {
@@ -120,7 +120,7 @@ public isolated client class Client {
     }
     # Create a new application within your account
     #
-    # + payload - You must provide a CreateApplicationRequest record as a payload to create a new Application resource.
+    # + payload - You must provide a `CreateApplicationRequest` record as a payload to create a new Application resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createApplication(CreateApplicationRequest payload, string? accountSid = ()) returns Application|error {
@@ -137,7 +137,7 @@ public isolated client class Client {
     # Updates the application's properties
     #
     # + sid - The Twilio-provided string that uniquely identifies the Application resource to update.
-    # + payload - You must provide a UpdateApplicationRequest record as a payload to update an Application resource.
+    # + payload - You must provide a `UpdateApplicationRequest` record as a payload to update an Application resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
     # + return - OK 
     remote isolated function updateApplication(string sid, UpdateApplicationRequest payload, string? accountSid = ()) returns Application|error {
@@ -169,25 +169,25 @@ public isolated client class Client {
     remote isolated function listAuthorizedConnectApp(int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAuthorizedConnectAppResponse|error {
         return self.generatedClient->listAuthorizedConnectApp(accountSid ?: self.accountSid, pageSize, page, pageToken);
     }
-    # List available phone number countries
+    # List contries that have available for phone numbers
     # 
     # + pageSize - How many resources to return in each list page. The default is 50, and the maximum is 1000.
     # + page - The page index. This value is simply for client state.
     # + pageToken - The page token. This is provided by the API.
-    # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
+    # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone numbers Country resources.
     # + return - OK 
     remote isolated function listAvailablePhoneNumberCountry(int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberCountryResponse|error {
         return self.generatedClient->listAvailablePhoneNumberCountry(accountSid ?: self.accountSid, pageSize, page, pageToken);
     }
-    # Fetch an available phone number country
+    # Fetch an available phone number by country code
     # 
-    # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-    # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
+    # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone numbers information about.
+    # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone numbers Country resource.
     # + return - OK 
     remote isolated function fetchAvailablePhoneNumberCountry(string countryCode, string? accountSid = ()) returns Available_phone_number_country|error {
         return self.generatedClient->fetchAvailablePhoneNumberCountry(accountSid ?: self.accountSid, countryCode);
     }
-    # List available phone number local
+    # List available phone numbers (local)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -216,7 +216,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberLocal(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberLocalResponse|error {
         return self.generatedClient->listAvailablePhoneNumberLocal(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number MachineToMachine
+    # List available phone numbers (MachineToMachine)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -245,7 +245,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberMachineToMachine(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberMachineToMachineResponse|error {
         return self.generatedClient->listAvailablePhoneNumberMachineToMachine(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number Mobile
+    # List available phone numbers (Mobile)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -274,7 +274,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberMobile(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberMobileResponse|error {
         return self.generatedClient->listAvailablePhoneNumberMobile(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number National
+    # List available phone numbers (National)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -303,7 +303,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberNational(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberNationalResponse|error {
         return self.generatedClient->listAvailablePhoneNumberNational(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number SharedCost
+    # List available phone numbers (SharedCost)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -332,7 +332,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberSharedCost(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberSharedCostResponse|error {
         return self.generatedClient->listAvailablePhoneNumberSharedCost(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number TollFree
+    # List available phone numbers (TollFree)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -361,7 +361,7 @@ public isolated client class Client {
     remote isolated function listAvailablePhoneNumberTollFree(string countryCode, int? areaCode = (), string? contains = (), boolean? smsEnabled = (), boolean? mmsEnabled = (), boolean? voiceEnabled = (), boolean? excludeAllAddressRequired = (), boolean? excludeLocalAddressRequired = (), boolean? excludeForeignAddressRequired = (), boolean? beta = (), string? nearNumber = (), string? nearLatLong = (), int? distance = (), string? inPostalCode = (), string? inRegion = (), string? inRateCenter = (), string? inLata = (), string? inLocality = (), boolean? faxEnabled = (), int? pageSize = (), int? page = (), string? pageToken = (), string? accountSid = ()) returns ListAvailablePhoneNumberTollFreeResponse|error {
         return self.generatedClient->listAvailablePhoneNumberTollFree(accountSid ?: self.accountSid, countryCode, areaCode, contains, smsEnabled, mmsEnabled, voiceEnabled, excludeAllAddressRequired, excludeLocalAddressRequired, excludeForeignAddressRequired, beta, nearNumber, nearLatLong, distance, inPostalCode, inRegion, inRateCenter, inLata, inLocality, faxEnabled, pageSize, page, pageToken);
     }
-    # List available phone number Voip
+    # List available phone numbers (Voip)
     # 
     # + countryCode - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
     # + areaCode - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
@@ -419,7 +419,7 @@ public isolated client class Client {
     }
     # Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
     #
-    # + payload - You must provide a CrateCallRequest record as a payload to create a call.
+    # + payload - You must provide a `CrateCallRequest` record as a payload to create a call.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createCall(CreateCallRequest payload, string? accountSid = ()) returns Call|error {
@@ -436,7 +436,7 @@ public isolated client class Client {
     # Initiates a call redirect or terminates a call
     #
     # + sid - The Twilio-provided string that uniquely identifies the Call resource to update
-    # + payload - You must provide a UpdateCallRequest record as a payload to update a call.
+    # + payload - You must provide a `UpdateCallRequest` record as a payload to update a call.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
     # + return - OK 
     remote isolated function updateCall(string sid, UpdateCallRequest payload, string? accountSid = ()) returns Call|error {
@@ -472,7 +472,7 @@ public isolated client class Client {
     # Update a Feedback resource for a call
     #    
     # + callSid - The call sid that uniquely identifies the call
-    # + payload - You must provide a UpdateCallFeedbackRequest record as a payload to update a feedback.
+    # + payload - You must provide a `UpdateCallFeedbackRequest` record as a payload to update a feedback.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - OK 
     remote isolated function updateCallFeedback(string callSid, UpdateCallFeedbackRequest payload, string? accountSid = ()) returns CallCall_feedback|error {
@@ -480,7 +480,7 @@ public isolated client class Client {
     }
     # Create a FeedbackSummary resource for a call
     #
-    # + payload - You must provide a CreateCallFeedbackSummaryRequest record as a payload to create a feedback summary.
+    # + payload - You must provide a `CreateCallFeedbackSummaryRequest` record as a payload to create a feedback summary.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - Created 
     remote isolated function createCallFeedbackSummary(CreateCallFeedbackSummaryRequest payload, string? accountSid = ()) returns CallCall_feedback_summary|error {
@@ -542,7 +542,7 @@ public isolated client class Client {
     # Create a recording for the call
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) to associate the resource with.
-    # + payload - You must provide a CreateCallRecordingRequest record as a payload to create a recording.
+    # + payload - You must provide a `CreateCallRecordingRequest` record as a payload to create a recording.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createCallRecording(string callSid, CreateCallRecordingRequest payload, string? accountSid = ()) returns CallCall_recording|error {
@@ -561,7 +561,7 @@ public isolated client class Client {
     #
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the Recording resource to update.
-    # + payload - You must provide a UpdateCallRecordingRequest record as a payload to update a recording.
+    # + payload - You must provide a `UpdateCallRecordingRequest` record as a payload to update a recording.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
     # + return - OK 
     remote isolated function updateCallRecording(string callSid, string sid, UpdateCallRecordingRequest payload, string? accountSid = ()) returns CallCall_recording|error {
@@ -587,7 +587,7 @@ public isolated client class Client {
     # Update a conference
     #
     # + sid - The Twilio-provided string that uniquely identifies the Conference resource to update
-    # + payload - You must provide a UpdateConferenceRequest record as a payload to update a conference.
+    # + payload - You must provide a `UpdateConferenceRequest` record as a payload to update a conference.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
     # + return - OK 
     remote isolated function updateConference(string sid, UpdateConferenceRequest payload, string? accountSid = ()) returns Conference|error {
@@ -624,7 +624,7 @@ public isolated client class Client {
     #
     # + conferenceSid - The Conference SID that identifies the conference associated with the recording to update.
     # + sid - The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-    # + payload - You must provide a UpdateConferenceRecordingRequest record as a payload to update a recording.
+    # + payload - You must provide a `UpdateConferenceRecordingRequest` record as a payload to update a recording.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
     # + return - OK 
     remote isolated function updateConferenceRecording(string conferenceSid, string sid, UpdateConferenceRecordingRequest payload, string? accountSid = ()) returns ConferenceConference_recording|error {
@@ -664,7 +664,7 @@ public isolated client class Client {
     # Update a connect-app with the specified parameters
     #
     # + sid - The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
-    # + payload - You must provide a UpdateConnectAppRequest record as a payload to update a connect-app.
+    # + payload - You must provide a `UpdateConnectAppRequest` record as a payload to update a connect-app.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
     # + return - OK 
     remote isolated function updateConnectApp(string sid, UpdateConnectAppRequest payload, string? accountSid = ()) returns Connect_app|error {
@@ -710,7 +710,7 @@ public isolated client class Client {
     # Update an incoming-phone-number instance.
     #
     # + sid - The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
-    # + payload - You must provide a UpdateIncomingPhoneNumberRequest record as a payload to update a phone number.
+    # + payload - You must provide a `UpdateIncomingPhoneNumberRequest` record as a payload to update a phone number.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
     # + return - OK 
     remote isolated function updateIncomingPhoneNumber(string sid, UpdateIncomingPhoneNumberRequest payload, string? accountSid = ()) returns Incoming_phone_number|error {
@@ -740,7 +740,7 @@ public isolated client class Client {
     }
     # Purchase a phone-number for the account.
     #
-    # + payload - You must provide a CreateIncomingPhoneNumberRequest record as a payload to purchase a phone number.
+    # + payload - You must provide a `CreateIncomingPhoneNumberRequest` record as a payload to purchase a phone number.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumber(CreateIncomingPhoneNumberRequest payload, string? accountSid = ()) returns Incoming_phone_number|error {
@@ -778,7 +778,7 @@ public isolated client class Client {
     # Assign an Add-on installation to the Number specified.
     #
     # + resourceSid - The SID of the Phone Number to assign the Add-on.
-    # + payload - You must provide a CreateIncomingPhoneNumberAssignedAddOnRequest as a payload to crete an incoming phone number assigned add-on.
+    # + payload - You must provide a `CreateIncomingPhoneNumberAssignedAddOnRequest` as a payload to crete an incoming phone number assigned add-on.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberAssignedAddOn(string resourceSid, CreateIncomingPhoneNumberAssignedAddOnRequest payload, string? accountSid = ()) returns Incoming_phone_numberIncoming_phone_number_assigned_add_on|error {
@@ -822,7 +822,7 @@ public isolated client class Client {
     }
     # Create a phone-number for the account.
     # 
-    # + payload - You must provide a CreateIncomingPhoneNumberLocalRequest record as a payload to purchase a phone number.
+    # + payload - You must provide a `CreateIncomingPhoneNumberLocalRequest` record as a payload to purchase a phone number.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberLocal(CreateIncomingPhoneNumberLocalRequest payload, string? accountSid = ()) returns Incoming_phone_numberIncoming_phone_number_local|error {
@@ -844,7 +844,7 @@ public isolated client class Client {
     }
     # Create a phone-number for the account.
     # 
-    # + payload - You must provide a CreateIncomingPhoneNumberMobileRequest record as a payload to purchase a phone number.
+    # + payload - You must provide a `CreateIncomingPhoneNumberMobileRequest` record as a payload to purchase a phone number.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberMobile(CreateIncomingPhoneNumberMobileRequest payload, string? accountSid = ()) returns Incoming_phone_numberIncoming_phone_number_mobile|error {
@@ -866,7 +866,7 @@ public isolated client class Client {
     }
     # Create a phone-number for the account.
     # 
-    # + payload - You must provide a CreateIncomingPhoneNumberTollFreeRequest record as a payload to purchase a phone number.
+    # + payload - You must provide a `CreateIncomingPhoneNumberTollFreeRequest` record as a payload to purchase a phone number.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberTollFree(CreateIncomingPhoneNumberTollFreeRequest payload, string? accountSid = ()) returns Incoming_phone_numberIncoming_phone_number_toll_free|error {
@@ -883,7 +883,7 @@ public isolated client class Client {
     # Update a Key with the specified parameters
     # 
     # + sid - The Twilio-provided string that uniquely identifies the Key resource to update.
-    # + payload - You must provide a UpdateKeyRequest record as a payload to update a key.
+    # + payload - You must provide a `UpdateKeyRequest` record as a payload to update a key.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
     # + return - OK 
     remote isolated function updateKey(string sid, UpdateKeyRequest payload, string? accountSid = ()) returns Key|error {
@@ -909,7 +909,7 @@ public isolated client class Client {
     }
     # Create a Key for the account.
     # 
-    # + payload - You must provide a CreateKeyRequest record as a payload to create a key.
+    # + payload - You must provide a `CreateKeyRequest` record as a payload to create a key.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
     # + return - Created 
     remote isolated function createNewKey(CreateNewKeyRequest payload, string? accountSid = ()) returns New_key|error {
@@ -960,7 +960,7 @@ public isolated client class Client {
     #
     # + queueSid - The SID of the Queue in which to find the members to update.
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
-    # + payload - You must provide a UpdateMemberRequest record as a payload to update a member.
+    # + payload - You must provide a `UpdateMemberRequest` record as a payload to update a member.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
     # + return - OK 
     remote isolated function updateMember(string queueSid, string callSid, UpdateMemberRequest payload, string? accountSid = ()) returns QueueMember|error {
@@ -994,7 +994,7 @@ public isolated client class Client {
     }
     # Send a message
     #
-    # + payload - You must provide a CreateMessageRequest record as a payload to send a message.
+    # + payload - You must provide a `CreateMessageRequest` record as a payload to send a message.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) creating the Message resource.
     # + return - Created 
     remote isolated function createMessage(CreateMessageRequest payload, string? accountSid = ()) returns Message|error {
@@ -1011,7 +1011,7 @@ public isolated client class Client {
     # Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)
     #
     # + sid - The SID of the Message resource to be updated.
-    # + payload - You must provide a UpdateMessageRequest record as a payload to update a message.
+    # + payload - You must provide a `UpdateMessageRequest` record as a payload to update a message.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
     # + return - OK 
     remote isolated function updateMessage(string sid, UpdateMessageRequest payload, string? accountSid = ()) returns Message|error {
@@ -1028,7 +1028,7 @@ public isolated client class Client {
     # Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message
     #
     # + messageSid - The SID of the Message resource for which to create MessageFeedback.
-    # + payload - You must provide a CreateMessageFeedbackRequest record as a payload to create MessageFeedback.
+    # + payload - You must provide a `CreateMessageFeedbackRequest` record as a payload to create MessageFeedback.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
     # + return - Created 
     remote isolated function createMessageFeedback(string messageSid, CreateMessageFeedbackRequest payload, string? accountSid = ()) returns MessageMessage_feedback|error {
@@ -1046,7 +1046,7 @@ public isolated client class Client {
     }
     # Create a new Signing Key for the account making the request.
     #
-    # + payload - You must provide a CreateNewSigningKeyRequest record as a payload to create a signing key.
+    # + payload - You must provide a `CreateNewSigningKeyRequest` record as a payload to create a signing key.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
     # + return - Created 
     remote isolated function createNewSigningKey(CreateNewSigningKeyRequest payload, string? accountSid = ()) returns New_signing_key|error {
@@ -1085,7 +1085,7 @@ public isolated client class Client {
     # Updates the caller-id
     #
     # + sid - The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-    # + payload - You must provide a UpdateOutgoingCallerIdRequest record as a payload to update an outgoing caller id.
+    # + payload - You must provide a `UpdateOutgoingCallerIdRequest` record as a payload to update an outgoing caller id.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
     # + return - OK 
     remote isolated function updateOutgoingCallerId(string sid, UpdateOutgoingCallerIdRequest payload, string? accountSid = ()) returns Outgoing_caller_id|error {
@@ -1113,10 +1113,10 @@ public isolated client class Client {
     }
     # Create a new outgoing-caller-id for the account.
     # 
-    # + payload - You must provide a CreateOutgoingCallerIdRequest record as a payload to create an outgoing caller id.
+    # + payload - You must provide a `CreateOutgoingCallerIdRequest` record as a payload to create an outgoing caller id.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
     # + return - Created 
-    remote isolated function createValidationRequest(CreateValidationRequestRequest payload, string? accountSid = ()) returns Validation_request|error {
+    remote isolated function createValidationRequest(CreateValidationRequest payload, string? accountSid = ()) returns Validation_request|error {
         return self.generatedClient->createValidationRequest(accountSid ?: self.accountSid, payload);
     }
     # Fetch an instance of a participant
@@ -1132,7 +1132,7 @@ public isolated client class Client {
     #
     # + conferenceSid - The SID of the conference with the participant to update.
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-    # + payload - You must provide a UpdateParticipantRequest record as a payload to update a participant. 
+    # + payload - You must provide a `UpdateParticipantRequest` record as a payload to update a participant. 
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
     # + return - OK 
     remote isolated function updateParticipant(string conferenceSid, string callSid, UpdateParticipantRequest payload, string? accountSid = ()) returns ConferenceParticipant|error {
@@ -1164,7 +1164,7 @@ public isolated client class Client {
     # Create a participant in a conference
     # 
     # + conferenceSid - The SID of the participant's conference.
-    # + payload - You must provide a CreateParticipantRequest record as a payload to create a participant.
+    # + payload - You must provide a `CreateParticipantRequest` record as a payload to create a participant.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createParticipant(string conferenceSid, CreateParticipantRequest payload, string? accountSid = ()) returns ConferenceParticipant|error {
@@ -1173,7 +1173,7 @@ public isolated client class Client {
     # create an instance of payments. This will start a new payments session
     #
     # + callSid - The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF.
-    # + payload - You must provide a CreatePaymentsRequest record as a payload to create a payments resource.
+    # + payload - You must provide a `CreatePaymentsRequest` record as a payload to create a payments resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createPayments(string callSid, CreatePaymentsRequest payload, string? accountSid = ()) returns CallPayments|error {
@@ -1183,7 +1183,7 @@ public isolated client class Client {
     #
     # + callSid - The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.
     # + sid - The SID of Payments session that needs to be updated.
-    # + payload - You must provide a UpdatePaymentsRequest record as a payload to update a payments resource.
+    # + payload - You must provide a `UpdatePaymentsRequest` record as a payload to update a payments resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
     # + return - Accepted 
     remote isolated function updatePayments(string callSid, string sid, UpdatePaymentsRequest payload, string? accountSid = ()) returns CallPayments|error {
@@ -1200,7 +1200,7 @@ public isolated client class Client {
     # Update the queue with the new parameters
     #
     # + sid - The Twilio-provided string that uniquely identifies the Queue resource to update
-    # + payload - You must provide a UpdateQueueRequest record as a payload to update a queue.
+    # + payload - You must provide a `UpdateQueueRequest` record as a payload to update a queue.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
     # + return - OK 
     remote isolated function updateQueue(string sid, UpdateQueueRequest payload, string? accountSid = ()) returns Queue|error {
@@ -1226,7 +1226,7 @@ public isolated client class Client {
     }
     # Create a queue
     #
-    # + payload - You must provide a CreateQueueRequest record as a payload to create a queue.
+    # + payload - You must provide a `CreateQueueRequest` record as a payload to create a queue.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createQueue(CreateQueueRequest payload, string? accountSid = ()) returns Queue|error {
@@ -1366,7 +1366,7 @@ public isolated client class Client {
     # Update a short code with the following parameters
     #
     # + sid - The Twilio-provided string that uniquely identifies the ShortCode resource to update.
-    # + payload - You must provide a UpdateShortCodeRequest record as a payload to update a short code.
+    # + payload - You must provide a `UpdateShortCodeRequest` record as a payload to update a short code.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
     # + return - OK 
     remote isolated function updateShortCode(string sid, UpdateShortCodeRequest payload, string? accountSid = ()) returns Short_code|error {
@@ -1395,7 +1395,7 @@ public isolated client class Client {
     # Update a signing key with the following parameters
     # 
     # + sid - The Twilio-provided string that uniquely identifies the SigningKey resource to update.
-    # + payload - You must provide a UpdateSigningKeyRequest record as a payload to update a signing key.
+    # + payload - You must provide a `UpdateSigningKeyRequest` record as a payload to update a signing key.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SigningKey resource(s) to update.
     # + return - OK 
     remote isolated function updateSigningKey(string sid, UpdateSigningKeyRequest payload, string? accountSid = ()) returns Signing_key|error {
@@ -1423,7 +1423,7 @@ public isolated client class Client {
     # Create a new credential list mapping resource
     #
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a CreateSipAuthCallsCredentialListMappingRequest record as a payload to create a credential list mapping.
+    # + payload - You must provide a `CreateSipAuthCallsCredentialListMappingRequest` record as a payload to create a credential list mapping.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createSipAuthCallsCredentialListMapping(string domainSid, CreateSipAuthCallsCredentialListMappingRequest payload, string? accountSid = ()) returns SipSip_domainSip_authSip_auth_callsSip_auth_calls_credential_list_mapping|error {
@@ -1461,7 +1461,7 @@ public isolated client class Client {
     # Create a new IP Access Control List mapping
     #
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a CreateSipAuthCallsIpAccessControlListMappingRequest record as a payload to create a IP Access Control List mapping.
+    # + payload - You must provide a `CreateSipAuthCallsIpAccessControlListMappingRequest` record as a payload to create a IP Access Control List mapping.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createSipAuthCallsIpAccessControlListMapping(string domainSid, CreateSipAuthCallsIpAccessControlListMappingRequest payload, string? accountSid = ()) returns SipSip_domainSip_authSip_auth_callsSip_auth_calls_ip_access_control_list_mapping|error {
@@ -1499,7 +1499,7 @@ public isolated client class Client {
     # Create a new credential list mapping resource
     #
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a CreateSipAuthRegistrationsCredentialListMappingRequest record as a payload to create a credential list mapping.
+    # + payload - You must provide a `CreateSipAuthRegistrationsCredentialListMappingRequest` record as a payload to create a credential list mapping.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createSipAuthRegistrationsCredentialListMapping(string domainSid, CreateSipAuthRegistrationsCredentialListMappingRequest payload, string? accountSid = ()) returns SipSip_domainSip_authSip_auth_registrationsSip_auth_registrations_credential_list_mapping|error {
@@ -1537,7 +1537,7 @@ public isolated client class Client {
     # Create a new credential resource.
     #
     # + credentialListSid - The unique id that identifies the credential list to include the created credential.
-    # + payload - You must provide a CreateSipCredentialRequest record as a payload to create a credential.
+    # + payload - You must provide a `CreateSipCredentialRequest` record as a payload to create a credential.
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + return - Created 
     remote isolated function createSipCredential(string credentialListSid, CreateSipCredentialRequest payload, string? accountSid = ()) returns SipSip_credential_listSip_credential|error {
@@ -1556,7 +1556,7 @@ public isolated client class Client {
     #
     # + credentialListSid - The unique id that identifies the credential list that includes this credential.
     # + sid - The unique id that identifies the resource to update.
-    # + payload - You must provide a UpdateSipCredentialRequest record as a payload to update a credential.
+    # + payload - You must provide a `UpdateSipCredentialRequest` record as a payload to update a credential.
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + return - OK 
     remote isolated function updateSipCredential(string credentialListSid, string sid, UpdateSipCredentialRequest payload, string? accountSid = ()) returns SipSip_credential_listSip_credential|error {
@@ -1583,7 +1583,7 @@ public isolated client class Client {
     }
     # Create a Credential List
     #
-    # + payload - You must provide a CreateSipCredentialListRequest record as a payload to create a credential list.
+    # + payload - You must provide a `CreateSipCredentialListRequest` record as a payload to create a credential list.
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + return - Created 
     remote isolated function createSipCredentialList(CreateSipCredentialListRequest payload, string? accountSid = ()) returns SipSip_credential_list|error {
@@ -1600,7 +1600,7 @@ public isolated client class Client {
     # Update a Credential List
     #
     # + sid - The credential list Sid that uniquely identifies this resource.
-    # + payload - You must provide a UpdateSipCredentialListRequest record as a payload to update a credential list.
+    # + payload - You must provide a `UpdateSipCredentialListRequest` record as a payload to update a credential list.
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + return - OK 
     remote isolated function updateSipCredentialList(string sid, UpdateSipCredentialListRequest payload, string? accountSid = ()) returns SipSip_credential_list|error {
@@ -1628,7 +1628,7 @@ public isolated client class Client {
     # Create a CredentialListMapping resource for an account.
     #
     # + domainSid - A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped.
-    # + payload - You must provide a CreateSipCredentialListMappingRequest record as a payload to create a CredentialListMapping resource.
+    # + payload - You must provide a `CreateSipCredentialListMappingRequest` record as a payload to create a CredentialListMapping resource.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - Created 
     remote isolated function createSipCredentialListMapping(string domainSid, CreateSipCredentialListMappingRequest payload, string? accountSid = ()) returns SipSip_domainSip_credential_list_mapping|error {
@@ -1664,7 +1664,7 @@ public isolated client class Client {
     }
     # Create a new Domain
     #
-    # + payload - You must provide a CreateSipDomainRequest record as a payload to create a domain.
+    # + payload - You must provide a `CreateSipDomainRequest` record as a payload to create a domain.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createSipDomain(CreateSipDomainRequest payload, string? accountSid = ()) returns SipSip_domain|error {
@@ -1681,7 +1681,7 @@ public isolated client class Client {
     # Update the attributes of a domain
     #
     # + sid - The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-    # + payload - You must provide a UpdateSipDomainRequest record as a payload to update a domain.
+    # + payload - You must provide a `UpdateSipDomainRequest` record as a payload to update a domain.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
     # + return - OK 
     remote isolated function updateSipDomain(string sid, UpdateSipDomainRequest payload, string? accountSid = ()) returns SipSip_domain|error {
@@ -1707,7 +1707,7 @@ public isolated client class Client {
     }
     # Create a new IpAccessControlList resource
     #
-    # + payload - You must provide a CreateSipIpAccessControlListRequest record as a payload to create an IpAccessControlList.
+    # + payload - You must provide a `CreateSipIpAccessControlListRequest` record as a payload to create an IpAccessControlList.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - Created 
     remote isolated function createSipIpAccessControlList(CreateSipIpAccessControlListRequest payload, string? accountSid = ()) returns SipSip_ip_access_control_list|error {
@@ -1724,7 +1724,7 @@ public isolated client class Client {
     # Rename an IpAccessControlList
     #
     # + sid - A 34 character string that uniquely identifies the resource to udpate.
-    # + payload - You must provide a UpdateSipIpAccessControlListRequest record as a payload to update an IpAccessControlList.
+    # + payload - You must provide a `UpdateSipIpAccessControlListRequest` record as a payload to update an IpAccessControlList.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - OK 
     remote isolated function updateSipIpAccessControlList(string sid, UpdateSipIpAccessControlListRequest payload, string? accountSid = ()) returns SipSip_ip_access_control_list|error {
@@ -1770,7 +1770,7 @@ public isolated client class Client {
     # Create a new IpAccessControlListMapping resource.
     #
     # + domainSid - A 34 character string that uniquely identifies the SIP domain.
-    # + payload - You must provide a CreateSipIpAccessControlListMappingRequest record as a payload to create an IpAccessControlListMapping resource.
+    # + payload - You must provide a `CreateSipIpAccessControlListMappingRequest` record as a payload to create an IpAccessControlListMapping resource.
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + return - Created 
     remote isolated function createSipIpAccessControlListMapping(string domainSid, CreateSipIpAccessControlListMappingRequest payload, string? accountSid = ()) returns SipSip_domainSip_ip_access_control_list_mapping|error {
@@ -1790,7 +1790,7 @@ public isolated client class Client {
     # Create a new IpAddress resource.
     #
     # + ipAccessControlListSid - The IpAccessControlList Sid with which to associate the created IpAddress resource.
-    # + payload - You must provide a CreateSipIpAddressRequest record as a payload to create an IpAddress resource.
+    # + payload - You must provide a `CreateSipIpAddressRequest` record as a payload to create an IpAddress resource.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - Created 
     remote isolated function createSipIpAddress(string ipAccessControlListSid, CreateSipIpAddressRequest payload, string? accountSid = ()) returns SipSip_ip_access_control_listSip_ip_address|error {
@@ -1809,7 +1809,7 @@ public isolated client class Client {
     #
     # + ipAccessControlListSid - The IpAccessControlList Sid that identifies the IpAddress resources to update.
     # + sid - A 34 character string that identifies the IpAddress resource to update.
-    # + payload - You must provide a UpdateSipIpAddressRequest record as a payload to update an IpAddress resource.
+    # + payload - You must provide a `UpdateSipIpAddressRequest` record as a payload to update an IpAddress resource.
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + return - OK 
     remote isolated function updateSipIpAddress(string ipAccessControlListSid, string sid, UpdateSipIpAddressRequest payload, string? accountSid = ()) returns SipSip_ip_access_control_listSip_ip_address|error {
@@ -1827,7 +1827,7 @@ public isolated client class Client {
     # Create a Siprec
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
-    # + payload - You must provide a CreateSiprecRequest record as a payload to create a Siprec.
+    # + payload - You must provide a `CreateSiprecRequest` record as a payload to create a Siprec.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
     # + return - Created 
     remote isolated function createSiprec(string callSid, CreateSiprecRequest payload, string? accountSid = ()) returns CallSiprec|error {
@@ -1837,7 +1837,7 @@ public isolated client class Client {
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
     # + sid - The SID of the Siprec resource, or the `name` used when creating the resource.
-    # + payload - You must provide a UpdateSiprecRequest record as a payload to update a Siprec.
+    # + payload - You must provide a `UpdateSiprecRequest` record as a payload to update a Siprec.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
     # + return - OK 
     remote isolated function updateSiprec(string callSid, string sid, UpdateSiprecRequest payload, string? accountSid = ()) returns CallSiprec|error {
@@ -1846,7 +1846,7 @@ public isolated client class Client {
     # Create a Stream
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-    # + payload - You must provide a CreateStreamRequest record as a payload to create a Stream.
+    # + payload - You must provide a `CreateStreamRequest` record as a payload to create a Stream.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
     # + return - Created 
     remote isolated function createStream(string callSid, CreateStreamRequest payload, string? accountSid = ()) returns CallStream|error {
@@ -1856,7 +1856,7 @@ public isolated client class Client {
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
     # + sid - The SID of the Stream resource, or the `name` used when creating the resource
-    # + payload - You must provide a UpdateStreamRequest record as a payload to update a Stream.
+    # + payload - You must provide a `UpdateStreamRequest` record as a payload to update a Stream.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
     # + return - OK 
     remote isolated function updateStream(string callSid, string sid, UpdateStreamRequest payload, string? accountSid = ()) returns CallStream|error {
@@ -1864,7 +1864,7 @@ public isolated client class Client {
     }
     # Create a new token for ICE servers
     #
-    # + payload - You must provide a CreateTokenRequest record as a payload to create a token.
+    # + payload - You must provide a `CreateTokenRequest` record as a payload to create a token.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createToken(CreateTokenRequest payload, string? accountSid = ()) returns Token|error {
@@ -2033,7 +2033,7 @@ public isolated client class Client {
     # Update an instance of a usage trigger
     #
     # + sid - The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-    # + payload - You must provide a UpdateUsageTriggerRequest record as a payload to update a UsageTrigger resource.
+    # + payload - You must provide a `UpdateUsageTriggerRequest` record as a payload to update a UsageTrigger resource.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
     # + return - OK 
     remote isolated function updateUsageTrigger(string sid, UpdateUsageTriggerRequest payload, string? accountSid = ()) returns UsageUsage_trigger|error {
@@ -2062,7 +2062,7 @@ public isolated client class Client {
     }
     # Create a new UsageTrigger
     #
-    # + payload - You must provide a CreateUsageTriggerRequest record as a payload to create a UsageTrigger.
+    # + payload - You must provide a `CreateUsageTriggerRequest` record as a payload to create a UsageTrigger.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + return - Created 
     remote isolated function createUsageTrigger(CreateUsageTriggerRequest payload, string? accountSid = ()) returns UsageUsage_trigger|error {
@@ -2071,7 +2071,7 @@ public isolated client class Client {
     # Create a new User Defined Message for the given Call SID.
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
-    # + payload - You must provide a CreateUserDefinedMessageRequest record as a payload to create a User Defined Message.
+    # + payload - You must provide a `CreateUserDefinedMessageRequest` record as a payload to create a User Defined Message.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
     # + return - Created 
     remote isolated function createUserDefinedMessage(string callSid, CreateUserDefinedMessageRequest payload, string? accountSid = ()) returns CallUser_defined_message|error {
@@ -2080,7 +2080,7 @@ public isolated client class Client {
     # Subscribe to User Defined Messages for a given Call SID.
     #
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages.
-    # + payload - You must provide a CreateUserDefinedMessageSubscriptionRequest record as a payload to create a User Defined Message Subscription.
+    # + payload - You must provide a `CreateUserDefinedMessageSubscriptionRequest` record as a payload to create a User Defined Message Subscription.
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
     # + return - Created 
     remote isolated function createUserDefinedMessageSubscription(string callSid, CreateUserDefinedMessageSubscriptionRequest payload, string? accountSid = ()) returns CallUser_defined_message_subscription|error {

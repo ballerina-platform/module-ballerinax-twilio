@@ -9445,7 +9445,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateAccountRequest record, with the `FriendlyName`
+        description: 'You must provide a `CreateAccountRequest` record, with the `FriendlyName`
           property set to the name of the account you want to create.'
         content:
           application/x-www-form-urlencoded:
@@ -9731,7 +9731,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateAccountRequest record as a payload to update an
+        description: 'You must provide a `UpdateAccountRequest` record as a payload to update an
           Account.'
         content:
           application/x-www-form-urlencoded:
@@ -9797,7 +9797,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateAddressRequest record as a payload to create a new Address
+        description: 'You must provide a `CreateAddressRequest` record as a payload to create a new Address
           resource.'
         content:
           application/x-www-form-urlencoded:
@@ -10099,7 +10099,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateAddressRequest record as a payload to update an
+        description: 'You must provide a `UpdateAddressRequest` record as a payload to update an
           Address.'
         content:
           application/x-www-form-urlencoded:
@@ -10181,7 +10181,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateApplicationRequest record as a payload to create
+        description: 'You must provide a `CreateApplicationRequest` record as a payload to create
           a new Application resource.'
         content:
           application/x-www-form-urlencoded:
@@ -10536,7 +10536,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateApplicationRequest record as a payload to update
+        description: 'You must provide a `UpdateApplicationRequest` record as a payload to update
           an Application.'
         content:
           application/x-www-form-urlencoded:
@@ -12896,7 +12896,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateCallRequest record as a payload to create a call'
+        description: 'You must provide a `CreateCallRequest` record as a payload to create a call'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13537,7 +13537,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateCallRequest record as a payload to update a call'
+        description: 'You must provide an `UpdateCallRequest` record as a payload to update a call'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13832,7 +13832,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateCallFeedbackRequest record as a payload to update a call feedback'
+        description: 'You must provide an `UpdateCallFeedbackRequest` record as a payload to update a call feedback'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13896,7 +13896,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateCallFeedbackSummaryRequest record as a payload to create a call feedback summary'
+        description: 'You must provide a `CreateCallFeedbackSummaryRequest` record as a payload to create a call feedback summary'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14295,7 +14295,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateCallRecordingRequest record as a payload to create a call recording'
+        description: 'You must provide a `CreateCallRecordingRequest` record as a payload to create a call recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14556,7 +14556,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateCallRecordingRequest record as a payload to update a call recording'
+        description: 'You must provide an `UpdateCallRecordingRequest` record as a payload to update a call recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14761,7 +14761,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateConferenceRequest record as a payload to update a conference'
+        description: 'You must provide an `UpdateConferenceRequest` record as a payload to update a conference'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -15048,7 +15048,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateConferenceRecordingRequest record as a payload to update a conference recording'
+        description: 'You must provide an `UpdateConferenceRecordingRequest` record as a payload to update a conference recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -15404,7 +15404,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateConnectAppRequest record as a payload
+        description: 'You must provide an `UpdateConnectAppRequest` record as a payload
           to update a connect-app'
         content:
           application/x-www-form-urlencoded:
@@ -15789,7 +15789,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide an UpdateIncomingPhoneNumberRequest record
+        description: 'You must provide an `UpdateIncomingPhoneNumberRequest` record
           as a payload to update an incoming-phone-number instance.'
         content:
           application/x-www-form-urlencoded:
@@ -16225,7 +16225,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateIncomingPhoneNumberRequest record
+        description: 'You must provide a `CreateIncomingPhoneNumberRequest` record
           as a payload to purchase a phone-number.'
         content:
           application/x-www-form-urlencoded:
@@ -16704,8 +16704,8 @@ paths:
       x-maturity:
       - Beta
       requestBody:
-        description: 'You must provide a CreateIncomingPhoneNumberAssignedAddOnRequest
-          record as a payload to assign an Add-on installation to a Number.'
+        description: 'You must provide a `CreateIncomingPhoneNumberAssignedAddOnRequest`
+          record as a payload to assign an add-on installation to a number.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -17094,7 +17094,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateIncomingPhoneNumberLocalRequest record
+        description: 'You must provide a `CreateIncomingPhoneNumberLocalRequest` record
           as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
@@ -17452,7 +17452,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateIncomingPhoneNumberMobileRequest record
+        description: 'You must provide a `CreateIncomingPhoneNumberMobileRequest` record
           as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
@@ -17809,7 +17809,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateIncomingPhoneNumberTollFreeRequest
+        description: 'You must provide a `CreateIncomingPhoneNumberTollFreeRequest`
           record as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
@@ -18083,7 +18083,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateKeyRequest record as a payload to
+        description: 'You must provide a `UpdateKeyRequest` record as a payload to
           update a Key resource.'
         content:
           application/x-www-form-urlencoded:
@@ -18273,7 +18273,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateNewKeyRequest record as a payload
+        description: 'You must provide a `CreateNewKeyRequest` record as a payload
           to create a Key resource.'
         content:
           application/x-www-form-urlencoded:
@@ -18651,7 +18651,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateMemberRequest record as a payload
+        description: 'You must provide a `UpdateMemberRequest` record as a payload
           to update a Member resource.'
         content:
           application/x-www-form-urlencoded:
@@ -18858,8 +18858,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateMessageRequest record as a payload
-          to create a Message resource.'
+        description: 'You must provide a `CreateMessageRequest` record as a payload
+          to create a message.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19328,7 +19328,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateMessageRequest record as a payload
+        description: 'You must provide a `UpdateMessageRequest` record as a payload
           to update a Message resource.'
         content:
           application/x-www-form-urlencoded:
@@ -19398,7 +19398,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateMessageFeedbackRequest record as a
+        description: 'You must provide a `CreateMessageFeedbackRequest` record as a
           payload to create a MessageFeedback resource.'
         content:
           application/x-www-form-urlencoded:
@@ -19454,7 +19454,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateNewSigningKeyRequest record as a payload
+        description: 'You must provide a `CreateNewSigningKeyRequest` record as a payload
           to create a Signing Key resource.'
         content:
           application/x-www-form-urlencoded:
@@ -19866,7 +19866,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateOutgoingCallerIdRequest record as a
+        description: 'You must provide a `UpdateOutgoingCallerIdRequest` record as a
           payload to update a OutgoingCallerId resource.'
         content:
           application/x-www-form-urlencoded:
@@ -20071,13 +20071,13 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateValidationRequestRequest record as
-          a payload to create a Validation Request resource.'
+        description: 'You must provide a `CreateValidationRequest` record as
+          a payload to create a Validation request resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              title: CreateValidationRequestRequest
+              title: CreateValidationRequest
               properties:
                 PhoneNumber:
                   type: string
@@ -20225,7 +20225,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateParticipantRequest record as a payload
+        description: 'You must provide a `UpdateParticipantRequest` record as a payload
           to update a Participant resource.'
         content:
           application/x-www-form-urlencoded:
@@ -20414,7 +20414,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateParticipantRequest record as a payload
+        description: 'You must provide a `CreateParticipantRequest` record as a payload
           to create a Participant resource.'
         content:
           application/x-www-form-urlencoded:
@@ -20940,7 +20940,7 @@ paths:
       x-maturity:
       - Preview
       requestBody:
-        description: 'You must provide a CreatePaymentsRequest record as a payload
+        description: 'You must provide a `CreatePaymentsRequest` record as a payload
           to create a Payments resource.'
         content:
           application/x-www-form-urlencoded:
@@ -21097,7 +21097,7 @@ paths:
       x-maturity:
       - Preview
       requestBody:
-        description: 'You must provide a UpdatePaymentsRequest record as a payload
+        description: 'You must provide a `UpdatePaymentsRequest` record as a payload
           to update a Payments resource.'
         content:
           application/x-www-form-urlencoded:
@@ -21227,7 +21227,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateQueueRequest record as a payload
+        description: 'You must provide a `UpdateQueueRequest` record as a payload
           to update a Queue resource.'
         content:
           application/x-www-form-urlencoded:
@@ -21429,7 +21429,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateQueueRequest record as a payload
+        description: 'You must provide a `CreateQueueRequest` record as a payload
           to create a Queue resource.'
         content:
           application/x-www-form-urlencoded:
@@ -22565,7 +22565,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateShortCodeRequest record as a payload
+        description: 'You must provide a `UpdateShortCodeRequest` record as a payload
           to update a ShortCode resource.'
         content:
           application/x-www-form-urlencoded:
@@ -22830,7 +22830,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSigningKeyRequest record as a payload
+        description: 'You must provide a `UpdateSigningKeyRequest` record as a payload
           to update a SigningKey resource.'
         content:
           application/x-www-form-urlencoded:
@@ -22950,8 +22950,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipAuthCallsCredentialListMappingRequest
-          record as a payload to create a CredentialListMapping resource.'
+        description: 'You must provide a `CreateSipAuthCallsCredentialListMappingRequest`
+          record as a payload to create a `SipAuthCallsCredentialListMapping` resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23230,8 +23230,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipAuthCallsIpAccessControlListMappingRequest
-          record as a payload to create a IpAccessControlListMapping resource.'
+        description: 'You must provide a `CreateSipAuthCallsIpAccessControlListMappingRequest`
+          record as a payload to create a SipAuthCallsIpAccessControlListMapping resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23519,7 +23519,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipAuthRegistrationsCredentialListMappingRequest
+        description: 'You must provide a `CreateSipAuthRegistrationsCredentialListMappingRequest`
           record as a payload to create a CredentialListMapping resource.'
         content:
           application/x-www-form-urlencoded:
@@ -23914,7 +23914,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipCredentialRequest record as a payload
+        description: 'You must provide a `CreateSipCredentialRequest` record as a payload
           to create a Credential resource.'
         content:
           application/x-www-form-urlencoded:
@@ -24038,7 +24038,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSipCredentialRequest record as a payload
+        description: 'You must provide a `UpdateSipCredentialRequest` record as a payload
           to update a Credential resource.'
         content:
           application/x-www-form-urlencoded:
@@ -24240,7 +24240,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipCredentialListRequest record as
+        description: 'You must provide a `CreateSipCredentialListRequest` record as
           a payload to create a CredentialList resource.'
         content:
           application/x-www-form-urlencoded:
@@ -24341,7 +24341,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSipCredentialListRequest record as
+        description: 'You must provide a `UpdateSipCredentialListRequest` record as
           a payload to update a CredentialList resource.'
         content:
           application/x-www-form-urlencoded:
@@ -24434,7 +24434,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipCredentialListMappingRequest record
+        description: 'You must provide a `CreateSipCredentialListMappingRequest` record
           as a payload to create a CredentialListMapping resource.'
         content:
           application/x-www-form-urlencoded:
@@ -24829,7 +24829,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipDomainRequest record as a payload
+        description: 'You must provide a `CreateSipDomainRequest` record as a payload
           to create a Domain resource.'
         content:
           application/x-www-form-urlencoded:
@@ -25031,7 +25031,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSipDomainRequest record as a payload
+        description: 'You must provide a `UpdateSipDomainRequest` record as a payload
           to update a Domain resource.'
         content:
           application/x-www-form-urlencoded:
@@ -25312,7 +25312,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipIpAccessControlListRequest record
+        description: 'You must provide a `CreateSipIpAccessControlListRequest` record
           as a payload to create a IpAccessControlList resource.'
         content:
           application/x-www-form-urlencoded:
@@ -25417,7 +25417,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSipIpAccessControlListRequest record
+        description: 'You must provide a `UpdateSipIpAccessControlListRequest` record
           as a payload to update a IpAccessControlList resource.'
         content:
           application/x-www-form-urlencoded:
@@ -25606,7 +25606,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipIpAccessControlListMappingRequest
+        description: 'You must provide a `CreateSipIpAccessControlListMappingRequest`
           record as a payload to create a IpAccessControlListMapping resource.'
         content:
           application/x-www-form-urlencoded:
@@ -25902,7 +25902,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSipIpAddressRequest record as a payload
+        description: 'You must provide a `CreateSipIpAddressRequest` record as a payload
           to create a IpAddress resource.'
         content:
           application/x-www-form-urlencoded:
@@ -26033,7 +26033,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSipIpAddressRequest record as a payload
+        description: 'You must provide a `UpdateSipIpAddressRequest` record as a payload
           to update a IpAddress resource.'
         content:
           application/x-www-form-urlencoded:
@@ -26146,7 +26146,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateSiprecRequest record as a payload to
+        description: 'You must provide a `CreateSiprecRequest` record as a payload to
           create a Siprec resource.'
         content:
           application/x-www-form-urlencoded:
@@ -26833,7 +26833,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateSiprecRequest record as a payload to
+        description: 'You must provide a `UpdateSiprecRequest` record as a payload to
           update a Siprec resource.'
         content:
           application/x-www-form-urlencoded:
@@ -26896,7 +26896,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateStreamRequest record as a payload
+        description: 'You must provide a `CreateStreamRequest` record as a payload
           to create a Stream resource.'
         content:
           application/x-www-form-urlencoded:
@@ -27587,7 +27587,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a UpdateStreamRequest record as a payload
+        description: 'You must provide a `UpdateStreamRequest` record as a payload
           to update a Stream resource.'
         content:
           application/x-www-form-urlencoded:
@@ -27639,7 +27639,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must provide a CreateTokenRequest record as a payload to
+        description: 'You must provide a `CreateTokenRequest` record as a payload to
           create a Token resource.'
         content:
           application/x-www-form-urlencoded:
@@ -29326,7 +29326,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must use UpdateUsageTriggerRequest as a payload to update a UsageTrigger'
+        description: 'You must use `UpdateUsageTriggerRequest` as a payload to update a UsageTrigger'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -29427,7 +29427,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must use CreateUsageTriggerRequest as a payload to create a UsageTrigger'
+        description: 'You must use `CreateUsageTriggerRequest` as a payload to create a UsageTrigger'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -29662,7 +29662,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must use CreateUserDefinedMessageRequest as a payload to
+        description: 'You must use `CreateUserDefinedMessageRequest` as a payload to
           create a User Defined Message'
         content:
           application/x-www-form-urlencoded:
@@ -29729,8 +29729,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
-        description: 'You must use CreateUserDefinedMessageSubscriptionRequest as
-          a payload to create a User Defined Message Subscription'
+        description: 'You must use `CreateUserDefinedMessageSubscriptionRequest` as
+          a payload to create a UserDefinedMessageSubscription'
         content:
           application/x-www-form-urlencoded:
             schema:

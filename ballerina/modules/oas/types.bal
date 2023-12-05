@@ -754,6 +754,21 @@ public type ConferenceParticipant record {
     string? uri?;
 };
 
+public type CreateValidationRequest record {
+    # The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    string PhoneNumber;
+    # A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+    string FriendlyName?;
+    # The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+    int CallDelay?;
+    # The digits to dial after connecting the verification call.
+    string Extension?;
+    # The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+    string StatusCallback?;
+    # The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+    "HEAD"|"GET"|"POST"|"PATCH"|"PUT"|"DELETE" StatusCallbackMethod?;
+};
+
 public type CallStream record {
     # The SID of the Stream resource.
     string? sid?;
@@ -4818,21 +4833,6 @@ public type ListRecordingAddOnResultResponse record {
 public type Authorized_connect_app_enum_permission "get-all"|"post-all";
 
 public type Call_enum_status "queued"|"ringing"|"in-progress"|"completed"|"busy"|"failed"|"no-answer"|"canceled";
-
-public type CreateValidationRequestRequest record {
-    # The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-    string PhoneNumber;
-    # A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
-    string FriendlyName?;
-    # The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-    int CallDelay?;
-    # The digits to dial after connecting the verification call.
-    string Extension?;
-    # The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
-    string StatusCallback?;
-    # The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
-    "HEAD"|"GET"|"POST"|"PATCH"|"PUT"|"DELETE" StatusCallbackMethod?;
-};
 
 public type ListUsageRecordAllTimeResponse record {
     UsageUsage_recordUsage_record_all_time[] usage_records?;
