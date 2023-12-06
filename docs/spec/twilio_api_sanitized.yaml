@@ -491,12 +491,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -578,12 +586,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -665,12 +681,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -752,12 +776,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -839,12 +871,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -926,12 +966,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -1013,12 +1061,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -2291,12 +2347,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -2700,12 +2764,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -2989,12 +3061,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -3278,12 +3358,20 @@ components:
           format: phone-number-capabilities
           properties:
             mms:
+              description: 'Whether the phone number can send and receive MMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             sms:
+              description: 'Whether the phone number can send and receive SMS messages.
+                Can be: `true` or `false`.'
               type: boolean
             voice:
+              description: 'Whether the phone number can receive voice calls. Can
+                be: `true` or `false`.'
               type: boolean
             fax:
+              description: 'Whether the phone number can receive faxes. Can be: `true`
+                or `false`.'
               type: boolean
           nullable: true
           description: 'The set of Boolean properties that indicate whether a phone
@@ -9357,6 +9445,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateAccountRequest` record should be used as a payload to create a Subaccount.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -9641,6 +9730,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateAccountRequest` record should be used as a payload to update an
+          Account.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -9678,7 +9769,7 @@ paths:
           resource_url: /2010-04-01/Accounts/{account_sid}/Addresses/{address_sid}/DependentPhoneNumbers.json
       parent: /Accounts/{Sid}.json
     post:
-      description: ''
+      description: 'Create a new Address resource. '
       tags:
       - Api20100401Address
       parameters:
@@ -9705,6 +9796,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateAddressRequest` record should be used as a payload to create a new Address
+          resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -9755,7 +9848,7 @@ paths:
               - PostalCode
               - IsoCountry
     get:
-      description: ''
+      description: 'List the Address resources associated with your account. '
       tags:
       - Api20100401Address
       parameters:
@@ -9898,7 +9991,7 @@ paths:
           resource_url: /2010-04-01/Accounts/{account_sid}/Addresses/{address_sid}/DependentPhoneNumbers.json
       parent: /Accounts/{Sid}.json
     delete:
-      description: ''
+      description: 'Delete the Address resource specified by the provided AddressSid. '
       tags:
       - Api20100401Address
       parameters:
@@ -9931,7 +10024,7 @@ paths:
       x-maturity:
       - GA
     get:
-      description: ''
+      description: 'Fetch the Address resource specified by the provided Address Sid.'
       tags:
       - Api20100401Address
       parameters:
@@ -9968,7 +10061,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Update the Address resource specified by the provided AddressSid. '
       tags:
       - Api20100401Address
       parameters:
@@ -10005,6 +10098,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateAddressRequest` record should be used as a payload to update an
+          Address.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -10085,6 +10180,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateApplicationRequest` record should be used as a payload to create
+          a new Application resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -10438,6 +10535,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateApplicationRequest` record should be used as a payload to update
+          an Application.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -10771,7 +10870,7 @@ paths:
       parent: /Accounts/{Sid}.json
       className: available_phone_number_country
     get:
-      description: ''
+      description: 'Retrieve a list of available phone numbers that match the given filters.'
       tags:
       - Api20100401AvailablePhoneNumberCountry
       parameters:
@@ -10925,7 +11024,7 @@ paths:
       parent: /Accounts/{Sid}.json
       className: available_phone_number_country
     get:
-      description: ''
+      description: 'Retrieve a list of available phone numbers that match the given filters.'
       tags:
       - Api20100401AvailablePhoneNumberCountry
       parameters:
@@ -10972,7 +11071,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of machine to machine available phone numbers that match the given filters.'
       tags:
       - Api20100401Local
       parameters:
@@ -11216,7 +11315,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of machine to machine available phone numbers that match the given filters.'
       tags:
       - Api20100401MachineToMachine
       parameters:
@@ -11460,7 +11559,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of mobile available phone numbers that match the given filters.'
       tags:
       - Api20100401Mobile
       parameters:
@@ -11704,7 +11803,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of national available phone numbers that match the given filters.'
       tags:
       - Api20100401National
       parameters:
@@ -11948,7 +12047,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of shared cost available phone numbers that match the given filters.'
       tags:
       - Api20100401SharedCost
       parameters:
@@ -12192,7 +12291,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of toll free available phone numbers that match the given filters.'
       tags:
       - Api20100401TollFree
       parameters:
@@ -12436,7 +12535,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json
     get:
-      description: ''
+      description: 'Retrieve a list of VoIP available phone numbers that match the given filters.'
       tags:
       - Api20100401Voip
       parameters:
@@ -12796,6 +12895,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateCallRequest` record should be used as a payload to create a call'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13436,6 +13536,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateCallRequest` record should be used as a payload to update a call'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13730,6 +13831,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateCallFeedbackRequest` record should be used as a payload to update a call feedback'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13793,6 +13895,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateCallFeedbackSummaryRequest` record should be used as a payload to create a call feedback summary'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -13931,7 +14034,7 @@ paths:
       pathType: instance
       parent: /Accounts/{AccountSid}/Calls/{Sid}.json
     get:
-      description: ''
+      description: 'Fetch a Notification resource from a call. '
       tags:
       - Api20100401Notification
       parameters:
@@ -13990,7 +14093,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Calls/{Sid}.json
     get:
-      description: ''
+      description: 'Retrieve a list of all notifications generated for a given call.'
       tags:
       - Api20100401Notification
       parameters:
@@ -14191,6 +14294,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateCallRecordingRequest` record should be used as a payload to create a call recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14451,6 +14555,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateCallRecordingRequest` record should be used as a payload to update a call recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14621,7 +14726,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Changes the status of a conference.'
       tags:
       - Api20100401Conference
       parameters:
@@ -14655,6 +14760,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateConferenceRequest` record should be used as a payload to update a conference'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -14941,6 +15047,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateConferenceRecordingRequest` record should be used as a payload to update a conference recording'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -15296,6 +15403,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateConnectAppRequest` record should be used as a payload
+          to update a connect-app'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -15508,7 +15617,8 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Addresses/{Sid}.json
     get:
-      description: ''
+      description: 'Retrieve a list of phone numbers dependent on an Address resource
+        belonging to the account used to make the request'
       tags:
       - Api20100401DependentPhoneNumber
       parameters:
@@ -15678,6 +15788,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateIncomingPhoneNumberRequest` record should be used as a payload to update an incoming-phone-number instance.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -16112,6 +16223,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateIncomingPhoneNumberRequest` record should be used as a payload to purchase a phone-number.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -16589,6 +16701,7 @@ paths:
       x-maturity:
       - Beta
       requestBody:
+        description: 'The `CreateIncomingPhoneNumberAssignedAddOnRequest` record should be used as a payload to assign an add-on installation to a number.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -16820,7 +16933,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/IncomingPhoneNumbers.json
     get:
-      description: ''
+      description: 'Retrieve a list of local phone numbers belonging to the account.'
       tags:
       - Api20100401Local
       parameters:
@@ -16950,7 +17063,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Create a new IncomingPhoneNumber resource. '
       tags:
       - Api20100401Local
       parameters:
@@ -16977,6 +17090,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateIncomingPhoneNumberLocalRequest` record should be used as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -17176,7 +17290,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/IncomingPhoneNumbers.json
     get:
-      description: ''
+      description: 'Retrieve a list of mobile phone numbers belonging to the account.'
       tags:
       - Api20100401Mobile
       parameters:
@@ -17306,7 +17420,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Create a new IncomingPhoneNumber resource. '
       tags:
       - Api20100401Mobile
       parameters:
@@ -17333,6 +17447,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateIncomingPhoneNumberMobileRequest` record should be used as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -17531,7 +17646,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/IncomingPhoneNumbers.json
     get:
-      description: ''
+      description: 'Retrieve a list of toll free phone numbers belonging to the account.'
       tags:
       - Api20100401TollFree
       parameters:
@@ -17661,7 +17776,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Create a new Toll Free IncomingPhoneNumber resource. '
       tags:
       - Api20100401TollFree
       parameters:
@@ -17688,6 +17803,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateIncomingPhoneNumberTollFreeRequest` record should be used as a payload to create an IncomingPhoneNumber resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -17886,7 +18002,7 @@ paths:
       pathType: instance
       parent: /Accounts/{Sid}.json
     get:
-      description: ''
+      description: 'Fetch a Key.'
       tags:
       - Api20100401Key
       parameters:
@@ -17923,7 +18039,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Update a Key.'
       tags:
       - Api20100401Key
       parameters:
@@ -17960,6 +18076,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateKeyRequest` record should be used as a payload to
+          update a Key resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -17971,7 +18089,7 @@ paths:
                   description: A descriptive string that you create to describe the
                     resource. It can be up to 64 characters long.
     delete:
-      description: ''
+      description: 'Delete a Key.'
       tags:
       - Api20100401Key
       parameters:
@@ -18015,7 +18133,7 @@ paths:
       pathType: list
       parent: /Accounts/{Sid}.json
     get:
-      description: ''
+      description: 'Returns a list of Key resources.'
       tags:
       - Api20100401Key
       parameters:
@@ -18121,7 +18239,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Create a new Key request. '
       tags:
       - Api20100401NewKey
       parameters:
@@ -18148,6 +18266,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateNewKeyRequest` record should be used as a payload
+          to create a Key resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -18524,6 +18644,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateMemberRequest` record should be used as a payload
+          to update a Member resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -18729,6 +18851,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateMessageRequest` record should be used as a payload
+          to create a message.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19197,6 +19321,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateMessageRequest` record should be used as a payload
+          to update a Message resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19265,6 +19391,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateMessageFeedbackRequest` record should be used as a payload to create a MessageFeedback resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19319,6 +19446,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateNewSigningKeyRequest` record should be used as a payload
+          to create a Signing Key resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19332,13 +19461,14 @@ paths:
       x-twilio:
         mountName: new_signing_keys
     get:
-      description: ''
+      description: 'Returns a list of [Signing Key](https://www.twilio.com/docs/iam/api/signingkey-resource) resources'
       tags:
       - Api20100401SigningKey
       parameters:
       - name: AccountSid
         in: path
-        description: ''
+        description: 'The SID of the [Account](https://www.twilio.com/docs/iam/api/account)
+          that created the Key resources to read.'
         schema:
           type: string
           minLength: 34
@@ -19728,6 +19858,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateOutgoingCallerIdRequest` record should be used as a payload to update a OutgoingCallerId resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -19904,7 +20035,7 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Create a Validation Request'
       tags:
       - Api20100401ValidationRequest
       parameters:
@@ -19931,11 +20062,12 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateValidationRequest` record should be used as a payload to create a Validation request resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              title: CreateValidationRequestRequest
+              title: CreateValidationRequest
               properties:
                 PhoneNumber:
                   type: string
@@ -20083,6 +20215,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateParticipantRequest` record should be used as a payload
+          to update a Participant resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -20237,7 +20371,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Conferences/{Sid}.json
     post:
-      description: ''
+      description: 'Create a Participant.'
       tags:
       - Api20100401Participant
       parameters:
@@ -20270,6 +20404,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateParticipantRequest` record should be used as a payload
+          to create a Participant resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -20794,6 +20930,8 @@ paths:
       x-maturity:
       - Preview
       requestBody:
+        description: 'The `CreatePaymentsRequest` record should be used as a payload
+          to create a Payments resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -20949,6 +21087,8 @@ paths:
       x-maturity:
       - Preview
       requestBody:
+        description: 'The `UpdatePaymentsRequest` record should be used as a payload
+          to update a Payments resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -21077,6 +21217,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateQueueRequest` record should be used as a payload
+          to update a Queue resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -21277,6 +21419,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateQueueRequest` record should be used as a payload
+          to create a Queue resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -22108,7 +22252,7 @@ paths:
       pathType: instance
       parent: /Accounts/{AccountSid}/Recordings/{Sid}.json
     get:
-      description: ''
+      description: 'Fetch a recording transcription. '
       tags:
       - Api20100401Transcription
       parameters:
@@ -22155,7 +22299,7 @@ paths:
       x-maturity:
       - GA
     delete:
-      description: ''
+      description: 'Delete a transcription from your account. '
       tags:
       - Api20100401Transcription
       parameters:
@@ -22210,7 +22354,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Recordings/{Sid}.json
     get:
-      description: ''
+      description: 'Retrieve a list of transcriptions belonging to the recording. '
       tags:
       - Api20100401Transcription
       parameters:
@@ -22411,6 +22555,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateShortCodeRequest` record should be used as a payload
+          to update a ShortCode resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -22600,13 +22746,14 @@ paths:
       pathType: instance
       parent: /Accounts/{Sid}.json
     get:
-      description: ''
+      description: 'Fetch a SigningKey. '
       tags:
       - Api20100401SigningKey
       parameters:
       - name: AccountSid
         in: path
-        description: ''
+        description: 'The SID of the [Account](https://www.twilio.com/docs/iam/api/account)
+          that created the SigningKey resource to fetch.'
         schema:
           type: string
           minLength: 34
@@ -22615,7 +22762,8 @@ paths:
         required: true
       - name: Sid
         in: path
-        description: ''
+        description: 'The Twilio-provided string that uniquely identifies the SigningKey
+          resource to fetch.'
         schema:
           type: string
           minLength: 34
@@ -22635,13 +22783,14 @@ paths:
       x-maturity:
       - GA
     post:
-      description: ''
+      description: 'Update a SigningKey. '
       tags:
       - Api20100401SigningKey
       parameters:
       - name: AccountSid
         in: path
-        description: ''
+        description: 'The SID of the [Account](https://www.twilio.com/docs/iam/api/account)
+          that created the SigningKey resource to update.'
         schema:
           type: string
           minLength: 34
@@ -22650,7 +22799,8 @@ paths:
         required: true
       - name: Sid
         in: path
-        description: ''
+        description: 'The Twilio-provided string that uniquely identifies the SigningKey
+          resource to update.'
         schema:
           type: string
           minLength: 34
@@ -22670,6 +22820,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSigningKeyRequest` record should be used as a payload
+          to update a SigningKey resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -22678,15 +22830,18 @@ paths:
               properties:
                 FriendlyName:
                   type: string
-                  description: ''
+                  description: 'A descriptive string that you created to describe this
+                    resource. It can be up to 64 characters long. By default, the
+                    `FriendlyName` is the same as the `Sid`.'
     delete:
-      description: ''
+      description: 'Delete a SigningKey. '
       tags:
       - Api20100401SigningKey
       parameters:
       - name: AccountSid
         in: path
-        description: ''
+        description: 'The SID of the [Account](https://www.twilio.com/docs/iam/api/account)
+          that created the SigningKey resource to delete.'
         schema:
           type: string
           minLength: 34
@@ -22695,7 +22850,8 @@ paths:
         required: true
       - name: Sid
         in: path
-        description: ''
+        description: 'The Twilio-provided string that uniquely identifies the SigningKey
+          resource to delete.'
         schema:
           type: string
           minLength: 34
@@ -22784,6 +22940,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipAuthCallsCredentialListMappingRequest` record should be used as a payload to create a `SipAuthCallsCredentialListMapping` resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23062,6 +23219,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipAuthCallsIpAccessControlListMappingRequest` record should be used as a payload to create a SipAuthCallsIpAccessControlListMapping resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23349,6 +23507,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipAuthRegistrationsCredentialListMappingRequest` record should be used as a payload to create a CredentialListMapping resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23742,6 +23901,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipCredentialRequest` record should be used as a payload
+          to create a Credential resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -23864,6 +24025,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSipCredentialRequest` record should be used as a payload
+          to update a Credential resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -24064,6 +24227,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipCredentialListRequest` record should be used as a payload to create a CredentialList resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -24163,6 +24327,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSipCredentialListRequest` record should be used as a payload to update a CredentialList resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -24254,6 +24419,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipCredentialListMappingRequest` record should be used as a payload to create a CredentialListMapping resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -24647,6 +24813,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipDomainRequest` record should be used as a payload
+          to create a Domain resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -24847,6 +25015,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSipDomainRequest` record should be used as a payload
+          to update a Domain resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25126,6 +25296,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipIpAccessControlListRequest` record should be used as a payload to create a IpAccessControlList resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25229,6 +25400,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSipIpAccessControlListRequest` record should be used as a payload to update a IpAccessControlList resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25416,6 +25588,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipIpAccessControlListMappingRequest` record should be used as a payload to create a IpAccessControlListMapping resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25710,6 +25883,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSipIpAddressRequest` record should be used as a payload
+          to create a IpAddress resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25839,6 +26014,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSipIpAddressRequest` record should be used as a payload
+          to update a IpAddress resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -25950,6 +26127,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateSiprecRequest` record should be used as a payload to
+          create a Siprec resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -26635,6 +26814,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateSiprecRequest` record should be used as a payload to
+          update a Siprec resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -26696,6 +26877,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateStreamRequest` record should be used as a payload
+          to create a Stream resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -27385,6 +27568,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateStreamRequest` record should be used as a payload
+          to update a Stream resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -27435,6 +27620,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateTokenRequest` record should be used as a payload to
+          create a Token resource.'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -27822,7 +28009,8 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: Retrieve a list of usage-records belonging to the account used
+        to make the request
       tags:
       - Api20100401AllTime
       parameters:
@@ -27975,7 +28163,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List daily usage records.'
       tags:
       - Api20100401Daily
       parameters:
@@ -28128,7 +28316,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List usage records for last month.'
       tags:
       - Api20100401LastMonth
       parameters:
@@ -28281,7 +28469,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List monthly usage records.'
       tags:
       - Api20100401Monthly
       parameters:
@@ -28434,7 +28622,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List usage records for this month.'
       tags:
       - Api20100401ThisMonth
       parameters:
@@ -28587,7 +28775,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List usage records for today.'
       tags:
       - Api20100401Today
       parameters:
@@ -28740,7 +28928,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List yearly usage records.'
       tags:
       - Api20100401Yearly
       parameters:
@@ -28893,7 +29081,7 @@ paths:
       pathType: list
       parent: /Accounts/{AccountSid}/Usage/Records.json
     get:
-      description: ''
+      description: 'List usage records for yesterday.'
       tags:
       - Api20100401Yesterday
       parameters:
@@ -29119,6 +29307,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `UpdateUsageTriggerRequest` record should be used as a payload to update a UsageTrigger'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -29147,7 +29336,7 @@ paths:
                   description: A descriptive string that you create to describe the
                     resource. It can be up to 64 characters long.
     delete:
-      description: ''
+      description: 'Delete an instance of a usage trigger'
       tags:
       - Api20100401Trigger
       parameters:
@@ -29219,6 +29408,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateUsageTriggerRequest` record should be used as a payload to create a UsageTrigger'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -29453,6 +29643,8 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateUserDefinedMessageRequest` record should be used as a payload to
+          create a User Defined Message'
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -29518,6 +29710,7 @@ paths:
       x-maturity:
       - GA
       requestBody:
+        description: 'The `CreateUserDefinedMessageSubscriptionRequest` record should be used as a payload to create a UserDefinedMessageSubscription'
         content:
           application/x-www-form-urlencoded:
             schema:
