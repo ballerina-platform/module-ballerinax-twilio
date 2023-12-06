@@ -754,6 +754,21 @@ public type ConferenceParticipant record {
     string? uri?;
 };
 
+public type CreateValidationRequest record {
+    # The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    string PhoneNumber;
+    # A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+    string FriendlyName?;
+    # The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+    int CallDelay?;
+    # The digits to dial after connecting the verification call.
+    string Extension?;
+    # The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+    string StatusCallback?;
+    # The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+    "HEAD"|"GET"|"POST"|"PATCH"|"PUT"|"DELETE" StatusCallbackMethod?;
+};
+
 public type CallStream record {
     # The SID of the Stream resource.
     string? sid?;
@@ -1980,9 +1995,13 @@ public type ListMemberResponse record {
 
 # The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 public type Incoming_phone_number_capabilities record {
+    # Whether the phone number can send and receive MMS messages. Can be: `true` or `false`.
     boolean mms?;
+    # Whether the phone number can send and receive SMS messages. Can be: `true` or `false`.
     boolean sms?;
+    # Whether the phone number can receive voice calls. Can be: `true` or `false`.
     boolean voice?;
+    # Whether the phone number can receive faxes. Can be: `true` or `false`.
     boolean fax?;
 };
 
@@ -2213,7 +2232,7 @@ public type ListSipAuthRegistrationsCredentialListMappingResponse record {
 };
 
 public type UpdateSigningKeyRequest record {
-    # 
+    # A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the same as the `Sid`.
     string FriendlyName?;
 };
 
@@ -3053,9 +3072,13 @@ public type Recording_enum_status "in-progress"|"paused"|"stopped"|"processing"|
 
 # The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are: `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
 public type Available_phone_number_local_capabilities record {
+    # Whether the phone number can send and receive MMS messages. Can be: `true` or `false`.
     boolean mms?;
+    # Whether the phone number can send and receive SMS messages. Can be: `true` or `false`.
     boolean sms?;
+    # Whether the phone number can receive voice calls. Can be: `true` or `false`.
     boolean voice?;
+    # Whether the phone number can receive faxes. Can be: `true` or `false`.
     boolean fax?;
 };
 
@@ -4810,21 +4833,6 @@ public type ListRecordingAddOnResultResponse record {
 public type Authorized_connect_app_enum_permission "get-all"|"post-all";
 
 public type Call_enum_status "queued"|"ringing"|"in-progress"|"completed"|"busy"|"failed"|"no-answer"|"canceled";
-
-public type CreateValidationRequestRequest record {
-    # The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-    string PhoneNumber;
-    # A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
-    string FriendlyName?;
-    # The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-    int CallDelay?;
-    # The digits to dial after connecting the verification call.
-    string Extension?;
-    # The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
-    string StatusCallback?;
-    # The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
-    "HEAD"|"GET"|"POST"|"PATCH"|"PUT"|"DELETE" StatusCallbackMethod?;
-};
 
 public type ListUsageRecordAllTimeResponse record {
     UsageUsage_recordUsage_record_all_time[] usage_records?;
