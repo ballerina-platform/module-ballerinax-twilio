@@ -71,7 +71,7 @@ public isolated client class Client {
     }
     # Create a new Twilio Subaccount from the account making the request
     #
-    # + payload - You must provide a `CreateAccountRequest` record, with the `FriendlyName` property set to the name of the account you want to create.
+    # + payload - The `CreateAccountRequest` record should be used as a payload to create a Subaccount.
     # + return - Created 
     remote isolated function createAccount(CreateAccountRequest payload) returns Account|error {
         string resourcePath = string `/2010-04-01/Accounts.json`;
@@ -93,7 +93,7 @@ public isolated client class Client {
     # Modify the properties of a given Account
     #
     # + sid - The Account Sid that uniquely identifies the account to update
-    # + payload - You must provide a `UpdateAccountRequest` record as a payload to update an Account.
+    # + payload - The `UpdateAccountRequest` record should be used as a payload to update an Account.
     # + return - OK 
     remote isolated function updateAccount(string sid, UpdateAccountRequest payload) returns Account|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(sid)}.json`;
@@ -123,7 +123,7 @@ public isolated client class Client {
     # Create a new Address resource. 
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
-    # + payload - You must provide a `CreateAddressRequest` record as a payload to create a new Address resource.
+    # + payload - The `CreateAddressRequest` record should be used as a payload to create a new Address resource.
     # + return - Created 
     remote isolated function createAddress(string accountSid, CreateAddressRequest payload) returns Address|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Addresses.json`;
@@ -147,7 +147,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the Address resource to update.
-    # + payload - You must provide a `UpdateAddressRequest` record as a payload to update an Address.
+    # + payload - The `UpdateAddressRequest` record should be used as a payload to update an Address.
     # + return - OK 
     remote isolated function updateAddress(string accountSid, string sid, UpdateAddressRequest payload) returns Address|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Addresses/${getEncodedUri(sid)}.json`;
@@ -185,7 +185,7 @@ public isolated client class Client {
     # Create a new application within your account
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateApplicationRequest` record as a payload to create a new Application resource.
+    # + payload - The `CreateApplicationRequest` record should be used as a payload to create a new Application resource.
     # + return - Created 
     remote isolated function createApplication(string accountSid, CreateApplicationRequest payload) returns Application|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Applications.json`;
@@ -209,7 +209,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
     # + sid - The Twilio-provided string that uniquely identifies the Application resource to update.
-    # + payload - You must provide a `UpdateApplicationRequest` record as a payload to update an Application.
+    # + payload - The `UpdateApplicationRequest` record should be used as a payload to update an Application.
     # + return - OK 
     remote isolated function updateApplication(string accountSid, string sid, UpdateApplicationRequest payload) returns Application|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Applications/${getEncodedUri(sid)}.json`;
@@ -544,7 +544,7 @@ public isolated client class Client {
     # Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateCallRequest` record as a payload to create a call.
+    # + payload - The `CreateCallRequest` record should be used as a payload to create a call.
     # + return - Created 
     remote isolated function createCall(string accountSid, CreateCallRequest payload) returns Call|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls.json`;
@@ -568,7 +568,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
     # + sid - The Twilio-provided string that uniquely identifies the Call resource to update
-    # + payload - You must provide an `UpdateCallRequest` record as a payload to update a call.
+    # + payload - The `UpdateCallRequest` record should be used as a payload to update a call.
     # + return - OK 
     remote isolated function updateCall(string accountSid, string sid, UpdateCallRequest payload) returns Call|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(sid)}.json`;
@@ -617,7 +617,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + callSid - The call sid that uniquely identifies the call
-    # + payload - You must provide an `UpdateCallFeedbackRequest` record as a payload to update a call feedback.
+    # + payload - The `UpdateCallFeedbackRequest` record should be used as a payload to update a call feedback.
     # + return - OK 
     remote isolated function updateCallFeedback(string accountSid, string callSid, UpdateCallFeedbackRequest payload) returns CallCall_feedback|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Feedback.json`;
@@ -630,7 +630,7 @@ public isolated client class Client {
     # Create a FeedbackSummary resource for a call
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-    # + payload - You must provide a `CreateCallFeedbackSummaryRequest` record as a payload to create a call feedback summary.
+    # + payload - The `CreateCallFeedbackSummaryRequest` record should be used as a payload to create a call feedback summary.
     # + return - Created 
     remote isolated function createCallFeedbackSummary(string accountSid, CreateCallFeedbackSummaryRequest payload) returns CallCall_feedback_summary|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/FeedbackSummary.json`;
@@ -712,7 +712,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) to associate the resource with.
-    # + payload - You must provide a `CreateCallRecordingRequest` record as a payload to create a call recording.
+    # + payload - The `CreateCallRecordingRequest` record should be used as a payload to create a call recording.
     # + return - Created 
     remote isolated function createCallRecording(string accountSid, string callSid, CreateCallRecordingRequest payload) returns CallCall_recording|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Recordings.json`;
@@ -738,7 +738,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the Recording resource to update.
-    # + payload - You must provide an `UpdateCallRecordingRequest` record as a payload to update a call recording
+    # + payload - The `UpdateCallRecordingRequest` record should be used as a payload to update a call recording
     # + return - OK 
     remote isolated function updateCallRecording(string accountSid, string callSid, string sid, UpdateCallRecordingRequest payload) returns CallCall_recording|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Recordings/${getEncodedUri(sid)}.json`;
@@ -773,7 +773,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
     # + sid - The Twilio-provided string that uniquely identifies the Conference resource to update
-    # + payload - You must provide an `UpdateConferenceRequest` record as a payload to update a conference.
+    # + payload - The `UpdateConferenceRequest` record should be used as a payload to update a conference.
     # + return - OK 
     remote isolated function updateConference(string accountSid, string sid, UpdateConferenceRequest payload) returns Conference|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Conferences/${getEncodedUri(sid)}.json`;
@@ -821,7 +821,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
     # + conferenceSid - The Conference SID that identifies the conference associated with the recording to update.
     # + sid - The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-    # + payload - You must provide an `UpdateConferenceRecordingRequest` record as a payload to update a conference recording.
+    # + payload - The `UpdateConferenceRecordingRequest` record should be used as a payload to update a conference recording.
     # + return - OK 
     remote isolated function updateConferenceRecording(string accountSid, string conferenceSid, string sid, UpdateConferenceRecordingRequest payload) returns ConferenceConference_recording|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Conferences/${getEncodedUri(conferenceSid)}/Recordings/${getEncodedUri(sid)}.json`;
@@ -874,7 +874,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
     # + sid - The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
-    # + payload - You must provide an `UpdateConnectAppRequest` record as a payload to update a connect-app.
+    # + payload - The `UpdateConnectAppRequest` record should be used as a payload to update a connect-app.
     # + return - OK 
     remote isolated function updateConnectApp(string accountSid, string sid, UpdateConnectAppRequest payload) returns Connect_app|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/ConnectApps/${getEncodedUri(sid)}.json`;
@@ -937,7 +937,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
     # + sid - The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
-    # + payload - You must provide an `UpdateIncomingPhoneNumberRequest` record as a payload to update an incoming-phone-number instance.
+    # + payload - The `UpdateIncomingPhoneNumberRequest` record should be used as a payload to update an incoming-phone-number instance.
     # + return - OK 
     remote isolated function updateIncomingPhoneNumber(string accountSid, string sid, UpdateIncomingPhoneNumberRequest payload) returns Incoming_phone_number|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers/${getEncodedUri(sid)}.json`;
@@ -978,7 +978,7 @@ public isolated client class Client {
     # Purchase a phone-number for the account.
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateIncomingPhoneNumberRequest` record as a payload to purchase a phone-number.
+    # + payload - The `CreateIncomingPhoneNumberRequest` record should be used as a payload to purchase a phone-number.
     # + return - Created 
     remote isolated function createIncomingPhoneNumber(string accountSid, CreateIncomingPhoneNumberRequest payload) returns Incoming_phone_number|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers.json`;
@@ -1029,7 +1029,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + resourceSid - The SID of the Phone Number to assign the Add-on.
-    # + payload - You must provide a `CreateIncomingPhoneNumberAssignedAddOnRequest` record as a payload to assign an add-on installation to a number.
+    # + payload - The `CreateIncomingPhoneNumberAssignedAddOnRequest` record should be used as a payload to assign an add-on installation to a number.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberAssignedAddOn(string accountSid, string resourceSid, CreateIncomingPhoneNumberAssignedAddOnRequest payload) returns Incoming_phone_numberIncoming_phone_number_assigned_add_on|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers/${getEncodedUri(resourceSid)}/AssignedAddOns.json`;
@@ -1088,7 +1088,7 @@ public isolated client class Client {
     # Create a new IncomingPhoneNumber resource. 
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateIncomingPhoneNumberLocalRequest` record as a payload to create an IncomingPhoneNumber resource.
+    # + payload - The `CreateIncomingPhoneNumberLocalRequest` record should be used as a payload to create an IncomingPhoneNumber resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberLocal(string accountSid, CreateIncomingPhoneNumberLocalRequest payload) returns Incoming_phone_numberIncoming_phone_number_local|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers/Local.json`;
@@ -1119,7 +1119,7 @@ public isolated client class Client {
     # Create a new IncomingPhoneNumber resource. 
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateIncomingPhoneNumberMobileRequest` record as a payload to create an IncomingPhoneNumber resource.
+    # + payload - The `CreateIncomingPhoneNumberMobileRequest` record should be used as a payload to create an IncomingPhoneNumber resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberMobile(string accountSid, CreateIncomingPhoneNumberMobileRequest payload) returns Incoming_phone_numberIncoming_phone_number_mobile|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers/Mobile.json`;
@@ -1150,7 +1150,7 @@ public isolated client class Client {
     # Create a new Toll Free IncomingPhoneNumber resource. 
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateIncomingPhoneNumberTollFreeRequest` record as a payload to create an IncomingPhoneNumber resource.
+    # + payload - The `CreateIncomingPhoneNumberTollFreeRequest` record should be used as a payload to create an IncomingPhoneNumber resource.
     # + return - Created 
     remote isolated function createIncomingPhoneNumberTollFree(string accountSid, CreateIncomingPhoneNumberTollFreeRequest payload) returns Incoming_phone_numberIncoming_phone_number_toll_free|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/IncomingPhoneNumbers/TollFree.json`;
@@ -1174,7 +1174,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
     # + sid - The Twilio-provided string that uniquely identifies the Key resource to update.
-    # + payload - You must provide a `UpdateKeyRequest` record as a payload to update a Key resource.
+    # + payload - The `UpdateKeyRequest` record should be used as a payload to update a Key resource.
     # + return - OK 
     remote isolated function updateKey(string accountSid, string sid, UpdateKeyRequest payload) returns Key|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Keys/${getEncodedUri(sid)}.json`;
@@ -1211,7 +1211,7 @@ public isolated client class Client {
     # Create a new Key request. 
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
-    # + payload - You must provide a `CreateNewKeyRequest` record as a payload to create a Key resource.
+    # + payload - The `CreateNewKeyRequest` record should be used as a payload to create a Key resource.
     # + return - Created 
     remote isolated function createNewKey(string accountSid, CreateNewKeyRequest payload) returns New_key|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Keys.json`;
@@ -1277,7 +1277,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
     # + queueSid - The SID of the Queue in which to find the members to update.
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
-    # + payload - You must provide a `UpdateMemberRequest` record as a payload to update a Member resource.
+    # + payload - The `UpdateMemberRequest` record should be used as a payload to update a Member resource.
     # + return - OK 
     remote isolated function updateMember(string accountSid, string queueSid, string callSid, UpdateMemberRequest payload) returns QueueMember|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Queues/${getEncodedUri(queueSid)}/Members/${getEncodedUri(callSid)}.json`;
@@ -1324,7 +1324,7 @@ public isolated client class Client {
     # Send a message
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) creating the Message resource.
-    # + payload - You must provide a `CreateMessageRequest` record as a payload to create a message.
+    # + payload - The `CreateMessageRequest` record should be used as a payload to create a message.
     # + return - Created 
     remote isolated function createMessage(string accountSid, CreateMessageRequest payload) returns Message|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Messages.json`;
@@ -1348,7 +1348,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
     # + sid - The SID of the Message resource to be updated
-    # + payload - You must provide a `UpdateMessageRequest` record as a payload to update a Message resource.
+    # + payload - The `UpdateMessageRequest` record should be used as a payload to update a Message resource.
     # + return - OK 
     remote isolated function updateMessage(string accountSid, string sid, UpdateMessageRequest payload) returns Message|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Messages/${getEncodedUri(sid)}.json`;
@@ -1372,7 +1372,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
     # + messageSid - The SID of the Message resource for which to create MessageFeedback.
-    # + payload - You must provide a `CreateMessageFeedbackRequest` record as a payload to create a MessageFeedback resource.
+    # + payload - The `CreateMessageFeedbackRequest` record should be used as a payload to create a MessageFeedback resource.
     # + return - Created 
     remote isolated function createMessageFeedback(string accountSid, string messageSid, CreateMessageFeedbackRequest payload) returns MessageMessage_feedback|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Messages/${getEncodedUri(messageSid)}/Feedback.json`;
@@ -1399,7 +1399,7 @@ public isolated client class Client {
     # Create a new Signing Key for the account making the request.
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
-    # + payload - You must provide a `CreateNewSigningKeyRequest` record as a payload to create a SigningKey resource.
+    # + payload - The `CreateNewSigningKeyRequest` record should be used as a payload to create a SigningKey resource.
     # + return - Created 
     remote isolated function createNewSigningKey(string accountSid, CreateNewSigningKeyRequest payload) returns New_signing_key|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SigningKeys.json`;
@@ -1451,7 +1451,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
     # + sid - The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-    # + payload - You must provide a `UpdateOutgoingCallerIdRequest` record as a payload to update a OutgoingCallerId resource.
+    # + payload - The `UpdateOutgoingCallerIdRequest` record should be used as a payload to update a OutgoingCallerId resource.
     # + return - OK 
     remote isolated function updateOutgoingCallerId(string accountSid, string sid, UpdateOutgoingCallerIdRequest payload) returns Outgoing_caller_id|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/OutgoingCallerIds/${getEncodedUri(sid)}.json`;
@@ -1490,7 +1490,7 @@ public isolated client class Client {
     # Create a Validation Request
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
-    # + payload - You must provide a `CreateValidationRequest` record as a payload to create a ValidationRequest resource.
+    # + payload - The `CreateValidationRequest` record should be used as a payload to create a ValidationRequest resource.
     # + return - Created 
     remote isolated function createValidationRequest(string accountSid, CreateValidationRequest payload) returns Validation_request|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/OutgoingCallerIds.json`;
@@ -1516,7 +1516,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
     # + conferenceSid - The SID of the conference with the participant to update.
     # + callSid - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-    # + payload - You must provide a `UpdateParticipantRequest` record as a payload to update a Participant resource.
+    # + payload - The `UpdateParticipantRequest` record should be used as a payload to update a Participant resource.
     # + return - OK 
     remote isolated function updateParticipant(string accountSid, string conferenceSid, string callSid, UpdateParticipantRequest payload) returns ConferenceParticipant|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Conferences/${getEncodedUri(conferenceSid)}/Participants/${getEncodedUri(callSid)}.json`;
@@ -1559,7 +1559,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + conferenceSid - The SID of the participant's conference.
-    # + payload - You must provide a `CreateParticipantRequest` record as a payload to create a Participant resource.
+    # + payload - The `CreateParticipantRequest` record should be used as a payload to create a Participant resource.
     # + return - Created 
     remote isolated function createParticipant(string accountSid, string conferenceSid, CreateParticipantRequest payload) returns ConferenceParticipant|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Conferences/${getEncodedUri(conferenceSid)}/Participants.json`;
@@ -1573,7 +1573,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + callSid - The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF.
-    # + payload - You must provide a `CreatePaymentsRequest` record as a payload to create a Payments resource.
+    # + payload - The `CreatePaymentsRequest` record should be used as a payload to create a Payments resource.
     # + return - Created 
     remote isolated function createPayments(string accountSid, string callSid, CreatePaymentsRequest payload) returns CallPayments|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Payments.json`;
@@ -1588,7 +1588,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
     # + callSid - The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.
     # + sid - The SID of Payments session that needs to be updated.
-    # + payload - You must provide a `UpdatePaymentsRequest` record as a payload to update a Payments resource.
+    # + payload - The `UpdatePaymentsRequest` record should be used as a payload to update a Payments resource.
     # + return - Accepted 
     remote isolated function updatePayments(string accountSid, string callSid, string sid, UpdatePaymentsRequest payload) returns CallPayments|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Payments/${getEncodedUri(sid)}.json`;
@@ -1612,7 +1612,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the Queue resource to update
-    # + payload - You must provide a `UpdateQueueRequest` record as a payload to update a Queue resource.
+    # + payload - The `UpdateQueueRequest` record should be used as a payload to update a Queue resource.
     # + return - OK 
     remote isolated function updateQueue(string accountSid, string sid, UpdateQueueRequest payload) returns Queue|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Queues/${getEncodedUri(sid)}.json`;
@@ -1649,7 +1649,7 @@ public isolated client class Client {
     # Create a queue
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateQueueRequest` record as a payload to create a Queue resource.
+    # + payload - The `CreateQueueRequest` record should be used as a payload to create a Queue resource.
     # + return - Created 
     remote isolated function createQueue(string accountSid, CreateQueueRequest payload) returns Queue|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Queues.json`;
@@ -1830,7 +1830,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
     # + sid - The Twilio-provided string that uniquely identifies the ShortCode resource to update
-    # + payload - You must provide a `UpdateShortCodeRequest` record as a payload to update a ShortCode resource.
+    # + payload - The `UpdateShortCodeRequest` record should be used as a payload to update a ShortCode resource.
     # + return - OK 
     remote isolated function updateShortCode(string accountSid, string sid, UpdateShortCodeRequest payload) returns Short_code|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SMS/ShortCodes/${getEncodedUri(sid)}.json`;
@@ -1870,7 +1870,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SigningKey resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the SigningKey resource to update.
-    # + payload - You must provide a `UpdateSigningKeyRequest` record as a payload to update a SigningKey resource.
+    # + payload - The `UpdateSigningKeyRequest` record should be used as a payload to update a SigningKey resource.
     # + return - OK 
     remote isolated function updateSigningKey(string accountSid, string sid, UpdateSigningKeyRequest payload) returns Signing_key|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SigningKeys/${getEncodedUri(sid)}.json`;
@@ -1909,7 +1909,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a `CreateSipAuthCallsCredentialListMappingRequest` record as a payload to create a `SipAuthCallsCredentialListMapping` resource.
+    # + payload - The `CreateSipAuthCallsCredentialListMappingRequest` record should be used as a payload to create a `SipAuthCallsCredentialListMapping` resource.
     # + return - Created 
     remote isolated function createSipAuthCallsCredentialListMapping(string accountSid, string domainSid, CreateSipAuthCallsCredentialListMappingRequest payload) returns SipSip_domainSip_authSip_auth_callsSip_auth_calls_credential_list_mapping|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(domainSid)}/Auth/Calls/CredentialListMappings.json`;
@@ -1960,7 +1960,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a `CreateSipAuthCallsIpAccessControlListMappingRequest` record as a payload to create a SipAuthCallsIpAccessControlListMapping resource.
+    # + payload - The `CreateSipAuthCallsIpAccessControlListMappingRequest` record should be used as a payload to create a SipAuthCallsIpAccessControlListMapping resource.
     # + return - Created 
     remote isolated function createSipAuthCallsIpAccessControlListMapping(string accountSid, string domainSid, CreateSipAuthCallsIpAccessControlListMappingRequest payload) returns SipSip_domainSip_authSip_auth_callsSip_auth_calls_ip_access_control_list_mapping|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(domainSid)}/Auth/Calls/IpAccessControlListMappings.json`;
@@ -2011,7 +2011,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
     # + domainSid - The SID of the SIP domain that will contain the new resource.
-    # + payload - You must provide a `CreateSipAuthRegistrationsCredentialListMappingRequest` record as a payload to create a CredentialListMapping resource.
+    # + payload - The `CreateSipAuthRegistrationsCredentialListMappingRequest` record should be used as a payload to create a CredentialListMapping resource.
     # + return - Created 
     remote isolated function createSipAuthRegistrationsCredentialListMapping(string accountSid, string domainSid, CreateSipAuthRegistrationsCredentialListMappingRequest payload) returns SipSip_domainSip_authSip_auth_registrationsSip_auth_registrations_credential_list_mapping|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(domainSid)}/Auth/Registrations/CredentialListMappings.json`;
@@ -2062,7 +2062,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + credentialListSid - The unique id that identifies the credential list to include the created credential.
-    # + payload - You must provide a `CreateSipCredentialRequest` record as a payload to create a Credential resource.
+    # + payload - The `CreateSipCredentialRequest` record should be used as a payload to create a Credential resource.
     # + return - Created 
     remote isolated function createSipCredential(string accountSid, string credentialListSid, CreateSipCredentialRequest payload) returns SipSip_credential_listSip_credential|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/CredentialLists/${getEncodedUri(credentialListSid)}/Credentials.json`;
@@ -2088,7 +2088,7 @@ public isolated client class Client {
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + credentialListSid - The unique id that identifies the credential list that includes this credential.
     # + sid - The unique id that identifies the resource to update.
-    # + payload - You must provide a `UpdateSipCredentialRequest` record as a payload to update a Credential resource.
+    # + payload - The `UpdateSipCredentialRequest` record should be used as a payload to update a Credential resource.
     # + return - OK 
     remote isolated function updateSipCredential(string accountSid, string credentialListSid, string sid, UpdateSipCredentialRequest payload) returns SipSip_credential_listSip_credential|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/CredentialLists/${getEncodedUri(credentialListSid)}/Credentials/${getEncodedUri(sid)}.json`;
@@ -2126,7 +2126,7 @@ public isolated client class Client {
     # Create a Credential List
     #
     # + accountSid - The unique id of the Account that is responsible for this resource.
-    # + payload - You must provide a `CreateSipCredentialListRequest` record as a payload to create a CredentialList resource.
+    # + payload - The `CreateSipCredentialListRequest` record should be used as a payload to create a CredentialList resource.
     # + return - Created 
     remote isolated function createSipCredentialList(string accountSid, CreateSipCredentialListRequest payload) returns SipSip_credential_list|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/CredentialLists.json`;
@@ -2150,7 +2150,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + sid - The credential list Sid that uniquely identifies this resource
-    # + payload - You must provide a `UpdateSipCredentialListRequest` record as a payload to update a CredentialList resource.
+    # + payload - The `UpdateSipCredentialListRequest` record should be used as a payload to update a CredentialList resource.
     # + return - OK 
     remote isolated function updateSipCredentialList(string accountSid, string sid, UpdateSipCredentialListRequest payload) returns SipSip_credential_list|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/CredentialLists/${getEncodedUri(sid)}.json`;
@@ -2189,7 +2189,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + domainSid - A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped.
-    # + payload - You must provide a `CreateSipCredentialListMappingRequest` record as a payload to create a CredentialListMapping resource.
+    # + payload - The `CreateSipCredentialListMappingRequest` record should be used as a payload to create a CredentialListMapping resource.
     # + return - Created 
     remote isolated function createSipCredentialListMapping(string accountSid, string domainSid, CreateSipCredentialListMappingRequest payload) returns SipSip_domainSip_credential_list_mapping|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(domainSid)}/CredentialListMappings.json`;
@@ -2238,7 +2238,7 @@ public isolated client class Client {
     # Create a new Domain
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateSipDomainRequest` record as a payload to create a Domain resource.
+    # + payload - The `CreateSipDomainRequest` record should be used as a payload to create a Domain resource.
     # + return - Created 
     remote isolated function createSipDomain(string accountSid, CreateSipDomainRequest payload) returns SipSip_domain|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains.json`;
@@ -2262,7 +2262,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
     # + sid - The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-    # + payload - You must provide a `UpdateSipDomainRequest` record as a payload to update a Domain resource.
+    # + payload - The `UpdateSipDomainRequest` record should be used as a payload to update a Domain resource.
     # + return - OK 
     remote isolated function updateSipDomain(string accountSid, string sid, UpdateSipDomainRequest payload) returns SipSip_domain|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(sid)}.json`;
@@ -2299,7 +2299,7 @@ public isolated client class Client {
     # Create a new IpAccessControlList resource
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-    # + payload - You must provide a `CreateSipIpAccessControlListRequest` record as a payload to create a IpAccessControlList resource.
+    # + payload - The `CreateSipIpAccessControlListRequest` record should be used as a payload to create a IpAccessControlList resource.
     # + return - Created 
     remote isolated function createSipIpAccessControlList(string accountSid, CreateSipIpAccessControlListRequest payload) returns SipSip_ip_access_control_list|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/IpAccessControlLists.json`;
@@ -2323,7 +2323,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + sid - A 34 character string that uniquely identifies the resource to udpate.
-    # + payload - You must provide a `UpdateSipIpAccessControlListRequest` record as a payload to update a IpAccessControlList resource.
+    # + payload - The `UpdateSipIpAccessControlListRequest` record should be used as a payload to update a IpAccessControlList resource.
     # + return - OK 
     remote isolated function updateSipIpAccessControlList(string accountSid, string sid, UpdateSipIpAccessControlListRequest payload) returns SipSip_ip_access_control_list|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/IpAccessControlLists/${getEncodedUri(sid)}.json`;
@@ -2384,7 +2384,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the Account that is responsible for this resource.
     # + domainSid - A 34 character string that uniquely identifies the SIP domain.
-    # + payload - You must provide a `CreateSipIpAccessControlListMappingRequest` record as a payload to create a IpAccessControlListMapping resource.
+    # + payload - The `CreateSipIpAccessControlListMappingRequest` record should be used as a payload to create a IpAccessControlListMapping resource.
     # + return - Created 
     remote isolated function createSipIpAccessControlListMapping(string accountSid, string domainSid, CreateSipIpAccessControlListMappingRequest payload) returns SipSip_domainSip_ip_access_control_list_mapping|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/Domains/${getEncodedUri(domainSid)}/IpAccessControlListMappings.json`;
@@ -2413,7 +2413,7 @@ public isolated client class Client {
     #
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + ipAccessControlListSid - The IpAccessControlList Sid with which to associate the created IpAddress resource.
-    # + payload - You must provide a `CreateSipIpAddressRequest` record as a payload to create a IpAddress resource.
+    # + payload - The `CreateSipIpAddressRequest` record should be used as a payload to create a IpAddress resource.
     # + return - Created 
     remote isolated function createSipIpAddress(string accountSid, string ipAccessControlListSid, CreateSipIpAddressRequest payload) returns SipSip_ip_access_control_listSip_ip_address|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/IpAccessControlLists/${getEncodedUri(ipAccessControlListSid)}/IpAddresses.json`;
@@ -2439,7 +2439,7 @@ public isolated client class Client {
     # + accountSid - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
     # + ipAccessControlListSid - The IpAccessControlList Sid that identifies the IpAddress resources to update.
     # + sid - A 34 character string that identifies the IpAddress resource to update.
-    # + payload - You must provide a `UpdateSipIpAddressRequest` record as a payload to update a IpAddress resource.
+    # + payload - The `UpdateSipIpAddressRequest` record should be used as a payload to update a IpAddress resource.
     # + return - OK 
     remote isolated function updateSipIpAddress(string accountSid, string ipAccessControlListSid, string sid, UpdateSipIpAddressRequest payload) returns SipSip_ip_access_control_listSip_ip_address|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/SIP/IpAccessControlLists/${getEncodedUri(ipAccessControlListSid)}/IpAddresses/${getEncodedUri(sid)}.json`;
@@ -2464,7 +2464,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
-    # + payload - You must provide a `CreateSiprecRequest` record as a payload to create a Siprec resource.
+    # + payload - The `CreateSiprecRequest` record should be used as a payload to create a Siprec resource.
     # + return - Created 
     remote isolated function createSiprec(string accountSid, string callSid, CreateSiprecRequest payload) returns CallSiprec|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Siprec.json`;
@@ -2479,7 +2479,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
     # + sid - The SID of the Siprec resource, or the `name` used when creating the resource
-    # + payload - You must provide a `UpdateSiprecRequest` record as a payload to update a Siprec resource.
+    # + payload - The `UpdateSiprecRequest` record should be used as a payload to update a Siprec resource.
     # + return - OK 
     remote isolated function updateSiprec(string accountSid, string callSid, string sid, UpdateSiprecRequest payload) returns CallSiprec|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Siprec/${getEncodedUri(sid)}.json`;
@@ -2493,7 +2493,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-    # + payload - You must provide a `CreateStreamRequest` record as a payload to create a Stream resource.
+    # + payload - The `CreateStreamRequest` record should be used as a payload to create a Stream resource.
     # + return - Created 
     remote isolated function createStream(string accountSid, string callSid, CreateStreamRequest payload) returns CallStream|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Streams.json`;
@@ -2508,7 +2508,7 @@ public isolated client class Client {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
     # + sid - The SID of the Stream resource, or the `name` used when creating the resource
-    # + payload - You must provide a `UpdateStreamRequest` record as a payload to update a Stream resource.
+    # + payload - The `UpdateStreamRequest` record should be used as a payload to update a Stream resource.
     # + return - OK 
     remote isolated function updateStream(string accountSid, string callSid, string sid, UpdateStreamRequest payload) returns CallStream|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/Streams/${getEncodedUri(sid)}.json`;
@@ -2521,7 +2521,7 @@ public isolated client class Client {
     # Create a new token for ICE servers
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must provide a `CreateTokenRequest` record as a payload to create a Token resource.
+    # + payload - The `CreateTokenRequest` record should be used as a payload to create a Token resource.
     # + return - Created 
     remote isolated function createToken(string accountSid, CreateTokenRequest payload) returns Token|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Tokens.json`;
@@ -2741,7 +2741,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
     # + sid - The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-    # + payload - You must use `UpdateUsageTriggerRequest` as a payload to update a UsageTrigger.
+    # + payload - The `UpdateUsageTriggerRequest` record should be used as a payload to update a UsageTrigger.
     # + return - OK 
     remote isolated function updateUsageTrigger(string accountSid, string sid, UpdateUsageTriggerRequest payload) returns UsageUsage_trigger|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Usage/Triggers/${getEncodedUri(sid)}.json`;
@@ -2781,7 +2781,7 @@ public isolated client class Client {
     # Create a new UsageTrigger
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-    # + payload - You must use `CreateUsageTriggerRequest` as a payload to create a UsageTrigger.
+    # + payload - The `CreateUsageTriggerRequest` record should be used as a payload to create a UsageTrigger.
     # + return - Created 
     remote isolated function createUsageTrigger(string accountSid, CreateUsageTriggerRequest payload) returns UsageUsage_trigger|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Usage/Triggers.json`;
@@ -2795,7 +2795,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
-    # + payload - You must use `CreateUserDefinedMessageRequest` as a payload to create a User Defined Message.
+    # + payload - The `CreateUserDefinedMessageRequest` record should be used as a payload to create a User Defined Message.
     # + return - Created 
     remote isolated function createUserDefinedMessage(string accountSid, string callSid, CreateUserDefinedMessageRequest payload) returns CallUser_defined_message|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/UserDefinedMessages.json`;
@@ -2809,7 +2809,7 @@ public isolated client class Client {
     #
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
     # + callSid - The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages.
-    # + payload - You must use `CreateUserDefinedMessageSubscriptionRequest` as a payload to create a User Defined Message subscription.
+    # + payload - The `CreateUserDefinedMessageSubscriptionRequest` record should be used as a payload to create a User Defined Message subscription.
     # + return - Created 
     remote isolated function createUserDefinedMessageSubscription(string accountSid, string callSid, CreateUserDefinedMessageSubscriptionRequest payload) returns CallUser_defined_message_subscription|error {
         string resourcePath = string `/2010-04-01/Accounts/${getEncodedUri(accountSid)}/Calls/${getEncodedUri(callSid)}/UserDefinedMessageSubscriptions.json`;
