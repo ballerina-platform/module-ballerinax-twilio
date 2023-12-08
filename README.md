@@ -23,12 +23,14 @@ Creating a Twilio account can be done by visiting [Twilio](https://www.twilio.co
 
 All trial projects can provision a free trial phone number for testing. Here's how to get started.
 
-`Notice: Trial project phone number selection may be limited. You must upgrade your Twilio project to provision more than one phone number, or to provision a number that is not available to trial projects`.
+> **Notice:** Trial project phone number selection may be limited. You must upgrade your Twilio project to provision more than one phone number, or to provision a number that is not available to trial projects.
 
 1. Access the Buy a Number page in the Console.
+
 ![Get Phone Number](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-phone-number.png)
 
 2. Enter the criteria for the phone number you need, and then click Search.
+
 ![Configure Phone Number](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/phone-number-config.png)
 
 - Country: Select the desired country from the drop-down menu.
@@ -36,6 +38,7 @@ All trial projects can provision a free trial phone number for testing. Here's h
 - Capabilities: Select your service needs for this number. 
 
 3. Click Buy to purchase a phone number for your current project or sub-account.
+
 ![Search Results](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/search-phone-number.png)
 > **Notice:** Many countries require identity documentation for Phone Number compliance. Requests to provision phone numbers with these regulations will be required to select or add the required documentation after clicking Buy in Console. To see which countries and phone number types are affected by these requirements, please see twilio's [Phone Number Regulations](https://www.twilio.com/guidelines/regulatory) site.
 
@@ -63,7 +66,7 @@ import ballerinax/twilio;
 To create a new connector instance, add a configuration as follows (You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials):
 
 ```ballerina
-configurable string accountSID= ?;
+configurable string accountSID = ?;
 configurable string authToken = ?;
 
 twilio:ConnectionConfig twilioConfig = {
@@ -82,16 +85,15 @@ twilio:Client twilio = check new (twilioConfig);
 
 ```ballerina
 public function main() returns error? {
-    twilio:Client twilio = check new (twilioConfig);
-
     twilio:CreateMessageRequest messageRequest = {
-        To: "+XXXXXXXXXXX",
-        From: "+XXXXXXXXXXX",
+        To: "+XXXXXXXXXXX", // Phone number that you want to send the message to
+        From: "+XXXXXXXXXXX", // Twilio phone number
         Body: "Hello from Ballerina"
     };
 
-    twilio:Message response = check twilio->createMessage(accountSID, messageRequest);
-    
+    twilio:Message response = check twilio->createMessage(messageRequest);
+
+    // Print the status of the message from the response
     io:println("Message Status: ", response?.status);
 }
 ```
