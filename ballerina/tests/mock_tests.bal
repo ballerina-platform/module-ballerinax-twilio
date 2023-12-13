@@ -1,6 +1,6 @@
-// Copyright (c) 2023, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+// Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
 //
-// WSO2 Inc. licenses this file to you under the Apache License,
+// WSO2 LLC. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
 // in compliance with the License.
 // You may obtain a copy of the License at
@@ -13,65 +13,46 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
+import twilio.mock as _;
+
 import ballerina/http;
-import ballerina/os;
+import ballerina/log;
 import ballerina/test;
 
-configurable string accountSid = os:getEnv("ACCOUNT_SID");
-configurable string authToken = os:getEnv("AUTH_TOKEN");
-configurable string toPhoneNumber = os:getEnv("TO_PHONE");
-configurable string fromPhoneNumber = os:getEnv("TWILIO_PHONE");
+string mockAccountSid = "AC12345678901234567890123456789012";
+string mockAuthToken = "AU12345678901234567890123456789012";
+string mockToPhoneNumber = "+011234567890";
+string mockFromPhoneNumber = "+098765432101";
 
-ConnectionConfig config = {auth: {username: accountSid, password: authToken}};
-Client twilio = check new Client(config);
+Client twilioClientForMockServer = test:mock(Client);
 
-string sampleName = "ballerina_test";
-string messageBody = "Hello from Ballerina!";
-string recordingURL = "http://demo.twilio.com/docs/voice.xml";
-string globalCallSid = "";
-string globalAddressSid = "";
-string globalMsgSid = "";
-
-CreateAccountRequest crAccReq = {
-    FriendlyName: sampleName
-};
-UpdateAccountRequest upAccReq = {
-    FriendlyName: "bellerina_test_master"
-};
-CreateAddressRequest crAddReq = {
-    FriendlyName: sampleName,
-    City: "city_of_ballerina",
-    Street: "street_of_ballerina",
-    CustomerName: "ballerina_tester",
-    IsoCountry: "LK",
-    PostalCode: "00000",
-    Region: "region_of_ballerina"
-};
-UpdateAddressRequest upAddReq = {
-    FriendlyName: "ballerina_test_updated"
-};
-CreateCallRequest callReq = {
-    To: toPhoneNumber,
-    From: fromPhoneNumber,
-    Url: recordingURL
-};
-CreateMessageRequest msgReq = {
-    To: toPhoneNumber,
-    From: fromPhoneNumber,
-    Body: messageBody
-};
-
+@test:BeforeGroups {
+    value: ["mock_tests"]
+}
+function initializeClientsForMockServer() returns error? {
+    log:printInfo("Initializing Twilio Client for Mock Server");
+    twilioClientForMockServer = check new (
+    {
+        auth: {
+                username: mockAccountSid,
+                password: mockAuthToken
+        }
+    },
+    serviceUrl = "http://localhost:9090/"
+    );
+}
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testListAccount() returns error? {
-    ListAccountResponse? response = check twilio->listAccount();
+function testMockedListAccount() returns error? {
+    ListAccountResponse? response = check twilioClientForMockServer->listAccount();
     if (response is ListAccountResponse) {
         Account[]? accounts = response.accounts;
         if accounts is Account[] {
             Account account = accounts[0];
-            test:assertEquals(account?.owner_account_sid, accountSid, "ListAccount Failed : SId Missmatch");
+            test:assertEquals(account?.owner_account_sid, mockAccountSid, "ListAccount Failed : SId Missmatch");
         } else {
             test:assertFail("ListAccount Failed : Account Dosen't Exists.");
         }
@@ -81,37 +62,36 @@ function testListAccount() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testFetchAccount() returns error? {
-    Account? response = check twilio->fetchAccount(accountSid);
+function testMockedFetchAccount() returns error? {
+    Account? response = check twilioClientForMockServer->fetchAccount(mockAccountSid);
     if (response is Account) {
-        test:assertEquals(response?.owner_account_sid, accountSid, "FetchAcoount failed : SID Missmatch");
+        test:assertEquals(response?.owner_account_sid, mockAccountSid, "FetchAcoount failed : SID Missmatch");
     } else {
         test:assertFail("FetchAccount Failed : Account Dosen't Exists.");
     }
 }
 
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testUpdateAccount() returns error? {
-    Account? response = check twilio->updateAccount(accountSid, upAccReq);
+function testMockedUpdateAccount() returns error? {
+    Account? response = check twilioClientForMockServer->updateAccount(mockAccountSid, upAccReq);
     if (response is Account) {
         test:assertEquals(response?.friendly_name, upAccReq.FriendlyName, "UpdateAcoount failed : Name Missmatch");
     } else {
         test:assertFail("UpdateAccount Failed : Account Dosen't Exists.");
     }
 }
-
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testCreateAddress() returns error? {
-    Address? response = check twilio->createAddress(crAddReq);
+function testMockedCreateAddress() returns error? {
+    Address? response = check twilioClientForMockServer->createAddress(crAddReq);
     if (response is Address) {
         test:assertEquals(response?.friendly_name, crAddReq.FriendlyName, "CreateAddress failed : Name Missmatch");
         test:assertEquals(response?.street, crAddReq.Street, "CreateAddress failed : Street Missmatch");
@@ -132,17 +112,16 @@ function testCreateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateAddress]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testListAddress() returns error? {
-    ListAddressResponse? response = check twilio->listAddress();
+function testMockedListAddress() returns error? {
+    ListAddressResponse? response = check twilioClientForMockServer->listAddress();
     if (response is ListAddressResponse) {
         Address[]? addresses = response.addresses;
         if addresses is Address[] {
             Address address = addresses[0];
-            test:assertEquals(address?.account_sid, accountSid, "ListAddress Failed : SId Missmatch");
+            test:assertEquals(address?.account_sid, mockAccountSid, "ListAddress Failed : SId Missmatch");
         } else {
             test:assertFail("ListAddress Failed : Account Dosen't Exists.");
         }
@@ -152,12 +131,11 @@ function testListAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateAddress]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testFetchAddress() returns error? {
-    Address? response = check twilio->fetchAddress(globalAddressSid);
+function testMockedFetchAddress() returns error? {
+    Address? response = check twilioClientForMockServer->fetchAddress(globalAddressSid);
     if (response is Address) {
         test:assertEquals(response?.friendly_name, crAddReq.FriendlyName, "FetchAddress failed : Name Missmatch");
         test:assertEquals(response?.street, crAddReq.Street, "FetchAddress failed : Street Missmatch");
@@ -172,12 +150,11 @@ function testFetchAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testFetchAddress]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testUpdateAddress() returns error? {
-    Address? response = check twilio->updateAddress(globalAddressSid, upAddReq);
+function testMockedUpdateAddress() returns error? {
+    Address? response = check twilioClientForMockServer->updateAddress(globalAddressSid, upAddReq);
     if (response is Address) {
         test:assertEquals(response?.friendly_name, upAddReq.FriendlyName, "UpdateAddress failed : Name Missmatch");
     } else {
@@ -186,12 +163,11 @@ function testUpdateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testUpdateAddress]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testDeleteAddress() returns error? {
-    http:Response? response = check twilio->deleteAddress(globalAddressSid);
+function testMockedDeleteAddress() returns error? {
+    http:Response? response = check twilioClientForMockServer->deleteAddress(globalAddressSid);
     if (response is http:Response) {
         test:assertEquals(response.statusCode, 204, "Delete Address failed");
     } else {
@@ -200,13 +176,13 @@ function testDeleteAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testCreateCall() returns error? {
-    Call? response = check twilio->createCall(callReq);
+function testMockedCreateCall() returns error? {
+    Call? response = check twilioClientForMockServer->createCall(callReq);
     if (response is Call) {
-        test:assertEquals(response?.to, callReq.To, "CreateCall failed : Phone Number Missmatch");
+        test:assertEquals(response?.to, mockToPhoneNumber, "CreateCall failed : Phone Number Missmatch");
         string? sid = response?.sid;
         if sid is string {
             globalCallSid = sid;
@@ -219,17 +195,16 @@ function testCreateCall() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateCall]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testListCalls() returns error? {
-    ListCallResponse? response = check twilio->listCall();
+function testMockedListCalls() returns error? {
+    ListCallResponse? response = check twilioClientForMockServer->listCall();
     if (response is ListCallResponse) {
         Call[]? calls = response.calls;
         if calls is Call[] {
             Call call = calls[0];
-            test:assertEquals(call?.account_sid, accountSid, "ListCall Failed : SId Missmatch");
+            test:assertEquals(call?.account_sid, mockAccountSid, "ListCall Failed : SId Missmatch");
         } else {
             test:assertFail("ListCall Failed : Calls Dosen't Exists.");
         }
@@ -239,41 +214,39 @@ function testListCalls() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateCall]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testFetchCall() returns error? {
-    Call? response = check twilio->fetchCall(globalCallSid);
+function testMockedFetchCall() returns error? {
+    Call? response = check twilioClientForMockServer->fetchCall(globalCallSid);
     if (response is Call) {
-        test:assertEquals(response?.to, callReq.To, "FetchCall failed : To Missmatch");
-        test:assertEquals(response?.'from, callReq.From, "FetchCall failed : From Missmatch");
+        test:assertEquals(response?.to, mockToPhoneNumber, "FetchCall failed : To Missmatch");
+        test:assertEquals(response?.'from, mockFromPhoneNumber, "FetchCall failed : From Missmatch");
     } else {
         test:assertFail("FetchCall Failed : Call Dosen't Exists.");
     }
 }
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testFetchCall,testListCalls]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testDeleteCall() returns error? {
-    http:Response? response = check twilio->deleteCall(globalCallSid);
+function testMockedDeleteCall() returns error? {
+    http:Response? response = check twilioClientForMockServer->deleteCall(globalCallSid);
     if (response is http:Response) {
-        test:assertEquals(response.statusCode, 409, "Delete Call failed");
+        test:assertEquals(response.statusCode, 204, "Delete Call failed");
     } else {
         test:assertFail("Delete Call Failed");
     }
 }
 
 @test:Config {
-    groups: ["twilio_server"],
+    groups: ["mock_tests"],
     enable: true
 }
-function testCreateMessage() returns error? {
-    Message? response = check twilio->createMessage(msgReq);
+function testMockedCreateMessage() returns error? {
+    Message? response = check twilioClientForMockServer->createMessage(msgReq);
     if (response is Message) {
-        test:assertEquals(response?.to, msgReq.To, "CreateMessage failed : Phone Number Missmatch");
+        test:assertEquals(response?.to, mockToPhoneNumber, "CreateMessage failed : Phone Number Missmatch");
         string? sid = response?.sid;
         if sid is string {
             globalMsgSid = sid;
@@ -286,17 +259,16 @@ function testCreateMessage() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateMessage]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testListMessages() returns error? {
-    ListMessageResponse? response = check twilio->listMessage();
+function testMockedListMessages() returns error? {
+    ListMessageResponse? response = check twilioClientForMockServer->listMessage();
     if (response is ListMessageResponse) {
         Message[]? msgs = response.messages;
         if msgs is Message[] {
             Message msg = msgs[0];
-            test:assertEquals(msg?.account_sid, accountSid, "ListMessage Failed : SId Missmatch");
+            test:assertEquals(msg?.account_sid, mockAccountSid, "ListMessage Failed : SId Missmatch");
         } else {
             test:assertFail("ListMessage Failed : Messages Dosen't Exists.");
         }
@@ -306,28 +278,26 @@ function testListMessages() returns error? {
 }
 
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testCreateMessage]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testFetchMessage() returns error? {
-    Message? response = check twilio->fetchMessage(globalMsgSid);
+function testMockedFetchMessage() returns error? {
+    Message? response = check twilioClientForMockServer->fetchMessage(globalMsgSid);
     if (response is Message) {
-        test:assertEquals(response?.to, msgReq.To, "FetchMessage failed : To Missmatch");
-        test:assertEquals(response?.'from, msgReq.From, "FetchMessage failed : From Missmatch");
+        test:assertEquals(response?.to, mockToPhoneNumber, "FetchMessage failed : To Missmatch");
+        test:assertEquals(response?.'from,mockFromPhoneNumber, "FetchMessage failed : From Missmatch");
     } else {
         test:assertFail("FetchMessage Failed : Message Dosen't Exists.");
     }
 }
 @test:Config {
-    groups: ["twilio_server"],
-    enable: true,
-    dependsOn: [testFetchMessage,testListMessages]
+    groups: ["mock_tests"],
+    enable: true
 }
-function testDeleteMessage() returns error? {
-    http:Response? response = check twilio->deleteMessage(globalMsgSid);
+function testMockedDeleteMessage() returns error? {
+    http:Response? response = check twilioClientForMockServer->deleteMessage(globalMsgSid);
     if (response is http:Response) {
-        test:assertEquals(response.statusCode, 409, "Delete Message failed");
+        test:assertEquals(response.statusCode, 204, "Delete Message failed");
     } else {
         test:assertFail("Delete Message Failed");
     }

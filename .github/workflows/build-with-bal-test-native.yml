@@ -14,4 +14,4 @@ jobs:
     uses: ballerina-platform/ballerina-standard-library/.github/workflows/build-with-bal-test-graalvm-connector-template.yml@main
     secrets: inherit
     with:
-      additional-test-flags: "-x test"
+      additional-test-flags: "--groups mock_tests"

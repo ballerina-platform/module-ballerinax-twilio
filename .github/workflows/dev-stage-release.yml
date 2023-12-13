@@ -19,4 +19,4 @@ jobs:
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment }}
-      additional-publish-flags: "-x test"
+      additional-publish-flags: "-Pgroups=mock_tests"

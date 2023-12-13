@@ -142,6 +142,18 @@ Execute the commands below to build from the source.
    ./gradlew clean build -x test
    ```
 
+4. To run tests against different environments:
+
+   ```bash
+   ./gradlew clean test -Pgroups=<Comma separated groups/test cases>
+   ```
+
+   Tip: The following groups of test cases are available.
+   Groups | Environment
+   ---| ---
+   mock_tests | Mock server for Twilio API
+   actual_tests | Twilio API
+
 5. To debug the package with a remote debugger:
    ```
    ./gradlew clean build -Pdebug=<port>
