@@ -13,5 +13,3 @@ jobs:
     if: ${{ github.event_name != 'schedule' || (github.event_name == 'schedule' && github.repository_owner == 'ballerina-platform') }}
     uses: ballerina-platform/ballerina-standard-library/.github/workflows/build-with-bal-test-graalvm-connector-template.yml@main
     secrets: inherit
-    with:
-      additional-test-flags: "--groups mock_tests"

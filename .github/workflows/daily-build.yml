@@ -12,4 +12,3 @@ jobs:
     secrets: inherit
     with:
       repo-name: module-ballerinax-twilio
-      additional-test-flags: "-Pgroups=mock_tests"

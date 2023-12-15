@@ -45,7 +45,7 @@ All trial projects can provision a free trial phone number for testing. Here's h
 ### Step 3: Obtain a Twilio Account SID with Auth Token.
 Twilio uses two credentials to determine which account an API request is coming from: The Account SID, which acts as a `username`, and the Auth Token which acts as a `password`. You can find your account SID and auth token in your [Twilio console](https://www.twilio.com/console).
 
-![Twilio Credentails](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
+![Twilio Credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
 
 Your account's Auth Token is hidden by default. Click show to display the token, and hide to conceal it again. For further information click [here](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them)
 
@@ -150,11 +150,14 @@ Execute the commands below to build from the source.
    ./gradlew clean test -Pgroups=<Comma separated groups/test cases>
    ```
 
-   Tip: The following groups of test cases are available.
+   The following test environments, along with their respective groups of compatible tests, are available to test the connector.
+
    Groups | Environment
    ---| ---
-   mock_tests | Mock server for Twilio API
+   mock_tests | Mock server for Twilio API (Defualt Environment)
    actual_tests | Twilio API
+
+   To run tests against these environments, you can follow this [Test Guide](https://github.com/ballerina-platform/module-ballerinax-twilio/blob/master/ballerina/tests/README.md).
 
 5. To debug the package with a remote debugger:
    ```

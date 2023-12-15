@@ -54,15 +54,14 @@ service / on ep0 {
     }
     # Create a new Twilio Subaccount from the account making the request
     #
-    # + payload - The `CreateAccountRequest` record should be used as a payload to create a Subaccount. 
     # + return - Created 
-    resource function post '2010\-04\-01/Accounts\.json(@http:Payload map<string> payload) returns Account {
+    resource function post '2010\-04\-01/Accounts\.json() returns Account {
         Account account =
         {
             auth_token: "AU12345678901234567890123456789012",
             date_created: "Mon, 16 Aug 2010 23:18:00 +0000",
             date_updated: "Mon, 16 Aug 2010 23:18:00 +0000",
-            friendly_name: payload["FriendlyName"],
+            friendly_name: "ballerina_test",
             owner_account_sid: "AC12345678901234567890123456789012",
             sid: "AC12345678901234567890123456789012",
             status: "active"
@@ -395,7 +394,7 @@ service / on ep0 {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete. 
     # + sidJson - The Twilio-provided Call SID that uniquely identifies the Call resource to delete 
     # + return - The resource was deleted successfully. 
-    resource function delete '2010\-04\-01/Accounts/[string accountSid]/Calls/[string sidJson]() returns http:NoContent|error {
+    resource function delete '2010\-04\-01/Accounts/[string accountSid]/Calls/[string sidJson]() returns http:Conflict|error {
         if !sidJson.endsWith(".json") {
             return error("bad URL");
         }
@@ -517,7 +516,7 @@ service / on ep0 {
     # + accountSid - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource 
     # + sidJson - The SID of the Message resource you wish to delete 
     # + return - The resource was deleted successfully. 
-    resource function delete '2010\-04\-01/Accounts/[string accountSid]/Messages/[string sidJson]() returns http:NoContent|error {
+    resource function delete '2010\-04\-01/Accounts/[string accountSid]/Messages/[string sidJson]() returns http:Conflict|error {
         if !sidJson.endsWith(".json") {
             return error("bad URL");
         }

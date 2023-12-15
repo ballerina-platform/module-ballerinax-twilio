@@ -14,19 +14,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import twilio.mock as _;
+
 import ballerina/http;
 import ballerina/log;
 import ballerina/os;
 import ballerina/test;
 
-configurable string accountSid = os:getEnv("ACCOUNT_SID");
-configurable string authToken = os:getEnv("AUTH_TOKEN");
-configurable string toPhoneNumber = os:getEnv("TO_PHONE");
-configurable string fromPhoneNumber = os:getEnv("TWILIO_PHONE");
+configurable boolean isTestOnActualServer = os:getEnv("TEST_ON_ACTUAL_SERVER") == "true";
 
-ConnectionConfig config = {auth: {username: accountSid, password: authToken}};
+// Configurables
+configurable string accountSid = isTestOnActualServer ? os:getEnv("ACCOUNT_SID"): "AC12345678901234567890123456789012";
+configurable string authToken = isTestOnActualServer ? os:getEnv("AUTH_TOKEN"): "AU12345678901234567890123456789012";
+configurable string toPhoneNumber = isTestOnActualServer ? os:getEnv("TO_PHONE"): "+011234567890";
+configurable string fromPhoneNumber = isTestOnActualServer ? os:getEnv("TWILIO_PHONE"): "+098765432101";
+
 Client twilio = test:mock(Client);
 
+// Common test data
 string sampleName = "ballerina_test";
 string messageBody = "Hello from Ballerina!";
 string recordingURL = "http://demo.twilio.com/docs/voice.xml";
@@ -63,15 +68,20 @@ CreateMessageRequest msgReq = {
     Body: messageBody
 };
 
-@test:BeforeGroups{
-    value: ["actual_tests"]
-}
+
+
+@test:BeforeSuite
 function initializeClientsForTwilioServer () returns error? {
-    log:printInfo("Initializing Twilio Client for Twilio Server");
-    twilio = check new (config);
+    if (isTestOnActualServer) {
+        log:printInfo("Running tests on actual server");
+        twilio = check new ({auth: {username: accountSid, password: authToken}});
+    } else {
+        log:printInfo("Running tests on mock server");
+        twilio = check new ({auth: {username: accountSid, password: authToken}}, serviceUrl = "http://localhost:9090/");
+    }
 }
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testListAccount() returns error? {
@@ -88,9 +98,26 @@ function testListAccount() returns error? {
         test:assertFail("ListAccount Failed : Wrong Responce Type.");
     }
 }
-
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["mock_tests"],
+    enable: true
+}
+function testCreateAccount() returns error? {
+    Account? response = check twilio->createAccount(crAccReq);
+    if (response is Account) {
+        test:assertEquals(response?.friendly_name, crAccReq.FriendlyName, "CreateAcoount failed : Name Missmatch");
+        string? accountSid = response?.sid;
+        if accountSid is string {
+            accountSid = accountSid;
+        } else {
+            test:assertFail("CreateAccount Failed : Account SID Dosen't Exists.");
+        }
+    } else {
+        test:assertFail("CreateAccount Failed : Account Dosen't Exists.");
+    }
+}
+@test:Config {
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testFetchAccount() returns error? {
@@ -103,7 +130,7 @@ function testFetchAccount() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testUpdateAccount() returns error? {
@@ -116,7 +143,7 @@ function testUpdateAccount() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testCreateAddress() returns error? {
@@ -141,7 +168,7 @@ function testCreateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateAddress]
 }
@@ -161,7 +188,7 @@ function testListAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateAddress]
 }
@@ -181,7 +208,7 @@ function testFetchAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchAddress]
 }
@@ -195,7 +222,7 @@ function testUpdateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testUpdateAddress]
 }
@@ -209,7 +236,7 @@ function testDeleteAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testCreateCall() returns error? {
@@ -228,7 +255,7 @@ function testCreateCall() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateCall]
 }
@@ -248,7 +275,7 @@ function testListCalls() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateCall]
 }
@@ -262,7 +289,7 @@ function testFetchCall() returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchCall,testListCalls]
 }
@@ -276,7 +303,7 @@ function testDeleteCall() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true
 }
 function testCreateMessage() returns error? {
@@ -295,7 +322,7 @@ function testCreateMessage() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateMessage]
 }
@@ -315,7 +342,7 @@ function testListMessages() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateMessage]
 }
@@ -329,7 +356,7 @@ function testFetchMessage() returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests"],
+    groups: ["actual_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchMessage,testListMessages]
 }
