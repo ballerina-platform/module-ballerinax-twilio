@@ -49,7 +49,7 @@ Twilio uses two credentials to determine which account an API request is coming 
 
 Your account's Auth Token is hidden by default. Click show to display the token, and hide to conceal it again. For further information click [here](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them)
 
-## Quick Start
+## Quickstart
 
 This sample demonstrates a scenario where the Twilio connector is used to send a text message to a phone number.
 
