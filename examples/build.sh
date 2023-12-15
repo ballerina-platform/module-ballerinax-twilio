@@ -50,8 +50,8 @@ echo "$BAL_SOURCE_DIR"
 # Loop through examples in the examples directory
 cd "$BAL_EXAMPLES_DIR"
 for dir in $(find "$BAL_EXAMPLES_DIR" -type d -maxdepth 2  -mindepth 2); do
-  # Skip the build directory
-  if [[ "$dir" == *build ]]; then
+  # Skip the lib and tmp directories in build directory
+  if [[ "$dir" == *libs ]] || [[ "$dir" == *tmp ]]; then
     continue
   fi
   (cd "$dir" && bal "$BAL_CMD" --offline && cd ..); 
