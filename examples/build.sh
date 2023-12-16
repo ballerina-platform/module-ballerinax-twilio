@@ -48,11 +48,16 @@ echo "$BAL_DESTINATION_DIR"
 echo "$BAL_SOURCE_DIR"
 
 # Loop through examples in the examples directory
-find "$BAL_EXAMPLES_DIR" -type f -name "*.bal" | while read -r BAL_EXAMPLE_FILE; do
-  bal "$BAL_CMD" --offline "$BAL_EXAMPLE_FILE"
+cd "$BAL_EXAMPLES_DIR"
+for dir in $(find "$BAL_EXAMPLES_DIR" -type d -maxdepth 2  -mindepth 2); do
+  # Skip the lib and tmp directories in build directory
+  if [[ "$dir" == *libs ]] || [[ "$dir" == *tmp ]]; then
+    continue
+  fi
+  (cd "$dir" && bal "$BAL_CMD" --offline && cd ..); 
 done
 
 # Remove generated JAR files
-find "$BAL_HOME_DIR" -maxdepth 1 -type f -name "*.jar" | while read -r JAR_FILE; do
+find "$BAL_HOME_DIR" -maxdepth 2 -type f -name "*.jar" | while read -r JAR_FILE; do
   rm "$JAR_FILE"
 done

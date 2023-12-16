@@ -1,0 +1,8 @@
+[package]
+org = "dilanperera"
+name = "list_call_logs"
+version = "0.1.0"
+distribution = "2201.8.2"
+
+[build-options]
+observabilityIncluded = true
