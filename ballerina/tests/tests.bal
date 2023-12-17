@@ -21,13 +21,13 @@ import ballerina/log;
 import ballerina/os;
 import ballerina/test;
 
-configurable boolean isTestOnActualServer = os:getEnv("TEST_ON_ACTUAL_SERVER") == "true";
+configurable boolean isTestOnProdServer = os:getEnv("IS_TEST_ON_PROD_SERVER") == "true";
 
 // Configurables
-configurable string accountSid = isTestOnActualServer ? os:getEnv("ACCOUNT_SID"): "AC12345678901234567890123456789012";
-configurable string authToken = isTestOnActualServer ? os:getEnv("AUTH_TOKEN"): "AU12345678901234567890123456789012";
-configurable string toPhoneNumber = isTestOnActualServer ? os:getEnv("TO_PHONE"): "+011234567890";
-configurable string fromPhoneNumber = isTestOnActualServer ? os:getEnv("TWILIO_PHONE"): "+098765432101";
+configurable string accountSid = isTestOnProdServer ? os:getEnv("ACCOUNT_SID"): "AC12345678901234567890123456789012";
+configurable string authToken = isTestOnProdServer ? os:getEnv("AUTH_TOKEN"): "AU12345678901234567890123456789012";
+configurable string toPhoneNumber = isTestOnProdServer ? os:getEnv("TO_PHONE"): "+011234567890";
+configurable string fromPhoneNumber = isTestOnProdServer ? os:getEnv("TWILIO_PHONE"): "+098765432101";
 
 Client twilio = test:mock(Client);
 
@@ -72,7 +72,7 @@ CreateMessageRequest msgReq = {
 
 @test:BeforeSuite
 function initializeClientsForTwilioServer () returns error? {
-    if (isTestOnActualServer) {
+    if (isTestOnProdServer) {
         log:printInfo("Running tests on actual server");
         twilio = check new ({auth: {username: accountSid, password: authToken}});
     } else {
@@ -81,7 +81,7 @@ function initializeClientsForTwilioServer () returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testListAccount() returns error? {
@@ -117,7 +117,7 @@ function testCreateAccount() returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testFetchAccount() returns error? {
@@ -130,7 +130,7 @@ function testFetchAccount() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testUpdateAccount() returns error? {
@@ -143,7 +143,7 @@ function testUpdateAccount() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testCreateAddress() returns error? {
@@ -168,7 +168,7 @@ function testCreateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateAddress]
 }
@@ -188,7 +188,7 @@ function testListAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateAddress]
 }
@@ -208,7 +208,7 @@ function testFetchAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchAddress]
 }
@@ -222,7 +222,7 @@ function testUpdateAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testUpdateAddress]
 }
@@ -236,7 +236,7 @@ function testDeleteAddress() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testCreateCall() returns error? {
@@ -255,7 +255,7 @@ function testCreateCall() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateCall]
 }
@@ -275,7 +275,7 @@ function testListCalls() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateCall]
 }
@@ -289,7 +289,7 @@ function testFetchCall() returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchCall,testListCalls]
 }
@@ -303,7 +303,7 @@ function testDeleteCall() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true
 }
 function testCreateMessage() returns error? {
@@ -322,7 +322,7 @@ function testCreateMessage() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateMessage]
 }
@@ -342,7 +342,7 @@ function testListMessages() returns error? {
 }
 
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testCreateMessage]
 }
@@ -356,7 +356,7 @@ function testFetchMessage() returns error? {
     }
 }
 @test:Config {
-    groups: ["actual_tests", "mock_tests"],
+    groups: ["prod_tests", "mock_tests"],
     enable: true,
     dependsOn: [testFetchMessage,testListMessages]
 }

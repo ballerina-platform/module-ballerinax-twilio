@@ -5,25 +5,25 @@ There are two test environments for the Twilio connector. The default test envir
 Test Groups | Environment
 ---| ---
 mock_tests | Mock server for Twilio API (Defualt Environment)
-actual_tests | Twilio API
+prod_tests | Twilio API
 
 ## Running Tests in the Mock Server
 
-To execute the tests on the mock server, ensure that the `IS_TEST_ON_ACTUAL_SERVER` environment variable is either set to false or unset before initiating the tests. This environment variable can be configured within the `Config.toml` file located in the tests directory or specified as an environmental variable.
+To execute the tests on the mock server, ensure that the `IS_TEST_ON_PROD_SERVER` environment variable is either set to false or unset before initiating the tests. This environment variable can be configured within the `Config.toml` file located in the tests directory or specified as an environmental variable.
 
 #### Using a Config.toml File
 
 Create a `Config.toml` file in the tests directory and add your authentication credentials and phone number for the authorized user:
 
 ```toml
-isTestOnActualServer = false
+isTestOnProdServer = false
 ```
 
 #### Using Environment Variables
 
 Alternatively, you can set your authentication credentials as environment variables:
 ```bash
-export IS_TEST_ON_ACTUAL_SERVER=false
+export IS_TEST_ON_PROD_SERVER=false
 ```
 
 Then, run the following command to run the tests:
@@ -52,7 +52,7 @@ Now, you can set Twilio credentials and phone numbers either in a `Config.toml` 
 Create a `Config.toml` file in the tests directory and add your authentication credentials and phone number for the authorized user:
 
 ```toml
-isTestOnActualServer = true
+isTestOnProdServer = true
 accountSid="<your-twilio-account-sid>"
 authToken="<your-twilio-auth-token>"
 toPhoneNumber="<your-test-phone-number>"
@@ -63,7 +63,7 @@ fromPhoneNumber="<your-twilio-phone-number>"
 
 Alternatively, you can set your authentication credentials as environment variables:
 ```bash
-export IS_TEST_ON_ACTUAL_SERVER=true
+export IS_TEST_ON_PROD_SERVER=true
 export ACCOUNT_SID="<your-twilio-account-sid>"
 export AUTH_TOKEN="<your-twilio-auth-token>"
 export TO_PHONE="<your-test-phone-number>"
@@ -72,5 +72,5 @@ export TWILIO_PHONE="<your-twilio-phone-number>"
 
 Then, run the following command to run the tests:
 ```bash
-   ./gradlew clean test -Pgroups="actual_tests"
+   ./gradlew clean test -Pgroups="prod_tests"
 ```
