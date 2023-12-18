@@ -155,7 +155,7 @@ Execute the commands below to build from the source.
    Groups | Environment
    ---| ---
    mock_tests | Mock server for Twilio API (Defualt Environment)
-   prod_tests | Twilio API
+   live_tests | Twilio API
 
    To run tests against these environments, you can follow this [Test Guide](https://github.com/ballerina-platform/module-ballerinax-twilio/blob/master/ballerina/tests/README.md).
 
