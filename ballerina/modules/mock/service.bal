@@ -15,10 +15,15 @@
 // under the License.
 
 import ballerina/http;
+import ballerina/os;
+import ballerina/log;
 
-listener http:Listener ep0 = new (9090, config = {host: "localhost"});
 
-service / on ep0 {
+configurable boolean isTestOnLiveServer = os:getEnv("IS_TEST_ON_LIVE_SERVER") == "true";
+
+listener http:Listener listner = new (9090, config = {host: "localhost"});
+
+http:Service mockService = service object {
     # Retrieves a collection of Accounts belonging to the account used to make the request
     #
     # + FriendlyName - Only return the Account resources with friendly names that exactly match this name. 
@@ -524,4 +529,15 @@ service / on ep0 {
             headers: {}
         };
     }
+};
+
+
+function init() returns error? {
+    if isTestOnLiveServer {
+        log:printInfo("Skiping mock server initialization as the test is running on live server");
+        return;
+    }
+    log:printInfo("Initiating mock server");
+    check listner.attach(mockService, "/");
+    check listner.'start();
 }
