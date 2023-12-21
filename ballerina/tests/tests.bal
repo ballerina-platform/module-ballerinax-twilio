@@ -69,7 +69,6 @@ CreateMessageRequest msgReq = {
 };
 
 
-
 @test:BeforeSuite
 function initializeClientsForTwilioServer () returns error? {
     if (isTestOnLiveServer) {
