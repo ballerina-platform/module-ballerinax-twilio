@@ -115,6 +115,7 @@ function testCreateAccount() returns error? {
         test:assertFail("CreateAccount Failed : Account Dosen't Exists.");
     }
 }
+
 @test:Config {
     groups: ["live_tests", "mock_tests"],
     enable: true
