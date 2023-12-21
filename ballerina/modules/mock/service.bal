@@ -21,7 +21,7 @@ import ballerina/log;
 
 configurable boolean isTestOnLiveServer = os:getEnv("IS_TEST_ON_LIVE_SERVER") == "true";
 
-listener http:Listener listener = new (9090, config = {host: "localhost"});
+listener http:Listener httpListener = new (9090, config = {host: "localhost"});
 
 http:Service mockService = service object {
     # Retrieves a collection of Accounts belonging to the account used to make the request
@@ -538,6 +538,6 @@ function init() returns error? {
         return;
     }
     log:printInfo("Initiating mock server");
-    check listner.attach(mockService, "/");
-    check listner.'start();
+    check httpListener.attach(mockService, "/");
+    check httpListener.'start();
 }
