@@ -1,1 +1,1 @@
-../Update account.md
+./Update account.md

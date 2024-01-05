@@ -1,1 +1,1 @@
-../Fetch call log.md
+./Fetch call log.md

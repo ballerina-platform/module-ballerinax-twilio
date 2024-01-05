@@ -1,1 +1,1 @@
-../Fetch balance.md
+./Fetch balance.md

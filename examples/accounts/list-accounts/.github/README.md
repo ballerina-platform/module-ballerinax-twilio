@@ -1,1 +1,1 @@
-../List accounts.md
+./List accounts.md

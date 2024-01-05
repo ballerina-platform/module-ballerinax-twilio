@@ -1,1 +1,1 @@
-../Create SMS Message.md
+./Create SMS Message.md
