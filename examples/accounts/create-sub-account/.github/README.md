@@ -1,1 +1,1 @@
-./Create sub account.md
+../Create sub account.md

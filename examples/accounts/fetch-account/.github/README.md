@@ -1,1 +1,1 @@
-./Fetch account.md
+../Fetch account.md

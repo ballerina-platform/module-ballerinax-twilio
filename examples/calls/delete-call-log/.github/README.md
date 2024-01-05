@@ -1,1 +1,1 @@
-./Delete call log.md
+../Delete call log.md

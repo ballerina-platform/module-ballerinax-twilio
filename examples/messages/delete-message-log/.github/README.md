@@ -1,1 +1,1 @@
-./Delete message log.md
+../Delete message log.md
