@@ -14,9 +14,11 @@ Twilio is a cloud communications platform that allows software developers to pro
 The Ballerina Twilio connector supports the [Twilio Basic API version 2010-04-01](https://www.twilio.com/docs/all), enabling users to leverage these communication capabilities within their Ballerina applications.
 
 ## Set up guide
+
 Before using the ballerinax-twilio connector you must have access to Twilio API, If you do not have access to Twilio API please complete the following steps:
 
 ### Step 1: Create a Twilio account.
+
 Creating a Twilio account can be done by visiting [Twilio](https://www.twilio.com) and clicking the "Try Twilio for Free" button.
 
 ### Step 2: Obtain a Twilio phone number.
@@ -43,6 +45,7 @@ All trial projects can provision a free trial phone number for testing. Here's h
 > **Notice:** Many countries require identity documentation for Phone Number compliance. Requests to provision phone numbers with these regulations will be required to select or add the required documentation after clicking Buy in Console. To see which countries and phone number types are affected by these requirements, please see twilio's [Phone Number Regulations](https://www.twilio.com/guidelines/regulatory) site.
 
 ### Step 3: Obtain a Twilio Account SID with Auth Token.
+
 Twilio uses two credentials to determine which account an API request is coming from: The Account SID, which acts as a `username`, and the Auth Token which acts as a `password`. You can find your account SID and auth token in your [Twilio console](https://www.twilio.com/console).
 
 ![Twilio Credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
