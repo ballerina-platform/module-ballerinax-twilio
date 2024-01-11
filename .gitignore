@@ -1,19 +1,19 @@
-# Compiled class file
+# Ignore compiled class file
 *.class
 
-# Log file
+# Ignore log file
 *.log
 
-#Config file
+# Ignore config file
 **/Config.toml
 
-# BlueJ files
+# Ignore BlueJ files
 *.ctxt
 
-# Mobile Tools for Java (J2ME)
+# Ignore mobile tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Ignore package Files #
 *.jar
 !gradle-wrapper/*.jar
 *.war
@@ -23,23 +23,16 @@
 *.rar
 *.deb
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Ignore virtual machine crash logs
 hs_err_pid*
 
-# Ignore everything in this directory
+# Ignore everything in these directories
 target
-
-# mac
-.DS_Store
-
+.idea
 .classpath
 .settings
 .project
-
 .vscode
-
-target
-.idea
 *.iml
 *.ipr
 *.iws
@@ -47,5 +40,11 @@ target
 build
 generated
 
-# Environment files
+# Ignore MAC DS files
+.DS_Store
+
+# Ignore environment files
 *.env
+
+# Ignore all Dependencies.toml files in the examples directory
+examples/**/Dependencies.toml
