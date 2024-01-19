@@ -1,5 +1,5 @@
 [package]
-org = "dilanperera"
+org = "wso2"
 name = "update_account"
 version = "0.1.0"
 distribution = "2201.8.2"
