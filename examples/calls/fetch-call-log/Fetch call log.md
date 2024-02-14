@@ -5,7 +5,7 @@ This example demonstrates how to fetch call log for a call using Twilio connecto
 ## Prerequisites
 
 ### 1. Set up
-Refer to the setup guidein [ReadMe](../../../README.md) for necessary credentials.
+Refer to the setup guide in [ReadMe](../../../README.md) for necessary credentials.
 
 ### 2. Configuration
 

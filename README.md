@@ -56,7 +56,7 @@ Your account's Auth Token is hidden by default. Click show to display the token,
 
 To use the `twilio` connector in your Ballerina application, modify the `.bal` file as follows:
 
-### Step 1 - Import the package
+### Step 1 - Import the module
 
 Import the Twilio module into your Ballerina program as shown below:
 
