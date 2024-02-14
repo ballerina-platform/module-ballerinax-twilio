@@ -1,5 +1,5 @@
 [package]
-org = "dilanperera"
+org = "twilio_samples"
 name = "fetch_message"
 version = "0.1.0"
 distribution = "2201.8.2"

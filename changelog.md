@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Documentation updated with minor changes.
+
+## [4.0.0] - 2024-01-12
 ### Added
 - Following functionalities are added to the Twilio connector.
     - Create a new Twilio subaccount

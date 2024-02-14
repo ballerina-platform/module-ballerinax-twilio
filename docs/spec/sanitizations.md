@@ -1,5 +1,16 @@
-# Sanitizations for Open API Specification
-This connector is generated using Twilio's Basic [API version 2010-04-01](https://github.com/twilio/twilio-oai/blob/main/spec/yaml/twilio_api_v2010.yaml), and the following sanitizations were applied to the specification before client generation.
+# Sanitations: Ballerina Twilio Connector
+
+_Author_: @RDPerera \
+_Reviewers_: @NipunaRanasinghe \
+_Created_: 2024/02/14 \
+_Updated_: 2024/02/14 \
+_Edition_: Swan Lake  
+
+This document lists the sanitations applied to the OpenAPI specification and the generated client for the Twilio connector.
+
+## Sanitations for the OpenAPI specification
+
+This connector is generated using Twilio's Basic [API version 2010-04-01](https://github.com/twilio/twilio-oai/blob/main/spec/yaml/twilio_api_v2010.yaml), and the following sanitations were applied to the specification before client generation.
 
 1. Removed the `api.v2010.account.` and `api.v2010.` suffixes from the record names to enhance the user-friendliness of the specifications. For instance, `api.v2010.account.address` is now renamed to `address`, resulting in the type name changing from `ApiV2010AccountAddress` to `Address`.
 
@@ -132,3 +143,24 @@ This connector is generated using Twilio's Basic [API version 2010-04-01](https:
    - deleteUsageTrigger
 
 6. Add missing `mms`, `sms`, `voice`,and `fax`  parameter documentation for the `capabilities` record.
+
+## Sanitations for the generated client
+
+After generating the client using openAPI specification, the following modifications are made to the generated client by introducing a wrapper client.
+
+1. Removed the `string accountSid` parameter from all non-account-related functions and added it as an optional parameter to each function, with the default parameter set to `accountSid` in the initial client configurations.
+
+For example, the function:
+
+```ballerina
+remote isolated function createCall(string accountSid, CreateCallRequest payload) returns Call|error {
+}
+```
+
+is restructured as:
+
+```ballerina
+remote isolated function createCall(CreateCallRequest payload, string? accountSid = ()) returns Call|error {
+    return self.generatedClient->createCall(accountSid ?: self.accountSid, payload);
+}
+```
