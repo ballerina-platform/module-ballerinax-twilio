@@ -1,4 +1,4 @@
-# Sanitizations for Open API Specification
+# Sanitizations for Open API specification
 This connector is generated using Twilio's Basic [API version 2010-04-01](https://github.com/twilio/twilio-oai/blob/main/spec/yaml/twilio_api_v2010.yaml), and the following sanitizations were applied to the specification before client generation.
 
 1. Removed the `api.v2010.account.` and `api.v2010.` suffixes from the record names to enhance the user-friendliness of the specifications. For instance, `api.v2010.account.address` is now renamed to `address`, resulting in the type name changing from `ApiV2010AccountAddress` to `Address`.

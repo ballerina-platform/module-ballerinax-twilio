@@ -5,7 +5,7 @@ This example demonstrates how to fetch account details for a Twilio account usin
 ## Prerequisites
 
 ### 1. Set up
-Refer to the set up guide in [ReadMe](../../../README.md) for necessary credentials.
+Refer to the setup guide in [ReadMe](../../../README.md) for necessary credentials.
 
 ### 2. Configuration
 
