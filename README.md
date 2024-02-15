@@ -102,6 +102,8 @@ public function main() returns error? {
 
 ### Step 4: Run the Ballerina application
 
+Execute the command below to execute the Ballerina application:
+
 ```bash
 bal run
 ```
