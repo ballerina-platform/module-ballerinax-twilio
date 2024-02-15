@@ -10,4 +10,4 @@ icon = "icon.png"
 license = ["Apache-2.0"]
 
 [build-options]
-observabilityIncluded = false
+observabilityIncluded = true
