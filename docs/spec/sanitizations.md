@@ -1,6 +1,6 @@
 # Sanitations: Ballerina Twilio Connector
 
-_Author_: @RDPerera \
+_Authors_: @RDPerera \
 _Reviewers_: @NipunaRanasinghe \
 _Created_: 2024/02/14 \
 _Updated_: 2024/02/14 \
