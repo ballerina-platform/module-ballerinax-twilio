@@ -2,7 +2,7 @@
 distribution = "2201.8.0"
 org = "ballerinax"
 name = "twilio"
-version = "4.0.1"
+version = "4.0.2"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
 keywords = ["Communication/Call & SMS", "Cost/Paid"]
@@ -10,4 +10,4 @@ icon = "icon.png"
 license = ["Apache-2.0"]
 
 [build-options]
-observabilityIncluded = false
+observabilityIncluded = true
