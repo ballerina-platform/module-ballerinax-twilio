@@ -24,7 +24,7 @@ import ballerina/http;
 @display {label: "Connection Config"}
 public type ConnectionConfig record {|
     # Configurations related to client authentication
-    http:CredentialsConfig auth;
+    AuthTokenConfig | ApiKeyConfig auth;
     # The HTTP version understood by the client
     http:HttpVersion httpVersion = http:HTTP_2_0;
     # Configurations related to HTTP/1.x protocol
@@ -53,6 +53,27 @@ public type ConnectionConfig record {|
     http:ProxyConfig proxy?;
     # Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default
     boolean validation = true;
+|};
+
+# Twilio Auth token Based Authentication
+# 
+# + accountSid - Twilio account SID
+# + authToken - Twilio authentication token of the account
+public type AuthTokenConfig record {|
+    string accountSid;
+    string authToken;
+|};
+
+# Twilio API Key Based Authentication
+#
+# + apiKey - Twilio API key SID 
+# + apiSecret - Twilio API key Secret
+# + accountSid - Twilio account SID  
+@display{label: "API Key Based Connection Config"}
+public type ApiKeyConfig record {|
+    string apiKey;
+    string apiSecret;
+    string accountSid;
 |};
 
 # Provides settings related to HTTP/1.x protocol.
