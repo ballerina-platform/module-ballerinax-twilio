@@ -24,7 +24,7 @@ import ballerina/http;
 @display {label: "Connection Config"}
 public type ConnectionConfig record {|
     # Configurations related to client authentication
-    AuthTokenConfig | ApiKeyConfig auth;
+    AuthTokenConfig|ApiKeyConfig auth;
     # The HTTP version understood by the client
     http:HttpVersion httpVersion = http:HTTP_2_0;
     # Configurations related to HTTP/1.x protocol
@@ -55,7 +55,7 @@ public type ConnectionConfig record {|
     boolean validation = true;
 |};
 
-# Twilio Auth token Based Authentication
+# Twilio Auth token Based Authentication configuration.
 # 
 # + accountSid - Twilio account SID
 # + authToken - Twilio authentication token of the account
@@ -64,7 +64,7 @@ public type AuthTokenConfig record {|
     string authToken;
 |};
 
-# Twilio API Key Based Authentication
+# Twilio API Key Based Authentication configurations.
 #
 # + apiKey - Twilio API key SID 
 # + apiSecret - Twilio API key Secret
