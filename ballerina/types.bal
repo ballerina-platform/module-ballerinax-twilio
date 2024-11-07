@@ -64,7 +64,7 @@ public type AuthTokenConfig record {|
     string authToken;
 |};
 
-# Twilio API Key Based Authentication
+# Twilio API Key Based Authentication configurations.
 #
 # + apiKey - Twilio API key SID 
 # + apiSecret - Twilio API key Secret
