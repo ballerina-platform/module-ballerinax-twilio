@@ -28,8 +28,6 @@ configurable string accountSid = isTestOnLiveServer ? os:getEnv("ACCOUNT_SID"): 
 configurable string authToken = isTestOnLiveServer ? os:getEnv("AUTH_TOKEN"): "AU12345678901234567890123456789012";
 configurable string toPhoneNumber = isTestOnLiveServer ? os:getEnv("TO_PHONE"): "+011234567890";
 configurable string fromPhoneNumber = isTestOnLiveServer ? os:getEnv("TWILIO_PHONE"): "+098765432101";
-configurable string apiKey = isTestOnLiveServer ? os:getEnv("API_KEY"): "SCdegjk35502ga02bbr5311h909a02t3x5";
-configurable string apiSecret = isTestOnLiveServer ? os:getEnv("API_SECRET"): "c4N1odgh7szhjRNSQz6ve4iCkqgH5WBx";
 
 Client twilio = test:mock(Client);
 
