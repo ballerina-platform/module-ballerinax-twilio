@@ -27,8 +27,7 @@ public isolated client class Client {
     # + serviceUrl - URL of the target service 
     # + return - An error if connector initialization failed 
     public isolated function init(ConnectionConfig config, string serviceUrl = "https://api.twilio.com") returns error? {
-        var credentials = config.auth;
-        self.accountSid = credentials.accountSid;
+        self.accountSid = config.auth.accountSid;
         oas:ConnectionConfig oasConnectionConfig = getOasConnectionConfig(config);
         self.generatedClient = check new (oasConnectionConfig, serviceUrl);
     }
