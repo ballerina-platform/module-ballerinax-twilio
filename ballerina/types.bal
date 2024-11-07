@@ -55,7 +55,7 @@ public type ConnectionConfig record {|
     boolean validation = true;
 |};
 
-# Twilio Auth token Based Authentication
+# Twilio Auth token Based Authentication configuration.
 # 
 # + accountSid - Twilio account SID
 # + authToken - Twilio authentication token of the account
