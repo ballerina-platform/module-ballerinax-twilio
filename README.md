@@ -153,12 +153,6 @@ This repository only contains the source code for the package.
 
     > **Note**: Ensure that the Docker daemon is running before executing any tests.
 
-4. Export Github Personal access token with read package permissions as follows,
-    ```
-    export packageUser=<Username>
-    export packagePAT=<Personal access token>
-    ```
-
 ### Build options
 
 Execute the commands below to build from the source.
