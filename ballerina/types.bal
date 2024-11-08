@@ -59,6 +59,7 @@ public type ConnectionConfig record {|
 # 
 # + accountSid - Twilio account SID
 # + authToken - Twilio authentication token of the account
+@display{label: "Auth token based authentication config"}
 public type AuthTokenConfig record {|
     string accountSid;
     string authToken;
