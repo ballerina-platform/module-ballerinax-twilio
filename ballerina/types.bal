@@ -70,7 +70,7 @@ public type AuthTokenConfig record {|
 # + apiKey - Twilio API key SID 
 # + apiSecret - Twilio API key Secret
 # + accountSid - Twilio account SID  
-@display{label: "API Key Based Connection Config"}
+@display{label: "API Key Based authentication config"}
 public type ApiKeyConfig record {|
     string apiKey;
     string apiSecret;
