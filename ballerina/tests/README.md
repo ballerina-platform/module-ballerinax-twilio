@@ -57,6 +57,8 @@ accountSid="<your-twilio-account-sid>"
 authToken="<your-twilio-auth-token>"
 toPhoneNumber="<your-test-phone-number>"
 fromPhoneNumber="<your-twilio-phone-number>"
+apiKey="<your-twilio-api-key>"
+apiSecret="<your-twilio-api-secret>"
 ```
 
 #### Using Environment Variables
@@ -68,6 +70,8 @@ export ACCOUNT_SID="<your-twilio-account-sid>"
 export AUTH_TOKEN="<your-twilio-auth-token>"
 export TO_PHONE="<your-test-phone-number>"
 export TWILIO_PHONE="<your-twilio-phone-number>"
+export API_KEY="<your-twilio-api-key>"
+export API_SECRET="<your-twilio-api-secret>"
 ```
 
 Then, run the following command to run the tests:

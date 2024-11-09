@@ -24,8 +24,8 @@ configurable string authToken = os:getEnv("AUTH_TOKEN");
 // Twilio configurations
 twilio:ConnectionConfig twilioConfig = {
     auth: {
-        username: accountSid,
-        password: authToken
+        accountSid,
+        authToken
     }
 };
 

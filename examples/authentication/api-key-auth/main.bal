@@ -1,4 +1,4 @@
-// Copyright (c) 2023 WSO2 LLC. (http://www.wso2.org).
+// Copyright (c) 2024 WSO2 LLC. (http://www.wso2.org).
 //
 // WSO2 LLC. licenses this file to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file except
@@ -19,26 +19,28 @@ import ballerina/os;
 import ballerinax/twilio;
 
 configurable string accountSid = os:getEnv("ACCOUNT_SID");
-configurable string authToken = os:getEnv("AUTH_TOKEN");
+configurable string apiKey = os:getEnv("API_KEY");
+configurable string apiSecret = os:getEnv("API_SECRET");
 
-// Twilio configurations
+// Twilio API Key based authentication configurations
 twilio:ConnectionConfig twilioConfig = {
     auth: {
-        accountSid,
-        authToken
+        apiKey,
+        apiSecret,
+        accountSid
     }
 };
 
-// This sample demonstrates a scenario where Twilio connector is used to send a whatsapp message to a number.
+// This sample demonstrates a scenario where Twilio connector is used to send a text message to a number.
 public function main() returns error? {
     twilio:Client twilio = check new (twilioConfig);
 
     twilio:CreateMessageRequest messageRequest = {
-        To: "whatsapp:+00123456789",
-        From: "whatsapp:+00123456789",
+        To: "+00123456789",
+        From: "+00123456789",
         Body: "Hello from Ballerina"
     };
 
     twilio:Message response = check twilio->createMessage(messageRequest);
-    io:print("Whatsapp Message Status: ",response?.status);
+    io:print("Message Status: ",response?.status);
 }

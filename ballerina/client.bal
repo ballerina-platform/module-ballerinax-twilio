@@ -27,8 +27,9 @@ public isolated client class Client {
     # + serviceUrl - URL of the target service 
     # + return - An error if connector initialization failed 
     public isolated function init(ConnectionConfig config, string serviceUrl = "https://api.twilio.com") returns error? {
-        self.accountSid = config.auth.username;
-        self.generatedClient = check new (config, serviceUrl);
+        self.accountSid = config.auth.accountSid;
+        oas:ConnectionConfig oasConnectionConfig = getOasConnectionConfig(config);
+        self.generatedClient = check new (oasConnectionConfig, serviceUrl);
     }
     # Retrieves a collection of Accounts belonging to the account used to make the request
     #
@@ -2096,4 +2097,35 @@ public isolated client class Client {
     remote isolated function deleteUserDefinedMessageSubscription(string callSid, string sid, string? accountSid = ()) returns http:Response|error {
         return self.generatedClient->deleteUserDefinedMessageSubscription(accountSid ?: self.accountSid, callSid, sid);
     }
+}
+
+isolated function getOasConnectionConfig(ConnectionConfig config) returns oas:ConnectionConfig => {
+    auth: getAuthConfig(config.auth),
+    httpVersion: config.httpVersion,
+    http1Settings: config.http1Settings,
+    http2Settings: config.http2Settings,
+    timeout: config.timeout,
+    forwarded: config.forwarded,
+    poolConfig: config.poolConfig,
+    cache: config.cache,
+    circuitBreaker: config.circuitBreaker,
+    compression: config.compression,
+    retryConfig: config.retryConfig,
+    responseLimits: config.responseLimits,
+    secureSocket: config.secureSocket,
+    proxy: config.proxy,
+    validation: config.validation
+};
+
+isolated function getAuthConfig(AuthTokenConfig|ApiKeyConfig config) returns http:CredentialsConfig {
+    if config is AuthTokenConfig {
+        return {
+            username: config.accountSid,
+            password: config.authToken
+        };
+    }
+    return {
+        username: config.apiKey,
+        password: config.apiSecret
+    };
 }

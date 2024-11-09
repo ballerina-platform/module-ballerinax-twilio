@@ -73,10 +73,10 @@ CreateMessageRequest msgReq = {
 function initializeClientsForTwilioServer () returns error? {
     if (isTestOnLiveServer) {
         log:printInfo("Running tests on actual server");
-        twilio = check new ({auth: {username: accountSid, password: authToken}});
+        twilio = check new ({auth: {accountSid: accountSid, authToken: authToken}});
     } else {
         log:printInfo("Running tests on mock server");
-        twilio = check new ({auth: {username: accountSid, password: authToken}}, serviceUrl = "http://localhost:9090/");
+        twilio = check new ({auth: {accountSid: accountSid, authToken: authToken}}, serviceUrl = "http://localhost:9090/");
     }
 }
 @test:Config {
