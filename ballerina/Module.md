@@ -37,8 +37,6 @@ All trial projects can provision a free trial phone number for testing. Here's h
 
 ### Step 3: Obtain a Twilio API Key, API Secret with Account SID
 
-Twilio uses three credentials to determine which account an API request is coming from: The API Key SID, which acts as a `apiKey`, API Secret which acts as a `apiSecret`, and the Account SID which acts as a `accountSid`.
-
 You can find API Keys related information under [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) section in your Twilio account. If you do not have an API Key and a Secret, please complete the following steps:
 
 1. Access the [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) page in your Twilio account, and then click on <b>Create API key</b>.
