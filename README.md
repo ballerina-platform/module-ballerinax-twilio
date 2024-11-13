@@ -43,9 +43,9 @@ All trial projects can provision a free trial phone number for testing. Here's h
 ![Search Results](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/search-phone-number.png)
 > **Notice:** Many countries require identity documentation for Phone Number compliance. Requests to provision phone numbers with these regulations will be required to select or add the required documentation after clicking Buy in Console. To see which countries and phone number types are affected by these requirements, please see twilio's [Phone Number Regulations](https://www.twilio.com/guidelines/regulatory) site.
 
-### Step 3: Obtain a Twilio API Key, API Secret with Account SID
+### Step 3: Obtain the Twilio account SID with API key and API secret
 
-You can find API Keys related information under [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) section in your Twilio account. If you do not have an API Key and a Secret, please complete the following steps:
+You can find API keys related information under [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) section in your Twilio account. If you do not have an API key and a secret, please complete the following steps:
 
 1. Access the [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) page in your Twilio account, and then click on <b>Create API key</b>.
 
