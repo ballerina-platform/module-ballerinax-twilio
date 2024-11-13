@@ -45,8 +45,6 @@ All trial projects can provision a free trial phone number for testing. Here's h
 
 ### Step 3: Obtain a Twilio API Key, API Secret with Account SID
 
-Twilio uses three credentials to determine which account an API request is coming from: The API Key SID, which acts as a `apiKey`, API Secret which acts as a `apiSecret`, and the Account SID which acts as a `accountSid`.
-
 You can find API Keys related information under [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) section in your Twilio account. If you do not have an API Key and a Secret, please complete the following steps:
 
 1. Access the [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) page in your Twilio account, and then click on <b>Create API key</b>.
@@ -106,6 +104,22 @@ twilio:ConnectionConfig twilioConfig = {
 twilio:Client twilio = check new (twilioConfig);
 ```
 
+As an alternative approach, you can authenticate with Account SID and Auth Token of your Twilio account. You can find your Account SID and Auth Token in your [Twilio console](https://console.twilio.com/)
+
+```ballerina
+configurable string accountSid = ?;
+configurable string authToken = ?;
+
+twilio:ConnectionConfig twilioConfig = {
+    auth: {
+        accountSid,
+        authToken
+    }
+};
+
+twilio:Client twilio = check new (twilioConfig);
+```
+
 ### Step 3 - Invoke the connector operation
 
 Invoke the sending SMS operation using the client as shown below:
@@ -132,6 +146,10 @@ Execute the command below to execute the Ballerina application:
 ```bash
 bal run
 ```
+
+### Alternative approach for creating a new connector instance
+
+As an alternative approach, you can use the Account SID and the Auth Token of your Twilio Account in order to determine which account an API request is coming from. You can find your Account SID and Auth Token in your [Twilio console](https://console.twilio.com/)
 
 ## Examples
 
