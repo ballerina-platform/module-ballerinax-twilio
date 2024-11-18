@@ -104,22 +104,6 @@ twilio:ConnectionConfig twilioConfig = {
 twilio:Client twilio = check new (twilioConfig);
 ```
 
-As an alternative approach, you can authenticate with Account SID and Auth Token of your Twilio account. You can find your Account SID and Auth Token in your [Twilio console](https://console.twilio.com/)
-
-```ballerina
-configurable string accountSid = ?;
-configurable string authToken = ?;
-
-twilio:ConnectionConfig twilioConfig = {
-    auth: {
-        accountSid,
-        authToken
-    }
-};
-
-twilio:Client twilio = check new (twilioConfig);
-```
-
 ### Step 3 - Invoke the connector operation
 
 Invoke the sending SMS operation using the client as shown below:
@@ -146,10 +130,6 @@ Execute the command below to execute the Ballerina application:
 ```bash
 bal run
 ```
-
-### Alternative approach for creating a new connector instance
-
-As an alternative approach, you can use the Account SID and the Auth Token of your Twilio Account in order to determine which account an API request is coming from. You can find your Account SID and Auth Token in your [Twilio console](https://console.twilio.com/)
 
 ## Examples
 
