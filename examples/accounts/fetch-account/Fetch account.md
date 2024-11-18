@@ -5,15 +5,16 @@ This example demonstrates how to fetch account details for a Twilio account usin
 ## Prerequisites
 
 ### 1. Set up
-Refer to the setup guide in [ReadMe](../../../README.md) for necessary credentials.
+Refer to the setup guide in [Ballerina Central](https://central.ballerina.io/ballerinax/twilio/latest) for necessary credentials.
 
 ### 2. Configuration
 
 Configure Twilio API credentials in Config.toml in the example directory:
 
 ```toml
-accountSid="<Account Sid>"
-authToken="<Auth Token>"
+API_KEY="<API Key>"
+API_SECRET="<API Secret>"
+ACCOUNT_SID="<Account Sid>"
 ```
 
 ## Run the Example
