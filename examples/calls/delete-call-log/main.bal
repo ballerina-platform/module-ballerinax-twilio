@@ -19,14 +19,16 @@ import ballerina/io;
 import ballerina/os;
 import ballerinax/twilio;
 
+configurable string apiKey = os:getEnv("API_KEY");
+configurable string apiSecret = os:getEnv("API_SECRET");
 configurable string accountSid = os:getEnv("ACCOUNT_SID");
-configurable string authToken = os:getEnv("AUTH_TOKEN");
 
 // Twilio configurations
 twilio:ConnectionConfig twilioConfig = {
     auth: {
-        accountSid,
-        authToken
+        apiKey,
+        apiSecret,
+        accountSid
     }
 };
 

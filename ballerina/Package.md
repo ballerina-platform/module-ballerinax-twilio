@@ -35,13 +35,34 @@ All trial projects can provision a free trial phone number for testing. Here's h
 ![Search Results](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/search-phone-number.png)
 > **Notice:** Many countries require identity documentation for Phone Number compliance. Requests to provision phone numbers with these regulations will be required to select or add the required documentation after clicking Buy in Console. To see which countries and phone number types are affected by these requirements, please see twilio's [Phone Number Regulations](https://www.twilio.com/guidelines/regulatory) site.
 
-### Step 3: Obtain a Twilio account Sid with auth token
+### Step 3: Obtain a Twilio API Key, API Secret with Account SID
 
-Twilio uses two credentials to determine which account an API request is coming from: The account Sid, which acts as a `username`, and the Auth Token which acts as a `password`. You can find your account Sid and auth token in your [Twilio console](https://www.twilio.com/console).
+You can find API Keys related information under [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) section in your Twilio account. If you do not have an API Key and a Secret, please complete the following steps:
+
+1. Access the [API keys & tokens](https://console.twilio.com/us1/account/keys-credentials/api-keys) page in your Twilio account, and then click on <b>Create API key</b>.
+
+![Twilio API Key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/api-key-config.png)
+
+2. Enter the criteria for the API Key you need, and then click <b>Create</b>.
+
+![Create API Key](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/create-api-key.png)
+
+- <b>Friendly name:</b> Enter a human-readable name for your API key. It helps you identify the key later, especially if you have multiple API keys.
+- <b>Region:</b> Enter the geographical region where the API key will be used.
+- <b>Key type:</b> There are different types of API keys you can create,
+    - <b>Standard:</b> Provides access to all Twilio API functionalities except for managing API keys and configuring accounts and subaccounts.
+    - <b>Main:</b> Offers the same access as standard keys but also allows managing API keys and configuring accounts and subaccounts.
+    - <b>Restricted:</b> Allows fine-grained access to specific Twilio API resources, enabling you to set permissions for different API endpoints
+
+3. Save the API key SID and the Secret in a safe place to use in your application.
+
+![API Key Info](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/api-key-info.png)
+
+> **Important:** This secret is only shown once. Please make note of it and store it in a safe and a secure location.
+
+4. In order to obtain the Account SID of your Twilio account, you can visit your [Twilio console](https://www.twilio.com/console).
 
 ![Twilio Credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
-
-Your account's Auth Token is hidden by default. Click show to display the token, and hide to conceal it again. For further information click [here](https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them)
 
 ## Quickstart
 
@@ -60,13 +81,15 @@ import ballerinax/twilio;
 To create a new connector instance, add a configuration as follows (You can use [configurable variables](https://ballerina.io/learn/by-example/configurable.html) to provide the necessary credentials):
 
 ```ballerina
+configurable string apiKey = ?;
+configurable string apiSecret =?
 configurable string accountSid = ?;
-configurable string authToken = ?;
 
 twilio:ConnectionConfig twilioConfig = {
     auth: {
-        username: accountSid,
-        password: authToken
+        apiKey,
+        apiSecret,
+        accountSid
     }
 };
 
