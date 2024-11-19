@@ -48,3 +48,6 @@ generated
 
 # Ignore all Dependencies.toml files in the examples directory
 examples/**/Dependencies.toml
+
+# Ignore cache 
+.cache/
