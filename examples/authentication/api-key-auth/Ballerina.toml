@@ -1,8 +1,0 @@
-[package]
-org = "twilio_samples"
-name = "api_key_auth"
-version = "0.1.0"
-distribution = "2201.10.1"
-
-[build-options]
-observabilityIncluded = true
