@@ -35,7 +35,7 @@ All trial projects can provision a free trial phone number for testing. Here's h
 
 ### Step 3: Obtain a Twilio account Sid with auth token
 
-Twilio uses two credentials to determine which account an API request is coming from: The account Sid, which acts as a `username`, and the Auth Token which acts as a `password`. You can find your account Sid and auth token in your [Twilio console](https://www.twilio.com/console).
+Twilio uses Account SID and the Auth Token to determine which account an API request is coming from: You can find your account Sid and auth token in your [Twilio console](https://www.twilio.com/console).
 
 ![Twilio Credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-twilio/master/ballerina/resources/get-credentails.png)
 
