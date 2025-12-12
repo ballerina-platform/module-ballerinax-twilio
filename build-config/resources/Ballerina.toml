@@ -5,7 +5,7 @@ name = "twilio"
 version = "@toml.version@"
 authors = ["Ballerina"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-twilio"
-keywords = ["Communication/Call & SMS", "Cost/Paid"]
+keywords = ["Communication/Call & SMS", "Cost/Paid", "Vendor/Twilio", "Area/Communication", "Type/Connector"]
 icon = "icon.png"
 license = ["Apache-2.0"]
 
