@@ -64,7 +64,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "http"
-version = "2.12.10"
+version = "2.12.11"
 dependencies = [
 	{org = "ballerina", name = "auth"},
 	{org = "ballerina", name = "cache"},
@@ -320,7 +320,7 @@ modules = [
 [[package]]
 org = "ballerinax"
 name = "twilio"
-version = "5.0.1"
+version = "5.0.2"
 dependencies = [
 	{org = "ballerina", name = "constraint"},
 	{org = "ballerina", name = "http"},
