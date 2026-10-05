@@ -18,7 +18,7 @@
 
 plugins {
     id 'com.github.spotbugs-base'
-    id 'com.github.johnrengelman.shadow'
+    id 'com.gradleup.shadow'
     id 'de.undercouch.download'
     id 'net.researchgate.release'
 }
@@ -60,7 +60,7 @@ allprojects {
 
 def moduleVersion = project.version.replace("-SNAPSHOT", "")
 
-task build {
+tasks.named('build') {
     dependsOn(':twilio-ballerina:build')
     dependsOn(':twilio-examples:build')
 }
